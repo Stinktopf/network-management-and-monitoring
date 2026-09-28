@@ -9,8 +9,22 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 ## Slides
 
-- [Course slides (PDF)](slides/exports/ai5049-reefnet.pdf)
-- [Marp source and build instructions](slides/README.md)
+- [PDF](slides/exports/nmm.pdf)
+- [HTML](slides/exports/nmm.html) — download and open in a browser
+- [Marp source](slides/nmm.md)
+- [Team contributions and AI disclosure](slides/resources/templates/DECLARATION.md)
+
+To build the slides, install Node.js 18+, npm, Chromium and Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
+
+```bash
+cd slides
+npm ci
+npm run build
+```
+
+Edit `slides/nmm.md` with the Marp extension for VS Code and enable `markdown.marp.enableHtml`. The theme is embedded for preview. Change `slides/theme/ai5049.css` to adjust it, then rebuild. Output goes to `slides/exports/`.
+
+The SVGs in `slides/assets/diagrams/` can be edited directly. To regenerate them, edit the Python generators in `slides/tools/`, then run `npm run diagrams` and `npm run build` from `slides/`. This needs Python 3, with no additional packages. Regeneration overwrites SVG edits. `npm run sampling` reproduces the synthetic timing-model data.
 
 ## Setup
 

@@ -5,8 +5,8 @@ theme: default
 paginate: true
 size: 16:9
 lang: en
-title: AI5049 — One network, four perspectives
-description: ReefNet / BOB1 — understand, operate, automate, observe
+title: Network Management and Monitoring (AI5049)
+description: Course slides for AI5049, winter semester 2026/27, Hochschule Fulda
 style: |
   /* Restored course palette: Fulda green for headings, neutral diagrams. */
   :root { --hfd:#72bf44; --ink:#303030; }
@@ -385,7 +385,7 @@ Individual work in the **paper and artifact** is assessed.
 
 # Who did what?
 
-Record individual and joint work in `DECLARATION.md`.
+Record individual and joint work in [DECLARATION.md](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md).
 
 | Record | Make it concrete |
 |---|---|
@@ -397,6 +397,7 @@ Point to the work so the contribution can be checked.
 
 <!--
 Source references (not projected):
+- [Declaration template](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md)
 - [Fulda ABPO Sec. 11(3), 2025](https://www.hs-fulda.de/fileadmin/user_upload/Unsere_Hochschule/Hochschulrecht/Studien-und_Pruefungsordnungen/Allgemeine_Bestimmungen_fuer_Pruefungsordnungen/ABPO_2018_Ae_2025-2_LF.pdf#page=8)
 -->
 
@@ -8676,7 +8677,6 @@ Use today’s project time to check that you can access the evidence.
 **13 November:** turn the question into a controlled experiment.
 Bring the baseline, data access and open questions.
 
-<!-- Course templates restored under resources/templates; no new assessment rules. -->
 
 
 

@@ -325,8 +325,6 @@ s+='<path d="M920,150 V165 H180" fill="none" stroke="#777" stroke-width="2"/>'
 for x,label,sub in [(20,'SAMPLE','periodic values'),(390,'ON_CHANGE','value changes'),(760,'TARGET_DEFINED','target selects mode')]:
  s+=ln(x+160,165,x+160,197,True)+card(x,210,320,88,label,sub)
 save('gnmi-subscription-modes',s,320,'Adapted supplied gNMI subscription mode tree: SAMPLE, ON_CHANGE and TARGET_DEFINED belong to STREAM')
-T=R/'resources/templates';T.mkdir(parents=True,exist_ok=True)
-# Supplied templates are maintained directly in resources/templates/.
 print('Visual assets:',len(list(A.glob('*.svg'))))
 
 # Router forwarding is a distinct progressive view, not a duplicate link diagram.

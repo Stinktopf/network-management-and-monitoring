@@ -1,11 +1,14 @@
-# Recovered forecast evidence
+# Teaching data
 
-These files were supplied with the reference course under `slides/Kursreferenzen/Technik/labs/results/offline/`:
+These are synthetic examples, not measurements from the running lab.
 
-- `forecast-synthetic.csv`: synthetic teaching series, seed 5049.
-- `forecast-predictions.csv`: observed values and persistence/ridge predictions.
-- `forecast-summary.json`: split, evaluation policy and reported results.
+| File | Contents |
+|---|---|
+| `forecast-synthetic.csv` | Synthetic traffic series, seed 5049 |
+| `forecast-predictions.csv` | Observed values and persistence/ridge predictions |
+| `forecast-summary.json` | Split, evaluation policy and results |
+| `sampling-runs.csv` | Fault phases and detection delays from the timing model |
 
-Training precedes 360 s, validation precedes 480 s, and the shown test interval is 480–599 s. Both methods are evaluated on the same 110 of 120 slots. Missing targets or any of the three input lags exclude a slot. The plot preserves the source data and exclusion windows.
+The forecast example uses training data before 360 s and validation data before 480 s. The test interval is 480–599 s. Both methods are evaluated on the same 110 of 120 slots. Missing targets or any of the three input lags exclude a slot.
 
-This is an offline teaching example, not traffic captured from BOB1. No runtime command or Python filename appears on the student-facing slides.
+`npm run sampling` regenerates the sampling data: 120 fault phases, a 5 s fault duration, and either regular 5 s probes or alternating 4 s / 6 s intervals. It does not run network probes.

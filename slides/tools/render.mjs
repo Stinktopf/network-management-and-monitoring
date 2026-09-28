@@ -2,28 +2,37 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
-fs.mkdirSync('exports',{recursive:true});
-fs.mkdirSync('build/qa',{recursive:true});
-await import('./source-index.mjs');
+fs.mkdirSync('exports', { recursive: true });
 await import('./sync-theme.mjs');
-const source='ai5049-reefnet.md';
-const common=[source,'--html'];
-for (const [name,extra] of [['exports/ai5049-reefnet.html',[]],['build/qa/slides.html',['--template','bare']]]) {
-  execFileSync('node_modules/.bin/marp',[...common,...extra,'-o',name],{stdio:'inherit'});
-  let html=fs.readFileSync(name,'utf8');
-  html=html.replace(/src="assets\/diagrams\/([^"#]+)"/g,(_,name)=>`src="data:image/svg+xml;base64,${fs.readFileSync(`assets/diagrams/${name}`).toString('base64')}"`);
-  fs.writeFileSync(name,html);
-}
+
+const source = 'nmm.md';
+const marp = path.join(root, 'node_modules/@marp-team/marp-cli/marp-cli.js');
+const runMarp = (args, options = {}) => execFileSync(process.execPath,
+  [marp, source, '--html', ...args], { stdio: 'inherit', ...options });
+
+runMarp(['-o', 'exports/nmm.html']);
+
+// Keep the HTML portable: embed local images instead of linking outside exports/.
+const mimeTypes = {
+  '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp',
+};
+const html = fs.readFileSync('exports/nmm.html', 'utf8').replace(
+  /src="([^"#]+)"/g, (attribute, source) => {
+    if (/^(?:[a-z]+:|\/\/)/i.test(source)) return attribute;
+    const file = decodeURIComponent(source);
+    const mime = mimeTypes[path.extname(file).toLowerCase()];
+    if (!mime) return attribute;
+    return `src="data:${mime};base64,${fs.readFileSync(file).toString('base64')}"`;
+  });
+fs.writeFileSync('exports/nmm.html', html);
+
 if (!process.argv.includes('--html-only')) {
- execFileSync('node_modules/.bin/marp',[...common,'--pdf','--allow-local-files','--browser-path',process.env.CHROME_PATH||'/usr/bin/chromium','--browser-timeout','120','-o','exports/ai5049-reefnet.pdf'],{stdio:'inherit',env:{...process.env,CHROME_NO_SANDBOX:'1'}});
-}
-if (process.argv.includes('--qa')) {
- execFileSync(process.execPath,['tools/visual-qa.mjs'],{stdio:'inherit'});
- execFileSync(process.execPath,['tools/preview-qa.mjs'],{stdio:'inherit'});
- execFileSync(process.execPath,['tools/svg-qa.mjs'],{stdio:'inherit'});
- execFileSync(process.execPath,['tools/node-alignment-qa.mjs'],{stdio:'inherit'});
- execFileSync('python3',['tools/pdf-qa.py'],{stdio:'inherit'});
- execFileSync('python3',['tools/contact-sheets.py'],{stdio:'inherit'});
+  runMarp(['--pdf', '--allow-local-files', '--browser-path',
+    process.env.CHROME_PATH || '/usr/bin/chromium', '--browser-timeout', '120',
+    '-o', 'exports/nmm.pdf'],
+  { env: { ...process.env, CHROME_NO_SANDBOX: '1' } });
 }

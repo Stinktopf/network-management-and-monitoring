@@ -1,12 +1,6 @@
 node_modules/
 build/
+internal/
+docs/
 *:Zone.Identifier
 __pycache__/
-
-# Local editing history and review notes
-/docs/RESTRUCTURE_NOTES.md
-/docs/reviewer2-review.md
-/docs/consistency-review.md
-/docs/slide-flow-review.md
-/docs/visual-qa.md
-/docs/slide-triage.md
