@@ -7,6 +7,11 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
   <img src="assets/topology.svg" alt="ReefNet BOB1 with two routers, two core links, two transit providers and Ocean Research">
 </picture>
 
+## Slides
+
+- [Course slides (PDF)](slides/exports/ai5049-reefnet.pdf)
+- [Marp source and build instructions](slides/README.md)
+
 ## Setup
 
 Use the Containerlab WSL distribution provided for the course.

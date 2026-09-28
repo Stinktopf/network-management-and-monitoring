@@ -1,0 +1,81 @@
+{
+  "source": "synthetic teaching data, not a real network measurement",
+  "seed": 5049,
+  "split": {
+    "train_before_s": 360,
+    "validation_before_s": 480,
+    "test_from_s": 480
+  },
+  "missing_data_policy": "Evaluate both methods only where target and all three input lags are observed",
+  "test_slots": 120,
+  "evaluated_slots": 110,
+  "excluded_slots": 10,
+  "alarm_threshold_mbps": 125,
+  "model": {
+    "means": [
+      84.90408652649242,
+      84.92490039010549,
+      84.94857080115546,
+      -0.0008751825044409516,
+      -0.008326805311210371
+    ],
+    "scales": [
+      16.25199588913977,
+      16.251908427692214,
+      16.251598427496933,
+      0.7099642415878578,
+      0.7041879536284834
+    ],
+    "weights": [
+      84.88301527206457,
+      1.715582187189467,
+      1.306376355961416,
+      0.26567859178202596,
+      12.591633028896835,
+      0.16822531039446456
+    ],
+    "alpha": 0.1
+  },
+  "all_test": {
+    "persistence": {
+      "n": 110,
+      "mae_mbps": 4.740414460226342,
+      "false_alarms": 3,
+      "missed_events": 3
+    },
+    "ridge": {
+      "n": 110,
+      "mae_mbps": 17.708891438958165,
+      "false_alarms": 0,
+      "missed_events": 25
+    }
+  },
+  "before_shift": {
+    "persistence": {
+      "n": 55,
+      "mae_mbps": 4.236202962179642,
+      "false_alarms": 0,
+      "missed_events": 0
+    },
+    "ridge": {
+      "n": 55,
+      "mae_mbps": 2.7854295191954903,
+      "false_alarms": 0,
+      "missed_events": 0
+    }
+  },
+  "after_shift": {
+    "persistence": {
+      "n": 55,
+      "mae_mbps": 5.244625958273041,
+      "false_alarms": 3,
+      "missed_events": 3
+    },
+    "ridge": {
+      "n": 55,
+      "mae_mbps": 32.63235335872084,
+      "false_alarms": 0,
+      "missed_events": 25
+    }
+  }
+}

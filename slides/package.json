@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "@marp-team/marp-cli": "4.2.3",
+    "puppeteer-core": "24.15.0"
+  },
+  "name": "ai5049-reefnet-slides",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI5049 / BOB1 / ReefNet \u2014 Marp course deck",
+  "scripts": {
+    "build": "node tools/render.mjs",
+    "build:html": "node tools/render.mjs --html-only",
+    "qa": "node tools/render.mjs --qa",
+    "check": "python3 tools/check-deck.py",
+    "diagrams": "python3 tools/diagrams.py && python3 tools/visual-assets.py && python3 tools/normalize-palette.py",
+    "sampling": "python3 tools/sampling_demo.py"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
