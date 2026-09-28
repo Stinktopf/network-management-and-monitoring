@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: AI5049
+    orgId: 1
+    folder: ReefNet / BOB1
+    type: file
+    disableDeletion: true
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards

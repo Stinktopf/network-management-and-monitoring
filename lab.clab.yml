@@ -1,0 +1,175 @@
+name: ai5049
+
+mgmt:
+  network: ai5049-mgmt
+  ipv4-subnet: 172.20.20.0/24
+
+topology:
+  kinds:
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:25.10
+      type: ixr-d2l
+    linux:
+      image: ai5049-tools:bob1-v20
+
+  nodes:
+    edge01:
+      kind: nokia_srlinux
+      hostname: edge01.bob1.reefnet.test
+      startup-config: configs/srl/edge01.cfg
+      mgmt-ipv4: 172.20.20.11
+      group: provider
+
+    edge02:
+      kind: nokia_srlinux
+      hostname: edge02.bob1.reefnet.test
+      startup-config: configs/srl/edge02.cfg
+      mgmt-ipv4: 172.20.20.12
+      group: provider
+
+    cust01:
+      kind: nokia_srlinux
+      hostname: edge01.bob1.oceanresearch.test
+      startup-config: configs/srl/cust01.cfg
+      mgmt-ipv4: 172.20.20.21
+      group: customer
+
+    transit01:
+      kind: nokia_srlinux
+      hostname: edge01.bob1.lagoontransit.test
+      startup-config: configs/srl/transit01.cfg
+      mgmt-ipv4: 172.20.20.22
+      group: transit
+
+    transit02:
+      kind: nokia_srlinux
+      hostname: edge01.bob1.pacifictransit.test
+      startup-config: configs/srl/transit02.cfg
+      mgmt-ipv4: 172.20.20.23
+      group: transit
+
+    host01:
+      kind: linux
+      hostname: probe01.bob1.lagoontransit.test
+      restart-policy: "no"
+      mgmt-ipv4: 172.20.20.31
+      group: endpoints
+      exec:
+        - ip address add 203.0.113.10/25 dev eth1
+        - ip -6 address add 2001:db8:a::10/64 dev eth1
+        - ip route replace default via 203.0.113.1
+        - ip -6 route replace default via 2001:db8:a::1
+        - sh -lc 'echo "nameserver 198.51.100.10" > /etc/resolv.conf; echo "options timeout:1 attempts:1" >> /etc/resolv.conf'
+        - sh -lc "python3 /opt/ai5049/probe_exporter.py --source probe01.bob1.lagoontransit.test >/tmp/reefnet-probe.log 2>&1 &"
+
+    host02:
+      kind: linux
+      hostname: probe01.bob1.pacifictransit.test
+      restart-policy: "no"
+      mgmt-ipv4: 172.20.20.32
+      group: endpoints
+      exec:
+        - ip address add 203.0.113.138/25 dev eth1
+        - ip -6 address add 2001:db8:b::10/64 dev eth1
+        - ip route replace default via 203.0.113.129
+        - ip -6 route replace default via 2001:db8:b::1
+        - sh -lc "python3 /opt/ai5049/probe_exporter.py --source probe01.bob1.pacifictransit.test >/tmp/reefnet-probe.log 2>&1 &"
+
+    svc01:
+      kind: linux
+      hostname: service01.bob1.oceanresearch.test
+      restart-policy: "no"
+      mgmt-ipv4: 172.20.20.33
+      group: endpoints
+      exec:
+        - ip address add 198.51.100.10/24 dev eth1
+        - ip -6 address add 2001:db8:100::10/48 dev eth1
+        - ip route replace default via 198.51.100.1
+        - ip -6 route replace default via 2001:db8:100::1
+        - sh -lc "pkill iperf3 >/dev/null 2>&1 || true; iperf3 -s -D --forceflush --logfile /tmp/iperf-server.log"
+        - sh -lc "python3 /opt/ai5049/dns_server.py >/tmp/ai5049-dns.log 2>&1 &"
+
+    ops01:
+      kind: linux
+      hostname: operations01.bob1.reefnet.test
+      mgmt-ipv4: 172.20.20.40
+      group: management
+      exec:
+        - sh -lc 'mkdir -p /root/.ssh; cp /opt/ai5049/ssh_config /root/.ssh/config; chown root:root /root/.ssh /root/.ssh/config; chmod 0700 /root/.ssh; chmod 0600 /root/.ssh/config'
+        - sh -lc 'echo "172.20.20.11 edge01.bob1.reefnet.test" >> /etc/hosts; echo "172.20.20.12 edge02.bob1.reefnet.test" >> /etc/hosts; echo "172.20.20.21 edge01.bob1.oceanresearch.test" >> /etc/hosts; echo "172.20.20.22 edge01.bob1.lagoontransit.test" >> /etc/hosts; echo "172.20.20.23 edge01.bob1.pacifictransit.test" >> /etc/hosts'
+      binds:
+        - .state:/state
+
+    gnmic:
+      kind: linux
+      hostname: gnmic.bob1.reefnet.test
+      image: ghcr.io/openconfig/gnmic:0.45.0
+      mgmt-ipv4: 172.20.20.41
+      group: telemetry
+      binds:
+        - configs/gnmic/gnmic.yml:/gnmic.yml:ro
+      cmd: --config /gnmic.yml --log subscribe
+
+    prometheus:
+      kind: linux
+      hostname: prometheus.bob1.reefnet.test
+      image: quay.io/prometheus/prometheus:v3.11.3
+      mgmt-ipv4: 172.20.20.42
+      group: telemetry
+      binds:
+        - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+        - configs/prometheus/reefnet.rules.yml:/etc/prometheus/reefnet.rules.yml:ro
+      cmd: --config.file=/etc/prometheus/prometheus.yml
+      ports:
+        - 9090:9090
+
+    alloy:
+      kind: linux
+      hostname: alloy.bob1.reefnet.test
+      image: grafana/alloy:v1.16.0
+      mgmt-ipv4: 172.20.20.45
+      group: telemetry
+      binds:
+        - configs/alloy/alloy-config.alloy:/etc/alloy/config.alloy:ro
+      cmd: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+      ports:
+        - 12345:12345
+
+    loki:
+      kind: linux
+      hostname: loki.bob1.reefnet.test
+      image: grafana/loki:3.7.1
+      mgmt-ipv4: 172.20.20.46
+      group: telemetry
+      binds:
+        - configs/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      cmd: --config.file=/etc/loki/loki-config.yml
+      ports:
+        - 3100:3100
+
+    grafana:
+      kind: linux
+      hostname: grafana.bob1.reefnet.test
+      image: grafana/grafana:13.0.1
+      mgmt-ipv4: 172.20.20.43
+      group: telemetry
+      binds:
+        - configs/grafana/provisioning:/etc/grafana/provisioning:ro
+        - configs/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      ports:
+        - 3000:3000
+      env:
+        GF_AUTH_ANONYMOUS_ENABLED: "true"
+        GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+        GF_SECURITY_ADMIN_USER: admin
+        GF_SECURITY_ADMIN_PASSWORD: admin
+
+  links:
+    - endpoints: ["cust01:e1-1", "edge01:e1-1"]
+    - endpoints: ["edge01:e1-2", "edge02:e1-1"]
+    - endpoints: ["edge01:e1-4", "edge02:e1-3"]
+    - endpoints: ["edge01:e1-3", "transit01:e1-1"]
+    - endpoints: ["edge02:e1-2", "transit02:e1-1"]
+    - endpoints: ["cust01:e1-2", "svc01:eth1"]
+    - endpoints: ["transit01:e1-2", "host01:eth1"]
+    - endpoints: ["transit02:e1-2", "host02:eth1"]

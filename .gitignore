@@ -1,0 +1,20 @@
+# Local runtime, credentials and diagnostics
+.state/
+.scenario
+clab-*/
+.clab-*/
+.env
+.env.*
+!.env.example
+*.key
+*.key.pem
+
+# Generated files and editor state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+dist/

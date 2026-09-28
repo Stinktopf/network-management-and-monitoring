@@ -1,0 +1,52 @@
+username: admin
+password: NokiaSrl1!
+skip-verify: true
+port: 57400
+timeout: 10s
+encoding: json_ietf
+
+targets:
+  edge01.bob1.reefnet.test:
+    address: 172.20.20.11:57400
+    subscriptions: [interfaces, bgp]
+  edge02.bob1.reefnet.test:
+    address: 172.20.20.12:57400
+    subscriptions: [interfaces, bgp]
+  edge01.bob1.oceanresearch.test:
+    address: 172.20.20.21:57400
+    subscriptions: [interfaces, bgp]
+  edge01.bob1.lagoontransit.test:
+    address: 172.20.20.22:57400
+    subscriptions: [interfaces, bgp]
+  edge01.bob1.pacifictransit.test:
+    address: 172.20.20.23:57400
+    subscriptions: [interfaces, bgp]
+
+subscriptions:
+  interfaces:
+    paths:
+      - /interface[name=ethernet-1/*]/admin-state
+      - /interface[name=ethernet-1/*]/oper-state
+      - /interface[name=ethernet-1/*]/traffic-rate
+      - /interface[name=ethernet-1/*]/statistics
+    mode: stream
+    stream-mode: sample
+    sample-interval: 1s
+
+  bgp:
+    paths:
+      - /network-instance[name=default]/protocols/bgp/statistics
+      - /network-instance[name=default]/protocols/bgp/neighbor[peer-address=*]/session-state
+    mode: stream
+    stream-mode: sample
+    sample-interval: 2s
+
+outputs:
+  prometheus:
+    type: prometheus
+    listen: :9804
+    path: /metrics
+    metric-prefix: ai5049
+    export-timestamps: true
+    strings-as-labels: true
+    expiration: 15s

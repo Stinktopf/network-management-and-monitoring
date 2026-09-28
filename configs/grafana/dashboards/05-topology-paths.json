@@ -1,0 +1,1425 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Overview",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-overview"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Topology & Paths",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-topology"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Fault Analysis",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-faults"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Service Health",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-service"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Telemetry Health",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-telemetry"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Device Detail",
+      "tooltip": "",
+      "type": "link",
+      "url": "/d/reefnet-bob1-device"
+    }
+  ],
+  "panels": [
+    {
+      "id": 90,
+      "type": "row",
+      "title": "Topology",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 1,
+      "type": "canvas",
+      "title": "BOB1 topology · physical paths and routing domains",
+      "datasource": {
+        "type": "grafana",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 1,
+        "w": 24,
+        "h": 16
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "inlineEditing": false,
+        "showAdvancedTypes": true,
+        "panZoom": false,
+        "infinitePan": false,
+        "root": {
+          "type": "frame",
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "fixed": "#3274D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "Lagoon probe\n203.0.113.10",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 1,
+                    "y": 0
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": 0
+                  },
+                  "targetName": "Lagoon Transit",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Lagoon probe",
+              "placement": {
+                "height": 64,
+                "left": 25,
+                "top": 150,
+                "width": 165
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#3274D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "Lagoon Transit\nAS65100",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 1,
+                    "y": 0
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": 0
+                  },
+                  "targetName": "ReefNet Edge 01",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Lagoon Transit",
+              "placement": {
+                "height": 84,
+                "left": 230,
+                "top": 140,
+                "width": 190
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#7B61A8"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "ReefNet Edge 01\nAS65000",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 1,
+                    "y": -0.48
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": -0.48
+                  },
+                  "targetName": "ReefNet Edge 02",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                },
+                {
+                  "source": {
+                    "x": 1,
+                    "y": 0.48
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": 0.48
+                  },
+                  "targetName": "ReefNet Edge 02",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                },
+                {
+                  "source": {
+                    "x": 0,
+                    "y": 1
+                  },
+                  "target": {
+                    "x": 0,
+                    "y": -1
+                  },
+                  "targetName": "Ocean Research",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "ReefNet Edge 01",
+              "placement": {
+                "height": 94,
+                "left": 520,
+                "top": 130,
+                "width": 205
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#7B61A8"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "ReefNet Edge 02\nAS65000",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 1,
+                    "y": 0
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": 0
+                  },
+                  "targetName": "Pacific Transit",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "ReefNet Edge 02",
+              "placement": {
+                "height": 94,
+                "left": 850,
+                "top": 130,
+                "width": 205
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#3274D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "Pacific Transit\nAS65200",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 1,
+                    "y": 0
+                  },
+                  "target": {
+                    "x": -1,
+                    "y": 0
+                  },
+                  "targetName": "Pacific probe",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Pacific Transit",
+              "placement": {
+                "height": 84,
+                "left": 1155,
+                "top": 140,
+                "width": 190
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#3274D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "Pacific probe\n203.0.113.138",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Pacific probe",
+              "placement": {
+                "height": 64,
+                "left": 1385,
+                "top": 150,
+                "width": 165
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#299C46"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "Ocean Research\nAS65010",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [
+                {
+                  "source": {
+                    "x": 0,
+                    "y": 1
+                  },
+                  "target": {
+                    "x": 0,
+                    "y": -1
+                  },
+                  "targetName": "service01",
+                  "color": {
+                    "fixed": "rgb(204, 204, 220)"
+                  },
+                  "size": {
+                    "fixed": 2,
+                    "min": 1,
+                    "max": 10
+                  },
+                  "path": "straight",
+                  "direction": "none"
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Ocean Research",
+              "placement": {
+                "height": 84,
+                "left": 520,
+                "top": 300,
+                "width": 205
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#299C46"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "semi-dark-blue"
+                },
+                "width": 1
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 15,
+                "text": {
+                  "field": "",
+                  "fixed": "service01\n198.51.100.10\n2001:db8:100::10",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "service01",
+              "placement": {
+                "height": 86,
+                "left": 520,
+                "top": 420,
+                "width": 205
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#FFFFFF"
+                },
+                "size": 14,
+                "text": {
+                  "field": "",
+                  "fixed": "BOB1 · 4 ASes · 5 SR Linux routers · 8 physical data-plane links",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "topology-summary",
+              "placement": {
+                "height": 38,
+                "left": 475,
+                "top": 20,
+                "width": 625
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#CCCCDC"
+                },
+                "size": 11,
+                "text": {
+                  "field": "",
+                  "fixed": "core-a · OSPF",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "core-a-label",
+              "placement": {
+                "height": 32,
+                "left": 730,
+                "top": 92,
+                "width": 170
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "width": 0
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#CCCCDC"
+                },
+                "size": 11,
+                "text": {
+                  "field": "",
+                  "fixed": "core-b · OSPF",
+                  "mode": "fixed"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "core-b-label",
+              "placement": {
+                "height": 32,
+                "left": 730,
+                "top": 226,
+                "width": 170
+              },
+              "type": "metric-value"
+            }
+          ],
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-gray"
+            }
+          },
+          "name": "BOB1 topology",
+          "constraint": {
+            "vertical": "top",
+            "horizontal": "left"
+          },
+          "placement": {
+            "width": 1500,
+            "height": 520,
+            "top": 0,
+            "left": 0,
+            "rotation": 0
+          }
+        }
+      },
+      "targets": [],
+      "description": "Four ASes, five SR Linux routers and all eight physical data-plane links. core-a and core-b are parallel links between the two ReefNet routers. The physical drawing is intentionally kept separate from the logical iBGP relationship."
+    },
+    {
+      "id": 91,
+      "type": "row",
+      "title": "Path health",
+      "gridPos": {
+        "x": 0,
+        "y": 17,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Lagoon path · success",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "avg(avg_over_time(reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\"}[30s]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "description": ""
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Pacific path · success",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "avg(avg_over_time(reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\"}[30s]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 6,
+        "y": 18,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "description": ""
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "ReefNet Edge 01 · BGP peers",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_bgp_up_peers{source=\"edge01.bob1.reefnet.test\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 18,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "description": ""
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "ReefNet Edge 02 · BGP peers",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_bgp_up_peers{source=\"edge02.bob1.reefnet.test\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 18,
+        "y": 18,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "description": ""
+    },
+    {
+      "id": 92,
+      "type": "row",
+      "title": "Selected network link · state and traffic",
+      "gridPos": {
+        "x": 0,
+        "y": 22,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "Selected links · admin state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_link_admin_enabled{link_id=~\"$link\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}",
+          "instant": true
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Disabled",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "Enabled",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "description": "Live state from the ReefNet-side interface. The row shows routed-link ID, router FQDN and interface name."
+    },
+    {
+      "id": 12,
+      "type": "stat",
+      "title": "Selected links · oper state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_link_oper_up{link_id=~\"$link\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}",
+          "instant": true
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Down",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "Up",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "description": "Live state from the ReefNet-side interface. The row shows routed-link ID, router FQDN and interface name."
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Selected links · traffic by direction",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_link_in_bps{link_id=~\"$link\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{traffic_direction}}"
+        },
+        {
+          "refId": "B",
+          "expr": "reefnet_link_out_bps{link_id=~\"$link\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{traffic_direction}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 24,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Traffic is labeled by forwarding direction between networks, not by router-local RX/TX perspective."
+    },
+    {
+      "id": 94,
+      "type": "row",
+      "title": "Selected network link · fault classes",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 13,
+      "type": "timeseries",
+      "title": "Discards · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"discards\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": ""
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Errors · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"errors\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}}"
+        }
+      ],
+      "gridPos": {
+        "x": 8,
+        "y": 40,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": ""
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "FCS errors · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"fcs\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}}"
+        }
+      ],
+      "gridPos": {
+        "x": 16,
+        "y": 40,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": ""
+    },
+    {
+      "id": 95,
+      "type": "row",
+      "title": "Capacity",
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "Capacity-managed handoff utilization",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_link_utilization_ratio",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 49,
+        "w": 24,
+        "h": 7
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Only Ocean Research, Lagoon Transit and Pacific Transit have an emulated service capacity. The two ReefNet core links are intentionally uncapped in this lab."
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "ai5049",
+    "bob1",
+    "reefnet",
+    "topology"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "link",
+        "label": "Routed link",
+        "type": "custom",
+        "query": "Ocean Research : customer,Lagoon Transit : lagoon,Pacific Transit : pacific,ReefNet core-a : core-a,ReefNet core-b : core-b",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "options": [],
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        }
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  },
+  "timezone": "browser",
+  "title": "BOB1 · Topology & Paths",
+  "uid": "reefnet-bob1-topology",
+  "version": 3
+}

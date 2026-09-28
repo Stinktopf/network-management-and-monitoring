@@ -1,0 +1,137 @@
+groups:
+  - name: reefnet_normalized
+    interval: 1s
+    rules:
+      # SR Linux enum strings are labels. Keep only recently updated state series.
+      - record: reefnet_interface_admin_state
+        expr: 'ai5049_srl_nokia_interfaces_interface_admin_state and (timestamp(ai5049_srl_nokia_interfaces_interface_admin_state) > time() - 4)'
+      - record: reefnet_interface_oper_state
+        expr: 'ai5049_srl_nokia_interfaces_interface_oper_state and (timestamp(ai5049_srl_nokia_interfaces_interface_oper_state) > time() - 4)'
+      - record: reefnet_interface_admin_enabled
+        expr: |
+          count by (source, interface_name) (reefnet_interface_admin_state{admin_state="enable"})
+          or 0 * count by (source, interface_name) (reefnet_interface_admin_state)
+      - record: reefnet_interface_oper_up
+        expr: |
+          count by (source, interface_name) (reefnet_interface_oper_state{oper_state="up"})
+          or 0 * count by (source, interface_name) (reefnet_interface_oper_state)
+      - record: reefnet_cabled_interface_admin_enabled
+        expr: |
+          label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link", "Ocean Research", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link", "core-a", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link", "Lagoon Transit", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link", "core-b", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link", "core-a", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link", "Pacific Transit", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link", "core-b", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.oceanresearch.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.oceanresearch.test",interface_name="ethernet-1/2"}, "link", "service01", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/2"}, "link", "Lagoon probe", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.pacifictransit.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_admin_enabled{source="edge01.bob1.pacifictransit.test",interface_name="ethernet-1/2"}, "link", "Pacific probe", "__name__", ".*")
+      - record: reefnet_cabled_interface_oper_up
+        expr: |
+          label_replace(reefnet_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link", "Ocean Research", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link", "core-a", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link", "Lagoon Transit", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link", "core-b", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link", "core-a", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link", "Pacific Transit", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link", "core-b", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.oceanresearch.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.oceanresearch.test",interface_name="ethernet-1/2"}, "link", "service01", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/2"}, "link", "Lagoon probe", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.pacifictransit.test",interface_name="ethernet-1/1"}, "link", "ReefNet", "__name__", ".*")
+          or label_replace(reefnet_interface_oper_up{source="edge01.bob1.pacifictransit.test",interface_name="ethernet-1/2"}, "link", "Pacific probe", "__name__", ".*")
+      - record: reefnet_interface_in_octets_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_in_octets'
+      - record: reefnet_interface_out_octets_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_out_octets'
+      - record: reefnet_interface_in_bps
+        expr: 'rate(reefnet_interface_in_octets_total[10s]) * 8'
+      - record: reefnet_interface_out_bps
+        expr: 'rate(reefnet_interface_out_octets_total[10s]) * 8'
+      - record: reefnet_interface_in_errors_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_in_error_packets'
+      - record: reefnet_interface_in_fcs_errors_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_in_fcs_error_packets'
+      - record: reefnet_interface_in_discards_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_in_discarded_packets'
+      - record: reefnet_interface_quality_events_total
+        expr: |
+          label_replace(reefnet_interface_in_errors_total, "quality", "errors", "__name__", ".*")
+          or label_replace(reefnet_interface_in_fcs_errors_total, "quality", "fcs", "__name__", ".*")
+          or label_replace(reefnet_interface_in_discards_total, "quality", "discards", "__name__", ".*")
+      - record: reefnet_link_admin_enabled
+        expr: |
+          label_replace(reefnet_cabled_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link_id", "customer", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link_id", "lagoon", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_admin_enabled{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "pacific", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "core-a", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_admin_enabled{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link_id", "core-b", "__name__", ".*")
+      - record: reefnet_link_oper_up
+        expr: |
+          label_replace(reefnet_cabled_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link_id", "customer", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link_id", "lagoon", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_oper_up{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "pacific", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "core-a", "__name__", ".*")
+          or label_replace(reefnet_cabled_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link_id", "core-b", "__name__", ".*")
+      - record: reefnet_link_in_bps
+        expr: |
+          label_replace(label_replace(reefnet_interface_in_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link_id", "customer", "__name__", ".*"), "traffic_direction", "Ocean Research → ReefNet", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_in_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link_id", "lagoon", "__name__", ".*"), "traffic_direction", "Lagoon Transit → ReefNet", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_in_bps{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "pacific", "__name__", ".*"), "traffic_direction", "Pacific Transit → ReefNet", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_in_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "core-a", "__name__", ".*"), "traffic_direction", "Edge 02 → Edge 01 · core-a", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_in_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link_id", "core-b", "__name__", ".*"), "traffic_direction", "Edge 02 → Edge 01 · core-b", "__name__", ".*")
+      - record: reefnet_link_out_bps
+        expr: |
+          label_replace(label_replace(reefnet_interface_out_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link_id", "customer", "__name__", ".*"), "traffic_direction", "ReefNet → Ocean Research", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_out_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link_id", "lagoon", "__name__", ".*"), "traffic_direction", "ReefNet → Lagoon Transit", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_out_bps{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "pacific", "__name__", ".*"), "traffic_direction", "ReefNet → Pacific Transit", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_out_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "core-a", "__name__", ".*"), "traffic_direction", "Edge 01 → Edge 02 · core-a", "__name__", ".*")
+          or label_replace(label_replace(reefnet_interface_out_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link_id", "core-b", "__name__", ".*"), "traffic_direction", "Edge 01 → Edge 02 · core-b", "__name__", ".*")
+      - record: reefnet_link_quality_events_total
+        expr: |
+          label_replace(reefnet_interface_quality_events_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}, "link_id", "customer", "__name__", ".*")
+          or label_replace(reefnet_interface_quality_events_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}, "link_id", "lagoon", "__name__", ".*")
+          or label_replace(reefnet_interface_quality_events_total{source="edge02.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "pacific", "__name__", ".*")
+          or label_replace(reefnet_interface_quality_events_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/2"}, "link_id", "core-a", "__name__", ".*")
+          or label_replace(reefnet_interface_quality_events_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/4"}, "link_id", "core-b", "__name__", ".*")
+      - record: reefnet_link_capacity_bps
+        expr: |
+          (0 * reefnet_link_oper_up{link_id="customer"} + 100000000)
+          or (0 * reefnet_link_oper_up{link_id="lagoon"} + 50000000)
+          or (0 * reefnet_link_oper_up{link_id="pacific"} + 50000000)
+      - record: reefnet_link_utilization_ratio
+        expr: |
+          max by (link_id) (
+            label_replace(reefnet_link_in_bps{link_id="customer"}, "direction", "in", "__name__", ".*")
+            or label_replace(reefnet_link_out_bps{link_id="customer"}, "direction", "out", "__name__", ".*")
+          ) / 100000000
+          or max by (link_id) (
+            label_replace(reefnet_link_in_bps{link_id=~"lagoon|pacific"}, "direction", "in", "__name__", ".*")
+            or label_replace(reefnet_link_out_bps{link_id=~"lagoon|pacific"}, "direction", "out", "__name__", ".*")
+          ) / 50000000
+      - record: reefnet_interface_carrier_transitions_total
+        expr: 'ai5049_srl_nokia_interfaces_interface_statistics_carrier_transitions'
+      - record: reefnet_bgp_neighbor_session_state
+        expr: '{__name__=~"ai5049_.*bgp.*neighbor.*session_state"}'
+      - record: reefnet_bgp_total_peers
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*total_peers"}'
+      - record: reefnet_bgp_up_peers
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*up_peers"}'
+      - record: reefnet_bgp_total_received_routes
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*total_received_routes"}'
+      - record: reefnet_bgp_total_active_routes
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*total_active_routes"}'
+      - record: reefnet_bgp_total_prefixes
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*total_prefixes"}'
+      - record: reefnet_bgp_route_total
+        expr: |
+          label_replace(reefnet_bgp_total_received_routes, "route_view", "received", "__name__", ".*")
+          or label_replace(reefnet_bgp_total_active_routes, "route_view", "active", "__name__", ".*")
+          or label_replace(reefnet_bgp_total_prefixes, "route_view", "prefixes", "__name__", ".*")
+      - record: reefnet_bgp_path_memory_bytes
+        expr: '{__name__=~"ai5049_.*bgp.*statistics.*path_memory"}'

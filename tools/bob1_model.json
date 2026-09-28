@@ -1,0 +1,78 @@
+{
+  "autonomous_systems": {
+    "reefnet": {"name": "ReefNet", "asn": 65000},
+    "oceanresearch": {"name": "Bora Bora Ocean Research", "asn": 65010},
+    "lagoontransit": {"name": "Lagoon Transit", "asn": 65100},
+    "pacifictransit": {"name": "Pacific Transit", "asn": 65200}
+  },
+  "nodes": {
+    "edge01": {"fqdn": "edge01.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.11"},
+    "edge02": {"fqdn": "edge02.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.12"},
+    "cust01": {"fqdn": "edge01.bob1.oceanresearch.test", "asn": 65010, "mgmt_ipv4": "172.20.20.21"},
+    "transit01": {"fqdn": "edge01.bob1.lagoontransit.test", "asn": 65100, "mgmt_ipv4": "172.20.20.22"},
+    "transit02": {"fqdn": "edge01.bob1.pacifictransit.test", "asn": 65200, "mgmt_ipv4": "172.20.20.23"},
+    "host01": {"fqdn": "probe01.bob1.lagoontransit.test", "mgmt_ipv4": "172.20.20.31"},
+    "host02": {"fqdn": "probe01.bob1.pacifictransit.test", "mgmt_ipv4": "172.20.20.32"},
+    "svc01": {"fqdn": "service01.bob1.oceanresearch.test", "mgmt_ipv4": "172.20.20.33"},
+    "ops01": {"fqdn": "operations01.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.40"},
+    "gnmic": {"fqdn": "gnmic.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.41"},
+    "prometheus": {"fqdn": "prometheus.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.42"},
+    "grafana": {"fqdn": "grafana.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.43"},
+    "alloy": {"fqdn": "alloy.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.45"},
+    "loki": {"fqdn": "loki.bob1.reefnet.test", "mgmt_ipv4": "172.20.20.46"}
+  },
+  "links": {
+    "customer": {
+      "a": ["edge01", "ethernet-1/1"],
+      "z": ["cust01", "ethernet-1/1"],
+      "capacity_kbps": 100000,
+      "routing": "eBGP"
+    },
+    "core-a": {
+      "a": ["edge01", "ethernet-1/2"],
+      "z": ["edge02", "ethernet-1/1"],
+      "capacity_kbps": null,
+      "routing": "OSPF"
+    },
+    "core-b": {
+      "a": ["edge01", "ethernet-1/4"],
+      "z": ["edge02", "ethernet-1/3"],
+      "capacity_kbps": null,
+      "routing": "OSPF"
+    },
+    "lagoon": {
+      "a": ["edge01", "ethernet-1/3"],
+      "z": ["transit01", "ethernet-1/1"],
+      "capacity_kbps": 50000,
+      "routing": "eBGP"
+    },
+    "pacific": {
+      "a": ["edge02", "ethernet-1/2"],
+      "z": ["transit02", "ethernet-1/1"],
+      "capacity_kbps": 50000,
+      "routing": "eBGP"
+    },
+    "customer-service": {
+      "a": ["cust01", "ethernet-1/2"],
+      "z": ["svc01", "eth1"],
+      "capacity_kbps": null,
+      "routing": "customer LAN"
+    },
+    "lagoon-probe": {
+      "a": ["transit01", "ethernet-1/2"],
+      "z": ["host01", "eth1"],
+      "capacity_kbps": null,
+      "routing": "probe LAN"
+    },
+    "pacific-probe": {
+      "a": ["transit02", "ethernet-1/2"],
+      "z": ["host02", "eth1"],
+      "capacity_kbps": null,
+      "routing": "probe LAN"
+    }
+  },
+  "circuits": {
+    "lagoon": {"cid": "BOB1-LAGOON-001", "commit_rate_kbps": 50000},
+    "pacific": {"cid": "BOB1-PACIFIC-001", "commit_rate_kbps": 50000}
+  }
+}
