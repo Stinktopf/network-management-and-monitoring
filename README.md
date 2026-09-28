@@ -9,12 +9,9 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 ## Slides
 
-- [PDF](slides/exports/nmm.pdf)
-- [HTML](slides/exports/nmm.html) — download and open in a browser
-- [Marp source](slides/nmm.md)
-- [Team contributions and AI disclosure](slides/resources/templates/DECLARATION.md)
+Read the [PDF](slides/exports/nmm.pdf), download the [HTML](slides/exports/nmm.html) or edit the [Marp source](slides/nmm.md).
 
-To build the slides, install Node.js 18+, npm, Chromium and Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
+Build with Node.js 18+, npm and Chromium:
 
 ```bash
 cd slides
@@ -22,9 +19,17 @@ npm ci
 npm run build
 ```
 
-Edit `slides/nmm.md` with the Marp extension for VS Code and enable `markdown.marp.enableHtml`. The theme is embedded for preview. Change `slides/theme/ai5049.css` to adjust it, then rebuild. Output goes to `slides/exports/`.
+<details>
+<summary>Editing and build notes</summary>
 
-The SVGs in `slides/assets/diagrams/` can be edited directly. To regenerate them, edit the Python generators in `slides/tools/`, then run `npm run diagrams` and `npm run build` from `slides/`. This needs Python 3, with no additional packages. Regeneration overwrites SVG edits. `npm run sampling` reproduces the synthetic timing-model data.
+- Exports go to `slides/exports/`. Open the downloaded HTML in a browser.
+- Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
+- For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
+- Edit `slides/theme/ai5049.css` for theme changes, then rebuild.
+- Diagrams are editable SVGs. To regenerate them, edit the generators in `slides/tools/` and run `npm run diagrams` followed by `npm run build`. This needs Python 3 and overwrites direct SVG edits.
+- `npm run sampling` regenerates the synthetic timing-model data. Run all npm commands from `slides/`.
+
+</details>
 
 ## Setup
 
@@ -172,3 +177,5 @@ Common causes:
 - Another process using port 8000, 3000, 9090, 3100 or 12345
 
 Fix the cause and rerun `make setup`. Existing NetBox data is kept unless the database schema has changed.
+
+Project submission: [team contributions and AI disclosure](slides/resources/templates/DECLARATION.md).
