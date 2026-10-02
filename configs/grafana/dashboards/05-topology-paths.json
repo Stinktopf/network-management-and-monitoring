@@ -1251,16 +1251,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}} · SR Linux"
-        },
-        {
-          "refId": "B",
-          "expr": "increase(reefnet_qdisc_dropped_packets_total{link_id=~\"$link\"}[5m])",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}} · Linux queue"
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -1288,7 +1279,7 @@
           "sort": "desc"
         }
       },
-      "description": "Output discards at the named sending interface. SR Linux and Linux netem queue drops are separate series, not added together. The 75 Mbit/s Lagoon test should increase Linux queue drops on Lagoon Transit ethernet-1/1. Missing queue data is not zero loss; check Telemetry Health. Rolling five-minute counts can plateau under steady loss."
+      "description": "SR Linux output discards at the sending interface. For Lagoon → ReefNet, inspect Lagoon Transit ethernet-1/1. Linux queue counters are available in Telemetry Health for diagnosis. Rolling five-minute counts can plateau under steady loss."
     },
     {
       "id": 14,
@@ -1436,5 +1427,5 @@
   "timezone": "browser",
   "title": "BOB1 · Topology & Paths",
   "uid": "reefnet-bob1-topology",
-  "version": 4
+  "version": 5
 }

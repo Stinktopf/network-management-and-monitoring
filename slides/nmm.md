@@ -7401,7 +7401,7 @@ Observe each level for **30 seconds**. Compare load, rate and throughput.
 Leave **75 Mbit/s** running for the next checks.
 
 Grafana: compare **Ingress discards** and **Egress discards**.
-For Lagoon → ReefNet, inspect **Linux queue** on Lagoon Transit.
+For Lagoon → ReefNet, inspect **Egress discards** on Lagoon Transit.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -7466,7 +7466,8 @@ SR Linux container limit: **10,000 packets/s**.
 The **50 Mbit/s transit link** should limit first. Check host load and drops.
 
 The cap uses a **Linux egress queue** on Lagoon Transit.
-Grafana shows its drops separately from SR Linux ingress/egress discards.
+Inspect Linux queue drops in **Telemetry Health** for diagnosis.
+They can match SR Linux discards. **Do not add the counters.**
 A **5-minute increase** can plateau during steady loss.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
@@ -8864,7 +8865,7 @@ Links, BGP sessions and management access remain up.
 |---|---|
 | Customer advertisement | Lagoon vs Pacific |
 | External reachability | Both sources, both address families |
-| Interface rate, ingress/egress discards and Linux queue drops | Routing fault vs congestion |
+| Interface rate and SR Linux ingress/egress discards | Routing fault vs congestion |
 
 Which observation would contradict your diagnosis?
 

@@ -235,7 +235,7 @@ a+=text(550,243,'ICMPv6 Packet Too Big is blocked. The sender cannot learn the l
 save('path-mtu.svg',a,275)
 
 a=box(10,20,225,75,'SR Linux|counters')+box(335,20,225,75,'gNMIc')
-a+=box(10,130,225,75,'Linux queues')+box(335,130,225,75,'Queue exporter')
+a+=box(10,130,225,75,'Linux queues|diagnostics')+box(335,130,225,75,'Queue exporter')
 a+=box(660,20,225,185,'Prometheus')
 a+=box(10,260,225,75,'SR Linux logs')+box(335,260,225,75,'Alloy')
 a+=box(660,260,225,75,'Loki')+box(930,155,160,75,'Grafana',green=True)

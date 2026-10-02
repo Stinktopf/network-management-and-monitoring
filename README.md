@@ -149,7 +149,7 @@ Open the `ReefNet / BOB1` folder. Dashboards refresh every 5 seconds.
 - **Telemetry Health** helps check the collectors and device logs.
 - **Device Detail** narrows the view to one router.
 
-Ingress and egress discards are separate. Egress includes Linux queue drops. Compare them with SR Linux counters without adding them together. Check collector status in **Telemetry Health**.
+Dashboards show SR Linux ingress and egress discards separately. **Telemetry Health** adds Linux queue drops for diagnosis. These can count the same losses, so do not add them together.
 
 After updating the lab, run `make monitoring` to rebuild the scenario.
 

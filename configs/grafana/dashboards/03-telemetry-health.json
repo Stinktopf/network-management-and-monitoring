@@ -401,6 +401,65 @@
       "description": "How many samples each selected scrape target contributes. Useful for spotting an exporter that is up but unexpectedly empty."
     },
     {
+      "id": 93,
+      "type": "row",
+      "title": "Capacity queue diagnostics",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "x": 0,
+        "y": 25,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "Linux queue drops · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_qdisc_dropped_packets_total{source=~\"$device\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 26,
+        "w": 24,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Drops at the Linux netem queues that enforce lab link capacities. These counters can describe the same packet losses as SR Linux egress discards. Compare them for diagnosis, never add them. Missing data is not zero loss. Check Capacity queue collection above."
+    },
+    {
       "id": 92,
       "type": "row",
       "title": "Events · selected network devices",
@@ -408,7 +467,7 @@
       "panels": [],
       "gridPos": {
         "x": 0,
-        "y": 25,
+        "y": 34,
         "w": 24,
         "h": 1
       }
@@ -430,7 +489,7 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 26,
+        "y": 35,
         "w": 24,
         "h": 10
       },
@@ -457,7 +516,7 @@
         "name": "job",
         "label": "Prometheus job",
         "type": "custom",
-        "query": "gNMIc : gnmic,Probe exporters : reefnet-service-probes",
+        "query": "gNMIc : gnmic,Probe exporters : reefnet-service-probes,Queue exporters : reefnet-qdisc",
         "hide": 0,
         "includeAll": true,
         "multi": true,
@@ -552,7 +611,7 @@
   "timezone": "browser",
   "title": "BOB1 · Telemetry Health",
   "uid": "reefnet-bob1-telemetry",
-  "version": 4,
+  "version": 5,
   "links": [
     {
       "asDropdown": false,
