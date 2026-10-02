@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Expose actual netem egress drops in the router's root network namespace."""
 import json
+import logging
 import socket
 import subprocess
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -39,8 +40,10 @@ def metrics(qdiscs, ports, source):
 
 
 def main():
-    model = json.loads(Path(__file__).with_name("bob1_model.json").read_text())
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     source = socket.gethostname()
+    logging.info("Starting queue exporter: hostname=%s", source)
+    model = json.loads(Path(__file__).with_name("bob1_model.json").read_text())
     ports = endpoints(model, source)
 
     class Handler(BaseHTTPRequestHandler):
@@ -57,6 +60,8 @@ def main():
                 body = metrics(json.loads(result.stdout), ports, source).encode()
             except (OSError, subprocess.SubprocessError, ValueError, KeyError, TypeError) as error:
                 self.log_error("Collection failed: %s", error)
+                if getattr(error, "stderr", None):
+                    self.log_error("Collector stderr: %s", error.stderr)
                 self.send_error(503, "Queue collection failed")
                 return
             self.send_response(200)
@@ -68,7 +73,9 @@ def main():
         def log_request(self, *args):
             pass
 
-    HTTPServer(("0.0.0.0", 9101), Handler).serve_forever()
+    server = HTTPServer(("0.0.0.0", 9101), Handler)
+    logging.info("Listening on port 9101: expected capacity interfaces=%s", ", ".join(sorted(ports)))
+    server.serve_forever()
 
 
 if __name__ == "__main__":
