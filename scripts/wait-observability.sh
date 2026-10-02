@@ -24,7 +24,7 @@ queue_collection_ready() {
   {
     printf '\nQueue readiness · %s\n' "$(date -Is)"
     curl -fsSG --max-time 2 --data-urlencode 'query=(sum(up{job="reefnet-qdisc"}) == 5) and (sum(reefnet_qdisc_present) == 6)' \
-      http://localhost:9090/api/v1/query | python3 -c 'import json,sys; data=json.load(sys.stdin); print(json.dumps(data)); sys.exit(len(data["data"]["result"]) != 1)'
+      http://localhost:9090/api/v1/query | docker exec -i clab-ai5049-ops01 python3 -c 'import json,sys; data=json.load(sys.stdin); print(json.dumps(data)); sys.exit(len(data["data"]["result"]) != 1)'
   } >> .state/queue-readiness.log 2>&1
 }
 names=('Prometheus' 'Loki' 'Alloy' 'Grafana' 'gNMIc metrics' 'Prometheus → gNMIc' 'Capacity queue collection')

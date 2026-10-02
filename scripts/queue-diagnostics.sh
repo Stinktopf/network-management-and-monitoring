@@ -15,7 +15,8 @@ capture() {
 }
 
 printf 'Capacity queue diagnostics · %s\n' "$(date -Is)"
-capture 'Host Python used by the readiness check' python3 --version
+capture 'Tools-container Python used by the readiness check' \
+  docker exec clab-ai5049-ops01 python3 --version
 capture 'Prometheus scrape targets and last errors' \
   docker exec clab-ai5049-ops01 bash -o pipefail -c '
     curl -fsS --max-time 5 http://clab-ai5049-prometheus:9090/api/v1/targets |
