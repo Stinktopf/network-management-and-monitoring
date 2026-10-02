@@ -6,6 +6,17 @@ rule_files:
   - /etc/prometheus/reefnet.rules.yml
 
 scrape_configs:
+  - job_name: reefnet-qdisc
+    scrape_interval: 2s
+    scrape_timeout: 1s
+    static_configs:
+      - targets:
+          - clab-ai5049-edge01:9101
+          - clab-ai5049-edge02:9101
+          - clab-ai5049-cust01:9101
+          - clab-ai5049-transit01:9101
+          - clab-ai5049-transit02:9101
+
   - job_name: gnmic
     static_configs:
       - targets:

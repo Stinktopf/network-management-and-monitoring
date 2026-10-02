@@ -18,9 +18,13 @@ alloy_ready()      { curl -fsS --max-time 2 http://localhost:12345/-/ready >/dev
 grafana_ready()    { curl -fsS --max-time 2 http://localhost:3000/api/health >/dev/null 2>&1; }
 gnmic_ready()      { docker exec clab-ai5049-ops01 curl -fsS --max-time 2 http://clab-ai5049-gnmic:9804/metrics >/dev/null 2>&1; }
 prom_scrape_ready() { local t; t=$(curl -fsS --max-time 2 http://localhost:9090/api/v1/targets 2>/dev/null || true); grep -q 'clab-ai5049-gnmic:9804' <<<"$t" && grep -q '"health":"up"' <<<"$t"; }
-names=('Prometheus' 'Loki' 'Alloy' 'Grafana' 'gNMIc metrics' 'Prometheus → gNMIc')
-checks=(prometheus_ready loki_ready alloy_ready grafana_ready gnmic_ready prom_scrape_ready)
-declare -a done_state=(0 0 0 0 0 0)
+queue_collection_ready() {
+  curl -fsSG --max-time 2 --data-urlencode 'query=(sum(up{job="reefnet-qdisc"}) == 5) and (sum(reefnet_qdisc_present) == 6)' \
+    http://localhost:9090/api/v1/query | python3 -c 'import json,sys; sys.exit(len(json.load(sys.stdin)["data"]["result"]) != 1)' >/dev/null 2>&1
+}
+names=('Prometheus' 'Loki' 'Alloy' 'Grafana' 'gNMIc metrics' 'Prometheus → gNMIc' 'Capacity queue collection')
+checks=(prometheus_ready loki_ready alloy_ready grafana_ready gnmic_ready prom_scrape_ready queue_collection_ready)
+declare -a done_state=(0 0 0 0 0 0 0)
 start=$(date +%s); last_pending=-10
 for _ in $(seq 1 120); do
   check_container_states || exit 1

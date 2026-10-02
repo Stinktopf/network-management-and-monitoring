@@ -9,7 +9,7 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 ## Slides
 
-Read the [PDF](slides/exports/nmm.pdf), download the [HTML](slides/exports/nmm.html) or edit the [Marp source](slides/nmm.md).
+[PDF](slides/exports/nmm.pdf) · [HTML](slides/exports/nmm.html) · [PowerPoint](slides/exports/nmm.pptx) · [Source](slides/nmm.md)
 
 Build with Node.js 18+, npm and Chromium:
 
@@ -22,7 +22,7 @@ npm run build
 <details>
 <summary>Editing and build notes</summary>
 
-- Exports go to `slides/exports/`. Open the downloaded HTML in a browser.
+- Exports: HTML, PDF and PPTX in `slides/exports/`. PowerPoint contains slide images and notes. Edit content in the Marp source.
 - Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
 - For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
 - Edit `slides/theme/ai5049.css` for theme changes, then rebuild.
@@ -132,6 +132,7 @@ Choose one continuous load. Run traffic commands from the repository directory.
 | `make traffic-stop` | Stop traffic |
 | `make traffic-burst-40mbit` | Standalone burst, stop background traffic first |
 | `make traffic-status` | Show current traffic |
+| `make traffic-diagnostics` | Save traffic and drop counters to `.state/` |
 
 Continuous traffic reconnects after short path interruptions.
 
@@ -148,7 +149,9 @@ Open the `ReefNet / BOB1` folder. Dashboards refresh every 5 seconds.
 - **Telemetry Health** helps check the collectors and device logs.
 - **Device Detail** narrows the view to one router.
 
-Admin and operational state are separate, as are RX/TX traffic, drops and errors. Dashboards filter simulator noise from logs. The full messages remain in Loki.
+Ingress and egress discards are separate. Egress includes Linux queue drops. Compare them with SR Linux counters without adding them together. Check collector status in **Telemetry Health**.
+
+After updating the lab, run `make monitoring` to rebuild the scenario.
 
 ## Housekeeping
 

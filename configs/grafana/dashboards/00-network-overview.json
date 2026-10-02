@@ -552,7 +552,7 @@
     {
       "id": 14,
       "type": "timeseries",
-      "title": "Discards · by device · 5m",
+      "title": "Ingress discards · by device · 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -575,7 +575,10 @@
         "h": 8
       },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
         "overrides": []
       },
       "options": {
@@ -588,12 +591,13 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "description": "SR Linux input discards at the named receiving interface. Rolling five-minute count, not a cumulative total. Packets dropped by an upstream Linux capacity queue never reach this interface."
     },
     {
-      "id": 15,
+      "id": 16,
       "type": "timeseries",
-      "title": "Errors · by device · 5m",
+      "title": "Egress discards · by device · 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -601,8 +605,17 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (source) (increase(reefnet_interface_in_errors_total[5m]))",
-          "legendFormat": "{{source}}",
+          "expr": "sum by (source) (increase(reefnet_interface_out_discards_total[5m]))",
+          "legendFormat": "{{source}} · SR Linux",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "B",
+          "expr": "sum by (source) (increase(reefnet_qdisc_dropped_packets_total[5m]))",
+          "legendFormat": "{{source}} · Linux queue",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -616,7 +629,10 @@
         "h": 8
       },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
         "overrides": []
       },
       "options": {
@@ -629,12 +645,13 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "description": "Output discards at the named sending interface. SR Linux and Linux netem queue drops are separate series, not added together. The 75 Mbit/s Lagoon test should increase Linux queue drops on Lagoon Transit ethernet-1/1. Missing queue data is not zero loss; check Telemetry Health. Rolling five-minute counts can plateau under steady loss."
     },
     {
-      "id": 16,
+      "id": 15,
       "type": "timeseries",
-      "title": "FCS errors · by device · 5m",
+      "title": "Errors · by device · 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -642,7 +659,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (source) (increase(reefnet_interface_in_fcs_errors_total[5m]))",
+          "expr": "sum by (source) (increase(reefnet_interface_in_errors_total[5m]))",
           "legendFormat": "{{source}}",
           "datasource": {
             "type": "prometheus",
@@ -799,7 +816,7 @@
   "timezone": "browser",
   "title": "BOB1 · Network Overview",
   "uid": "reefnet-bob1-overview",
-  "version": 3,
+  "version": 4,
   "links": [
     {
       "asDropdown": false,

@@ -185,6 +185,79 @@
       "description": "Count of curated SR Linux events for the selected devices. Known simulator noise is excluded from this teaching view."
     },
     {
+      "id": 9,
+      "type": "stat",
+      "title": "Capacity queue collection",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(sum(up{job=\"reefnet-qdisc\"}) == bool 5) * (sum(reefnet_qdisc_present) == bool 6)",
+          "legendFormat": "Queue collection healthy"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 24,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 1,
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "CHECK",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "OK",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "noValue": "NO DATA"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto"
+      },
+      "description": "Healthy only when all five exporters are scraped and all six expected netem queues are present. Missing data is not zero packet loss."
+    },
+    {
       "id": 91,
       "type": "row",
       "title": "Collection detail",
@@ -192,7 +265,7 @@
       "panels": [],
       "gridPos": {
         "x": 0,
-        "y": 5,
+        "y": 9,
         "w": 24,
         "h": 1
       }
@@ -218,7 +291,7 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 6,
+        "y": 10,
         "w": 12,
         "h": 8
       },
@@ -262,7 +335,7 @@
       ],
       "gridPos": {
         "x": 12,
-        "y": 6,
+        "y": 10,
         "w": 12,
         "h": 8
       },
@@ -306,7 +379,7 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 14,
+        "y": 18,
         "w": 24,
         "h": 7
       },
@@ -335,7 +408,7 @@
       "panels": [],
       "gridPos": {
         "x": 0,
-        "y": 21,
+        "y": 25,
         "w": 24,
         "h": 1
       }
@@ -357,7 +430,7 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 22,
+        "y": 26,
         "w": 24,
         "h": 10
       },
@@ -479,7 +552,7 @@
   "timezone": "browser",
   "title": "BOB1 · Telemetry Health",
   "uid": "reefnet-bob1-telemetry",
-  "version": 3,
+  "version": 4,
   "links": [
     {
       "asDropdown": false,

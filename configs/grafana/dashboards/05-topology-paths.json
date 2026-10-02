@@ -1192,7 +1192,7 @@
     {
       "id": 13,
       "type": "timeseries",
-      "title": "Discards · 5m",
+      "title": "Ingress discards · 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1200,12 +1200,12 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"discards\"}[5m])",
+          "expr": "increase(reefnet_link_in_discards_total{link_id=~\"$link\"}[5m])",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}}"
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -1215,7 +1215,10 @@
         "h": 8
       },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
         "overrides": []
       },
       "options": {
@@ -1230,7 +1233,62 @@
           "sort": "desc"
         }
       },
-      "description": ""
+      "description": "SR Linux input discards at the named receiving interface. Rolling five-minute count, not a cumulative total. Packets dropped by an upstream Linux capacity queue never reach this interface."
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "Egress discards · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_link_out_discards_total{link_id=~\"$link\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}} · SR Linux"
+        },
+        {
+          "refId": "B",
+          "expr": "increase(reefnet_qdisc_dropped_packets_total{link_id=~\"$link\"}[5m])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}} · Linux queue"
+        }
+      ],
+      "gridPos": {
+        "x": 8,
+        "y": 40,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Output discards at the named sending interface. SR Linux and Linux netem queue drops are separate series, not added together. The 75 Mbit/s Lagoon test should increase Linux queue drops on Lagoon Transit ethernet-1/1. Missing queue data is not zero loss; check Telemetry Health. Rolling five-minute counts can plateau under steady loss."
     },
     {
       "id": 14,
@@ -1244,49 +1302,6 @@
         {
           "refId": "A",
           "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"errors\"}[5m])",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "legendFormat": "{{link_id}}"
-        }
-      ],
-      "gridPos": {
-        "x": 8,
-        "y": 40,
-        "w": 8,
-        "h": 8
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "calcs": []
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "description": ""
-    },
-    {
-      "id": 15,
-      "type": "timeseries",
-      "title": "FCS errors · 5m",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "increase(reefnet_link_quality_events_total{link_id=~\"$link\",quality=\"fcs\"}[5m])",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -1421,5 +1436,5 @@
   "timezone": "browser",
   "title": "BOB1 · Topology & Paths",
   "uid": "reefnet-bob1-topology",
-  "version": 3
+  "version": 4
 }

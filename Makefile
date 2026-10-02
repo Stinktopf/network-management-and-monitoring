@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 .PHONY: help setup doctor pull networking operations automation monitoring reset enter \
         inspect status next test healthy fault-routing clear-routing fault-link clear-link \
-        traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-burst-40mbit traffic-stop \
+        traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-diagnostics traffic-burst-40mbit traffic-stop \
         netbox-token netbox-reset diagnostics course-check down clean ui
 
 help:
@@ -65,6 +65,8 @@ traffic-75mbit:
 	bash scripts/traffic.sh set 75M
 traffic-status:
 	bash scripts/traffic.sh status
+traffic-diagnostics:
+	bash scripts/traffic-diagnostics.sh
 traffic-burst-40mbit:
 	bash scripts/traffic.sh burst 40M
 traffic-stop:

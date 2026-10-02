@@ -31,8 +31,10 @@ const html = fs.readFileSync('exports/nmm.html', 'utf8').replace(
 fs.writeFileSync('exports/nmm.html', html);
 
 if (!process.argv.includes('--html-only')) {
-  runMarp(['--pdf', '--allow-local-files', '--browser-path',
-    process.env.CHROME_PATH || '/usr/bin/chromium', '--browser-timeout', '120',
-    '-o', 'exports/nmm.pdf'],
-  { env: { ...process.env, CHROME_NO_SANDBOX: '1' } });
+  for (const format of ['pdf', 'pptx']) {
+    runMarp([`--${format}`, '--allow-local-files', '--browser-path',
+      process.env.CHROME_PATH || '/usr/bin/chromium', '--browser-timeout', '120',
+      '-o', `exports/nmm.${format}`],
+    { env: { ...process.env, CHROME_NO_SANDBOX: '1' } });
+  }
 }

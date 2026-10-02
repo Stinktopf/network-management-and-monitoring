@@ -9,6 +9,11 @@ topology:
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:25.10
       type: ixr-d2l
+      binds:
+        - tools/qdisc_exporter.py:/opt/reefnet/qdisc_exporter.py:ro
+        - tools/bob1_model.json:/opt/reefnet/bob1_model.json:ro
+      exec:
+        - bash -lc "nohup ip netns exec srbase-mgmt /usr/bin/python3 /opt/reefnet/qdisc_exporter.py >/tmp/reefnet-qdisc.log 2>&1 &"
     linux:
       image: ai5049-tools:bob1-v20
 

@@ -6778,7 +6778,7 @@ An extra collector is not automatically an independent observer.
 <!-- _class: visual lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
-# Two collection paths in ReefNet
+# Metrics and logs in ReefNet
 
 ![width:1040px](assets/diagrams/reefnet-telemetry.svg)
 
@@ -7400,7 +7400,8 @@ make traffic-75mbit
 Observe each level for **30 seconds**. Compare load, rate and throughput.
 Leave **75 Mbit/s** running for the next checks.
 
-Keep route state beside the throughput evidence.
+Grafana: compare **Ingress discards** and **Egress discards**.
+For Lagoon → ReefNet, inspect **Linux queue** on Lagoon Transit.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -7428,7 +7429,7 @@ show interface ethernet-1/1 detail
 From the lab directory, inspect the receiving service:
 
 ```bash
-make traffic-status
+make traffic-diagnostics
 make enter NODE=service01.bob1.oceanresearch.test
 tail -f /tmp/iperf-server.log
 ```
@@ -7463,6 +7464,10 @@ At 75 Mbit/s with 1,200-byte UDP datagrams:
 
 SR Linux container limit: **10,000 packets/s**.
 The **50 Mbit/s transit link** should limit first. Check host load and drops.
+
+The cap uses a **Linux egress queue** on Lagoon Transit.
+Grafana shows its drops separately from SR Linux ingress/egress discards.
+A **5-minute increase** can plateau during steady loss.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -8859,7 +8864,7 @@ Links, BGP sessions and management access remain up.
 |---|---|
 | Customer advertisement | Lagoon vs Pacific |
 | External reachability | Both sources, both address families |
-| Interface rate and discards | Routing fault vs congestion |
+| Interface rate, ingress/egress discards and Linux queue drops | Routing fault vs congestion |
 
 Which observation would contradict your diagnosis?
 

@@ -22,4 +22,5 @@ for path in sorted(ROOT.glob("*.md")):
             if not resolved.is_relative_to(ROOT) or not resolved.exists():
                 raise SystemExit(f"Broken or external local link: {path.name}: {target}")
 subprocess.run(["python3", str(ROOT / "scripts/check-model-consistency.py")], check=True)
+subprocess.run(["python3", str(ROOT / "scripts/test-qdisc-exporter.py")], check=True)
 print("Source checks passed: shell, Python, JSON, documentation links and BOB1 model")

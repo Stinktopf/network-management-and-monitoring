@@ -89,6 +89,14 @@ for metric in reefnet_interface_admin_state reefnet_interface_oper_state reefnet
 done
 
 
+step 'Prometheus · capacity queue telemetry'
+prom_expect 'All five queue exporters are up' 'sum(up{job="reefnet-qdisc"}) == 5'
+prom_expect 'All six capacity queues are present' 'sum(reefnet_qdisc_present) == 6'
+prom_expect 'Lagoon sending queue is visible' 'reefnet_qdisc_dropped_packets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1",link_id="lagoon"}'
+prom_expect 'Topology includes Lagoon output discards' 'reefnet_link_out_discards_total{source="edge01.bob1.lagoontransit.test",link_id="lagoon"}'
+cmd bash scripts/traffic.sh burst 75M
+prom_expect 'Overload increases actual Lagoon queue drops' 'increase(reefnet_qdisc_dropped_packets_total{source="edge01.bob1.lagoontransit.test",link_id="lagoon"}[30s]) > 0'
+
 step 'Prometheus · overview dashboard queries'
 prom_expect 'Edge 01 BGP query returns data' 'reefnet_bgp_up_peers{source="edge01.bob1.reefnet.test"}'
 prom_expect 'Edge 02 BGP query returns data' 'reefnet_bgp_up_peers{source="edge02.bob1.reefnet.test"}'
@@ -100,7 +108,7 @@ prom_expect 'Cabled interface admin state is enabled' 'reefnet_cabled_interface_
 prom_expect 'Cabled interface oper state is up' 'reefnet_cabled_interface_oper_up{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"} == 1'
 prom_expect 'Interface discard query returns data' 'reefnet_interface_in_discards_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
 prom_expect 'Interface error query returns data' 'reefnet_interface_in_errors_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
-prom_expect 'Interface FCS query returns data' 'reefnet_interface_in_fcs_errors_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
+prom_expect 'Interface egress discard query returns data' 'reefnet_interface_out_discards_total{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
 prom_expect 'Device BGP view selector query returns data' 'reefnet_bgp_route_total{source="edge01.bob1.reefnet.test",route_view="active"}'
 prom_expect 'Topology link admin state is enabled' 'reefnet_link_admin_enabled{link_id="core-b"} == 1'
 prom_expect 'Topology link oper state is up' 'reefnet_link_oper_up{link_id="core-b"} == 1'
@@ -159,9 +167,9 @@ curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-service' | jq -
 curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-telemetry' | jq -e '.dashboard.templating.list | map(.name) | index("job") != null and index("device") != null' >/dev/null
 curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels | any(.type == "canvas")' >/dev/null
 curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels[] | select(.type == "canvas") | .options.root.elements as $e | ([ $e[] | select(.name == "ReefNet Edge 01") | .connections[] | select(.targetName == "ReefNet Edge 02") ] | length == 2) and ([ $e[] | .connections[]? | select(.targetName == "Core A" or .targetName == "Core B") ] | length == 0)' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-faults' | jq -e '.dashboard.panels | any(.title == "Selected interfaces · admin state") and any(.title == "Selected interfaces · oper state") and any(.title == "Discards · 5m") and any(.title == "Errors · 5m") and any(.title == "FCS errors · 5m")' >/dev/null
+curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-faults' | jq -e '.dashboard.panels | any(.title == "Selected interfaces · admin state") and any(.title == "Selected interfaces · oper state") and any(.title == "Ingress discards · 5m") and any(.title == "Errors · 5m") and any(.title == "Egress discards · 5m")' >/dev/null
 curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-device' | jq -e '.dashboard.panels | any(.title == "Interface admin state") and any(.title == "Interface oper state")' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels | any(.title == "Selected links · admin state") and any(.title == "Selected links · oper state") and any(.title == "Selected links · traffic by direction") and (any(.title == "Selected links · receive traffic") | not) and (any(.title == "Selected links · transmit traffic") | not) and any(.title == "Discards · 5m") and any(.title == "Errors · 5m") and any(.title == "FCS errors · 5m") and (any(.title == "Physical link inventory · endpoints, interfaces and routing role") | not) and (any(.title == "ReefNet IPv4 route tables") | not) and (any(.title == "ReefNet IPv6 route tables") | not)' >/dev/null
+curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels | any(.title == "Selected links · admin state") and any(.title == "Selected links · oper state") and any(.title == "Selected links · traffic by direction") and (any(.title == "Selected links · receive traffic") | not) and (any(.title == "Selected links · transmit traffic") | not) and any(.title == "Ingress discards · 5m") and any(.title == "Errors · 5m") and any(.title == "Egress discards · 5m") and (any(.title == "Physical link inventory · endpoints, interfaces and routing role") | not) and (any(.title == "ReefNet IPv4 route tables") | not) and (any(.title == "ReefNet IPv6 route tables") | not)' >/dev/null
 ui_ok 'Drilldowns, topology and interface-state views provisioned'
 step 'Restore healthy baseline'
 bash scripts/healthy.sh >/dev/null 2>&1 || true; bash scripts/traffic.sh stop >/dev/null 2>&1 || true

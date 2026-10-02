@@ -513,7 +513,7 @@
     {
       "id": 15,
       "type": "timeseries",
-      "title": "Discards · 5m",
+      "title": "Ingress discards · 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -536,7 +536,10 @@
         "h": 8
       },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
         "overrides": []
       },
       "options": {
@@ -551,7 +554,62 @@
           "sort": "desc"
         }
       },
-      "description": ""
+      "description": "SR Linux input discards at the named receiving interface. Rolling five-minute count, not a cumulative total. Packets dropped by an upstream Linux capacity queue never reach this interface."
+    },
+    {
+      "id": 17,
+      "type": "timeseries",
+      "title": "Egress discards · 5m",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "increase(reefnet_interface_out_discards_total{source=\"$device\",interface_name=~\"$interface\"}[5m]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{interface_name}} · SR Linux"
+        },
+        {
+          "refId": "B",
+          "expr": "increase(reefnet_qdisc_dropped_packets_total{source=\"$device\",interface_name=~\"$interface\"}[5m]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{interface_name}} · Linux queue"
+        }
+      ],
+      "gridPos": {
+        "x": 8,
+        "y": 22,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Output discards at the named sending interface. SR Linux and Linux netem queue drops are separate series, not added together. The 75 Mbit/s Lagoon test should increase Linux queue drops on Lagoon Transit ethernet-1/1. Missing queue data is not zero loss; check Telemetry Health. Rolling five-minute counts can plateau under steady loss."
     },
     {
       "id": 16,
@@ -565,49 +623,6 @@
         {
           "refId": "A",
           "expr": "increase(reefnet_interface_in_errors_total{source=\"$device\",interface_name=~\"$interface\"}[5m]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=\"$device\"}",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "legendFormat": "{{interface_name}}"
-        }
-      ],
-      "gridPos": {
-        "x": 8,
-        "y": 22,
-        "w": 8,
-        "h": 8
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "calcs": []
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "description": ""
-    },
-    {
-      "id": 17,
-      "type": "timeseries",
-      "title": "FCS errors · 5m",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "increase(reefnet_interface_in_fcs_errors_total{source=\"$device\",interface_name=~\"$interface\"}[5m]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=\"$device\"}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -857,7 +872,7 @@
   "timezone": "browser",
   "title": "BOB1 · Device Detail",
   "uid": "reefnet-bob1-device",
-  "version": 6,
+  "version": 7,
   "refresh": "5s",
   "timepicker": {
     "refresh_intervals": [

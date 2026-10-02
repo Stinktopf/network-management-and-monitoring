@@ -27,6 +27,7 @@ printf '  %-27s %s\n' 'make traffic-60mbit' '60 Mbit/s · transit congestion exp
 printf '  %-27s %s\n' 'make traffic-75mbit' '75 Mbit/s · stronger congestion, below simulator packet-rate ceiling'
 printf '  %-27s %s\n' 'make traffic-burst-40mbit' 'standalone 5 second burst below the transit limit'
 printf '  %-27s %s\n' 'make traffic-status' 'show the current offered load'
+printf '  %-27s %s\n' 'make traffic-diagnostics' 'capture queue drops, router counters and receiver loss'
 printf '  %-27s %s\n' 'make traffic-stop' 'stop the traffic generator'
 ui_info 'Capacity model: customer handoff 100 Mbit/s, each transit handoff 50 Mbit/s.'
 ui_info 'Traffic levels stay below the SR Linux container simulation packet-rate ceiling.'
