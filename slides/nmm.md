@@ -7056,8 +7056,7 @@ Both causes fail the same probe. Session and route data narrow the diagnosis.
 
 # Watch a known link failure.
 
-In Grafana **Topology & Paths**, select `ReefNet core-b`.
-Record **admin enable + oper up**. In the lab directory:
+In Grafana **Topology & Paths**, select `ReefNet core-b`:
 
 ```bash
 make fault-link
@@ -7076,8 +7075,6 @@ Then on ReefNet Edge 01:
 show interface ethernet-1/4 detail
 show network-instance default protocols ospf neighbor
 ```
-
-Expect **admin disable + oper down**, then routing changes.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 

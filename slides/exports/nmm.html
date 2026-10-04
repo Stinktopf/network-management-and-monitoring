@@ -39455,8 +39455,7 @@ section.statement h1 { font-size:50px; margin-bottom:28px; }
 section.statement &gt; p { font-size:30px; line-height:1.3; }
 ;" data-marpit-pagination-total="357" data-size="16:9">
 <h1 id="watch-a-known-link-failure">Watch a known link failure.</h1>
-<p>In Grafana <strong>Topology &amp; Paths</strong>, select <code>ReefNet core-b</code>.<br />
-Record <strong>admin enable + oper up</strong>. In the lab directory:</p>
+<p>In Grafana <strong>Topology &amp; Paths</strong>, select <code>ReefNet core-b</code>:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">make fault-link
 </code></pre>
 <p>In another lab-directory terminal:</p>
@@ -39467,7 +39466,6 @@ ssh edge01.bob1.reefnet.test
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-text">show interface ethernet-1/4 detail
 show network-instance default protocols ospf neighbor
 </code></pre>
-<p>Expect <strong>admin disable + oper down</strong>, then routing changes.</p>
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 <footer>AI5049 · Hochschule Fulda · Monitoring / Observability</footer>
 </section>
