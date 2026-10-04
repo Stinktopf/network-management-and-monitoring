@@ -178,5 +178,11 @@ ui_ok 'Drilldowns, topology and interface-state views provisioned'
 step 'Restore healthy baseline'
 bash scripts/healthy.sh >/dev/null 2>&1 || true; bash scripts/traffic.sh stop >/dev/null 2>&1 || true
 cmd bash scripts/wait-healthy.sh
+step 'Dual-stack HTTP service'
+echo "Checking dual-stack HTTP service..."
+docker exec clab-ai5049-host01 curl --silent --show-error --fail --max-time 5 -4 http://data.oceanresearch.test/ >/dev/null
+docker exec clab-ai5049-host01 curl --silent --show-error --fail --max-time 5 -6 http://data.oceanresearch.test/ >/dev/null
+docker exec clab-ai5049-host02 curl --silent --show-error --fail --max-time 5 -4 http://data.oceanresearch.test/ >/dev/null
+docker exec clab-ai5049-host02 curl --silent --show-error --fail --max-time 5 -6 http://data.oceanresearch.test/ >/dev/null
 ui_success_banner 'COURSE FEATURE CHECKS PASSED'
 trap - ERR
