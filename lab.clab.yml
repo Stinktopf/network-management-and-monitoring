@@ -92,7 +92,7 @@ topology:
         - ip -6 address add 2001:db8:100::10/48 dev eth1
         - ip route replace default via 198.51.100.1
         - ip -6 route replace default via 2001:db8:100::1
-        - sh -lc 'sed -i -E "/^[[:space:]]*listen[[:space:]]+80;/a\        listen [::]:80;" /etc/nginx/nginx.conf && nginx -t && for i in 1 2 3 4 5; do if [ -s /var/run/nginx.pid ]; then nginx -s reload; exit $?; fi; sleep 1; done; echo "nginx PID not available" >done; exit 0'2; exit 1'
+        - sh -lc 'sed -i -E "/^[[:space:]]*listen[[:space:]]+80;/a\        listen [::]:80;" /etc/nginx/nginx.conf && nginx -t && for i in 1 2 3 4 5 6 7 8 9 10; do if [ -s /var/run/nginx.pid ]; then nginx -s reload; exit 0; fi; sleep 1; done; echo "nginx PID not available" >&2; exit 1'
         - sh -lc "pkill iperf3 >/dev/null 2>&1 || true; iperf3 -s -D --forceflush --logfile /tmp/iperf-server.log"
         - sh -lc "python3 /opt/ai5049/dns_server.py >/tmp/ai5049-dns.log 2>&1 &"
 

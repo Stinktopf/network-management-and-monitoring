@@ -166,7 +166,7 @@ We look at networks that carry traffic between organizations and regions.
 - interdomain routing
 - automation and monitoring at scale
 
-The same principles apply elsewhere. Our operating context is the Internet.
+Our operating context is the Internet.
 
 
 
@@ -188,8 +188,6 @@ The same principles apply elsewhere. Our operating context is the Internet.
 | 13 October 2026 | 08:45–15:15 | Automation + Incidents |
 | 14 October 2026 | 08:45–15:15 | Monitoring / Observability |
 
-**Incidents close day 2, after the Automation workflow.**
-
 
 
 
@@ -205,10 +203,6 @@ The same principles apply elsewhere. Our operating context is the Internet.
 # One lab carries the technical block
 
 ![width:1040px](assets/diagrams/course-journey.svg)
-
-The topology stays familiar. The question changes.
-The slides remain the workshop guide.
-
 
 
 
@@ -321,9 +315,220 @@ Source references (not projected):
 
 
 
+
 ---
 
-<!-- slide-id: S011; source: 11 -->
+<!-- slide-id: S011; source: 15 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# What counts towards your grade?
+
+Individual work in the **paper and artifact** is assessed.
+
+| Paper area | Weight |
+|---|---:|
+| Introduction & related work | 20% |
+| Approach & methodology | 25% |
+| Evaluation & results | 30% |
+| Discussion & conclusion | 15% |
+| Abstract, writing & reproducibility | 10% |
+
+<!-- Assessment provenance: the five paper-area weights are reproduced from the supplied course material. No additional artifact percentage is introduced. -->
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S012; source: 16 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# Who did what?
+
+Record individual and joint work in [DECLARATION.md](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md).
+
+| Record | Make it concrete |
+|---|---|
+| Paper | Sections, figures and revisions |
+| Artifact | Code, configuration and experiments |
+| Joint work | Shared task and each person’s contribution |
+
+Point to the work so the contribution can be checked.
+
+<!--
+Source references (not projected):
+- [Declaration template](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md)
+- [Fulda ABPO Sec. 11(3), 2025](https://www.hs-fulda.de/fileadmin/user_upload/Unsere_Hochschule/Hochschulrecht/Studien-und_Pruefungsordnungen/Allgemeine_Bestimmungen_fuer_Pruefungsordnungen/ABPO_2018_Ae_2025-2_LF.pdf#page=8)
+-->
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S013; source: 17 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# What goes with the paper?
+
+The paper makes the argument. The **artifact** lets me check it.
+
+- Code and configurations
+- Data and software versions
+- Reproduction steps
+- Seeds, failed runs and exclusions
+
+Public repository: optional. Access for the examiner: required.
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S014; source: 18 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# Scientific integrity
+
+Follow the [IEEE publishing ethics requirements](https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/ethical-requirements/).
+
+- Cite ideas, methods, data and figures
+- Check references against the original
+- Report what you actually measured
+- Keep counter-evidence
+- State limitations and uncertainty
+
+A result against your hypothesis is still a result.
+
+<!--
+Source references (not projected):
+- [IEEE publishing ethics requirements](https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/ethical-requirements/)
+-->
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S015; source: 19 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# AI use and disclosure
+
+Follow the [IEEE policy on AI-generated content](https://conferences.ieeeauthorcenter.ieee.org/author-ethics/guidelines-and-policies/submission-policies/).
+
+- Spelling and grammar fixes only: disclosure optional
+- Generated or substantially rewritten text: disclose
+- Generated figures or code: disclose
+- Name the system, affected parts and extent in the **Acknowledgments**
+
+You are responsible for the references, code and technical claims.
+
+<!--
+Source references (not projected):
+- [IEEE policy on AI-generated content](https://conferences.ieeeauthorcenter.ieee.org/author-ethics/guidelines-and-policies/submission-policies/)
+-->
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S016; source: 20 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# Dates and deadlines
+
+| Date | Deliverable / session |
+|---|---|
+| 11 January 2027, 23:59 | Full draft + supporting material → Moodle |
+| 22 January 2027, in class | Read, write and hand in the paper review |
+| 5 February 2027 | Presentations in class (ungraded) |
+| 12 February 2027, 23:59 | Paper, artifact, declaration → Moodle |
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S017; source: 21 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# Optional peer-review bonus
+
+One qualifying review improves the individual grade by **one step**.
+
+Example: **2.3 → 2.0**.
+
+The best possible grade is **1.0**. Failing grades remain unchanged.
+
+The review should fit on **one page**.
+
+Read in class. Write **legibly by hand**. German or English accepted.
+
+For this **in-class review**, the use of AI or other aids is **not permitted**.
+
+<!--
+Source references (not projected):
+- [HS Fulda ABPO Secs. 16-17, 2025](https://www.hs-fulda.de/fileadmin/user_upload/Unsere_Hochschule/Hochschulrecht/Studien-und_Pruefungsordnungen/Allgemeine_Bestimmungen_fuer_Pruefungsordnungen/ABPO_2018_Ae_2025-2_LF.pdf#page=11)
+-->
+
+
+
+
+
+
+
+---
+
+<!-- slide-id: S018; source: 22 -->
+<!-- _class: content core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+
+# What makes a qualifying review?
+
+A qualifying review covers four things:
+
+- **Summary:** question and main result
+- **Method:** assess a methodological choice
+- **Judgment:** strength and limitation with reasons
+- **Revision:** propose a feasible improvement
+
+I record the four criteria and my reasons.
+
+
+
+
+
+
+---
+
+<!-- slide-id: S019; source: 11 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
 
@@ -352,7 +557,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S012; source: 12 -->
+<!-- slide-id: S020; source: 12 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
 
@@ -366,8 +571,6 @@ Source references (not projected):
 | [ACM CoNEXT](https://conferences2.sigcomm.org/co-next/2026/) | experimental networking systems |
 | [IFIP Networking](https://networking.ifip.org/) | protocols, systems and network performance |
 | [IEEE GLOBECOM](https://www.comsoc.org/conferences-events/ieee-global-communications-conference-2026) / [ICC](https://icc2026.ieee-icc.org/) | broad communications and networking |
-
-The venue follows the **contribution**, not just the topic.
 
 <!--
 Source references (not projected):
@@ -388,7 +591,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S013; source: 13 -->
+<!-- slide-id: S021; source: 13 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
 
@@ -414,7 +617,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S014; source: 14 -->
+<!-- slide-id: S022; source: 14 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
 
@@ -445,232 +648,15 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S015; source: 15 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
+<!-- slide-id: S023; source: NEW -->
+<!-- _class: day core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# What counts towards your grade?
+# 12 October 2026
 
-Individual work in the **paper and artifact** is assessed.
+## Networking 101
 
-| Paper area | Weight |
-|---|---:|
-| Introduction & related work | 20% |
-| Approach & methodology | 25% |
-| Evaluation & results | 30% |
-| Discussion & conclusion | 15% |
-| Abstract, writing & reproducibility | 10% |
-
-**20 + 25 + 30 + 15 + 10 = 100%.**
-<!-- Assessment provenance: the five paper-area weights are reproduced from the supplied course material. No additional artifact percentage is introduced. -->
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S016; source: 16 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# Who did what?
-
-Record individual and joint work in [DECLARATION.md](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md).
-
-| Record | Make it concrete |
-|---|---|
-| Paper | Sections, figures and revisions |
-| Artifact | Code, configuration and experiments |
-| Joint work | Shared task and each person’s contribution |
-
-Point to the work so the contribution can be checked.
-
-<!--
-Source references (not projected):
-- [Declaration template](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/resources/templates/DECLARATION.md)
-- [Fulda ABPO Sec. 11(3), 2025](https://www.hs-fulda.de/fileadmin/user_upload/Unsere_Hochschule/Hochschulrecht/Studien-und_Pruefungsordnungen/Allgemeine_Bestimmungen_fuer_Pruefungsordnungen/ABPO_2018_Ae_2025-2_LF.pdf#page=8)
--->
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S017; source: 17 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# What goes with the paper?
-
-The paper makes the argument. The **artifact** lets me check it.
-
-- Code and configurations
-- Data and software versions
-- Reproduction steps
-- Seeds, failed runs and exclusions
-
-Public repository: optional. Access for the examiner: required.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S018; source: 18 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# Scientific integrity
-
-Follow the [IEEE publishing ethics requirements](https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/ethical-requirements/).
-
-- Cite ideas, methods, data and figures
-- Check references against the original
-- Report what you actually measured
-- Keep counter-evidence
-- State limitations and uncertainty
-
-A result against your hypothesis is still a result.
-
-<!--
-Source references (not projected):
-- [IEEE publishing ethics requirements](https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/ethical-requirements/)
--->
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S019; source: 19 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# AI use and disclosure
-
-Follow the [IEEE policy on AI-generated content](https://conferences.ieeeauthorcenter.ieee.org/author-ethics/guidelines-and-policies/submission-policies/).
-
-- Spelling and grammar fixes only: disclosure optional
-- Generated or substantially rewritten text: disclose
-- Generated figures or code: disclose
-- Name the system, affected parts and extent in the **Acknowledgments**
-
-You are responsible for the references, code and technical claims.
-
-<!--
-Source references (not projected):
-- [IEEE policy on AI-generated content](https://conferences.ieeeauthorcenter.ieee.org/author-ethics/guidelines-and-policies/submission-policies/)
--->
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S020; source: 20 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# Dates and deadlines
-
-| Date | Deliverable / session |
-|---|---|
-| 11 January 2027, 23:59 | Full draft + supporting material → Moodle |
-| 22 January 2027, in class | Read, write and hand in the paper review |
-| 5 February 2027 | Presentations in class (ungraded) |
-| 12 February 2027, 23:59 | Paper, artifact, declaration → Moodle |
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S021; source: 21 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# Optional peer-review bonus
-
-One qualifying review improves the individual grade by **one step**.
-
-Example: **2.3 → 2.0**.
-
-The best possible grade is **1.0**. Failing grades remain unchanged.
-
-The review should fit on **one page**.
-
-Read in class. Write **legibly by hand**. German or English accepted.
-
-<!--
-Source references (not projected):
-- [HS Fulda ABPO Secs. 16-17, 2025](https://www.hs-fulda.de/fileadmin/user_upload/Unsere_Hochschule/Hochschulrecht/Studien-und_Pruefungsordnungen/Allgemeine_Bestimmungen_fuer_Pruefungsordnungen/ABPO_2018_Ae_2025-2_LF.pdf#page=11)
--->
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S022; source: 22 -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# What makes a qualifying review?
-
-A qualifying review covers four things:
-
-- **Summary:** question and main result
-- **Method:** assess a methodological choice
-- **Judgment:** strength and limitation with reasons
-- **Revision:** propose a feasible improvement
-
-I record the four criteria and my reasons.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S023; source: 23 -->
-<!-- _class: task core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Course introduction" -->
-
-# Where are we starting?
-
-Five minutes. Work alone first, then compare in pairs.
-
-| Topic | Used before | Can explain | New to me |
-|---|:---:|:---:|:---:|
-| IP, routing and DNS |  |  |  |
-| Linux and logs |  |  |  |
-| Python, APIs and Git |  |  |  |
-| Papers and experiments |  |  |  |
-
-Add one thing you want to get better at.
+One network carries the technical block.
 
 
 
@@ -681,24 +667,6 @@ Add one thing you want to get better at.
 ---
 
 <!-- slide-id: S024; source: NEW -->
-<!-- _class: chapter core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# Administration ends here.
-
-From now on, **one network carries the technical block**.
-
-The concepts travel further than the lab.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S025; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
 
@@ -721,28 +689,7 @@ The concepts travel further than the lab.
 
 ---
 
-<!-- slide-id: S026; source: NEW -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# Then challenge the evidence.
-
-**observe → question → measure → research**
-
-Research tests what our observations can establish.
-
-The project turns that evidence into a paper and artifact.
-Peer review tests the argument.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S027; source: 29 -->
+<!-- slide-id: S025; source: 29 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
 
@@ -764,41 +711,15 @@ Peer review tests the argument.
 
 ---
 
-<!-- slide-id: S028; source: NEW -->
+<!-- slide-id: S026; source: NEW -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
 
 # Containerlab creates the network.
 
-It creates the topology, virtual devices and links we operate.
 
 ![width:1040px](assets/diagrams/environment-create.svg)
 
-We will recreate the same baseline at each technical session.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S029; source: 31 -->
-<!-- _class: content lab -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# NetBox is not the router.
-
-**NetBox describes what we intend to exist.**
-
-Inventory connects devices, interfaces, circuits and addresses.
-Follow those relationships before choosing a change target.
-
-In BOB1, trace the Lagoon circuit to its ReefNet interface.
-
-An inventory record cannot tell you whether packets pass now.
-
 
 
 
@@ -807,71 +728,7 @@ An inventory record cannot tell you whether packets pass now.
 
 ---
 
-<!-- slide-id: S030; source: NEW -->
-<!-- _class: content lab -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# The router shows the present.
-
-The CLI shows what is **configured and operational now**.
-
-| Configured | Operational |
-|---|---|
-| Interface enabled | Carrier up or down |
-| Export policy attached | Prefix advertised or absent |
-
-Keep the observation time. “Now” does not stay current.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S031; source: NEW -->
-<!-- _class: content lab -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# Grafana shows observations over time.
-
-Check the age and scope of the data behind a panel.
-
-![width:1040px](assets/diagrams/observation-path.svg)
-
-A green panel can contain old data.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S032; source: NEW -->
-<!-- _class: content lab -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
-
-# Look from outside.
-
-An external probe shows the service from **another vantage point**.
-
-Lagoon and Pacific probes can see different outcomes.
-Neither sees every possible customer path.
-
-**The customer is not your monitoring system.**
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S033; source: 30 -->
+<!-- slide-id: S027; source: 30 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
 
@@ -900,14 +757,13 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S034; source: 25 -->
+<!-- slide-id: S028; source: 25 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Meet the environment</span><span class=\"footer-refs\"><a href=\"https://github.com/Stinktopf/network-management-and-monitoring\">Course lab</a><a href=\"https://containerlab.dev/windows/\">Containerlab on Windows</a></span>" -->
 
 # Prepare the lab once.
 
-Before the first session, open PowerShell: `wsl -d Containerlab`
-Run the following commands **inside WSL**:
+Before the first session run the following commands in the Containerlab WSL:
 
 ```bash
 cd ~
@@ -916,8 +772,7 @@ cd network-management-and-monitoring
 make setup
 ```
 
-Wait for **READY FOR CLASS**. All four scenarios are checked.
-The runtime stops. NetBox stays prepared. Diagnostics: `.state/`.
+Wait for **READY FOR CLASS**.
 
 <!-- Clone inside the Linux filesystem, not /mnt/c. The repository README covers prerequisites and troubleshooting. -->
 
@@ -935,7 +790,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S035; source: 27 -->
+<!-- slide-id: S029; source: 27 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Meet the environment" -->
 
@@ -963,17 +818,13 @@ make setup
 
 ---
 
-<!-- slide-id: S036; source: 24 -->
-<!-- _class: day core -->
+<!-- slide-id: S030; source: 24 -->
+<!-- _class: chapter core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# 12 October 2026
-
-## Networking 101
+# Follow one service request.
 
 How does this network actually work?
-
-Follow **one service request**, then its response.
 
 
 
@@ -983,7 +834,7 @@ Follow **one service request**, then its response.
 
 ---
 
-<!-- slide-id: S037; source: 28 -->
+<!-- slide-id: S031; source: 28 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://containerlab.dev/manual/gui/vsc-extension/\">Containerlab in VS Code</a></span>" -->
 
@@ -996,10 +847,7 @@ make networking
 make next
 ```
 
-Optional: run `code .` here to open the lab folder in VS Code.
-The Containerlab extension opens `lab.clab.yml` in TopoViewer.
-
-We run the first checks together. `make hint` supplies commands when needed.
+Use `make hint` when needed.
 
 Then enter the Lagoon probe:
 
@@ -1022,7 +870,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S038; source: 34 -->
+<!-- slide-id: S032; source: 34 -->
 <!-- _class: visual lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1044,7 +892,7 @@ What must work before the application can return a response?
 
 ---
 
-<!-- slide-id: S039; source: 35 -->
+<!-- slide-id: S033; source: 35 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1073,7 +921,7 @@ Each layer carries data for the layer above it.
 
 ---
 
-<!-- slide-id: S040; source: 36 -->
+<!-- slide-id: S034; source: 36 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc1034.html\">DNS: RFC 1034</a></span>" -->
 
@@ -1110,7 +958,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S041; source: 37 -->
+<!-- slide-id: S035; source: 37 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1146,7 +994,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S042; source: 38 -->
+<!-- slide-id: S036; source: 38 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc9293.html\">TCP: RFC 9293</a><a href=\"https://www.rfc-editor.org/rfc/rfc768.html\">UDP: RFC 768</a></span>" -->
 
@@ -1158,7 +1006,8 @@ Source references (not projected):
 | Connection | Required | None |
 | Retransmission | Built in | Application decides |
 
-Both use IP addresses and ports. The application chooses the transport.
+TCP and UDP add port numbers above IP.
+An IP address + port identifies the transport endpoint.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1192,7 +1041,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S043; source: NEW -->
+<!-- slide-id: S037; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1202,7 +1051,6 @@ Source references (not projected):
 
 After DNS, our HTTP request opens a TCP connection.
 TCP orders bytes, retransmits loss and controls congestion.
-A completed handshake is not an application response.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1214,7 +1062,7 @@ A completed handshake is not an application response.
 
 ---
 
-<!-- slide-id: S044; source: 39 -->
+<!-- slide-id: S038; source: 39 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc791.html\">IPv4: RFC 791</a><a href=\"https://www.rfc-editor.org/rfc/rfc8200.html\">IPv6: RFC 8200</a></span>" -->
 
@@ -1223,7 +1071,7 @@ A completed handshake is not an application response.
 ![width:1040px](assets/diagrams/ip-packet.svg)
 
 IPv4 uses 32-bit addresses. IPv6 uses 128-bit addresses.
-Routers choose a path from the destination IP address.
+Routers use the **destination address** to look up where to forward the packet.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1233,8 +1081,8 @@ Presenter reference — expanded explanation from the previous version:
 
 ![width:1040px](assets/diagrams/ip-packet.svg)
 
-Routers select the outgoing path from the destination address.
-IPv4 and IPv6 have separate addressing and routing state.
+Routers perform a forwarding lookup using the destination address.
+IPv4 and IPv6 have separate addressing and forwarding state.
 -->
 
 <!--
@@ -1251,16 +1099,17 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S045; source: 40 -->
+<!-- slide-id: S039; source: 40 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# Is the destination local or remote?
+# On-link or through a router?
 
 ![width:1040px](assets/diagrams/local-remote.svg)
 
-A local destination is reached directly. A remote one needs a router.
-Use `ip route` and `ip -6 route` to inspect the host’s decision.
+If the selected route is **on-link**, send directly to the destination.
+Otherwise, send to the selected next-hop router.
+Use `ip route` and `ip -6 route` to inspect the decision.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1272,15 +1121,15 @@ Use `ip route` and `ip -6 route` to inspect the host’s decision.
 
 ---
 
-<!-- slide-id: S046; source: 41 -->
+<!-- slide-id: S040; source: 41 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# The route selects a next hop.
+# The forwarding lookup returns the next step.
 
 ![width:1040px](assets/diagrams/next-hop.svg)
 
-Resolve the next hop on the selected outgoing link.
+It identifies an outgoing interface and, when needed, a next-hop IP address.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1290,8 +1139,8 @@ Presenter reference — expanded explanation from the previous version:
 
 ![width:1040px](assets/diagrams/next-hop.svg)
 
-A route selects the next hop and outgoing interface.
-The next hop must be reachable on that link.
+The FIB lookup determines the outgoing interface and next-hop address.
+For an on-link destination, the destination itself is the neighbor to resolve.
 -->
 
 
@@ -1302,11 +1151,11 @@ The next hop must be reachable on that link.
 
 ---
 
-<!-- slide-id: S047; source: 51 -->
+<!-- slide-id: S041; source: 51 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc1812.html#section-5.2.4.3\">Longest prefix match: RFC 1812</a></span>" -->
 
-# The most specific route wins
+# Use the longest matching prefix
 
 A `/25` matches the first 25 address bits. Illustrative lookup table:
 
@@ -1320,7 +1169,7 @@ Destination: `198.51.100.200`
 
 The `/25` is the **longest matching prefix**.
 
-Forwarding chooses from routes that are already installed.
+The forwarding lookup uses routes already installed in the **FIB**.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1337,17 +1186,17 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S048; source: 42 -->
+<!-- slide-id: S042; source: 42 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# Now we need Layer 2
+# Forwarding still needs a link-layer destination
 
-IP chooses the **next hop**.
+The forwarding lookup identifies the outgoing interface and neighbor.
 
-On Ethernet, send a frame to that next hop’s **MAC address**.
+On Ethernet, the frame needs that neighbor’s **MAC address**.
 
-Neighbor discovery connects these two decisions.
+ARP or IPv6 Neighbor Discovery supplies the mapping.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1359,11 +1208,11 @@ Neighbor discovery connects these two decisions.
 
 ---
 
-<!-- slide-id: S049; source: 43 -->
+<!-- slide-id: S043; source: 43 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# MAC addresses belong to a link.
+# MAC addresses identify interfaces on an Ethernet link.
 
 An Ethernet frame carries source and destination MAC addresses.
 
@@ -1376,7 +1225,8 @@ ip -br link
 MAC addresses are normally **48 bits** and identify local-link interfaces.
 `ff:ff:ff:ff:ff:ff` is the Ethernet broadcast address.
 
-For a remote IP destination, use the gateway’s MAC address.
+For an off-link destination, the neighbor is the selected next-hop router.
+The Ethernet frame uses that router’s MAC address.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1388,7 +1238,7 @@ For a remote IP destination, use the gateway’s MAC address.
 
 ---
 
-<!-- slide-id: S050; source: 44 -->
+<!-- slide-id: S044; source: 44 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1423,7 +1273,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S051; source: 45 -->
+<!-- slide-id: S045; source: 45 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1462,7 +1312,7 @@ The BOB1 links are virtual. Optical diagnostics belong to physical equipment.
 
 ---
 
-<!-- slide-id: S052; source: 47 -->
+<!-- slide-id: S046; source: 47 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1482,7 +1332,7 @@ Broadcast and multicast handling depend on the link and switch configuration.
 
 ---
 
-<!-- slide-id: S053; source: 48 -->
+<!-- slide-id: S047; source: 48 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc826.html\">ARP: RFC 826</a><a href=\"https://www.rfc-editor.org/rfc/rfc4861.html\">ND: RFC 4861</a></span>" -->
 
@@ -1490,8 +1340,8 @@ Broadcast and multicast handling depend on the link and switch configuration.
 
 ![width:1040px](assets/diagrams/neighbor-resolution.svg)
 
-IPv4 uses **ARP**. IPv6 uses **Neighbor Discovery**.
-Resolve the next hop on this link.
+IPv4: **ARP** maps IPv4 → MAC.
+IPv6: **Neighbor Discovery (ND)** maps IPv6 → MAC using ICMPv6.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1501,7 +1351,8 @@ Presenter reference — expanded explanation from the previous version:
 
 ![width:1040px](assets/diagrams/neighbor-resolution.svg)
 
-Resolve the **next hop**, not every remote destination.
+ARP Request / Reply performs IPv4 address resolution.
+Neighbor Solicitation / Advertisement performs IPv6 address resolution.
 Cached neighbors avoid a discovery exchange for every packet.
 -->
 
@@ -1519,7 +1370,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S054; source: 49 -->
+<!-- slide-id: S048; source: 49 -->
 <!-- _class: visual lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1539,7 +1390,7 @@ IP identifies the end-to-end destination. MAC addresses serve the current link.
 
 ---
 
-<!-- slide-id: S055; source: 50 -->
+<!-- slide-id: S049; source: 50 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1547,8 +1398,8 @@ IP identifies the end-to-end destination. MAC addresses serve the current link.
 
 ![width:1040px](assets/diagrams/router-forwarding.svg)
 
-Each hop performs a new route lookup and builds a new frame.
-TTL / Hop Limit is reduced so packets cannot loop forever.
+Each router decrements TTL / Hop Limit, performs a new forwarding lookup
+and transmits on the selected outgoing link.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
@@ -1558,8 +1409,8 @@ Presenter reference — expanded explanation from the previous version:
 
 ![width:1040px](assets/diagrams/router-forwarding.svg)
 
-The router checks the route and decrements TTL / Hop Limit.
-Each outgoing link has its own link-layer addresses.
+The router decrements TTL / Hop Limit and performs a new forwarding lookup.
+The outgoing link then applies its own link-layer encapsulation.
 -->
 
 
@@ -1570,7 +1421,7 @@ Each outgoing link has its own link-layer addresses.
 
 ---
 
-<!-- slide-id: S056; source: 52 -->
+<!-- slide-id: S050; source: 52 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1601,7 +1452,7 @@ Credentials: `admin / NokiaSrl1!`. Leave the router with `quit`.
 
 ---
 
-<!-- slide-id: S057; source: 53 -->
+<!-- slide-id: S051; source: 53 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1619,7 +1470,6 @@ On ReefNet Edge 01:
 show network-instance default route-table ipv4-unicast summary
 ```
 
-Next: how IGP and BGP supply dynamic reachability.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1631,26 +1481,26 @@ Next: how IGP and BGP supply dynamic reachability.
 
 ---
 
-<!-- slide-id: S058; source: 54 -->
+<!-- slide-id: S052; source: 54 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# An AS is one routing domain
+# An AS is an administrative routing domain
 
 ![width:1040px](assets/diagrams/as-domains.svg)
 
-**AS: autonomous system**, under one routing administration.
-Inside: internal reachability. Between ASes: prefixes and policy.
+An **autonomous system (AS)** is a set of routers under one administration.
+To other ASes, it presents a common interdomain routing policy.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 <!--
 Presenter reference — expanded explanation from the previous version:
-# An AS is one routing domain
+# An AS is an administrative routing domain
 
 ![width:1040px](assets/diagrams/as-domains.svg)
 
-Inside an AS, routers need internal reachability.
+An AS can use one or more IGPs internally.
 Between ASes, BGP carries prefixes and policy-relevant attributes.
 -->
 
@@ -1662,7 +1512,7 @@ Between ASes, BGP carries prefixes and policy-relevant attributes.
 
 ---
 
-<!-- slide-id: S059; source: 55 -->
+<!-- slide-id: S053; source: 55 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1670,7 +1520,7 @@ Between ASes, BGP carries prefixes and policy-relevant attributes.
 
 ![width:1040px](assets/diagrams/igp-costs.svg)
 
-OSPF and IS-IS compute internal paths from link state.
+OSPF and IS-IS are **link-state IGPs** that compute internal paths.
 In ReefNet: `show network-instance default protocols ospf neighbor`
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
@@ -1690,7 +1540,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S060; source: 56 -->
+<!-- slide-id: S054; source: 56 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc4271.html\">BGP: RFC 4271</a></span>" -->
 
@@ -1704,7 +1554,7 @@ On `edge01.bob1.reefnet.test`:
 
 ```text
 show network-instance default protocols bgp neighbor
-show network-instance default protocols bgp routes ipv4
+show network-instance default protocols bgp routes ipv4 summary
 ```
 
 A router can receive several routes to the same prefix.
@@ -1726,13 +1576,13 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S061; source: 57 -->
+<!-- slide-id: S055; source: 57 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
 # BGP is policy first.
 
-For comparable routes to the same prefix:
+Simplified decision factors for comparable routes:
 
 1. apply local policy
 2. prefer higher local preference
@@ -1761,35 +1611,31 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S062; source: 58 -->
+<!-- slide-id: S056; source: 58 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# IGP and BGP
+# OSPF, iBGP and eBGP have different jobs
 
-| | OSPF / IS-IS | BGP |
-|---|---|---|
-| Carries | Link-state topology | Prefixes and attributes |
-| Chooses by | Internal metric | Policy and attributes |
-| Provides | Internal reachability | Route distribution |
+**OSPF / IS-IS (IGP):** reach internal addresses and BGP next hops.
 
-**eBGP** connects ASes. **iBGP** distributes routes inside an AS.
-BGP next hops still need an internal path.
+**iBGP:** distribute BGP routes and attributes within the same AS.
+
+**eBGP:** exchange BGP routes between different ASes.
+
+**iBGP does not replace the IGP.**
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 <!--
 Presenter reference — expanded explanation from the previous version:
-# IGP and BGP have different jobs.
+# OSPF, iBGP and eBGP have different jobs.
 
-| | IGP: OSPF / IS-IS | BGP |
-|---|---|---|
-| Information | Internal link-state topology | Prefixes and path attributes |
-| Decision | Internal metric | Policy and attributes |
-| Use | Reach internal next hops | Exchange and distribute reachability |
+OSPF / IS-IS calculate internal paths.
+iBGP distributes BGP routes and attributes within the AS.
+eBGP exchanges BGP routes with other ASes.
 
-**eBGP** connects ASes. **iBGP** distributes BGP routes within an AS.
-The IGP must still resolve internal next-hop reachability.
+The IGP must still provide reachability to BGP next hops.
 -->
 
 
@@ -1800,7 +1646,7 @@ The IGP must still resolve internal next-hop reachability.
 
 ---
 
-<!-- slide-id: S063; source: 59 -->
+<!-- slide-id: S057; source: 59 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1808,11 +1654,11 @@ The IGP must still resolve internal next-hop reachability.
 
 | | Transit | Peering |
 |---|---|---|
-| Reachability | Wider Internet | Peer and its customers |
-| Payment | Customer pays provider | Often settlement-free |
+| Reachability | Provider supplies broader reachability | Networks exchange selected routes |
+| Commercial relation | Customer pays provider | Often settlement-free |
 
 An **IXP** provides shared infrastructure for peering.
-Business relationships shape route preference and export.
+Export policy determines the actual routes exchanged.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -1839,7 +1685,7 @@ These relationships influence which BGP routes a network prefers and exports.
 
 ---
 
-<!-- slide-id: S064; source: 60 -->
+<!-- slide-id: S058; source: 60 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1868,7 +1714,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S065; source: NEW -->
+<!-- slide-id: S059; source: NEW -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1898,7 +1744,7 @@ The application must accept the request and produce a response.
 
 ---
 
-<!-- slide-id: S066; source: NEW -->
+<!-- slide-id: S060; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -1921,7 +1767,7 @@ Reachability needs both directions. Paths may be asymmetric.
 
 ---
 
-<!-- slide-id: S067; source: 61 -->
+<!-- slide-id: S061; source: 61 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Networking 101</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc792.html\">ICMP: RFC 792</a><a href=\"https://www.rfc-editor.org/rfc/rfc4443.html\">ICMPv6: RFC 4443</a></span>" -->
 
@@ -1966,13 +1812,13 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S068; source: 62 -->
+<!-- slide-id: S062; source: 62 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
 # Ping uses ICMP Echo
 
-`ping` sends an ICMP Echo Request.
+IPv4 ping uses **ICMP Echo**. IPv6 ping uses **ICMPv6 Echo**.
 
 On `probe01.bob1.lagoontransit.test`:
 
@@ -1995,15 +1841,15 @@ No reply does not identify where it failed.
 
 ---
 
-<!-- slide-id: S069; source: 63 -->
+<!-- slide-id: S063; source: 63 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
-# Traceroute expires the TTL.
+# Traceroute expires TTL / Hop Limit.
 
 ![width:1040px](assets/diagrams/traceroute-ttl.svg)
 
-Successively larger TTL values reveal responding hops.
+Larger TTL (IPv4) or Hop Limit (IPv6) values reveal responding routers.
 A missing reply does not identify the failed forwarding hop.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
@@ -2016,7 +1862,7 @@ A missing reply does not identify the failed forwarding hop.
 
 ---
 
-<!-- slide-id: S070; source: 64 -->
+<!-- slide-id: S064; source: 64 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -2047,7 +1893,7 @@ For each command, ask one question:
 
 ---
 
-<!-- slide-id: S071; source: 65 -->
+<!-- slide-id: S065; source: 65 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -2076,7 +1922,7 @@ Stop `tcpdump` with **Ctrl+C**.
 
 ---
 
-<!-- slide-id: S072; source: NEW -->
+<!-- slide-id: S066; source: NEW -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
@@ -2107,16 +1953,13 @@ curl --fail --max-time 5 -6 http://data.oceanresearch.test/
 
 ---
 
-<!-- slide-id: S073; source: 66 -->
-<!-- _class: chapter core -->
+<!-- slide-id: S067; source: 66 -->
+<!-- _class: statement core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Networking 101" -->
 
 # The service does not load.
 
 The request crossed many boundaries.
-Any one of them can fail.
-
-Now stop reciting the stack and start collecting evidence.
 
 **A customer reports partial reachability.**
 
@@ -2128,13 +1971,11 @@ Now stop reciting the stack and start collecting evidence.
 
 ---
 
-<!-- slide-id: S074; source: 67 -->
-<!-- _class: day core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
+<!-- slide-id: S068; source: 67 -->
+<!-- _class: chapter core -->
+<!-- _footer: "AI5049 · Hochschule Fulda · Operations" -->
 
-# 12 October 2026
-
-## Network Operations
+# Network Operations
 
 The service is broken.
 
@@ -2148,7 +1989,7 @@ What happened, and how do we restore it safely?
 
 ---
 
-<!-- slide-id: S075; source: 68 -->
+<!-- slide-id: S069; source: 68 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2169,7 +2010,7 @@ Close the incident only when service and baseline agree.
 
 ---
 
-<!-- slide-id: S076; source: 73 -->
+<!-- slide-id: S070; source: 73 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2199,44 +2040,7 @@ Record the source, address family, protocol and time.
 
 ---
 
-<!-- slide-id: S077; source: NEW -->
-<!-- _class: content lab -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
-
-# Establish the reference first.
-
-Record a timestamped baseline. In the **lab-directory terminal**:
-
-```bash
-make networking
-make test
-```
-
-These are ICMP checks. Enter each external probe and also test HTTP:
-
-```bash
-curl --fail --max-time 5 -4 http://198.51.100.10/
-curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
-```
-
-On ReefNet Edge 01, also save the healthy policy attachment:
-
-```text
-info from running network-instance default protocols bgp group lagoon-v4
-```
-
-
-<nav class="progress" aria-label="Module progress"><span class="active">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S078; source: 70 -->
+<!-- slide-id: S071; source: 70 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2249,13 +2053,6 @@ make operations
 make next
 ```
 
-| From the WSL lab directory | Help level |
-|---|---|
-| `make next STEP=2` | Short task and starting point |
-| `make hint STEP=2` | Commands and questions to explore |
-| `make solution STEP=2` | Full worked investigation and explanation |
-
-We reproduce the report together. Then choose your checks from the evidence.
 
 <nav class="progress" aria-label="Module progress"><span class="active">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -2273,7 +2070,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S079; source: 71 -->
+<!-- slide-id: S072; source: 71 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2307,7 +2104,7 @@ Use `quit` to return to the calling terminal.
 
 ---
 
-<!-- slide-id: S080; source: 74 -->
+<!-- slide-id: S073; source: 74 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2341,7 +2138,7 @@ Which combination fails?
 
 ---
 
-<!-- slide-id: S081; source: 75 -->
+<!-- slide-id: S074; source: 75 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2371,7 +2168,7 @@ The unaffected cases become controls for the repair.
 
 ---
 
-<!-- slide-id: S082; source: 76 -->
+<!-- slide-id: S075; source: 76 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2391,7 +2188,7 @@ A healthy control-plane session does not prove that the service works.
 
 ---
 
-<!-- slide-id: S083; source: 77 -->
+<!-- slide-id: S076; source: 77 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2423,7 +2220,7 @@ What does **established** prove?
 
 ---
 
-<!-- slide-id: S084; source: 78 -->
+<!-- slide-id: S077; source: 78 -->
 <!-- _class: statement core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2441,7 +2238,7 @@ The session is up. The customer route may still be missing.
 
 ---
 
-<!-- slide-id: S085; source: 79 -->
+<!-- slide-id: S078; source: 79 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2476,21 +2273,20 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S086; source: 80 -->
+<!-- slide-id: S079; source: 80 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
 # Is IPv4 installed for forwarding?
 
+The BGP table shows control-plane route state.
+The IPv4 route table shows the route installed for forwarding.
+
 ```text
 show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
 ```
 
-Look for:
-
-**active route → resolved next hop → outgoing interface**
-
-The forwarding entry toward the customer is present.
+Look for: **active route → resolved next hop → outgoing interface**
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -2502,7 +2298,7 @@ The forwarding entry toward the customer is present.
 
 ---
 
-<!-- slide-id: S087; source: 81 -->
+<!-- slide-id: S080; source: 81 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2514,9 +2310,9 @@ The forwarding entry toward the customer is present.
 show network-instance default protocols ospf neighbor
 ```
 
-The IGP gets us through **our** network.
+OSPF provides internal reachability, including paths to BGP next hops.
 
-BGP decides which external reachability we advertise and prefer.
+BGP carries external prefixes and applies routing policy to selection and advertisement.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -2533,7 +2329,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S088; source: 82 -->
+<!-- slide-id: S081; source: 82 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2563,7 +2359,7 @@ Next, test export and what the upstream actually accepts.
 
 ---
 
-<!-- slide-id: S089; source: 83 -->
+<!-- slide-id: S082; source: 83 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2590,9 +2386,8 @@ Source references (not projected):
 - [SR Linux BGP advertised routes](https://learn.srlinux.dev/cli/show-commands/bgp/)
 
 Teaching note: Let students choose the receiver check with make hint SCENARIO=operations STEP=4.
-On Lagoon, compare BGP receipt with the active IPv4 forwarding table. An unselected
-path can still be learned from IPv6 peer 2001:db8:0:a::1 with next-hop 10.255.0.1.
-Its presence does not contradict the missing export on IPv4 peer 192.0.2.2.
+With explicit AFI/SAFI separation, the IPv6 session should not carry IPv4 routes.
+If it does, inspect peer-group AFI inheritance before interpreting the path.
 -->
 
 
@@ -2603,7 +2398,7 @@ Its presence does not contradict the missing export on IPv4 peer 192.0.2.2.
 
 ---
 
-<!-- slide-id: S090; source: 84 -->
+<!-- slide-id: S083; source: 84 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2633,7 +2428,7 @@ the expected customer route and forwards it correctly.
 
 ---
 
-<!-- slide-id: S091; source: 85 -->
+<!-- slide-id: S084; source: 85 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2663,7 +2458,7 @@ What is attached only to IPv4?
 
 ---
 
-<!-- slide-id: S092; source: 86 -->
+<!-- slide-id: S085; source: 86 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Operations</span><span class=\"footer-refs\"><a href=\"https://documentation.nokia.com/srlinux/25-7/books/system-mgmt/cli-interface.html\">SR Linux CLI guide</a></span>" -->
 
@@ -2699,7 +2494,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S093; source: 87 -->
+<!-- slide-id: S086; source: 87 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Operations</span><span class=\"footer-refs\"><a href=\"https://curl.se/docs/manpage.html#--fail\">curl: HTTP checks</a></span>" -->
 
@@ -2718,7 +2513,6 @@ In the **lab-directory terminal**:
 make test
 ```
 
-Fail on HTTP errors. Allow at most **5 seconds** per request.
 Keep results from both upstreams and address families.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
@@ -2736,7 +2530,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S094; source: NEW -->
+<!-- slide-id: S087; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2760,19 +2554,17 @@ This repair tests policy attachment, not a new prefix allowlist.
 
 ---
 
-<!-- slide-id: S095; source: NEW -->
+<!-- slide-id: S088; source: NEW -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
 # Confirm the known-good state.
 
-After the service checks pass, compare configuration with the healthy baseline.
+Compare configuration with the healthy baseline.
 
-Explain any remaining difference. Keep the repair diff and service results.
-A reachable service can still hide unintended changes.
+Explain any remaining difference.
 
-Mark the state **known good** only when configuration and service agree.
-Keep this evidence before resetting the lab.
+**Known good:** configuration and service agree.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
@@ -2784,7 +2576,7 @@ Keep this evidence before resetting the lab.
 
 ---
 
-<!-- slide-id: S096; source: NEW -->
+<!-- slide-id: S089; source: NEW -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2813,7 +2605,7 @@ Use one time basis. Separate observed facts, interpretations and actions.
 
 ---
 
-<!-- slide-id: S097; source: 88 -->
+<!-- slide-id: S090; source: 88 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2837,7 +2629,7 @@ For example:
 
 ---
 
-<!-- slide-id: S098; source: 99 -->
+<!-- slide-id: S091; source: 99 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2876,7 +2668,7 @@ Unexpected evidence means **stop and revise the hypothesis**.
 
 ---
 
-<!-- slide-id: S099; source: 100 -->
+<!-- slide-id: S092; source: 100 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -2901,7 +2693,7 @@ Unknown time? Write **unknown**, not a guess.
 
 ---
 
-<!-- slide-id: S100; source: 101 -->
+<!-- slide-id: S093; source: 101 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Operations</span><span class=\"footer-refs\"><a href=\"https://sre.google/sre-book/postmortem-culture/\">Google SRE: postmortems</a></span>" -->
 
@@ -2930,21 +2722,19 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S101; source: 89 -->
+<!-- slide-id: S094; source: 89 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
-# That was network management.
+# FCAPS: five management areas
 
-Place this repair in the wider management picture:
+- **Fault**: detect, isolate and recover
+- **Configuration**: control intended state
+- **Accounting**: attribute resource use
+- **Performance**: measure service and capacity
+- **Security**: control access and change
 
-- **Fault**: isolate lost reachability
-- **Configuration**: repair export policy
-- **Performance**: verify service behavior
-- **Security**: control who may change the router
-- **Accounting**: attribute resource use when needed
-
-Configuration is only one part of operating a network.
+Our repair touched several areas at once.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
@@ -2961,32 +2751,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S102; source: NEW -->
-<!-- _class: content core -->
-<!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
-
-# Four views, one recovery claim.
-
-| View | Recovery evidence |
-|---|---|
-| NetBox | Intended service and circuit still match |
-| CLI | Correct policy and route advertisements |
-| Grafana | Fault and recovery history, if collected |
-| External probes | Service works through both upstreams |
-
-No single view replaces the others.
-
-<nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S103; source: 103 -->
+<!-- slide-id: S095; source: 103 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Operations" -->
 
@@ -3012,7 +2777,7 @@ Tomorrow: make **this class of repair** safe to repeat.
 
 ---
 
-<!-- slide-id: S104; source: 104 -->
+<!-- slide-id: S096; source: 104 -->
 <!-- _class: day core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3035,7 +2800,7 @@ At the end of today: **Who Broke the Internet?**
 
 ---
 
-<!-- slide-id: S105; source: 105 -->
+<!-- slide-id: S097; source: 105 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3051,7 +2816,6 @@ make next
 The same IPv4 export incident is back.
 This time the repair needs a reviewed input and repeatable checks.
 
-Read the first API response together. Use `make hint` for commands, then investigate.
 
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -3063,7 +2827,7 @@ Read the first API response together. Use `make hint` for commands, then investi
 
 ---
 
-<!-- slide-id: S106; source: 107 -->
+<!-- slide-id: S098; source: 107 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3084,7 +2848,7 @@ YANG, NETCONF and gNMI are mechanisms within it.
 
 ---
 
-<!-- slide-id: S107; source: 109 -->
+<!-- slide-id: S099; source: 109 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3109,7 +2873,7 @@ If the contract is vague, the script automates the ambiguity.
 
 ---
 
-<!-- slide-id: S108; source: 108 -->
+<!-- slide-id: S100; source: 108 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3153,7 +2917,7 @@ Which facts come from inventory and which must come from the live router?
 
 ---
 
-<!-- slide-id: S109; source: 111 -->
+<!-- slide-id: S101; source: 111 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3197,7 +2961,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S110; source: 112 -->
+<!-- slide-id: S102; source: 112 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3227,7 +2991,7 @@ Intended infrastructure and observed behavior are different inputs.
 
 ---
 
-<!-- slide-id: S111; source: 114 -->
+<!-- slide-id: S103; source: 114 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://netbox.readthedocs.io/en/stable/integrations/rest-api/\">NetBox REST API</a></span>" -->
 
@@ -3261,7 +3025,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S112; source: 115 -->
+<!-- slide-id: S104; source: 115 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://netbox.readthedocs.io/en/stable/integrations/rest-api/\">NetBox REST API</a></span>" -->
 
@@ -3294,13 +3058,11 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S113; source: 117 -->
+<!-- slide-id: S105; source: 117 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
 # Join inventory into one change input
-
-The API gives us separate objects. We need the relationship.
 
 ```http
 GET /api/dcim/devices/?name=edge01.bob1.reefnet.test
@@ -3309,9 +3071,7 @@ GET /api/ipam/prefixes/?prefix=198.51.100.0%2F24
 GET /api/ipam/asns/?asn=65100
 ```
 
-The useful part is not the endpoint itself.
-
-It is joining the right objects into one approved change input.
+Join these objects into one approved change input.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -3323,7 +3083,7 @@ It is joining the right objects into one approved change input.
 
 ---
 
-<!-- slide-id: S114; source: 116 -->
+<!-- slide-id: S106; source: 116 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3350,7 +3110,7 @@ Then decide whether to reconcile or investigate.
 
 ---
 
-<!-- slide-id: S115; source: 180 -->
+<!-- slide-id: S107; source: 180 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.youtube.com/watch?v=k1TMAgNROh8\">DE-CIX: automation in practice</a></span>" -->
 
@@ -3396,7 +3156,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S116; source: 118 -->
+<!-- slide-id: S108; source: 118 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3427,7 +3187,7 @@ Also keep the current state needed for backout.
 
 ---
 
-<!-- slide-id: S117; source: 119 -->
+<!-- slide-id: S109; source: 119 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3454,13 +3214,12 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S118; source: 120 -->
+<!-- slide-id: S110; source: 120 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
 # Validate before rendering
 
-The request is small. The failure modes are not.
 
 | Check | Catches |
 |---|---|
@@ -3481,7 +3240,7 @@ Validate the request **and** the state it depends on.
 
 ---
 
-<!-- slide-id: S119; source: 121 -->
+<!-- slide-id: S111; source: 121 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3507,7 +3266,7 @@ Review now. Execute the lab repair later with gNMI.
 
 ---
 
-<!-- slide-id: S120; source: NEW -->
+<!-- slide-id: S112; source: NEW -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3536,7 +3295,7 @@ Passing one gate does not prove the next. Test the behavior the contract promise
 
 ---
 
-<!-- slide-id: S121; source: 170 -->
+<!-- slide-id: S113; source: 170 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3563,7 +3322,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S122; source: 123 -->
+<!-- slide-id: S114; source: 123 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3590,7 +3349,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S123; source: 124 -->
+<!-- slide-id: S115; source: 124 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3627,7 +3386,7 @@ Some checks need live routes. Others need traffic from outside the changed route
 
 ---
 
-<!-- slide-id: S124; source: NEW -->
+<!-- slide-id: S116; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3652,7 +3411,7 @@ Make the backout path reachable before the first write.
 
 ---
 
-<!-- slide-id: S125; source: 137 -->
+<!-- slide-id: S117; source: 137 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3682,15 +3441,12 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S126; source: 136 -->
+<!-- slide-id: S118; source: 136 -->
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
 # Execute and recover
 
-Now assume the candidate is approved.
-
-The next question is different:
 
 **What happens when the write only partly succeeds, or we cannot tell?**
 
@@ -3702,7 +3458,7 @@ The next question is different:
 
 ---
 
-<!-- slide-id: S127; source: 142 -->
+<!-- slide-id: S119; source: 142 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3738,7 +3494,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S128; source: 144 -->
+<!-- slide-id: S120; source: 144 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3758,7 +3514,7 @@ Record an unknown outcome explicitly in the audit trail.
 
 ---
 
-<!-- slide-id: S129; source: 145 -->
+<!-- slide-id: S121; source: 145 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3784,7 +3540,7 @@ Useful after an uncertain outcome:
 
 ---
 
-<!-- slide-id: S130; source: 147 -->
+<!-- slide-id: S122; source: 147 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3813,7 +3569,7 @@ Before retrying: which state must you read, and which targets may continue?
 
 ---
 
-<!-- slide-id: S131; source: 146 -->
+<!-- slide-id: S123; source: 146 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3843,7 +3599,7 @@ Idempotence alone does not establish convergence.
 
 ---
 
-<!-- slide-id: S132; source: 143 -->
+<!-- slide-id: S124; source: 143 -->
 <!-- _class: joke core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3865,7 +3621,7 @@ The script has successfully finished being wrong.
 
 ---
 
-<!-- slide-id: S133; source: 166 -->
+<!-- slide-id: S125; source: 166 -->
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3887,7 +3643,7 @@ Now test what should pass, what should fail, and what must remain unchanged.
 
 ---
 
-<!-- slide-id: S134; source: 167 -->
+<!-- slide-id: S126; source: 167 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -3930,7 +3686,7 @@ A successful API response is still not a service postcheck.
 
 ---
 
-<!-- slide-id: S135; source: 168 -->
+<!-- slide-id: S127; source: 168 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6811.html\">ROV: RFC 6811</a></span>" -->
 
@@ -3979,7 +3735,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S136; source: 148 -->
+<!-- slide-id: S128; source: 148 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4000,7 +3756,7 @@ Assign an owner to the full recovery procedure.
 
 ---
 
-<!-- slide-id: S137; source: 149 -->
+<!-- slide-id: S129; source: 149 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4028,7 +3784,7 @@ Keep history outside the device failure domain.
 
 ---
 
-<!-- slide-id: S138; source: 150 -->
+<!-- slide-id: S130; source: 150 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4059,7 +3815,7 @@ Never keep credentials in the audit record.
 
 ---
 
-<!-- slide-id: S139; source: 174 -->
+<!-- slide-id: S131; source: 174 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4097,7 +3853,7 @@ The next shift must be able to run it without its author.
 
 ---
 
-<!-- slide-id: S140; source: 176 -->
+<!-- slide-id: S132; source: 176 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4117,7 +3873,7 @@ Approval applies to a specific code revision and input snapshot.
 
 ---
 
-<!-- slide-id: S141; source: 177 -->
+<!-- slide-id: S133; source: 177 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://opengitops.dev/\">OpenGitOps principles</a></span>" -->
 
@@ -4152,18 +3908,19 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S142; source: 151 -->
+<!-- slide-id: S134; source: 151 -->
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
-# Now choose the mechanism.
+# Choose the automation mechanism.
 
-The safe workflow is already defined.
+| Layer | Examples |
+|---|---|
+| CLI automation | Netmiko |
+| Data models | YANG, OpenConfig |
+| Model-driven protocols | NETCONF, gNMI |
 
-**CLI → structured models → YANG / OpenConfig → NETCONF / gNMI**
-
-Each mechanism must preserve the same preconditions,
-service checks and recovery contract.
+The same preconditions, service checks and recovery contract still apply.
 
 
 
@@ -4173,7 +3930,7 @@ service checks and recovery contract.
 
 ---
 
-<!-- slide-id: S143; source: 139 -->
+<!-- slide-id: S135; source: 139 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://github.com/ktbyers/netmiko\">Netmiko documentation</a></span>" -->
 
@@ -4207,7 +3964,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S144; source: 140 -->
+<!-- slide-id: S136; source: 140 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4236,7 +3993,7 @@ Read state back and run the service check after a write.
 
 ---
 
-<!-- slide-id: S145; source: 152 -->
+<!-- slide-id: S137; source: 152 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7950.html\">YANG: RFC 7950</a></span>" -->
 
@@ -4271,7 +4028,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S146; source: 154 -->
+<!-- slide-id: S138; source: 154 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4305,7 +4062,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S147; source: 155 -->
+<!-- slide-id: S139; source: 155 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8342.html\">Datastores: RFC 8342</a></span>" -->
 
@@ -4335,7 +4092,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S148; source: 156 -->
+<!-- slide-id: S140; source: 156 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://openconfig.net/projects/models/\">OpenConfig models</a></span>" -->
 
@@ -4378,7 +4135,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S149; source: 157 -->
+<!-- slide-id: S141; source: 157 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html\">NETCONF: RFC 6241</a></span>" -->
 
@@ -4425,7 +4182,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S150; source: 158 -->
+<!-- slide-id: S142; source: 158 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4457,7 +4214,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S151; source: 159 -->
+<!-- slide-id: S143; source: 159 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html#section-8.4\">Confirmed commit: RFC 6241</a></span>" -->
 
@@ -4492,26 +4249,26 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S152; source: 160 -->
+<!-- slide-id: S144; source: 160 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\">gNMI specification</a></span>" -->
 
-# gNMI exposes four operations.
+# gNMI defines four RPCs.
 
 ![width:1040px](assets/diagrams/gnmi-operations.svg)
 
-Check which models and operations the target supports.
+Capabilities · Get · Set · Subscribe — check which models and RPCs the target supports.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 <!--
 Presenter reference — expanded explanation from the previous version:
-# gNMI exposes four operations.
+# gNMI defines four RPCs.
 
 ![width:1040px](assets/diagrams/gnmi-operations.svg)
 
 gNMI uses gRPC and typed paths into modeled data.
-Check the target’s model and operation support before execution.
+Check the target’s model and RPC support before execution.
 -->
 
 <!--
@@ -4528,7 +4285,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S153; source: 162 -->
+<!-- slide-id: S145; source: 162 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4542,7 +4299,6 @@ Source references (not projected):
 - `statistics` selects its subtree.
 - The **target** identifies the router.
 
-Next: read the BOB1 policy attachment.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -4560,7 +4316,6 @@ A path we use on the BOB1 SR Linux devices:
 - **Path hierarchy:** selects the statistics subtree
 - **Target:** the router addressed by gNMIc
 
-Next we query live BOB1 paths with the gNMIc CLI client.
 -->
 
 <!--
@@ -4576,7 +4331,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S154; source: 163 -->
+<!-- slide-id: S146; source: 163 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/\">gNMIc documentation</a></span>" -->
 
@@ -4612,7 +4367,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S155; source: 164 -->
+<!-- slide-id: S147; source: 164 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#34-set\">gNMI Set specification</a></span>" -->
 
@@ -4643,7 +4398,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S156; source: 165 -->
+<!-- slide-id: S148; source: 165 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/cmd/set/\">gNMIc Set documentation</a></span>" -->
 
@@ -4677,7 +4432,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S157; source: 182 -->
+<!-- slide-id: S149; source: 182 -->
 <!-- _class: task core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4723,7 +4478,7 @@ Agree on **two concrete improvements** and their acceptance checks.
 
 ---
 
-<!-- slide-id: S158; source: 184 -->
+<!-- slide-id: S150; source: 184 -->
 <!-- _class: task core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation" -->
 
@@ -4738,7 +4493,6 @@ A write times out after the request was sent.
 - What must the next operator find in the change record?
 
 In the lab terminal, stop the runtime with `make down`.
-Next: test these safeguards against real production incidents.
 
 
 
@@ -4748,15 +4502,12 @@ Next: test these safeguards against real production incidents.
 
 ---
 
-<!-- slide-id: S159; source: NEW -->
+<!-- slide-id: S151; source: NEW -->
 <!-- _class: chapter deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
 # Who Broke the Internet?
 
-13 October 2026. **Day 2, closing block.**
-
-Now test the change workflow against real outages.
 
 **Everything is redundant until the shared dependency breaks.**
 
@@ -4772,7 +4523,7 @@ Which safeguard would have changed the outcome?
 
 ---
 
-<!-- slide-id: S160; source: NEW -->
+<!-- slide-id: S152; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -4796,7 +4547,7 @@ We are studying mechanisms, not awarding blame.
 
 ---
 
-<!-- slide-id: S161; source: 102 -->
+<!-- slide-id: S153; source: 102 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/\">Meta outage report (2021)</a> <a href=\"https://blog.cloudflare.com/october-2021-facebook-outage/\">Observed impact</a></span>" -->
 
@@ -4834,7 +4585,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S162; source: 132 -->
+<!-- slide-id: S154; source: 132 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/\">Meta report</a><a href=\"https://www.rfc-editor.org/rfc/rfc1958.html#section-3.11\">RFC 1958 §3.11</a></span>" -->
 
@@ -4865,7 +4616,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S163; source: 125 -->
+<!-- slide-id: S155; source: 125 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -4890,7 +4641,7 @@ A separate path can still share dependencies:
 
 ---
 
-<!-- slide-id: S164; source: 127 -->
+<!-- slide-id: S156; source: 127 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://ftp.opengear.com/download/documentation/manual/previous%20versions/om_user_guide_24.11/Content/Configure_Serial_Ports.htm\">Opengear: serial ports</a></span>" -->
 
@@ -4918,7 +4669,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S165; source: 126 -->
+<!-- slide-id: S157; source: 126 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -4938,7 +4689,7 @@ Test login and repair while the production path is unavailable.
 
 ---
 
-<!-- slide-id: S166; source: 128 -->
+<!-- slide-id: S158; source: 128 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -4956,7 +4707,7 @@ Exercise: AAA uses the failed backbone. Which fallback must exist?
 
 ---
 
-<!-- slide-id: S167; source: 129 -->
+<!-- slide-id: S159; source: 129 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -4982,7 +4733,7 @@ After login, verify that the account can actually change configuration.
 
 ---
 
-<!-- slide-id: S168; source: 131 -->
+<!-- slide-id: S160; source: 131 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://docs.equinix.com/smart-hands/\">Equinix Smart Hands</a></span>" -->
 
@@ -5013,7 +4764,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S169; source: NEW -->
+<!-- slide-id: S161; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/J5ia5t9p3g9Q5Wi7r8Ev\">Google Cloud report (Sep 2026)</a></span>" -->
 
@@ -5046,7 +4797,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S170; source: 130 -->
+<!-- slide-id: S162; source: 130 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/J5ia5t9p3g9Q5Wi7r8Ev\">Google Cloud report (Sep 2026)</a></span>" -->
 
@@ -5077,7 +4828,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S171; source: 133 -->
+<!-- slide-id: S163; source: 133 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://corporate.ovhcloud.com/en/newsroom/news/informations-site-strasbourg/\">OVHcloud: Strasbourg (2021)</a></span>" -->
 
@@ -5109,7 +4860,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S172; source: 135 -->
+<!-- slide-id: S164; source: 135 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://www.datacenterdynamics.com/en/news/ovh-fire-destroys-rust-game-data-takes-other-sites-offline/\">Rust: reported impact</a> <a href=\"https://lichess.org/forum/lichess-feedback/fire-in-a-lichess-datacenter\">Lichess: recovery report</a></span>" -->
 
@@ -5141,7 +4892,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S173; source: 134 -->
+<!-- slide-id: S165; source: 134 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -5165,7 +4916,7 @@ Hypothetical exercise, not a claim that every OVHcloud customer used this backup
 
 ---
 
-<!-- slide-id: S174; source: 294 -->
+<!-- slide-id: S166; source: 294 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://labs.ripe.net/author/emileaben/a-deep-dive-into-the-baltic-sea-cable-cuts/\">RIPE Labs: Baltic Sea (2024)</a></span>" -->
 
@@ -5191,7 +4942,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S175; source: 295 -->
+<!-- slide-id: S167; source: 295 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://labs.ripe.net/author/emileaben/a-deep-dive-into-the-baltic-sea-cable-cuts/\">RIPE Labs: Baltic Sea (2024)</a></span>" -->
 
@@ -5224,7 +4975,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S176; source: 296 -->
+<!-- slide-id: S168; source: 296 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/what-caused-the-red-sea-submarine-cable-cuts/\">Kentik: Red Sea (2024)</a></span>" -->
 
@@ -5253,7 +5004,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S177; source: 297 -->
+<!-- slide-id: S169; source: 297 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/subsea-cables-parted-in-red-sea-again/\">Kentik: Red Sea (2025)</a></span>" -->
 
@@ -5278,7 +5029,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S178; source: 122 -->
+<!-- slide-id: S170; source: 122 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
 
@@ -5309,7 +5060,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S179; source: NEW -->
+<!-- slide-id: S171; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
 
@@ -5340,7 +5091,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S180; source: 171 -->
+<!-- slide-id: S172; source: 171 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
 
@@ -5371,7 +5122,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S181; source: 172 -->
+<!-- slide-id: S173; source: 172 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
 
@@ -5404,7 +5155,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S182; source: 262 -->
+<!-- slide-id: S174; source: 262 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
 
@@ -5436,7 +5187,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S183; source: NEW -->
+<!-- slide-id: S175; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
 
@@ -5472,7 +5223,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S184; source: NEW -->
+<!-- slide-id: S176; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a> <a href=\"https://www.kentik.com/analysis/fastly-outage-knocks-major-websites-offline/\">Observed impact</a></span>" -->
 
@@ -5509,7 +5260,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S185; source: 290 -->
+<!-- slide-id: S177; source: 290 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Network Automation · Incident stories</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a></span>" -->
 
@@ -5541,7 +5292,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S186; source: NEW -->
+<!-- slide-id: S178; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -5564,7 +5315,7 @@ These are hypotheses, not diagnoses.
 
 ---
 
-<!-- slide-id: S187; source: NEW -->
+<!-- slide-id: S179; source: NEW -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
@@ -5585,8 +5336,8 @@ Propose a test that proves the revised path survives.
 
 ---
 
-<!-- slide-id: S188; source: NEW -->
-<!-- _class: chapter deep-dive -->
+<!-- slide-id: S180; source: NEW -->
+<!-- _class: statement deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Network Automation · Incident stories" -->
 
 # From postmortem to early warning
@@ -5606,7 +5357,7 @@ How would you verify recovery?
 
 ---
 
-<!-- slide-id: S189; source: 185 -->
+<!-- slide-id: S181; source: 185 -->
 <!-- _class: day core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5626,7 +5377,7 @@ In Operations, the customer had to tell us something was wrong.
 
 ---
 
-<!-- slide-id: S190; source: 198 -->
+<!-- slide-id: S182; source: 198 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5650,7 +5401,7 @@ Choose the question before the tool.
 
 ---
 
-<!-- slide-id: S191; source: 199 -->
+<!-- slide-id: S183; source: 199 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5679,7 +5430,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S192; source: 201 -->
+<!-- slide-id: S184; source: 201 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5705,7 +5456,7 @@ SNMP and gNMI are **ways to obtain data**, not extra signal types.
 
 ---
 
-<!-- slide-id: S193; source: 202 -->
+<!-- slide-id: S185; source: 202 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5742,7 +5493,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S194; source: 203 -->
+<!-- slide-id: S186; source: 203 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5772,7 +5523,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S195; source: 204 -->
+<!-- slide-id: S187; source: 204 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5803,13 +5554,13 @@ Two checks called "reachability" can still measure different things.
 
 ---
 
-<!-- slide-id: S196; source: 197 -->
+<!-- slide-id: S188; source: 197 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
 # The monitoring brief
 
-**40 targets:** 20 services, IPv4 and IPv6.
+**40 service-family targets:** 20 services × IPv4/IPv6.
 Two observation sources per target.
 
 - Detect interruptions of **5 seconds or longer**.
@@ -5845,7 +5596,7 @@ This is a sizing exercise, not the configuration of the current lab.
 
 ---
 
-<!-- slide-id: S197; source: 205 -->
+<!-- slide-id: S189; source: 205 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5874,7 +5625,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S198; source: 206 -->
+<!-- slide-id: S190; source: 206 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5896,7 +5647,7 @@ The byte counter accumulates. The probe duration can rise or fall.
 
 ---
 
-<!-- slide-id: S199; source: 207 -->
+<!-- slide-id: S191; source: 207 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5918,7 +5669,7 @@ Subtract timestamps only after checking clock source and offset.
 
 ---
 
-<!-- slide-id: S200; source: 208 -->
+<!-- slide-id: S192; source: 208 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5948,7 +5699,7 @@ Transport and collection delay add separate uncertainty.
 
 ---
 
-<!-- slide-id: S201; source: 209 -->
+<!-- slide-id: S193; source: 209 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -5970,7 +5721,7 @@ Imagine a short Lagoon IPv4 outage. A healthy sample can miss it.
 
 ---
 
-<!-- slide-id: S202; source: 210 -->
+<!-- slide-id: S194; source: 210 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6008,7 +5759,7 @@ Transport loss can also hide `ON_CHANGE` updates.
 
 ---
 
-<!-- slide-id: S203; source: 212 -->
+<!-- slide-id: S195; source: 212 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6036,7 +5787,7 @@ What happens to the interval when a check times out?
 
 ---
 
-<!-- slide-id: S204; source: 219 -->
+<!-- slide-id: S196; source: 219 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6081,7 +5832,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S205; source: 221 -->
+<!-- slide-id: S197; source: 221 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6105,7 +5856,7 @@ Compare the result with the **50 Mbit/s Lagoon handoff**.
 
 ---
 
-<!-- slide-id: S206; source: 222 -->
+<!-- slide-id: S198; source: 222 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6134,7 +5885,7 @@ Four minutes: calculate valid rates. Compare them with the 50 Mbit/s handoff.
 
 ---
 
-<!-- slide-id: S207; source: 223 -->
+<!-- slide-id: S199; source: 223 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6160,7 +5911,7 @@ The 20,000-byte reading starts a new comparison after the reset.
 
 ---
 
-<!-- slide-id: S208; source: 276 -->
+<!-- slide-id: S200; source: 276 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6183,7 +5934,7 @@ Would the **44 ms mean** explain the five long waits?
 
 ---
 
-<!-- slide-id: S209; source: 274 -->
+<!-- slide-id: S201; source: 274 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/practices/histograms/\">Prometheus: histograms</a></span>" -->
 
@@ -6227,7 +5978,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S210; source: 275 -->
+<!-- slide-id: S202; source: 275 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6257,7 +6008,7 @@ Combine observations first, then calculate the percentile.
 
 ---
 
-<!-- slide-id: S211; source: 186 -->
+<!-- slide-id: S203; source: 186 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6279,7 +6030,6 @@ This starts healthy routing, telemetry and **25 Mbit/s** background traffic.
 
 Grafana: **ReefNet / BOB1** folder. Refresh every 5 seconds.
 
-Read the baseline together. Use `make hint` for the experiment commands.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -6291,7 +6041,7 @@ Read the baseline together. Use `make hint` for the experiment commands.
 
 ---
 
-<!-- slide-id: S212; source: 215 -->
+<!-- slide-id: S204; source: 215 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc3411.html\">SNMP: RFC 3411</a></span>" -->
 
@@ -6338,7 +6088,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S213; source: 216 -->
+<!-- slide-id: S205; source: 216 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6364,7 +6114,7 @@ After restart or replacement, verify the mapping before joining counters.
 
 ---
 
-<!-- slide-id: S214; source: 226 -->
+<!-- slide-id: S206; source: 226 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc5424.html\">Syslog: RFC 5424</a></span>" -->
 
@@ -6408,7 +6158,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S215; source: 228 -->
+<!-- slide-id: S207; source: 228 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7011.html\">IPFIX: RFC 7011</a></span>" -->
 
@@ -6454,7 +6204,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S216; source: 230 -->
+<!-- slide-id: S208; source: 230 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6487,7 +6237,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S217; source: 232 -->
+<!-- slide-id: S209; source: 232 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6531,7 +6281,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S218; source: 233 -->
+<!-- slide-id: S210; source: 233 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://paris-traceroute.net/\">Paris Traceroute paper</a></span>" -->
 
@@ -6566,17 +6316,15 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S219; source: 234 -->
+<!-- slide-id: S211; source: 234 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8201.html\">IPv6 path MTU: RFC 8201</a></span>" -->
 
 # Small ping, stalled download.
 
-Thought experiment: small IPv6 responses work. Large ones stall.
-
 ![width:1040px](assets/diagrams/path-mtu.svg)
 
-Force a large IPv6 transfer after repair. Recheck IPv4.
+IPv6 routers do not fragment transit packets. **ICMPv6 Packet Too Big** drives PMTUD.
 
 <!-- Separate PMTU example, not an injected BOB1 scenario. -->
 
@@ -6596,7 +6344,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S220; source: NEW -->
+<!-- slide-id: S212; source: NEW -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6634,7 +6382,7 @@ Streaming describes delivery. Model, update mode and freshness still matter.
 
 ---
 
-<!-- slide-id: S221; source: 242 -->
+<!-- slide-id: S213; source: 242 -->
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#35-subscribing-to-telemetry-updates\">gNMI Subscribe specification</a></span>" -->
 
@@ -6669,13 +6417,19 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S222; source: 240 -->
+<!-- slide-id: S214; source: 240 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/user_guide/subscriptions/\">gNMIc subscriptions</a></span>" -->
 
 # Subscribe to the live interface counters
 
-Inside `operations01.bob1.reefnet.test`:
+From the lab directory:
+
+```bash
+make enter NODE=operations01.bob1.reefnet.test
+```
+
+Inside the operator workstation:
 
 ```bash
 gnmic -a edge01.bob1.reefnet.test:57400 \
@@ -6704,7 +6458,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S223; source: 241 -->
+<!-- slide-id: S215; source: 241 -->
 <!-- _class: task lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6734,7 +6488,7 @@ Which counter changes now? When does Grafana show the change?
 
 ---
 
-<!-- slide-id: S224; source: 244 -->
+<!-- slide-id: S216; source: 244 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6769,7 +6523,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S225; source: 245 -->
+<!-- slide-id: S217; source: 245 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6789,7 +6543,7 @@ These states need different storage, query and alert behavior.
 
 ---
 
-<!-- slide-id: S226; source: 246 -->
+<!-- slide-id: S218; source: 246 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6822,7 +6576,7 @@ After reconnect:
 
 ---
 
-<!-- slide-id: S227; source: 248 -->
+<!-- slide-id: S219; source: 248 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6843,7 +6597,7 @@ Keep enough metadata to detect that loss.
 
 ---
 
-<!-- slide-id: S228; source: 252 -->
+<!-- slide-id: S220; source: 252 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6881,7 +6635,7 @@ An extra collector is not automatically an independent observer.
 
 ---
 
-<!-- slide-id: S229; source: 187 -->
+<!-- slide-id: S221; source: 187 -->
 <!-- _class: visual lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6917,7 +6671,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S230; source: 256 -->
+<!-- slide-id: S222; source: 256 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/introduction/overview/\">Prometheus overview</a></span>" -->
 
@@ -6942,7 +6696,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S231; source: 249 -->
+<!-- slide-id: S223; source: 249 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -6966,7 +6720,7 @@ Success, duration and timestamp give **24 probe series** in total.
 
 ---
 
-<!-- slide-id: S232; source: 250 -->
+<!-- slide-id: S224; source: 250 -->
 <!-- _class: task core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/practices/naming/#labels\">Prometheus: metric labels</a></span>" -->
 
@@ -7002,7 +6756,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S233; source: 259 -->
+<!-- slide-id: S225; source: 259 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7045,7 +6799,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S234; source: 261 -->
+<!-- slide-id: S226; source: 261 -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7069,7 +6823,7 @@ The buffer buys ten seconds. It cannot fix the slow writer.
 
 ---
 
-<!-- slide-id: S235; source: 263 -->
+<!-- slide-id: S227; source: 263 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7101,7 +6855,7 @@ Count indexes, WAL, replicas and backups as well as samples.
 
 ---
 
-<!-- slide-id: S236; source: 257 -->
+<!-- slide-id: S228; source: 257 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7131,7 +6885,7 @@ Alert on source age as well as collector and scrape health.
 
 ---
 
-<!-- slide-id: S237; source: 258 -->
+<!-- slide-id: S229; source: 258 -->
 <!-- _class: statement core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7149,7 +6903,7 @@ Today's status is still unknown.
 
 ---
 
-<!-- slide-id: S238; source: 265 -->
+<!-- slide-id: S230; source: 265 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7169,7 +6923,7 @@ Today's status is still unknown.
 
 ---
 
-<!-- slide-id: S239; source: 266 -->
+<!-- slide-id: S231; source: 266 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7211,7 +6965,7 @@ Use an external check for the central monitoring service itself.
 
 ---
 
-<!-- slide-id: S240; source: 190 -->
+<!-- slide-id: S232; source: 190 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7256,7 +7010,7 @@ Select one view, one entity and one time window.
 
 ---
 
-<!-- slide-id: S241; source: 277 -->
+<!-- slide-id: S233; source: 277 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7270,7 +7024,6 @@ Lagoon IPv4 fails in both cases.
 | Customer prefix exported | No | No |
 
 Session state distinguishes these hypotheses.
-Next, test a different fault: an internal link goes down.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -7297,7 +7050,7 @@ Both causes fail the same probe. Session and route data narrow the diagnosis.
 
 ---
 
-<!-- slide-id: S242; source: 269 -->
+<!-- slide-id: S234; source: 269 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7310,7 +7063,14 @@ Record **admin enable + oper up**. In the lab directory:
 make fault-link
 ```
 
-On ReefNet Edge 01:
+In another lab-directory terminal:
+
+```bash
+make enter NODE=operations01.bob1.reefnet.test
+ssh edge01.bob1.reefnet.test
+```
+
+Then on ReefNet Edge 01:
 
 ```text
 show interface ethernet-1/4 detail
@@ -7334,7 +7094,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S243; source: 239 -->
+<!-- slide-id: S235; source: 239 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7381,7 +7141,7 @@ Read both with their timestamps.
 
 ---
 
-<!-- slide-id: S244; source: 270 -->
+<!-- slide-id: S236; source: 270 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7409,7 +7169,7 @@ Its service check can remain green while the topology changes.
 
 ---
 
-<!-- slide-id: S245; source: 94 -->
+<!-- slide-id: S237; source: 94 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7431,7 +7191,7 @@ A faster customer handoff does not remove the Lagoon bottleneck.
 
 ---
 
-<!-- slide-id: S246; source: new -->
+<!-- slide-id: S238; source: new -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://research.google/pubs/b4-experience-with-a-globally-deployed-software-defined-wan/\">Google B4: design and results</a></span>" -->
 
@@ -7461,7 +7221,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S247; source: new -->
+<!-- slide-id: S239; source: new -->
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9600-series-switches/220491-understand-output-drops-on-high-speed-in.html\">Cisco: bursts and output drops</a></span>" -->
 
@@ -7490,7 +7250,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S248; source: 271 -->
+<!-- slide-id: S240; source: 271 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7520,7 +7280,7 @@ For Lagoon → ReefNet, inspect **Egress discards** on Lagoon Transit.
 
 ---
 
-<!-- slide-id: S249; source: 92 -->
+<!-- slide-id: S241; source: 92 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7559,7 +7319,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S250; source: 272 -->
+<!-- slide-id: S242; source: 272 -->
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7569,13 +7329,11 @@ At 75 Mbit/s with 1,200-byte UDP datagrams:
 
 **75,000,000 / (1,200 × 8) ≈ 7,800 packets/s**
 
-SR Linux container limit: **10,000 packets/s**.
-The **50 Mbit/s transit link** should limit first. Check host load and drops.
+**7,800 packets/s < 10,000 packets/s** container limit.
+The **50 Mbit/s transit link** should limit first.
 
-The cap uses a **Linux egress queue** on Lagoon Transit.
-Inspect Linux queue drops in **Telemetry Health** for diagnosis.
-They can match SR Linux discards. **Do not add the counters.**
-A **5-minute increase** can plateau during steady loss.
+Linux queue drops can mirror SR Linux discards. **Do not add the counters.**
+Use **Telemetry Health** to distinguish them.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -7602,7 +7360,7 @@ The planned **50 Mbit/s transit handoff** should limit first. Confirm this from 
 
 ---
 
-<!-- slide-id: S251; source: 192 -->
+<!-- slide-id: S243; source: 192 -->
 <!-- _class: task lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/querying/functions/#rate\">Prometheus: counter rates</a></span>" -->
 
@@ -7636,7 +7394,7 @@ Teaching note: For an otherwise idle, reset-free 30-second interval containing t
 
 ---
 
-<!-- slide-id: S252; source: 283 -->
+<!-- slide-id: S244; source: 283 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7666,7 +7424,7 @@ Correlate the evidence before opening four incidents.
 
 ---
 
-<!-- slide-id: S253; source: 279 -->
+<!-- slide-id: S245; source: 279 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7702,7 +7460,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S254; source: 281 -->
+<!-- slide-id: S246; source: 281 -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/\">Prometheus: alerting rules</a></span>" -->
 
@@ -7738,7 +7496,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S255; source: NEW -->
+<!-- slide-id: S247; source: NEW -->
 <!-- _class: content lab -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/querying/basics/#staleness\">Prometheus: staleness</a></span>" -->
 
@@ -7784,7 +7542,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S256; source: 282 -->
+<!-- slide-id: S248; source: 282 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/alerting/latest/alertmanager/\">Alertmanager documentation</a></span>" -->
 
@@ -7798,7 +7556,7 @@ Source references (not projected):
 | Inhibition | Mute notifications while a related alert fires |
 | Grouping | Combine related notifications |
 
-A firing delay reduces noise but can hide short outages.
+A firing delay can prevent short-lived conditions from becoming alerts.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -7814,7 +7572,7 @@ Presenter reference — expanded explanation from the previous version:
 | Inhibition | Suppress notifications covered by another alert |
 | Grouping | Combine related alerts |
 
-A firing delay can hide short outages. Page the on-call engineer or create a ticket?
+A firing delay can suppress short-lived alerts. Page the on-call engineer or create a ticket?
 -->
 
 <!--
@@ -7830,7 +7588,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S257; source: 288 -->
+<!-- slide-id: S249; source: 288 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7854,7 +7612,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S258; source: 286 -->
+<!-- slide-id: S250; source: 286 -->
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Monitoring / Observability</span><span class=\"footer-refs\"><a href=\"https://sre.google/sre-book/service-level-objectives/\">Google SRE: service objectives</a></span>" -->
 
@@ -7883,7 +7641,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S259; source: 287 -->
+<!-- slide-id: S251; source: 287 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7916,7 +7674,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S260; source: 285 -->
+<!-- slide-id: S252; source: 285 -->
 <!-- _class: visual core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7951,7 +7709,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S261; source: 289 -->
+<!-- slide-id: S253; source: 289 -->
 <!-- _class: task core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -7977,7 +7735,7 @@ Explain why that observation distinguishes the leading hypotheses.
 
 ---
 
-<!-- slide-id: S262; source: 304 -->
+<!-- slide-id: S254; source: 304 -->
 <!-- _class: task core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -8018,7 +7776,7 @@ Sketch the **smallest** design that passes these checks.
 
 ---
 
-<!-- slide-id: S263; source: 308 -->
+<!-- slide-id: S255; source: 308 -->
 <!-- _class: content lab -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Monitoring / Observability" -->
 
@@ -8045,7 +7803,7 @@ make down
 
 ---
 
-<!-- slide-id: S264; source: 309 -->
+<!-- slide-id: S256; source: 309 -->
 <!-- _class: day research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8065,13 +7823,12 @@ Now we turn that into a question we can actually test.
 
 ---
 
-<!-- slide-id: S265; source: 291 -->
+<!-- slide-id: S257; source: 291 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
 # Leave with a testable research brief
 
-Today we work from one observation to a study we can carry out.
 
 1. State a question that a comparison can answer.
 2. Find prior work and evidence that fit the question.
@@ -8085,7 +7842,7 @@ Our running example: **short outages missed between probes**.
 
 ---
 
-<!-- slide-id: S266; source: 310 -->
+<!-- slide-id: S258; source: 310 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8110,7 +7867,7 @@ Observation: short failures escape our polling schedule.
 
 ---
 
-<!-- slide-id: S267; source: 317 -->
+<!-- slide-id: S259; source: 317 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8131,7 +7888,7 @@ The comparison must allow your preferred method to lose.
 
 ---
 
-<!-- slide-id: S268; source: 312 -->
+<!-- slide-id: S260; source: 312 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8149,7 +7906,7 @@ Your contribution is the finding this evidence supports.
 
 ---
 
-<!-- slide-id: S269; source: 315 -->
+<!-- slide-id: S261; source: 315 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8172,7 +7929,7 @@ Every paper needs a question, evidence and a limited claim.
 
 ---
 
-<!-- slide-id: S270; source: 325 -->
+<!-- slide-id: S262; source: 325 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8194,7 +7951,7 @@ Two minutes:
 
 ---
 
-<!-- slide-id: S271; source: 326 -->
+<!-- slide-id: S263; source: 326 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8216,7 +7973,7 @@ If the measurement cannot test the claim, change the claim or the experiment.
 
 ---
 
-<!-- slide-id: S272; source: 302 -->
+<!-- slide-id: S264; source: 302 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8239,7 +7996,7 @@ Injecting a fault is not enough. The comparison still has to be controlled.
 
 ---
 
-<!-- slide-id: S273; source: 318 -->
+<!-- slide-id: S265; source: 318 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8261,7 +8018,7 @@ Your contribution changes one justified assumption or tests a new boundary.
 
 ---
 
-<!-- slide-id: S274; source: 321 -->
+<!-- slide-id: S266; source: 321 -->
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://svr-sk818-web.cl.cam.ac.uk/keshav/papers/07/paper-reading.pdf\">Keshav: How to Read a Paper</a></span>" -->
 
@@ -8291,7 +8048,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S275; source: 313 -->
+<!-- slide-id: S267; source: 313 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8321,7 +8078,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S276; source: 333 -->
+<!-- slide-id: S268; source: 333 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8344,7 +8101,7 @@ For RFCs: check status, updates, errata and normative language.
 
 ---
 
-<!-- slide-id: S277; source: 335 -->
+<!-- slide-id: S269; source: 335 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8362,7 +8119,7 @@ Match the sentence to the evidence in the source, not merely to its topic.
 
 ---
 
-<!-- slide-id: S278; source: 337 -->
+<!-- slide-id: S270; source: 337 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8384,7 +8141,7 @@ Use quotation marks for copied wording, even with a citation.
 
 ---
 
-<!-- slide-id: S279; source: 339 -->
+<!-- slide-id: S271; source: 339 -->
 <!-- _class: statement research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8400,7 +8157,7 @@ Read the result. Then check the claim.
 
 ---
 
-<!-- slide-id: S280; source: 341 -->
+<!-- slide-id: S272; source: 341 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8424,7 +8181,7 @@ Citation does not replace reuse permission.
 
 ---
 
-<!-- slide-id: S281; source: 292 -->
+<!-- slide-id: S273; source: 292 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8443,7 +8200,7 @@ Their coverage and resolution must fit the claim.
 
 ---
 
-<!-- slide-id: S282; source: 298 -->
+<!-- slide-id: S274; source: 298 -->
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://atlas.ripe.net/\">RIPE Atlas</a><a href=\"https://stat.ripe.net/\">RIPEstat</a></span>" -->
 
@@ -8479,7 +8236,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S283; source: 293 -->
+<!-- slide-id: S275; source: 293 -->
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7854.html\">BMP: RFC 7854</a></span>" -->
 
@@ -8515,7 +8272,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S284; source: 300 -->
+<!-- slide-id: S276; source: 300 -->
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://stat.ripe.net/docs/data-api/api-endpoints/routing-history\">RIPEstat: routing history</a></span>" -->
 
@@ -8551,7 +8308,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S285; source: 301 -->
+<!-- slide-id: S277; source: 301 -->
 <!-- _class: task research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://stat.ripe.net/docs/data-api/api-endpoints/routing-history\">RIPEstat: routing history</a></span>" -->
 
@@ -8590,7 +8347,7 @@ ends after the requested end time. Read query_starttime, query_endtime and
 time_granularity in the saved response before treating boundaries as exact event times.
 The first record is only an illustration, not a representative sample of all routes. -->
 
-<!-- slide-id: S286; source: 299 -->
+<!-- slide-id: S278; source: 299 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8613,7 +8370,7 @@ Save them with the conclusion.
 
 ---
 
-<!-- slide-id: S287; source: 327 -->
+<!-- slide-id: S279; source: 327 -->
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · questions and sources</span><span class=\"footer-refs\"><a href=\"https://atlas.ripe.net/assets/legal/RIPEAtlasServiceTermsandConditionsV3.4.pdf\">RIPE Atlas: measurement terms</a></span>" -->
 
@@ -8642,7 +8399,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S288; source: 343 -->
+<!-- slide-id: S280; source: 343 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8667,7 +8424,7 @@ If you cannot classify it, check whether it belongs.
 
 ---
 
-<!-- slide-id: S289; source: 329 -->
+<!-- slide-id: S281; source: 329 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8692,7 +8449,7 @@ Work in progress is welcome. **No extra graded reports.**
 
 ---
 
-<!-- slide-id: S290; source: 330 -->
+<!-- slide-id: S282; source: 330 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · questions and sources" -->
 
@@ -8715,7 +8472,7 @@ Bring the baseline, data access and open questions.
 
 ---
 
-<!-- slide-id: S291; source: 345 -->
+<!-- slide-id: S283; source: 345 -->
 <!-- _class: day research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8733,7 +8490,7 @@ Now the sampling question becomes a controlled comparison.
 
 ---
 
-<!-- slide-id: S292; source: 347 -->
+<!-- slide-id: S284; source: 347 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8755,7 +8512,7 @@ Ten samples from one run are not ten independent experiments.
 
 ---
 
-<!-- slide-id: S293; source: 349 -->
+<!-- slide-id: S285; source: 349 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8796,7 +8553,7 @@ Save the schedule seed. This fixed-count random schedule is not a Poisson proces
 
 ---
 
-<!-- slide-id: S294; source: 351 -->
+<!-- slide-id: S286; source: 351 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8820,7 +8577,7 @@ Two identical diagrams can conceal different experiments.
 
 ---
 
-<!-- slide-id: S295; source: 360 -->
+<!-- slide-id: S287; source: 360 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8846,7 +8603,7 @@ State which conclusion depends on virtualization.
 
 ---
 
-<!-- slide-id: S296; source: 350 -->
+<!-- slide-id: S288; source: 350 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8875,7 +8632,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S297; source: 358 -->
+<!-- slide-id: S289; source: 358 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8900,7 +8657,7 @@ Which observation would contradict your diagnosis?
 
 ---
 
-<!-- slide-id: S298; source: 359 -->
+<!-- slide-id: S290; source: 359 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8928,7 +8685,7 @@ Do not call it a routing failure without independent routing evidence.
 
 ---
 
-<!-- slide-id: S299; source: 362 -->
+<!-- slide-id: S291; source: 362 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8951,7 +8708,7 @@ Pairing does not remove clock error or unequal host load.
 
 ---
 
-<!-- slide-id: S300; source: 368 -->
+<!-- slide-id: S292; source: 368 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8973,7 +8730,7 @@ Cold caches and convergence are real. Excluding them changes the experiment.
 
 ---
 
-<!-- slide-id: S301; source: 371 -->
+<!-- slide-id: S293; source: 371 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -8996,7 +8753,7 @@ Choose these categories before looking at which method wins.
 
 ---
 
-<!-- slide-id: S302; source: 353 -->
+<!-- slide-id: S294; source: 353 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9017,7 +8774,7 @@ Config-change time is not traffic-failure time.
 
 ---
 
-<!-- slide-id: S303; source: 355 -->
+<!-- slide-id: S295; source: 355 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9037,7 +8794,7 @@ A failed reset invalidates the comparison. Record it as a failed run.
 
 ---
 
-<!-- slide-id: S304; source: 356 -->
+<!-- slide-id: S296; source: 356 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9065,7 +8822,7 @@ Count misses separately from delay among detected faults.
 
 ---
 
-<!-- slide-id: S305; source: 357 -->
+<!-- slide-id: S297; source: 357 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9089,7 +8846,7 @@ A real experiment must also account for request duration and scheduling.
 
 ---
 
-<!-- slide-id: S306; source: 365 -->
+<!-- slide-id: S298; source: 365 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9114,7 +8871,7 @@ Choose a summary. State what five pairs cannot establish.
 
 ---
 
-<!-- slide-id: S307; source: 366 -->
+<!-- slide-id: S299; source: 366 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9140,13 +8897,11 @@ Small sample. This only illustrates the calculation.
 
 ---
 
-<!-- slide-id: S308; source: 367 -->
+<!-- slide-id: S300; source: 367 -->
 <!-- _class: statement research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
-# Five pairs. Plenty of confidence.
-
-Exact arithmetic. Still a small sample.
+# Five pairs are still a small sample.
 
 
 
@@ -9156,7 +8911,7 @@ Exact arithmetic. Still a small sample.
 
 ---
 
-<!-- slide-id: S309; source: 369 -->
+<!-- slide-id: S301; source: 369 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9180,7 +8935,7 @@ They do not fix a bad clock or an unfair comparison.
 
 ---
 
-<!-- slide-id: S310; source: 372 -->
+<!-- slide-id: S302; source: 372 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9203,7 +8958,7 @@ Reproducibility does not remove bias.
 
 ---
 
-<!-- slide-id: S311; source: 373 -->
+<!-- slide-id: S303; source: 373 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · experimental design" -->
 
@@ -9229,7 +8984,7 @@ Four minutes:
 
 ---
 
-<!-- slide-id: S312; source: 374 -->
+<!-- slide-id: S304; source: 374 -->
 <!-- _class: day research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9249,7 +9004,7 @@ The graph is not the result. Check the evidence behind it.
 
 ---
 
-<!-- slide-id: S313; source: 376 -->
+<!-- slide-id: S305; source: 376 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9271,7 +9026,7 @@ A detector does not get faster by deleting its misses.
 
 ---
 
-<!-- slide-id: S314; source: 378 -->
+<!-- slide-id: S306; source: 378 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9289,7 +9044,7 @@ Choose a number from your draft. Can another team reproduce it?
 
 ---
 
-<!-- slide-id: S315; source: 379 -->
+<!-- slide-id: S307; source: 379 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9330,7 +9085,7 @@ Pair runs by condition ID, not row position.
 
 ---
 
-<!-- slide-id: S316; source: 389 -->
+<!-- slide-id: S308; source: 389 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9353,7 +9108,7 @@ Dropping timeouts can make a broken service look fast.
 
 ---
 
-<!-- slide-id: S317; source: 390 -->
+<!-- slide-id: S309; source: 390 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9373,7 +9128,7 @@ Compare the same detected events before claiming that B is faster.
 
 ---
 
-<!-- slide-id: S318; source: 381 -->
+<!-- slide-id: S310; source: 381 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9391,7 +9146,7 @@ Return to the five synthetic pairs from **13 November**, methods A and B.
 
 ---
 
-<!-- slide-id: S319; source: 383 -->
+<!-- slide-id: S311; source: 383 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9416,7 +9171,7 @@ Five pairs illustrate a calculation, not a population result.
 
 ---
 
-<!-- slide-id: S320; source: 385 -->
+<!-- slide-id: S312; source: 385 -->
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049 · Hochschule Fulda · Research · analysis and argument</span><span class=\"footer-refs\"><a href=\"https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm\">NIST: confidence limits</a></span>" -->
 
@@ -9444,7 +9199,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S321; source: 384 -->
+<!-- slide-id: S313; source: 384 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9472,7 +9227,7 @@ Resample whole runs or justified blocks; do not assume every point is independen
 
 ---
 
-<!-- slide-id: S322; source: 386 -->
+<!-- slide-id: S314; source: 386 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9494,7 +9249,7 @@ This is a property of the procedure, not a score for one interval.
 
 ---
 
-<!-- slide-id: S323; source: 391 -->
+<!-- slide-id: S315; source: 391 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9512,7 +9267,7 @@ Which observation or intervention could distinguish these explanations?
 
 ---
 
-<!-- slide-id: S324; source: 392 -->
+<!-- slide-id: S316; source: 392 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9534,7 +9289,7 @@ A delay reduction is not a measured throughput gain.
 
 ---
 
-<!-- slide-id: S325; source: 393 -->
+<!-- slide-id: S317; source: 393 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9558,7 +9313,7 @@ Keep the result, including when your preferred method loses.
 
 ---
 
-<!-- slide-id: S326; source: 394 -->
+<!-- slide-id: S318; source: 394 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9584,7 +9339,7 @@ Bring sample counts, units, uncertainty and plotting code.
 
 ---
 
-<!-- slide-id: S327; source: 398 -->
+<!-- slide-id: S319; source: 398 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9608,7 +9363,7 @@ summary, method, strength/limitation, feasible revision.
 
 ---
 
-<!-- slide-id: S328; source: 399 -->
+<!-- slide-id: S320; source: 399 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9634,7 +9389,7 @@ What is supported, confounded or omitted?
 
 ---
 
-<!-- slide-id: S329; source: 400 -->
+<!-- slide-id: S321; source: 400 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9657,7 +9412,7 @@ Explain how each revision makes the conclusion more defensible.
 
 ---
 
-<!-- slide-id: S330; source: 401 -->
+<!-- slide-id: S322; source: 401 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · analysis and argument" -->
 
@@ -9680,7 +9435,7 @@ We discuss what I can still adjust.
 
 ---
 
-<!-- slide-id: S331; source: 402 -->
+<!-- slide-id: S323; source: 402 -->
 <!-- _class: day research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9700,7 +9455,7 @@ What evidence would justify acting on the prediction?
 
 ---
 
-<!-- slide-id: S332; source: 403 -->
+<!-- slide-id: S324; source: 403 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9739,7 +9494,7 @@ A sophisticated model must beat the baseline where it matters.
 
 ---
 
-<!-- slide-id: S333; source: 404 -->
+<!-- slide-id: S325; source: 404 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9769,7 +9524,7 @@ Adjacent network samples share history; random splits can leak it.
 
 ---
 
-<!-- slide-id: S334; source: 407 -->
+<!-- slide-id: S326; source: 407 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9794,7 +9549,7 @@ Decide when to retrain, fall back, or stop automated action.
 
 ---
 
-<!-- slide-id: S335; source: 408 -->
+<!-- slide-id: S327; source: 408 -->
 <!-- _class: figure research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9822,7 +9577,7 @@ Both methods use the same test slots. Shaded windows are excluded.
 
 ---
 
-<!-- slide-id: S336; source: 409 -->
+<!-- slide-id: S328; source: 409 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9848,7 +9603,7 @@ Zero false alarms can hide a model that never warns.
 
 ---
 
-<!-- slide-id: S337; source: 414 -->
+<!-- slide-id: S329; source: 414 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9876,7 +9631,7 @@ Would policy and traffic behavior allow that move?
 
 ---
 
-<!-- slide-id: S338; source: 416 -->
+<!-- slide-id: S330; source: 416 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9906,7 +9661,7 @@ Old measurements can make a controller chase yesterday's state.
 
 ---
 
-<!-- slide-id: S339; source: 417 -->
+<!-- slide-id: S331; source: 417 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9932,7 +9687,7 @@ The same limits apply to rules, optimizers and LLMs.
 
 ---
 
-<!-- slide-id: S340; source: 419 -->
+<!-- slide-id: S332; source: 419 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9954,7 +9709,7 @@ Score the network state, not the confidence of the explanation.
 
 ---
 
-<!-- slide-id: S341; source: 420 -->
+<!-- slide-id: S333; source: 420 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -9974,7 +9729,7 @@ The verifier checks independently. Where do we enforce the one-device limit?
 
 ---
 
-<!-- slide-id: S342; source: 421 -->
+<!-- slide-id: S334; source: 421 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10004,7 +9759,7 @@ What should happen if the agent supplies another device or group?
 
 ---
 
-<!-- slide-id: S343; source: 422 -->
+<!-- slide-id: S335; source: 422 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10031,7 +9786,7 @@ Which observation must remain independent of the agent's answer?
 
 ---
 
-<!-- slide-id: S344; source: 423 -->
+<!-- slide-id: S336; source: 423 -->
 <!-- _class: statement research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10047,7 +9802,7 @@ Recovery is still unproven.
 
 ---
 
-<!-- slide-id: S345; source: 425 -->
+<!-- slide-id: S337; source: 425 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10070,7 +9825,7 @@ Test stale state, uncertain writes and incorrect ticket assumptions.
 
 ---
 
-<!-- slide-id: S346; source: 426 -->
+<!-- slide-id: S338; source: 426 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10097,7 +9852,7 @@ Source references (not projected):
 
 ---
 
-<!-- slide-id: S347; source: 428 -->
+<!-- slide-id: S339; source: 428 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Research · forecasts and agents" -->
 
@@ -10116,7 +9871,7 @@ What must we know about overlap and unintended changes?
 
 ---
 
-<!-- slide-id: S348; source: 429 -->
+<!-- slide-id: S340; source: 429 -->
 <!-- _class: day research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10137,7 +9892,7 @@ Hand in today. The reviewed team receives a copy immediately.
 
 ---
 
-<!-- slide-id: S349; source: 431 -->
+<!-- slide-id: S341; source: 431 -->
 <!-- _class: visual research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10158,7 +9913,7 @@ The reviewed team receives its copy **during this session**.
 
 ---
 
-<!-- slide-id: S350; source: 434 -->
+<!-- slide-id: S342; source: 434 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10181,7 +9936,7 @@ Apply the same criteria we announced in October.
 
 ---
 
-<!-- slide-id: S351; source: 432 -->
+<!-- slide-id: S343; source: 432 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10203,7 +9958,7 @@ What can the authors claim? Which result would you ask them to add?
 
 ---
 
-<!-- slide-id: S352; source: 438 -->
+<!-- slide-id: S344; source: 438 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10228,7 +9983,7 @@ Write one review sentence. Name the hidden condition and ask for context.
 
 ---
 
-<!-- slide-id: S353; source: 442 -->
+<!-- slide-id: S345; source: 442 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10250,7 +10005,7 @@ A useful review explains how the issue affects the conclusion.
 
 ---
 
-<!-- slide-id: S354; source: 440 -->
+<!-- slide-id: S346; source: 440 -->
 <!-- _class: task research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10279,7 +10034,7 @@ Name one experiment needed for a broader claim.
 
 ---
 
-<!-- slide-id: S355; source: 437 -->
+<!-- slide-id: S347; source: 437 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10297,29 +10052,7 @@ Explain how each issue affects the conclusion.
 
 ---
 
-<!-- slide-id: S356; source: NEW -->
-<!-- _class: content research -->
-<!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
-
-# Before handing in the review
-
-Write **one legible page**, in German or English.
-Include your name and the reviewed paper.
-
-Hand it to the instructor on **22 January 2027, before leaving**.
-
-The instructor keeps the original and makes a copy.
-The reviewed team gets its copy **during this session**.
-
-
-
-
-
-
-
----
-
-<!-- slide-id: S357; source: 443 -->
+<!-- slide-id: S348; source: 443 -->
 <!-- _class: content research -->
 <!-- _footer: "AI5049 · Hochschule Fulda · In-class peer review" -->
 
@@ -10343,7 +10076,7 @@ If you disagree, explain why and point to the relevant result.
 
 ---
 
-<!-- slide-id: S358; source: 445 -->
+<!-- slide-id: S349; source: 445 -->
 <!-- _class: day core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10361,7 +10094,7 @@ Show the result. Defend the choices. Let someone else reproduce the evidence.
 
 ---
 
-<!-- slide-id: S359; source: 447 -->
+<!-- slide-id: S350; source: 447 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10388,7 +10121,7 @@ The presentation itself has no grade weight. Use it as the last technical check.
 
 ---
 
-<!-- slide-id: S360; source: 448 -->
+<!-- slide-id: S351; source: 448 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10414,7 +10147,7 @@ Can they find:
 
 ---
 
-<!-- slide-id: S361; source: 449 -->
+<!-- slide-id: S352; source: 449 -->
 <!-- _class: task core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10437,7 +10170,7 @@ Give concrete replacements, including how they would recognize success.
 
 ---
 
-<!-- slide-id: S362; source: 450 -->
+<!-- slide-id: S353; source: 450 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10462,7 +10195,7 @@ Check the exported PDF at its final page size.
 
 ---
 
-<!-- slide-id: S363; source: 451 -->
+<!-- slide-id: S354; source: 451 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10487,7 +10220,7 @@ Paper and artifact must describe the same study.
 
 ---
 
-<!-- slide-id: S364; source: 452 -->
+<!-- slide-id: S355; source: 452 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10498,7 +10231,6 @@ Paper and artifact must describe the same study.
 - **Declaration:** individual contributions are complete
 - **AI use:** disclosure is present where required
 
-Test the links and files before **12 February 2027, 23:59**.
 
 
 
@@ -10508,7 +10240,7 @@ Test the links and files before **12 February 2027, 23:59**.
 
 ---
 
-<!-- slide-id: S365; source: new -->
+<!-- slide-id: S356; source: new -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 
@@ -10527,7 +10259,7 @@ and checks of formatting and rendered output.
 
 ---
 
-<!-- slide-id: S366; source: 453 -->
+<!-- slide-id: S357; source: 453 -->
 <!-- _class: content core -->
 <!-- _footer: "AI5049 · Hochschule Fulda · Project · presentation and handover" -->
 

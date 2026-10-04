@@ -5,7 +5,7 @@ GUIDE_SCENARIO = $(or $(SCENARIO),$(shell cat .scenario 2>/dev/null || echo netw
 .PHONY: help setup doctor pull networking operations automation monitoring reset enter \
         inspect status next hint solution test healthy fault-routing clear-routing fault-link clear-link \
         traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-diagnostics traffic-burst-40mbit traffic-stop \
-        netbox-token netbox-reset diagnostics course-check down clean ui
+        netbox-token netbox-reset diagnostics course-check down clean ui slides check
 
 help:
 	@bash scripts/help.sh
@@ -92,6 +92,8 @@ down:
 clean:
 	bash scripts/clean.sh
 
-.PHONY: check
+slides:
+	./scripts/export-slides.sh all
+
 check:
 	python3 scripts/check-source.py
