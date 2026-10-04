@@ -24,4 +24,5 @@ for path in sorted(ROOT.glob("*.md")):
 subprocess.run(["python3", str(ROOT / "scripts/check-model-consistency.py")], check=True)
 subprocess.run(["python3", str(ROOT / "scripts/test-qdisc-exporter.py")], check=True)
 subprocess.run(["python3", str(ROOT / "scripts/test-observability.py")], check=True)
+subprocess.run(["python3", str(ROOT / "scripts/test-guides.py")], check=True)
 print("Source checks passed: shell, Python, JSON, documentation links and BOB1 model")

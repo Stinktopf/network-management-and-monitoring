@@ -33,6 +33,10 @@ step 'Operator SSH config · FQDN access'
 cmd docker exec clab-ai5049-ops01 sh -c 'test "$(stat -c %U:%a /root/.ssh/config)" = root:600'
 cmd docker exec clab-ai5049-ops01 sh -c "grep -qx '172.20.20.11 edge01.bob1.reefnet.test' /etc/hosts && ssh -G edge01.bob1.reefnet.test 2>/dev/null | grep -qx 'user admin'"
 ui_ok 'SSH config is root-owned and resolves router FQDNs'
+for router in edge01.bob1.reefnet.test edge02.bob1.reefnet.test edge01.bob1.oceanresearch.test edge01.bob1.lagoontransit.test edge01.bob1.pacifictransit.test; do
+  cmd docker exec clab-ai5049-ops01 getent hosts "$router"
+done
+ui_ok 'All router management names resolve on the operator workstation'
 step 'gNMI read · edge01.bob1.reefnet.test'
 cmd docker exec clab-ai5049-ops01 gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --path '/interface[name=ethernet-1/1]/admin-state' --path '/interface[name=ethernet-1/1]/oper-state'
 ui_ok 'gNMI admin and oper state reads work'

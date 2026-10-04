@@ -63,9 +63,13 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 | Command | Starting point |
 |---|---|
 | `make networking` | Healthy baseline |
-| `make operations` | IPv4 export-policy incident |
+| `make operations` | Service incident for guided diagnosis |
 | `make automation` | Same routing fault, ready for the automation exercise |
 | `make monitoring` | Healthy network with telemetry and traffic |
+
+`make next` gives a short task and starting point. `make hint` supplies commands and questions to explore. Select a step with `STEP=2`. `make solution` shows the full investigation, expected results, repair and verification. These commands only display instructions in the WSL terminal.
+
+Work through the first checks together, then let students choose their next checks. [Teaching notes](INSTRUCTOR.md) cover all four labs. For offline preparation: `make solution SCENARIO=operations`.
 
 ## Access
 
@@ -91,7 +95,7 @@ make enter NODE=edge01.bob1.reefnet.test
 
 Leave Linux shells with `exit`, router CLIs with `quit`.
 
-From the operations node:
+Router management names and SSH are available from the operations node. If you are on a probe, run `exit`, then `make enter NODE=operations01.bob1.reefnet.test` in WSL. From that node:
 
 ```bash
 ssh edge01.bob1.reefnet.test
@@ -105,7 +109,7 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
   get --path '/interface[name=ethernet-1/1]/oper-state'
 ```
 
-The customer service is `data.oceanresearch.test`. Inside the lab, NetBox is reachable at `netbox.bob1.reefnet.test`. Device names, addresses and links are defined in [`tools/bob1_model.json`](tools/bob1_model.json).
+The customer DNS at `198.51.100.10` serves `data.oceanresearch.test`, not router management names. It can time out when the customer path fails. From the operations node, NetBox is reachable at `netbox.bob1.reefnet.test`. Device names, addresses and links are defined in [`tools/bob1_model.json`](tools/bob1_model.json).
 
 ## Faults
 
@@ -164,7 +168,7 @@ After updating the lab, run `make monitoring` to rebuild the scenario.
 | `make test` | Probe customer IPv4/IPv6 reachability from both upstreams |
 | `make course-check` | Repeat all scenario and workflow checks |
 | `make check` | Check source, documentation and network model without Docker |
-| `make next` | Show next steps for the current scenario |
+| `make next`, `make hint`, `make solution` | Scenario tasks, clues and worked answers |
 | `make help` | List commands |
 
 After `make clean`, run `make setup` again.

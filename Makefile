@@ -1,8 +1,9 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
+GUIDE_SCENARIO = $(or $(SCENARIO),$(shell cat .scenario 2>/dev/null || echo networking))
 
 .PHONY: help setup doctor pull networking operations automation monitoring reset enter \
-        inspect status next test healthy fault-routing clear-routing fault-link clear-link \
+        inspect status next hint solution test healthy fault-routing clear-routing fault-link clear-link \
         traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-diagnostics traffic-burst-40mbit traffic-stop \
         netbox-token netbox-reset diagnostics course-check down clean ui
 
@@ -37,7 +38,11 @@ inspect:
 status:
 	bash scripts/status.sh
 next:
-	@scenario="$$(cat .scenario 2>/dev/null || echo networking)"; bash scripts/next-steps.sh "$$scenario"
+	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(STEP)" task
+hint:
+	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(STEP)" hint
+solution:
+	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(or $(STEP),all)" solution
 test:
 	bash scripts/test.sh
 healthy:

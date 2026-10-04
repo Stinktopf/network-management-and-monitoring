@@ -63,4 +63,6 @@ if [[ "$mode" == srl ]]; then
   exec docker exec -it "$container" bash -lc \
     "su -s /bin/bash admin -c '/opt/srlinux/bin/sr_cli'"
 fi
+# Refresh the greeting even when the running lab uses an older tools image.
+docker cp "$(dirname "$0")/../tools/welcome.sh" "$container:/etc/profile.d/ai5049.sh" >/dev/null
 exec docker exec -it "$container" bash -l

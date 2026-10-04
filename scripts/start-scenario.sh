@@ -8,6 +8,7 @@ case "$scenario" in networking|operations|automation|monitoring) ;; *) ui_fail "
 
 mkdir -p .state
 : > .state/last-startup.log
+: > .state/scenario-preparation.log
 exec > >(tee -a .state/last-startup.log) 2>&1
 phase='initialization'
 elapsed() { echo "$(( $(date +%s) - $1 ))"; }
@@ -85,7 +86,10 @@ t=$(date +%s)
 ui_section "Scenario · $scenario"
 case "$scenario" in
   networking) ui_info 'Healthy baseline · no fault injection' ;;
-  operations|automation) ui_info 'Injecting the reusable routing-policy fault for this scenario'; bash scripts/fault-routing.sh ;;
+  operations|automation)
+    ui_info 'Preparing the incident exercise. Use make next to investigate.'
+    bash scripts/fault-routing.sh > .state/scenario-preparation.log 2>&1
+    ;;
   monitoring) ui_info 'Starting background traffic probe01.bob1.lagoontransit.test → service01.bob1.oceanresearch.test'; bash scripts/traffic.sh set 25M ;;
 esac
 ui_info 'Verifying expected scenario state and all classroom containers'
