@@ -6,7 +6,7 @@ Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 @@ hint
 Inside the probe:
-  ip -br addr                        # addresses and interface state
+  ip -br addr                       # addresses and interface state
   ip route                          # IPv4 gateway
   ip -6 route                       # IPv6 gateway
   ping -4 -c 3 -W 1 198.51.100.10
