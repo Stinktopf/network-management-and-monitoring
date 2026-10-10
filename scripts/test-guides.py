@@ -110,14 +110,14 @@ class Guides(unittest.TestCase):
                     ).stdout
                     self.assertEqual(re.sub(r"\x1b\[[0-9;]*m", "", colored), plain)
 
-    def test_welcome_matches_the_actual_node(self):
-        roles = {
-            "operations01.bob1.reefnet.test": "Operator workstation",
-            "probe01.bob1.lagoontransit.test": "External service probe",
-            "probe01.bob1.pacifictransit.test": "External service probe",
-            "service01.bob1.oceanresearch.test": "Customer service",
-        }
-        for node, role in roles.items():
+    def test_welcome_profile_does_not_repeat_terminal_context(self):
+        nodes = (
+            "operations01.bob1.reefnet.test",
+            "probe01.bob1.lagoontransit.test",
+            "probe01.bob1.pacifictransit.test",
+            "service01.bob1.oceanresearch.test",
+        )
+        for node in nodes:
             with self.subTest(node=node):
                 result = subprocess.run(
                     ["bash", "--noprofile", "--norc", "-ic",
@@ -127,12 +127,7 @@ class Guides(unittest.TestCase):
                     env=dict(os.environ, TEST_NODE=node),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertIn(f"AI5049 / {node}", result.stdout)
-                self.assertIn(role, result.stdout)
-                if node.startswith("probe"):
-                    self.assertNotIn("Operator workstation", result.stdout)
-                    self.assertNotIn("  ssh ", result.stdout)
-                    self.assertIn("exit", result.stdout)
+                self.assertEqual(result.stdout, "")
 
     def test_enter_distinguishes_shell_command_errors_from_docker_errors(self):
         with tempfile.TemporaryDirectory() as directory:

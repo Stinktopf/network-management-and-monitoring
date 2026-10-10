@@ -27,6 +27,7 @@ Inside the Lagoon probe:
   ip route
   ip -6 route
   ip route get 198.51.100.10
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
@@ -39,6 +40,7 @@ Inside the Pacific probe:
   ip route
   ip -6 route
   ip route get 198.51.100.10
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
@@ -68,8 +70,11 @@ In WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://data.oceanresearch.test/
-Read the DNS answer and HTTP response. Does name resolution prove HTTP works?
+  curl --fail --max-time 5 -6 http://data.oceanresearch.test/
+The server address selects DNS transport. A or AAAA selects the record type.
+Read the DNS answers and HTTP responses. Does name resolution prove HTTP works?
 Return with exit, then in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
@@ -85,6 +90,7 @@ Inside the probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://data.oceanresearch.test/
+  curl --fail --max-time 5 -6 http://data.oceanresearch.test/
   exit
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
@@ -129,6 +135,11 @@ Inside the router:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
 Read peer AS, state, active route and next hop. Use quit, then in WSL:
   make enter NODE=edge02.bob1.reefnet.test
+Repeat the four checks on Edge 02:
+  show network-instance default protocols bgp neighbor
+  show network-instance default protocols ospf neighbor
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
 Which entries change? Distinguish learning a prefix from reaching its next hop.
 Leave the router with quit.
 @@ investigation
@@ -178,7 +189,9 @@ Use quit, then in WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the service host:
   ip route
-  dig @127.0.0.1 data.oceanresearch.test A
+  ip -6 route
+  dig -4 @127.0.0.1 data.oceanresearch.test A
+  dig -6 @::1 data.oceanresearch.test AAAA
 Use exit, then make test in WSL. Can you explain both directions of an exchange?
 Keep the four results and your path map as the baseline.
 @@ investigation
@@ -197,7 +210,8 @@ Inside the service host:
   ip -br addr
   ip route
   ip -6 route
-  dig @127.0.0.1 data.oceanresearch.test A
+  dig -4 @127.0.0.1 data.oceanresearch.test A
+  dig -6 @::1 data.oceanresearch.test AAAA
   exit
 WSL repository:
   make test

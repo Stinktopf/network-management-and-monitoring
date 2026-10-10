@@ -1,6 +1,6 @@
 # Start here
 
-**In WSL:** choose an exercise. Each command starts it afresh.
+**WSL:** start an exercise. Each command resets its scenario.
 
 ```bash
 make networking      # follow a request
@@ -9,26 +9,26 @@ make automation      # repair through an API
 make monitoring      # measure traffic and loss
 ```
 
-**Help in WSL:** `make task`, `make hint STEP=2`, `make solution STEP=2`.
+**Help:** `make task`, `make hint STEP=2`, `make solution STEP=2`.
 
-Enter the Lagoon probe:
+**Lagoon probe** (replace `lagoontransit` with `pacifictransit` for Pacific):
 
 ```bash
 make enter NODE=probe01.bob1.lagoontransit.test
 ```
 
-For the other probe, replace `lagoontransit` with `pacifictransit`.
-Leave Linux with `exit`, a router CLI with `quit`.
-
 ## Inside a probe
 
 ```bash
 ip -br addr                              # my addresses
-ip route get 198.51.100.10               # gateway and source
+ip route get 198.51.100.10               # IPv4 gateway and source
+ip -6 route get 2001:db8:100::10         # IPv6 gateway and source
 dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
 ping -4 -c 3 -W 1 198.51.100.10          # IPv4 reachability
 ping -6 -c 3 -W 1 2001:db8:100::10       # IPv6 reachability
-curl --fail --max-time 5 http://data.oceanresearch.test/
+curl --fail --max-time 5 -4 http://data.oceanresearch.test/
+curl --fail --max-time 5 -6 http://data.oceanresearch.test/
 ```
 
 ---

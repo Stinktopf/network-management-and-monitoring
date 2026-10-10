@@ -38,7 +38,9 @@ for scenario in "${scenarios[@]}"; do
       docker exec clab-ai5049-ops01 sh -c 'test "$(stat -c %U:%a /root/.ssh/config)" = root:600'
       docker exec clab-ai5049-ops01 sh -c "grep -qx '172.20.20.11 edge01.bob1.reefnet.test' /etc/hosts && ssh -G edge01.bob1.reefnet.test 2>/dev/null | grep -qx 'user admin'"
       docker exec clab-ai5049-host01 sh -c 'dig +short data.oceanresearch.test A | grep -qx 198.51.100.10'
+      docker exec clab-ai5049-host01 sh -c 'dig @2001:db8:100::10 +short data.oceanresearch.test AAAA | grep -qx 2001:db8:100::10'
       docker exec clab-ai5049-host01 sh -c 'ip route get 198.51.100.10 >/dev/null'
+      docker exec clab-ai5049-host01 sh -c 'ip -6 route get 2001:db8:100::10 >/dev/null'
       ;;
     operations)
       phase='operations documented CLI repair'; ui_section 'Operations repair'

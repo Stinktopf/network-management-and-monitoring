@@ -9,11 +9,14 @@ In WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe, choose a check for each question:
   ip route get 198.51.100.10                        # chosen source and gateway
+  ip -6 route get 2001:db8:100::10                  # IPv6 path
   ping -4 -c 3 -W 1 198.51.100.10                   # reachability without DNS
   ping -6 -c 3 -W 1 2001:db8:100::10                # compare address families
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
 Compare the same destination from another source. Return with exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
+Repeat both route lookups, both pings and both DNS queries from the checks above.
 Which combinations work? Keep a working one as a control. DNS failure alone
 does not distinguish an unreachable server from a DNS problem.
 @@ investigation
@@ -28,6 +31,7 @@ Inside the Lagoon probe:
   hostname
   ip -br addr
   ip route get 198.51.100.10
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 203.0.113.1
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
@@ -40,10 +44,12 @@ WSL repository:
 Inside the Pacific probe:
   hostname
   ip route get 198.51.100.10
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 203.0.113.129
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   exit
 
 Inspect: selected gateway, dev and src in route get, packet loss in each ping,
@@ -59,9 +65,9 @@ Decision:
 The make test report is a matrix. Its process exit code is not a PASS verdict.
 @@ solution
 Expected initial evidence:
-  Source       Gateway ping   Customer IPv4   Customer IPv6   DNS over IPv4
-  Lagoon       PASS           FAIL            PASS            transport failure
-  Pacific      PASS           PASS            PASS            NOERROR / A answer
+  Source       Gateway ping   Customer IPv4   Customer IPv6   DNS A           DNS AAAA
+  Lagoon       PASS           FAIL            PASS            transport fail  NOERROR
+  Pacific      PASS           PASS            PASS            NOERROR         NOERROR
 Lagoon route get selects via 203.0.113.1 dev eth1 src 203.0.113.10.
 Pacific selects via 203.0.113.129 dev eth1 src 203.0.113.138.
 The IPv6 DNS request from Lagoon returns 2001:db8:100::10. The server is operating.
@@ -91,6 +97,13 @@ Login: admin / NokiaSrl1! (SSH selects admin.) Inside the router:
 Match descriptions, admin/oper state and peer addresses to your path. Compare
 both ends of a suspect link. An established session does not prove route export.
 Use quit to return to operations01, then exit to return to WSL.
+Check the Lagoon peer from WSL:
+  make enter NODE=edge01.bob1.lagoontransit.test
+Inside Lagoon Transit:
+  show interface brief
+  show network-instance default protocols bgp neighbor
+Compare the interface and BGP neighbor state with ReefNet Edge 01.
+Use quit to return to WSL.
 @@ investigation
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
@@ -191,7 +204,9 @@ WSL repository:
 Inside the service host:
   ip -br addr
   ip route
-  dig @127.0.0.1 data.oceanresearch.test A
+  ip -6 route
+  dig -4 @127.0.0.1 data.oceanresearch.test A
+  dig -6 @::1 data.oceanresearch.test AAAA
   exit
 @@ solution
 The customer advertises 198.51.100.0/24 to peer 192.0.2.1.
@@ -418,6 +433,7 @@ Inside the probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
 Use exit, then repeat these checks on the Pacific probe.
@@ -445,6 +461,7 @@ Inside the Lagoon probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
@@ -453,6 +470,8 @@ WSL repository:
 Inside the Pacific probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
@@ -469,7 +488,8 @@ observations and any remaining uncertainty. Note the before/after results.
 @@ solution
 The customer prefix appears in Edge 01's Lagoon advertisement and Lagoon installs
 an active route via 192.0.2.3 on ethernet-1/1.0. The four matrix cells all PASS.
-Lagoon DNS over IPv4 now returns NOERROR and A 198.51.100.10. BGP sessions remain up.
+Lagoon DNS returns A 198.51.100.10 over IPv4 and AAAA 2001:db8:100::10 over IPv6.
+BGP sessions remain up.
 If the first check occurs during convergence, repeat it after a few seconds and
 record when stable recovery was observed. Do not substitute a fixed delay for proof.
 Closure example:

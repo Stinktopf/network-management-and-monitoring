@@ -9,8 +9,8 @@ h2 { font-size: 13pt; margin: 0 0 2mm; }
 h3 { font-size: 10pt; margin: 3mm 0 1mm; }
 p { margin: 1.5mm 0; }
 code { font: 8.5pt/1.35 'Liberation Mono', Consolas, monospace; }
-pre { margin: 2mm 0; padding: 2mm 3mm; border-left: 2px solid #72bf44; background: #f3f5f2; white-space: pre-wrap; overflow-wrap: anywhere; }
-pre code { font-size: 8.5pt; }
+pre { margin: 1.5mm 0; padding: 1.5mm 3mm; border-left: 2px solid #72bf44; background: #f3f5f2; white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { font-size: 8.5pt; line-height: 1.2; }
 table { width: 100%; border-collapse: collapse; margin: 2mm 0; }
 th, td { text-align: left; border-bottom: 1px solid #dce2dc; padding: 1.5mm 2mm; }
 th { font-size: 9pt; }

@@ -177,6 +177,8 @@ For reachability and HTTP checks, in WSL:
 Inside the probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
 Use exit, then repeat on the Pacific probe.
@@ -205,6 +207,7 @@ Inside the Lagoon probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
@@ -213,6 +216,8 @@ WSL repository:
 Inside the Pacific probe:
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
@@ -225,7 +230,8 @@ control regressed, assess rollback. Close only after the independent checks agre
 @@ solution
 The after-group retains peer-as and AFI/SAFI configuration and has no export-policy
 override. The customer prefix crosses Edge 01's Lagoon export boundary and Lagoon
-installs it. All four ICMP controls pass and Lagoon DNS returns A 198.51.100.10.
+installs it. All four ICMP controls pass and Lagoon DNS returns A 198.51.100.10
+over IPv4 and AAAA 2001:db8:100::10 over IPv6.
 In your notes, explain the scoped deletion, effective inherited policy, route proof and external
 service recovery. An API success alone would not have met these closure criteria.
 

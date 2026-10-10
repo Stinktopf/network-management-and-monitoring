@@ -38,7 +38,7 @@ reset:
 
 enter:
 	@test -n "$(NODE)" || { echo 'usage: make enter NODE=<device-fqdn>'; exit 2; }
-	bash scripts/enter.sh "$(NODE)"
+	@bash scripts/enter.sh "$(NODE)"
 
 inspect:
 	containerlab inspect -t lab.clab.yml
