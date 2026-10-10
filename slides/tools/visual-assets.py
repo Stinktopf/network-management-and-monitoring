@@ -81,6 +81,20 @@ s+=device(100,116,'Host','host')+device(545,116,'Gateway')+device(970,116,'Remot
 s+=ln(160,103,483,103,True)+t(325,94,'198.51.100.10 → gateway',22)+ln(602,103,914,103,True)
 s+=circle(310,170,7,G,G)+ln(158,144,298,169,True)+t(313,209,'203.0.113.42: direct',22)
 save('local-remote',s,260)
+# One local delivery: the Ethernet frame contains the IP packet on both links.
+s=card(20,10,240,80,'PC A','192.168.1.10/24')
+s+=card(430,10,240,80,'Switch','Forwards by MAC')
+s+=card(840,10,240,80,'PC B','192.168.1.20/24')
+s+=ln(270,50,420,50,True)+ln(680,50,830,50,True)
+s+=rect(210,120,680,110,'white')+t(550,151,'Ethernet frame: MAC A → MAC B',25,weight=700)
+s+=rect(240,171,620,42)+t(550,199,'IP packet: 192.168.1.10 → 192.168.1.20',24)
+for x,title,detail in [
+ (185,'1  Route lookup','Same subnet → direct delivery'),
+ (550,'2  ARP if MAC is unknown','Broadcast request, unicast reply'),
+ (915,'3  Send the frame','Known MAC B → only B’s port'),
+]:
+ s+=t(x,276,title,24,weight=700)+t(x,310,detail,21)
+save('local-ip-ethernet',s,335,'Two hosts on one VLAN. ARP resolves the destination MAC. The switch forwards an Ethernet frame containing the IP packet.')
 s=rect(430,90,240,120,'white',M,10)+t(550,150,'Switch',29,weight=700).replace('<text ', '<text dominant-baseline="central" ')
 for x,y,lab in [(80,150,'A'),(1010,75,'B'),(1010,250,'C')]:
  s+=device(x,y,lab,'host')

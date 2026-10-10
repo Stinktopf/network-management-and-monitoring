@@ -517,9 +517,25 @@ Routers use the **destination address** to look up where to forward the packet.
 
 ![width:1040px](assets/diagrams/local-remote.svg)
 
-The route selects the **outgoing interface** and **next hop**.
+The host looks up the destination in its routing table to choose an **interface**.
+It sends directly to an **on-link destination**, otherwise via a **gateway**.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
+
+---
+
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Same subnet: what crosses the switch?
+
+![width:1040px](assets/diagrams/local-ip-ethernet.svg)
+
+**IP identifies the destination. Ethernet carries the packet across the local link.**
+
+Remote destination: use the **gateway’s MAC**, but keep the **remote destination IP**.
+
+<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
 
