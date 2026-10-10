@@ -5,6 +5,8 @@ First establish impact and identify one unambiguous management target in NetBox.
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
   TOKEN=$(cat /state/netbox-token)
   curl -fsS -H "Authorization: Bearer $TOKEN" 'http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test' |
@@ -45,10 +47,15 @@ Corroborate your suspected cause with live routing evidence before planning a wr
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
   gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp' --path '/routing-policy' |
     jq '.[].updates[].values[]'
-Follow attachments and matching actions, not just policy names.
+Follow neighbor -> peer-group -> export-policy -> routing-policy policy.
+The group policy overrides the instance policy. Without a group override, it
+inherits the instance policy. A neighbor override would take precedence.
+Follow the referenced prefix-set and accept/reject action, not just policy names.
 Return with exit. For independent route checks from WSL:
   make hint SCENARIO=operations STEP=4
 Which configuration observation explains the routing boundary you found?
@@ -96,14 +103,24 @@ Re-read the affected scope first. Stop if your earlier observations no longer ho
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
-  gnmic set --help
-Construct the exact path from the configuration you read. Choose the operation
-that changes only the proven cause. Re-read that scope with get --type config
-immediately before writing and inspect the Set response.
-A read followed by Set is not an atomic conditional transaction. Coordinate with
-other operators. What will you restore if a previously healthy control regresses?
-Use exit to return. The worked change is in make solution SCENARIO=automation STEP=3.
+Replace <group-name> with the group identified in step 2, without angle brackets.
+gNMI selects a list entry with [group-name=...]. Keep the quotes and square brackets:
+  GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=<group-name>]'
+Read the current group and note the original policy attachment:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path "$GROUP"
+If your diagnosis calls for removing its override, preview that deletion:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy" --dry-run
+--delete removes the attachment at this path, not the shared policy definition.
+--dry-run prints the request without sending it. It does not validate the path
+against the device. Check the target, group and final export-policy component.
+Only if the current state and request match your diagnosis, repeat the Set command
+without --dry-run. That applies the change immediately, with no separate commit.
+Inspect the Set response, then verify configuration, routes and service in step 4.
+Coordinate with other operators: Get followed by Set is not an atomic condition.
+Use exit to return. The exact change and rollback are in make solution SCENARIO=automation STEP=3.
 @@ investigation
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test

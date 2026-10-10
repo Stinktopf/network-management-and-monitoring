@@ -98,7 +98,9 @@ Explain whether Linux queue drops and SR Linux discards can be added together.
 Start in WSL:
   make traffic-diagnostics
 @@ hint
-Keep the offered load fixed during the two diagnostic snapshots.
+In WSL:
+  make traffic-diagnostics
+Keep the offered load fixed during its two diagnostic snapshots.
 Compare the same interface and direction in both snapshots, then in WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:

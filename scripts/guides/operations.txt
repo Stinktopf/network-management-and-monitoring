@@ -5,6 +5,8 @@ service. Start by reproducing the report. Do not change configuration yet.
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 @@ hint
+In WSL:
+  make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe, choose a check for each question:
   ip route get 198.51.100.10                        # chosen source and gateway
   ping -4 -c 3 -W 1 198.51.100.10                   # reachability without DNS
@@ -77,6 +79,8 @@ Which observation would justify investigating a session rather than a route?
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
   getent hosts edge01.bob1.reefnet.test
   ssh edge01.bob1.reefnet.test
@@ -142,6 +146,8 @@ Find evidence of an active forwarding route, not just a BGP session.
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
@@ -205,6 +211,8 @@ Compare the sender with its receiver and retain a working path as a control.
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01, inspect what is sent toward Lagoon:
   show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
 Return with quit, then in WSL:
@@ -271,12 +279,18 @@ Prove which attached rule applies to this prefix before proposing a change.
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
   info from running network-instance default protocols bgp
   info from running routing-policy
-Trace the peer to its group, the effective policy and the matching action.
-Compare affected and working address families. A policy definition alone is
-not evidence that a peer uses it. Note the current policy attachment and its value. Leave with quit.
+export-policy selects the policy used to filter advertised routes.
+Trace neighbor -> peer-group -> export-policy -> routing-policy policy.
+A group policy overrides the BGP instance policy. Without that override, the
+group inherits the instance policy. A neighbor override would take precedence.
+In the attached policy, follow the prefix-set and its accept/reject action.
+Which rule matches the missing prefix? Compare with a working address family.
+Note the attachment and original value for rollback. Leave with quit.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -318,15 +332,30 @@ Record the expected route change before applying it.
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01, re-read the relevant configuration:
   info from running network-instance default protocols bgp
-For the change workflow:
+If it differs from your earlier observations, investigate before editing.
+Candidate mode stages edits without applying them:
   enter candidate
-  help
-Use the CLI help to construct your scoped edit. Inspect it with diff before
-commit now. Commit only your intended change. Keep the original value for rollback.
-If the current configuration differs from your evidence, investigate that first.
-A successful commit still needs independent service checks. Leave with quit.
+If your diagnosis calls for removing a group override, use this template.
+Replace <group-name> with the group you identified, without angle brackets:
+  delete / network-instance default protocols bgp group <group-name> export-policy
+The leading / starts at the configuration root. This removes the attachment,
+not the policy definition under routing-policy. The group can inherit again.
+Use ? or Tab after a partial command to see valid continuations.
+Review the pending changes:
+  diff
+Only if the diff contains exactly your intended change, apply it:
+  commit now
+Otherwise, cancel the uncommitted edits instead:
+  discard now
+discard now cannot undo a committed change. To restore a committed attachment,
+enter candidate and use this template with the original policy name. Keep [ ]:
+  set / network-instance default protocols bgp group <group-name> export-policy [ <original-policy> ]
+Review with diff before commit now. This restores the old state, not recovery.
+Leave with quit. Step 7 checks whether the service actually recovered.
 @@ investigation
 Change target: the device and configuration path demonstrated in steps 4 and 5.
 Keep the before-state and state what one change should alter in the route trace.
@@ -381,7 +410,8 @@ Close with impact, cause, change and before/after evidence.
 Start in WSL:
   make test
 @@ hint
-Re-check the advertisement and receiver route at the boundary you repaired.
+For advertisement and receiver-route commands, in WSL:
+  make hint SCENARIO=operations STEP=4
 For the customer check, in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the probe:

@@ -33,7 +33,7 @@ mode == "guide" {
         print blue bold $0 reset
     else if ($0 ~ /^(WSL|Start in WSL|Inside |In the |In WSL|Router CLI)/)
         print cyan bold $0 reset
-    else if ($0 ~ /^  (make |show |info |enter |delete |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |curl |gnmic |cat |tail |mkdir |cp |jq |[A-Z_][A-Z0-9_]*=)/)
+    else if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |curl |gnmic |cat |tail |mkdir |cp |jq |[A-Z_][A-Z0-9_]*=)/)
         print command $0 reset
     else print $0
     next
