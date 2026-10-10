@@ -155,9 +155,19 @@ for y,lab,states in [(65,'Lagoon',['FAIL','PASS']),(175,'Pacific',['PASS','PASS'
   s+=ln(x+20,y+76,x+280,y+76,color=G if state=='PASS' else '#777',dash=state=='FAIL',width=3)
 save('incident-scope',s,285)
 s=''
-for i,(a,b) in enumerate([('Control plane','Routes learned and selected'),('Forwarding plane','Entries used to move packets'),('Service behavior','The customer gets a response')]):
+for i,(a,b) in enumerate([('Management Plane','Configure and monitor devices'),('Control Plane','Learn routes and select paths'),('Data Plane','Forward packets using installed entries')]):
  y=12+i*92;s+=rect(20,y,1060,76,'white')+ln(20,y+2,20,y+74,color=G,width=4)+t(48,y+47,a,27,'start',700)+t(1035,y+47,b,25,'end')
 save('three-planes',s,290)
+s=''
+for i,(name,role,examples) in enumerate([
+ ('Management Plane','Configure and monitor','CLI, gNMI, SNMP'),
+ ('Control Plane','Learn and select routes','OSPF, BGP'),
+ ('Data Plane','Forward packets','IP packets, Ethernet frames'),
+]):
+ y=12+i*92
+ s+=rect(20,y,1060,76,'white')+ln(20,y+2,20,y+74,color=G,width=4)
+ s+=t(48,y+47,name,25,'start',700)+t(370,y+47,role,24,'start')+t(1035,y+47,examples,23,'end',color=M)
+save('planes-introduction',s,290,'Management Plane configures and monitors. Control Plane learns and selects routes. Data Plane forwards packets.')
 s=card(20,85,230,110,'Device','ReefNet Edge 01')+card(325,85,200,110,'Interface','ethernet-1/3')+card(605,85,210,110,'Circuit','Lagoon handoff')+card(890,85,190,110,'Provider','Lagoon Transit')
 for x,xx in [(255,320),(530,600),(820,885)]:s+=ln(x,140,xx,140,True)
 s+=t(550,38,'An inventory is a graph of relationships.',27)+t(550,258,'Join the intended circuit to the actual change target.',25)

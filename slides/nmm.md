@@ -401,6 +401,17 @@ ReefNet connects **Ocean Research** through two upstreams.
 
 ---
 
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Three planes, three roles
+
+![width:1040px](assets/diagrams/planes-introduction.svg)
+
+These are **roles within a device**, not layers of the TCP/IP stack.
+
+---
+
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -956,7 +967,8 @@ Keep the service and test method fixed. Vary the viewpoint.
 
 ![width:1040px](assets/diagrams/three-planes.svg)
 
-A healthy control-plane session does not prove that the service works.
+Management access and established routing sessions do not prove service delivery.
+Verify the service from the customer's viewpoint.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
