@@ -238,8 +238,6 @@ and the result matrix for comparison during Operations.
 @@ solution
 The service uses 198.51.100.10/24 with gateway 198.51.100.1 and IPv6
 2001:db8:100::10/48 with gateway 2001:db8:100::1. Its customer router advertises
-the service networks. Local DNS responds and all four external checks pass.
+the service networks. Local DNS returns both records. All four pings and all four
+HTTP checks pass across both probes and address families.
 No configuration repair is needed in this scenario.
-
-HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
-Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.

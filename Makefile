@@ -52,7 +52,7 @@ task:
 hint:
 	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(STEP)" hint
 solution:
-	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(or $(STEP),all)" solution
+	@bash scripts/next-steps.sh "$(GUIDE_SCENARIO)" "$(or $(STEP),1)" solution
 test:
 	bash scripts/test.sh
 healthy:

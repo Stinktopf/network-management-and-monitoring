@@ -51,11 +51,12 @@ ui_rule() {
 ui_banner() {
   local title=${1:?title required}
   local subtitle=${2:-}
+  local spacing=${3:-normal}
   local width=68
   printf '\n%s%s%s\n' "$UI_CYAN$UI_BOLD" "$title" "$UI_RESET"
   ui_rule "$width"
   [[ -n $subtitle ]] && printf '%s%s%s\n' "$UI_DIM" "$subtitle" "$UI_RESET"
-  printf '\n'
+  [[ $spacing == compact ]] || printf '\n'
 }
 
 ui_section() {
@@ -104,6 +105,17 @@ ui_pending_line() {
 
 ui_hint() {
   printf '  %s%s%s %s\n' "$UI_CYAN$UI_BOLD" "$UI_ARROW" "$UI_RESET" "$*"
+}
+
+ui_action() {
+  local label=$1 command_text=$2
+  if [[ -z ${UI_ACTION_STARTED:-} ]]; then
+    printf '\n'
+    UI_ACTION_STARTED=1
+  fi
+  printf '%s%s%s %s %s%s%s\n' \
+    "$UI_CYAN$UI_BOLD" "$UI_ARROW" "$UI_RESET" "$label" \
+    "$UI_YELLOW$UI_BOLD" "$command_text" "$UI_RESET"
 }
 
 ui_url() {

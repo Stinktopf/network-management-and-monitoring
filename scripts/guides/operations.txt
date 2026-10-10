@@ -52,31 +52,18 @@ Inside the Pacific probe:
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   exit
 
-Inspect: selected gateway, dev and src in route get, packet loss in each ping,
-DNS status and ANSWER SECTION. A DNS timeout and an NXDOMAIN are different results.
-Decision:
-- Wrong source/gateway or a failed local-gateway ping: inspect the probe LAN
-  before diagnosing the remote service. Step 2 includes its router interface.
-- Failure from one path/family with working controls: continue at step 2 on
-  that path. Keep those controls unchanged throughout the investigation.
-- Failure from both sources: inspect the customer side in step 3 first.
-- All probes succeed: record that the incident is not currently reproduced.
-  Do not apply a repair solely because the scenario is named operations.
-The make test report is a matrix. Its process exit code is not a PASS verdict.
+Compare selected source/gateway and packet loss. DNS timeout and NXDOMAIN differ.
+If only Lagoon IPv4 fails, continue to step 2. If the report is not reproduced,
+do not change the network. Read the `make test` matrix, not only its exit code.
 @@ solution
-Expected initial evidence:
-  Source       Gateway ping   Customer IPv4   Customer IPv6   DNS A           DNS AAAA
-  Lagoon       PASS           FAIL            PASS            transport fail  NOERROR
-  Pacific      PASS           PASS            PASS            NOERROR         NOERROR
-Lagoon route get selects via 203.0.113.1 dev eth1 src 203.0.113.10.
-Pacific selects via 203.0.113.129 dev eth1 src 203.0.113.138.
-The IPv6 DNS request from Lagoon returns 2001:db8:100::10. The server is operating.
-IPv4 dig can report network unreachable or time out, depending on ICMP feedback.
-The failing customer IPv4 path also prevents the IPv4 DNS exchange. This is not
-proof of a DNS configuration fault and changing resolvers would not repair the path.
-Working local gateways and three customer controls narrow the incident to the
-Lagoon/customer IPv4 path. A missing route and a selective filter are still viable.
-Next action: examine link/session state, then the specific prefix. No repair yet.
+Expected matrix:
+  Source   IPv4   IPv6   DNS A       DNS AAAA
+  Lagoon   FAIL   PASS   no response NOERROR
+  Pacific  PASS   PASS   NOERROR     NOERROR
+Both probes select their local gateway. Lagoon's IPv4 path is the only failure.
+Its DNS A query also fails because it uses that path, while IPv6 DNS succeeds.
+This points to Lagoon IPv4 forwarding, not a DNS configuration fault. Next check
+the links and routing sessions, then trace the prefix before proposing a change.
 
 @@ 2 Check access, physical state and routing adjacencies
 Check the links and routing neighbors on the affected path.
@@ -129,120 +116,76 @@ Inside Lagoon Transit:
   show network-instance default protocols bgp neighbor
   quit
 
-Inspect: admin/oper state and descriptions on cabled interfaces, BGP State,
-Uptime and AFI/SAFI counters, and OSPF neighbor state. Unused disabled ports are
-not evidence of an incident. Compare the two ends of the customer/Lagoon links.
-Decision:
-- Link down: localize admin-disabled versus operational failure at both ends.
-  Capture the interface configuration before changing anything.
-- Link up but BGP not established: investigate that adjacency and peer addressing.
-  Do not infer an export-policy problem from a missing route while the peer is down.
-- Link and sessions stable: continue with prefix receipt and forwarding in step 3.
+Compare both ends of cabled links and the relevant BGP/OSPF peers. A down peer
+needs adjacency diagnosis before route-policy analysis. If links and peers are up,
+continue to the prefix trace.
+
 If the name does not resolve, check hostname: router SSH belongs on operations01.
 A direct WSL fallback is make enter NODE=edge01.bob1.reefnet.test, followed by quit.
 @@ solution
-Management resolution returns 172.20.20.11 and SSH reaches ReefNet Edge 01.
-Relevant cabled interfaces are enabled/up. BGP peers are established:
-  Edge 01 peer 192.0.2.0   customer AS65010
-  Edge 01 peer 192.0.2.2   Lagoon AS65100
-  Edge 01 peer 10.255.0.2  internal Edge 02
-  Lagoon peer 192.0.2.3    ReefNet AS65000
-The internal OSPF neighbors remain established. Record current uptimes rather
-than expecting fixed values from an example. No session reset is justified.
-These observations exclude a currently down handoff as the immediate cause.
-They do not prove that 198.51.100.0/24 is being advertised. Continue at step 3.
+The operator resolves Edge 01 to 172.20.20.11 and SSH succeeds. Cabled links,
+BGP sessions and internal OSPF neighbors are up, so no current link or session
+failure explains the report. This does not prove the customer prefix is exported.
+Continue by checking the route at each boundary.
 
-@@ 3 Locate the customer prefix and check the return path
-Trace the customer prefix into ReefNet and check the return path.
-Find evidence of an active forwarding route, not just a BGP session.
+@@ 3 Trace the customer prefix to its upstream receivers
+Follow the customer prefix from Ocean Research through ReefNet to both upstreams.
+Find the first point where the route is no longer advertised or installed.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+On ReefNet Edge 01, compare the learned route with its Lagoon advertisement.
 In WSL:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
-Compare receipt with the active route, next hop and outgoing interface.
-Return with quit, then in WSL:
-  make enter NODE=edge01.bob1.oceanresearch.test
-Inside the customer router:
-  show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
-Can the customer send a reply to the Lagoon probe? If a route is missing,
-localize that boundary before investigating further downstream. Leave with quit.
-@@ investigation
-WSL repository:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01:
-  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
-  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
-  show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
+  show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
   quit
-WSL repository:
+Check that the customer originates the prefix and has a return route:
   make enter NODE=edge01.bob1.oceanresearch.test
 Inside the customer router:
-  show interface ethernet-1/2 detail
-  show network-instance default protocols bgp neighbor
   show network-instance default protocols bgp neighbor 192.0.2.1 advertised-routes ipv4
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   quit
-
-Inspect: the exact prefix, selected/active route, next hop and outgoing interface.
-A BGP entry without an active, resolvable forwarding route is insufficient.
-The customer also needs a return route to the Lagoon probe network.
-Decision:
-- Customer does not advertise its prefix: inspect its connected interface and
-  export configuration. An upstream export change cannot fix missing origin data.
-- Customer advertises it but Edge 01 does not learn it: inspect that eBGP boundary.
-- Edge 01 learns it but has no active route: investigate route selection/next-hop
-  resolution before continuing outward.
-- Receipt, forwarding and return path exist: compare upstream advertisements in step 4.
-If both sources failed in step 1, also inspect the service locally:
-WSL repository:
-  make enter NODE=service01.bob1.oceanresearch.test
-Inside the service host:
-  ip -br addr
-  ip route
-  ip -6 route
-  dig -4 @127.0.0.1 data.oceanresearch.test A
-  dig -6 @::1 data.oceanresearch.test AAAA
-  exit
-@@ solution
-The customer advertises 198.51.100.0/24 to peer 192.0.2.1.
-Edge 01 learns it from 192.0.2.0. Its route table shows Active=True, owner bgp_mgr,
-next hop toward 192.0.2.0 and outgoing ethernet-1/1.0. IPv6 receipt also works.
-The customer service-facing ethernet-1/2 is up. The customer has an active route
-back to 203.0.113.0/25 via ReefNet 192.0.2.1 on ethernet-1/1.0.
-For the optional local check, the service has 198.51.100.10/24 and default gateway
-198.51.100.1. Local DNS returns the A record with NOERROR.
-Evidence places the unresolved difference after Edge 01 receives/selects the
-customer route. Continue with its export toward Lagoon, not a restart of the service.
-
-@@ 4 Compare sender advertisements with receiver routes
-Find the boundary where the customer route stops being visible.
-Compare the sender with its receiver and retain a working path as a control.
-
-Start in WSL:
-  make enter NODE=edge01.bob1.reefnet.test
-@@ hint
-In WSL:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01, inspect what is sent toward Lagoon:
-  show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
-Return with quit, then in WSL:
+Check whether Lagoon receives and installs the prefix:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
-Look for the exact customer prefix. A nonempty list can contain other routes.
-What differs between local receipt, advertisement and receiver installation?
-Leave with quit. Choose the next check from the first demonstrated difference.
+  quit
+Optional control, check that the Pacific path still works:
+In WSL:
+  make enter NODE=edge02.bob1.reefnet.test
+Inside ReefNet Edge 02:
+  show network-instance default protocols bgp neighbor 192.0.2.5 advertised-routes ipv4
+  quit
+In WSL:
+  make enter NODE=edge01.bob1.pacifictransit.test
+Inside Pacific Transit:
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  quit
+Look for the exact prefix. A session being up does not prove route delivery.
 @@ investigation
+WSL repository:
+  make enter NODE=edge01.bob1.oceanresearch.test
+Inside the customer router:
+  show network-instance default protocols bgp neighbor 192.0.2.1 advertised-routes ipv4
+  show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
+  quit
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
+  quit
+WSL repository:
+  make enter NODE=edge01.bob1.lagoontransit.test
+Inside Lagoon Transit:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
 WSL repository:
   make enter NODE=edge02.bob1.reefnet.test
@@ -250,62 +193,41 @@ Inside ReefNet Edge 02:
   show network-instance default protocols bgp neighbor 192.0.2.5 advertised-routes ipv4
   quit
 WSL repository:
-  make enter NODE=edge01.bob1.lagoontransit.test
-Inside Lagoon Transit:
-  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
-  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
-  quit
-WSL repository:
   make enter NODE=edge01.bob1.pacifictransit.test
 Inside Pacific Transit:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
 
-Inspect: membership of 198.51.100.0/24, not merely the total number of routes.
-Retain one observation on each side of the boundary.
-Decision:
-- Present locally but absent in the sender's advertised routes: inspect the
-  sender's export selection/configuration in step 5.
-- Advertised but absent on the receiver: inspect its neighbor/import state,
-  then its BGP and forwarding tables. Do not change the sender merely by assumption.
-- Installed on the receiver but the service still fails: return to forwarding,
-  filters and the return path. The reference policy repair is not yet justified.
-An empty exact-prefix result means no matching displayed route, provided the CLI
-accepted the command. An invalid-command error is not evidence of an absent route.
+Compare the exact prefix at each boundary and verify the return route. The missing
+Edge 01 advertisement is the first divergence. An invalid command is not evidence
+that a route is absent.
 @@ solution
-Expected prefix trace:
-  Customer -> ReefNet Edge 01           advertised and installed
-  ReefNet Edge 01 -> Lagoon             NOT advertised
-  Lagoon IPv4 forwarding table          no active customer entry
-  ReefNet Edge 02 -> Pacific            advertised
-  Pacific IPv4 forwarding table        active via 192.0.2.4, ethernet-1/1.0
-This is the first demonstrated divergence: the customer prefix exists on Edge 01
-but does not cross its export boundary toward Lagoon. The receiver corroborates it.
-IPv4 and IPv6 address families are explicitly separated in the current baseline.
-The IPv6 session should not carry the missing IPv4 customer prefix. If it does,
-inspect the effective AFI/SAFI configuration and confirm that the current scenario
-was deployed. Compare received BGP paths with the active forwarding table.
-A BGP reset is not supported by this evidence. Inspect the applicable export rules.
+The customer advertises 198.51.100.0/24 and Edge 01 installs it, with a return
+route to Lagoon. Edge 01 does not advertise it to Lagoon, which has no route.
+Edge 02 advertises the prefix to Pacific, which installs it via 192.0.2.4.
+The first divergence is Edge 01's Lagoon export boundary. Check its policy.
 
-@@ 5 Resolve the effective policy and prove its effect
-Explain the routing difference using the effective running configuration.
-Prove which attached rule applies to this prefix before proposing a change.
+@@ 4 Confirm the policy and make the scoped repair
+Prove which export rule explains the missing advertisement. Re-read the target,
+then stage and review one change before committing it.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
-In WSL:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01:
+Trace the BGP neighbor, peer-group, export-policy, prefix-set and action:
   info from running network-instance default protocols bgp
+  info from running network-instance default protocols bgp group lagoon-v4
+  info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
-export-policy selects the policy used to filter advertised routes.
-Trace neighbor -> peer-group -> export-policy -> routing-policy policy.
-A group policy overrides the BGP instance policy. Without that override, the
-group inherits the instance policy. A neighbor override would take precedence.
-In the attached policy, follow the prefix-set and its accept/reject action.
-Which rule matches the missing prefix? Compare with a working address family.
-Note the attachment and original value for rollback. Leave with quit.
+A group-level export policy overrides the instance policy. If the evidence
+supports removing an override, re-read the configuration, then use candidate mode:
+  enter candidate
+  delete / network-instance default protocols bgp group <group-name> export-policy
+  diff
+Commit only if the diff shows that one intended deletion:
+  commit now
+To restore a committed change, set the original policy attachment, review diff
+and commit. `discard now` only cancels uncommitted changes. Leave with quit.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -315,110 +237,35 @@ Inside ReefNet Edge 01:
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
   quit
-
-Inspect: the instance export-policy, the affected peer's peer-group, any group
-export-policy override, and the referenced policy's prefix match and action.
-Follow the actual attachment. A policy definition that is not used proves nothing.
-Decision:
-- An attached rule rejects this prefix and matches the missing advertisement:
-  record the effective path and rule, then prepare a minimal change in step 6.
-- No matching rejection: inspect other applicable export settings and route
-  eligibility. Do not delete a policy because its name sounds suspicious.
-- Observations changed since step 4: repeat that boundary check before writing.
-Keep the instance, group and policy output as the before-state for the change.
-@@ solution
-The live evidence forms this chain:
-  neighbor 192.0.2.2 -> peer-group lagoon-v4
-  instance export-policy -> EXPORT-BGP
-  lagoon-v4 export-policy -> BLOCK-CUSTOMER-V4
-  policy statement 10 -> CUSTOMER-V4 prefix-set -> 198.51.100.0/24 exact -> reject
-The group override is effective for Lagoon IPv4. The corresponding IPv6 group
-has no such override. Pacific uses its own export path on Edge 02.
-This matches the missing advertisement, missing Lagoon route and service matrix.
-The causal statement is now specific: Edge 01 suppresses the customer IPv4 prefix
-at the Lagoon export boundary because of the attached group-level override.
-Removing that override should restore EXPORT-BGP inheritance. Changing the shared
-policy definition would broaden the change unnecessarily.
-
-@@ 6 Review and apply the smallest supported change
-Propose the smallest change supported by your evidence and its rollback.
-Record the expected route change before applying it.
-
-Start in WSL:
-  make enter NODE=edge01.bob1.reefnet.test
-@@ hint
-In WSL:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01, re-read the relevant configuration:
-  info from running network-instance default protocols bgp
-If it differs from your earlier observations, investigate before editing.
-Candidate mode stages edits without applying them:
-  enter candidate
-If your diagnosis calls for removing a group override, use this template.
-Replace <group-name> with the group you identified, without angle brackets:
-  delete / network-instance default protocols bgp group <group-name> export-policy
-The leading / starts at the configuration root. This removes the attachment,
-not the policy definition under routing-policy. The group can inherit again.
-Use ? or Tab after a partial command to see valid continuations.
-Review the pending changes:
-  diff
-Only if the diff contains exactly your intended change, apply it:
-  commit now
-Otherwise, cancel the uncommitted edits instead:
-  discard now
-discard now cannot undo a committed change. To restore a committed attachment,
-enter candidate and use this template with the original policy name. Keep [ ]:
-  set / network-instance default protocols bgp group <group-name> export-policy [ <original-policy> ]
-Review with diff before commit now. This restores the old state, not recovery.
-Leave with quit. Step 7 checks whether the service actually recovered.
-@@ investigation
-Change target: the device and configuration path demonstrated in steps 4 and 5.
-Keep the before-state and state what one change should alter in the route trace.
-
-WSL repository:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01, re-read the affected scope immediately before editing:
-  info from running network-instance default protocols bgp group lagoon-v4
-  info from running network-instance default protocols bgp
-  quit
-
-Inspect: whether the configuration still matches the evidence you recorded.
-Decision: if it changed, stop and reconcile the new state. Otherwise prepare a
-candidate with only the supported edit, inspect its diff, and commit that change.
-The worked answer gives the exact candidate and rollback commands.
-@@ solution
-Preconditions: the group still uses BLOCK-CUSTOMER-V4, the instance uses EXPORT-BGP,
-and the observed prefix divergence still matches steps 3-5.
+Before editing, confirm that the group still matches this evidence:
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
+  info from running network-instance default protocols bgp group lagoon-v4
   enter candidate
   delete / network-instance default protocols bgp group lagoon-v4 export-policy
   diff
-Inspect the diff now. It must remove only this group's export-policy override.
-If it contains other edits, do not commit them as part of this repair.
-Only when the diff matches the intended scope:
+Commit only if the diff contains this deletion and no unrelated edits:
   commit now
   info from running network-instance default protocols bgp group lagoon-v4
   quit
-Expected configuration result: the override is absent and instance inheritance
-is restored. Continue to step 7. A successful commit alone is not recovery evidence.
-
-Conditional rollback, NOT part of the normal successful sequence:
-If the change causes an unintended regression, restore the recorded before-state.
+Conditional rollback, only if the repair causes an unintended regression:
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
   enter candidate
   set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
   diff
-After confirming that this reinstates only the original attachment:
+After confirming that only the original attachment is restored:
   commit now
   quit
-Rollback recreates the known Lagoon IPv4 incident. Keep investigating and retain
-its evidence rather than reporting the customer service as recovered.
+@@ solution
+Neighbor 192.0.2.2 uses group lagoon-v4. The instance policy is EXPORT-BGP,
+but the group overrides it with BLOCK-CUSTOMER-V4. That policy rejects
+198.51.100.0/24. Removing only the group override restores inheritance from
+EXPORT-BGP. Do not edit the shared policy. Continue to step 5 to prove recovery.
 
-@@ 7 Prove recovery at the boundary and at the customer service
+@@ 5 Prove recovery at the boundary and at the customer service
 Prove recovery from the affected source and check your unchanged controls.
 Close with impact, cause, change and before/after evidence.
 
@@ -426,7 +273,7 @@ Start in WSL:
   make test
 @@ hint
 For advertisement and receiver-route commands, in WSL:
-  make hint SCENARIO=operations STEP=4
+  make hint SCENARIO=operations STEP=3
 For the customer check, in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the probe:
@@ -483,28 +330,15 @@ Decision:
 - Route absent: re-check committed configuration and allow for convergence.
 - Route present but service still fails: inspect the data/return path. Do not
   call the incident resolved based only on the configuration commit.
+
 Close the incident with the affected path, proven cause, exact change, before/after
 observations and any remaining uncertainty. Note the before/after results.
 @@ solution
-The customer prefix appears in Edge 01's Lagoon advertisement and Lagoon installs
-an active route via 192.0.2.3 on ethernet-1/1.0. The four matrix cells all PASS.
-Lagoon DNS returns A 198.51.100.10 over IPv4 and AAAA 2001:db8:100::10 over IPv6.
-BGP sessions remain up.
-If the first check occurs during convergence, repeat it after a few seconds and
-record when stable recovery was observed. Do not substitute a fixed delay for proof.
-Closure example:
-  Impact: Lagoon could not reach the customer's IPv4 service. Three controls worked.
-  Cause: lagoon-v4 overrode EXPORT-BGP with a policy rejecting the customer prefix.
-  Change: deleted that group's export-policy override on ReefNet Edge 01.
-  Proof: prefix advertised and installed on Lagoon, 4/4 ICMP and HTTP controls plus DNS recovered.
-  Controls: Lagoon IPv6 and Pacific IPv4/IPv6 remained healthy.
-make reset would recreate the incident. It is not part of this successful repair.
+Edge 01 advertises the prefix and Lagoon installs it via 192.0.2.3. All four
+probe/address-family combinations pass ICMP and HTTP. Lagoon DNS returns both
+records and BGP stays up. Record impact, cause, scoped change and this evidence.
+Repeat transient checks after convergence.
 
-HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
-Note those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.
-
-Note the cause, change and verification results, then stop in WSL:
+Stop the lab after saving your notes:
   make down
 This removes the running lab and discards router changes.
-Restarting make operations or make reset recreates the initial incident.
-make clean also deletes lab state and NetBox data.

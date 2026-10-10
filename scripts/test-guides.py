@@ -10,6 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def normalized(text):
+    return " ".join(text.split())
+
+
 class Guides(unittest.TestCase):
     def render(self, scenario, step, level="task"):
         with tempfile.TemporaryDirectory() as directory:
@@ -33,11 +37,17 @@ class Guides(unittest.TestCase):
                     with self.subTest(scenario=guide.stem, step=step, level=level):
                         result = self.render(guide.stem, step, level)
                         self.assertEqual(result.returncode, 0, result.stderr)
-                        self.assertIn(expected.strip(), result.stdout)
+                        self.assertIn(normalized(expected), normalized(result.stdout))
                         if level == "solution":
-                            self.assertIn(task.strip(), result.stdout)
-                            self.assertIn(investigation.strip(), result.stdout)
-                            self.assertLess(result.stdout.index(task.strip()), result.stdout.index(solution.strip()))
+                            self.assertIn(guide.stem.upper(), result.stdout)
+                            self.assertLess(
+                                normalized(result.stdout).index("Worked answer"),
+                                normalized(result.stdout).index(normalized(solution)),
+                            )
+                            self.assertNotIn(task.strip(), result.stdout)
+                            self.assertIn("Investigation commands", result.stdout)
+                            self.assertIn(normalized(investigation), normalized(result.stdout))
+                            self.assertLess(result.stdout.index("Investigation commands"), result.stdout.index("Worked answer"))
                         else:
                             self.assertNotIn(investigation.strip(), result.stdout)
                             self.assertNotIn(solution.strip(), result.stdout)
@@ -51,6 +61,14 @@ class Guides(unittest.TestCase):
             hint = self.render(scenario, 1, "hint").stdout
             self.assertIn("Inside", hint)
             self.assertIn("make solution", hint)
+            for level in ("task", "hint"):
+                output = self.render(scenario, 1, level).stdout
+                heading = f"1 "
+                first_step = next(line for line in output.splitlines() if line.startswith(heading))
+                self.assertIn(
+                    f"BOB1 / {scenario.upper()} / {level.upper()}\n--------------------------------------------------------------------\n{first_step}",
+                    output,
+                )
         task = self.render("operations", 1).stdout
         self.assertNotIn("export", task.lower())
         self.assertIn("make enter NODE=probe01.bob1.lagoontransit.test", task)
@@ -66,6 +84,33 @@ class Guides(unittest.TestCase):
         self.assertIn("show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24", output)
         self.assertIn("make solution SCENARIO=operations STEP=4", output)
         self.assertNotIn("Worked answer: make solution", output)
+
+    def test_solution_defaults_to_one_step(self):
+        result = subprocess.run(
+            ["make", "--no-print-directory", "solution", "SCENARIO=networking"],
+            cwd=ROOT, capture_output=True, text=True, timeout=5,
+            env=dict(os.environ, AI5049_COLOR="never"),
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("1 Start on the Lagoon probe", result.stdout)
+        self.assertNotIn("2 Resolve the name and fetch the service", result.stdout)
+        self.assertIn("Worked answer", result.stdout)
+        self.assertIn("make enter NODE=probe01.bob1.lagoontransit.test", result.stdout)
+        self.assertIn("Investigation commands", result.stdout)
+        self.assertIn(
+            "BOB1 / NETWORKING / SOLUTION\n--------------------------------------------------------------------\n"
+            "1 Start on the Lagoon probe",
+            result.stdout,
+        )
+
+    def test_removed_operations_steps_are_rejected_without_remapping(self):
+        for step in (6, 7):
+            with self.subTest(step=step):
+                result = self.render("operations", step, "solution")
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("Choose STEP=1 through STEP=5", result.stderr)
+                self.assertNotIn("4 Confirm the policy", result.stdout)
+                self.assertNotIn("5 Prove recovery", result.stdout)
 
     def test_student_incident_guide_does_not_give_away_the_repair(self):
         for scenario in ("operations", "automation"):
@@ -97,6 +142,147 @@ class Guides(unittest.TestCase):
                 self.assertIn("make fault-link", plain)
                 self.assertIn("make clear-routing", plain)
                 self.assertEqual("\x1b[" in result.stdout, color == "always")
+                if color == "always":
+                    self.assertIn(
+                        "\x1b[35mmake networking      \x1b[0m\x1b[90m# follow a request\x1b[0m",
+                        result.stdout,
+                    )
+
+    def test_inline_command_comments_are_gray(self):
+        result = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "networking", "1", "hint"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        )
+        self.assertIn(
+            "\x1b[35mip -br addr                       \x1b[0m\x1b[90m# addresses and interface state\x1b[0m",
+            result.stdout,
+        )
+
+    def test_guide_spacing_is_consistent_across_scenarios(self):
+        contexts = ("Inside ", "In the ", "WSL repository:", "Start in WSL:", "Router CLI")
+        for scenario in ("networking", "operations", "automation", "monitoring"):
+            for level in ("task", "hint", "solution"):
+                output = self.render(scenario, "all", level).stdout
+                lines = output.splitlines()
+                with self.subTest(scenario=scenario, level=level):
+                    self.assertFalse(any(lines[i] == lines[i + 1] == "" for i in range(len(lines) - 1)))
+                    headings = [
+                        i for i, line in enumerate(lines)
+                        if line.startswith(contexts) or (line.endswith(":") and line != "Decision:")
+                    ]
+                    for i in headings:
+                        if lines[i - 1] != "":
+                            self.assertTrue(
+                                lines[i - 1].endswith(":")
+                                or lines[i - 1] in ("Worked answer", "Investigation commands")
+                            )
+                        if lines[i].startswith(contexts):
+                            self.assertNotEqual(lines[i + 1], "")
+                        elif lines[i + 1] == "":
+                            self.assertTrue(lines[i + 2].startswith(contexts) or lines[i + 2].endswith(":"))
+                    if level == "solution":
+                        titles = [i for i, line in enumerate(lines) if re.match(r"^[1-9] ", line)]
+                        answers = [i for i, line in enumerate(lines) if line == "Worked answer"]
+                        investigations = [i for i, line in enumerate(lines) if line == "Investigation commands"]
+                        self.assertTrue(all(lines[i - 1] == lines[i + 1] == "" for i in titles))
+                        self.assertTrue(all(lines[i - 1] == "" and lines[i + 1] != "" for i in answers))
+                        self.assertTrue(all(lines[i - 1] == "" and lines[i + 1] != "" for i in investigations))
+                    for i, line in enumerate(lines[:-1]):
+                        if line.startswith(contexts) or (line.endswith(":") and line != "Decision:"):
+                            self.assertNotEqual(lines[i + 1], "")
+                    actions = [line for line in lines if "Next worked step:" in line or "When ready:" in line]
+                    self.assertTrue(all(line.startswith(("→", "->")) for line in actions))
+                    for index, line in enumerate(lines):
+                        if "Next worked step:" in line or "When ready:" in line or "Commands and clues:" in line or "Commands and expected results:" in line:
+                            self.assertGreater(index, 0)
+                            previous_is_action = any(label in lines[index - 1] for label in (
+                                "Next worked step:", "When ready:", "Commands and clues:",
+                                "Commands and expected results:",
+                            ))
+                            if not previous_is_action:
+                                self.assertEqual(lines[index - 1], "")
+
+    def test_next_steps_use_gold_for_the_label_and_command(self):
+        result = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "operations", "1", "solution"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        )
+        self.assertIn(
+            "\x1b[36m\x1b[1m→\x1b[0m Next worked step: \x1b[33m\x1b[1mmake solution SCENARIO=operations STEP=2\x1b[0m",
+            result.stdout,
+        )
+        plain = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout)
+        next_line = next(line for line in plain.splitlines() if "Next worked step:" in line)
+        self.assertTrue(next_line.startswith("→ Next worked step:"), next_line)
+        task = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "operations", "1", "task"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        ).stdout
+        self.assertIn(
+            "Commands and clues: \x1b[33m\x1b[1mmake hint SCENARIO=operations STEP=1\x1b[0m",
+            task,
+        )
+        hint = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "operations", "1", "hint"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        ).stdout
+        self.assertIn(
+            "Commands and expected results: \x1b[33m\x1b[1mmake solution SCENARIO=operations STEP=1\x1b[0m",
+            hint,
+        )
+
+    def test_explanatory_lines_between_commands_are_spaced_and_unstyled(self):
+        result = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "operations", "4", "solution"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="never"),
+        )
+        self.assertIn("\ndiff\n\nCommit only if the diff contains this deletion and no unrelated edits:\ncommit now\n", result.stdout)
+        self.assertNotIn("\x1b[90mCommit only if", result.stdout)
+        self.assertIn("\nWorked answer\nNeighbor 192.0.2.2", result.stdout)
+
+    def test_soft_wrapped_prose_and_section_transitions_render_as_paragraphs(self):
+        operations = self.render("operations", 2, "solution").stdout
+        self.assertIn(
+            "A down peer needs adjacency diagnosis before route-policy analysis. "
+            "If links and peers are up, continue to the prefix trace.",
+            normalized(operations),
+        )
+        self.assertIn(
+            "If the name does not resolve, check hostname: router SSH belongs on operations01.",
+            normalized(operations),
+        )
+        networking = self.render("networking", "all", "hint").stdout
+        self.assertIn(
+            "hop alone does not prove that forwarding failed.\n\n"
+            "2 Resolve the name and fetch the service",
+            networking,
+        )
+        automation = self.render("automation", 2, "hint").stdout
+        self.assertIn(
+            "Follow the referenced prefix-set and accept/reject action, not just policy names.",
+            normalized(automation),
+        )
+        monitoring = self.render("monitoring", 6, "hint").stdout
+        self.assertIn(
+            "Use Add query for the second expression, also in Code mode.",
+            normalized(monitoring),
+        )
+
+    def test_command_lead_ins_are_petrol_headings(self):
+        result = subprocess.run(
+            ["bash", "scripts/next-steps.sh", "operations", "4", "solution"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        )
+        self.assertIn(
+            "\x1b[36m\x1b[1mCommit only if the diff contains this deletion and no unrelated edits:\x1b[0m\n\x1b[35mcommit now\x1b[0m",
+            result.stdout,
+        )
 
     def test_color_changes_presentation_only(self):
         for scenario in ("networking", "operations", "automation", "monitoring"):

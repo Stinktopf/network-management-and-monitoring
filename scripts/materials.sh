@@ -15,7 +15,7 @@ case "${1:-exercises}" in
     ui_command_row 'make task' 'Task and starting point'
     ui_command_row 'make cheatsheet' 'Commands and terminal context'
     ui_command_row 'make hint STEP=2' 'Investigation help for step 2'
-    ui_command_row 'make solution STEP=2' 'Worked investigation for step 2'
+    ui_command_row 'make solution STEP=2' 'Commands and worked answer for step 2'
     ui_command_row 'make down' 'Stop after saving your work'
     echo
     ui_kv 'Exercises' 'EXERCISES.md'

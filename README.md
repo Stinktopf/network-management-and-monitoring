@@ -57,7 +57,7 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 | `make automation` | Same routing fault, ready for the automation exercise |
 | `make monitoring` | Healthy network with telemetry and traffic |
 
-`make task` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
+`make task` gives the task, `make hint` adds investigation commands and `make solution STEP=1` shows the commands and worked answer. Choose another step with `STEP=2`. Run these in WSL.
 
 Keep notes on your findings and next step. `make down` removes the running lab and discards router changes. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
 

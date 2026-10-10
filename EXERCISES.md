@@ -16,10 +16,10 @@ Run `make` commands in the WSL repository. Choose a scenario below, then run `ma
 |---|---|
 | `make task` | Task and starting point |
 | `make hint` | Investigation commands and clues |
-| `make solution` | Complete worked investigation |
+| `make solution` | Investigation commands and worked answer |
 | `make down` | Remove the running lab and discard router changes |
 
-Use `STEP=2` to select a step, for example `make hint STEP=2`. Help does not advance automatically. Each scenario command recreates its starting state. Note your findings and next step before restarting or stopping.
+Use `STEP=2` to select a step, for example `make hint STEP=2`. Solutions show the investigation commands and a concise worked answer. Help does not advance automatically. Each scenario command recreates its starting state. Note your findings and next step before restarting or stopping.
 
 ## Exercises
 
@@ -32,4 +32,4 @@ Times exclude the demo. Networking includes 30 minutes for cloning, `make setup`
 | `make automation` | Investigate the same incident using NetBox and gNMI. Inspect the current configuration, apply a justified change and verify recovery. | 60 min |
 | `make monitoring` | Compare offered load, received traffic and loss at the 50 Mbit/s cap. Then compare a link failure, a routing failure and a short burst. Restore the baseline after each experiment. | 75 min |
 
-Each scenario works independently. Record the commands and observations that support your explanation. Procedures and expected results are in `make task`, `make hint` and `make solution`.
+Each scenario works independently. Record the observations that support your explanation. Use `make task` to start, `make hint` for clues, and `make solution` to compare commands and results.

@@ -4,6 +4,7 @@ source "$(dirname "$0")/ui.sh"
 scenario=${1:-networking}
 step=${2:-1}
 level=${3:-task}
+legacy_step=''
 case "$scenario" in
   networking|operations|automation|monitoring) ;;
   *) ui_fail "Unknown scenario: $scenario"; exit 2 ;;
@@ -20,13 +21,9 @@ if [[ "$step" != all ]]; then
     exit 2
   fi
 fi
-ui_banner "BOB1 / ${scenario^^} / ${level^^}"
-if [[ "$level" == solution ]]; then
-  ui_info 'Run make commands in WSL. Leave Linux nodes with exit and router CLIs with quit.'
-  ui_info 'Expected results describe the prepared scenario. Compare them with your live evidence.'
-fi
+ui_banner "BOB1 / ${scenario^^} / ${level^^}" "" compact
 if [[ "$level" == solution && "$step" == all ]]; then
-  ui_subsection 'Investigation steps'
+  printf '%sInvestigation steps%s\n' "$UI_BOLD" "$UI_RESET"
   sed -n 's/^@@ \([0-9].*\)/  \1/p' "$guide"
   echo
 fi
@@ -41,23 +38,24 @@ awk -v wanted="$step" -v level="$level" '
   /^@@ / {
     section=$2
     if (selected && level == "solution" && section == "investigation")
-      print "\nInvestigation commands\n"
-    if (selected && level == "solution" && section == "solution")
-      print "\nWorked answer\n"
+      print "Investigation commands"
+    if (selected && level == "solution" && section == "solution") {
+      print "\nWorked answer"
+    }
     next
   }
-  selected && (section == level || (level == "solution" && (section == "task" || section == "investigation"))) { print }
-' "$guide" | ui_document guide
+  selected && (section == level || (level == "solution" && section == "investigation")) { print }
+' "$guide" | awk -f "$(dirname "$0")/reflow-guide.awk" | ui_document guide
 if [[ "$level" == task ]]; then
-  ui_hint "Commands and clues: make hint SCENARIO=$scenario STEP=$step"
+  ui_action 'Commands and clues:' "make hint SCENARIO=$scenario STEP=$step"
 fi
 if [[ "$step" != all ]] && (( step < count )); then
   if [[ "$level" == solution ]]; then
-    ui_hint "Next worked step: make solution SCENARIO=$scenario STEP=$((step + 1))"
+    ui_action 'Next worked step:' "make solution SCENARIO=$scenario STEP=$((step + 1))"
   else
-    ui_hint "When ready: make task SCENARIO=$scenario STEP=$((step + 1))"
+    ui_action 'When ready:' "make task SCENARIO=$scenario STEP=$((step + 1))"
   fi
 fi
 if [[ "$level" == hint ]]; then
-  ui_hint "Full worked investigation: make solution SCENARIO=$scenario STEP=$step"
+  ui_action 'Commands and expected results:' "make solution SCENARIO=$scenario STEP=$step"
 fi

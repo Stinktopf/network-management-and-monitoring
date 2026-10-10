@@ -36,13 +36,9 @@ Decision: missing/stale data needs collection diagnosis before a network verdict
 With fresh data, compare service probes against interface observations. If the
 baseline already fails, investigate it before adding experimental load in step 2.
 @@ solution
-Monitoring starts healthy with 25 Mbit/s of background traffic. All four service
-probes should pass. The Lagoon and Pacific handoffs each have a 50 Mbit/s cap,
-the customer handoff a 100 Mbit/s cap. Telemetry Health checks the collection path.
-The up results should be 1 for gNMIc, both probe exporters and all five queue
-exporters. Probe ages should stay close to the collection interval rather than
-grow indefinitely. No data is not zero traffic or zero loss. A green scrape alone
-does not prove that every desired underlying observation is fresh.
+Baseline: 25 Mbit/s background traffic and all four probes pass. Transit caps are
+50 Mbit/s and the customer cap is 100 Mbit/s. Check exporter health and sample
+freshness. Missing data is not zero traffic or zero loss.
 
 @@ 2 Change load and compare offered versus delivered traffic
 Find where increasing offered load begins to affect delivered traffic.
@@ -83,13 +79,9 @@ congestion there. Low receive rate without those drops requires checking sender,
 receiver and collector state before attributing it to the cap. Note the 40 Mbit/s
 control alongside the 60/75 Mbit/s results.
 @@ solution
-40 Mbit/s is below the transit cap. At 60/75 Mbit/s the offered load exceeds it.
-The sending interface is Lagoon Transit ethernet-1/1 toward ReefNet Edge 01.
-Expect delivered payload throughput around or below 50 Mbit/s, not an exact
-50 Mbit/s, because overhead, buffering and simulator load affect the measurement.
-SR Linux egress discards should increase there. The customer's 100 Mbit/s handoff
-has headroom. A five-minute increase can plateau during sustained steady loss.
-Congestion can also reduce probe success while routes and sessions stay up.
+40 Mbit/s is below the cap. At 60/75 Mbit/s, Lagoon Transit ethernet-1/1 toward
+ReefNet Edge 01 is the bottleneck. Payload stays around or below 50 Mbit/s and
+egress discards rise. Routes and sessions can stay up during congestion.
 
 @@ 3 Cross-check loss without double counting
 Corroborate the observed loss with an independent measurement.
@@ -129,13 +121,10 @@ A missing queue sample, reset counter or failed collection invalidates a numeric
 comparison. After reducing to 10 Mbit/s, check whether NEW drops stop accumulating.
 Note the counter deltas and receiver loss.
 @@ solution
-The lab cap is a Linux netem egress queue. Its drops can also appear in the
-SR Linux egress counter, so the two values must not be added together.
-Normal dashboards show SR Linux discards. Linux queue drops are diagnostic
-evidence in Telemetry Health and the output of make traffic-diagnostics.
-The collection streams are sampled separately, so their deltas need not match exactly.
-At 10 Mbit/s new congestion drops should stop. Rolling-window panels retain
-earlier loss until it ages out, so they need not return to zero immediately.
+The netem queue and SR Linux counter can report the same loss, so do not add them.
+At 10 Mbit/s, new congestion drops stop. Rolling-window graphs retain old samples
+until they age out. Queue and router samples may differ because they are sampled
+separately.
 
 @@ 4 Distinguish topology change from service failure
 Run a controlled link outage and explain its effect on customer service.
@@ -187,9 +176,9 @@ Decision: if service survives on the parallel link, record a redundancy event.
 If it stays down, inspect the remaining path and convergence. Close this test only
 after the restored interface/adjacency and the four service checks agree.
 @@ solution
-The fault disables core-b, Edge 01 ethernet-1/4. The parallel core-a remains.
-Interface/OSPF state and logs change, while service can recover or remain
-reachable through the remaining path. Short convergence transients are possible.
+The fault disables core-b, Edge 01 ethernet-1/4. The parallel core-a remains,
+so service should pass again after OSPF converges. Short probe loss can occur
+during convergence. Interface/OSPF state and logs show the topology change.
 After make clear-link the interface and adjacency should recover.
 
 @@ 5 Compare a routing incident and restore the baseline
@@ -197,15 +186,18 @@ Compare a routing incident with the load and link experiments.
 Explain the different evidence, then restore reachability and stop the test load.
 
 Start in WSL:
+  make healthy
   make traffic-10mbit
   make test
-Restore any previous fault and confirm all four results pass before injecting:
+Continue only when all four results pass, then inject:
   make fault-routing
 @@ hint
-In WSL:
+In WSL, clear any leftover fault and set the experiment load:
+  make healthy
+  make traffic-10mbit
   make test
 Compare Service Health with BGP sessions and interface state. If you need route
-commands, use make hint SCENARIO=operations STEP=4.
+commands, use make hint SCENARIO=operations STEP=3.
 After recording your evidence, restore in WSL:
   make clear-routing
   make test
@@ -214,9 +206,10 @@ Allow convergence and check again if necessary. What recovered, and which older
 events remain visible in the selected Grafana window?
 @@ investigation
 WSL repository:
+  make healthy
   make traffic-10mbit
   make test
-Confirm the previous fault is restored and all four results pass, then inject:
+Confirm all four results pass, then inject:
   make fault-routing
   make test
 In Grafana compare external probes, BGP sessions, interfaces and logs.
@@ -243,15 +236,16 @@ of all four passing controls and the remaining historical data in the graphs.
 Only Lagoon IPv4 fails during the routing incident. Links and BGP sessions stay
 up. This differs from load-dependent queue loss and the core-b interface event.
 After clearing the routing fault and allowing convergence, all four probes pass.
-Traffic-stop removes generated load. Older samples remain in the selected window.
+`make traffic-stop` stops the generated load. Older samples remain in the
+selected window.
 
 @@ 6 Compare a short burst with the dashboard's rate window
 Can Grafana show a five-second burst? Compare short and long rate windows.
 
 Start in WSL:
   make traffic-stop
-For an isolated burst, wait five minutes so earlier load leaves the long rate
-window. Then run:
+For a clean burst, ensure there has been no generated traffic for five minutes.
+Use that interval to review your earlier graphs if needed. Then run:
   make traffic-burst-40mbit
 The burst stops automatically. Keep previous faults cleared.
 @@ hint
@@ -290,9 +284,7 @@ with Add query and select Code there too. Compare these expressions (Mbit/s):
 Use the same visible time range around the burst for both queries.
 Record the burst timestamp, both windows and their displayed peaks.
 @@ solution
-The source offers 40 Mbit/s for five seconds, then stops. This is below the
-50 Mbit/s transit cap. A longer rate window spreads that activity over more
-time and lowers the displayed peak. With otherwise idle traffic, its idealized
-five-minute average is about 40 * 5 / 300 = 0.67 Mbit/s. The actual plotted value
-depends on sampling, window alignment and overhead. The receiver log confirms
-traffic independently. A low plotted peak does not mean the burst never happened.
+The source offers 40 Mbit/s for five seconds, below the 50 Mbit/s cap. A five-
+minute rate window spreads the burst over more time than a ten-second window.
+Its idealized average is 0.67 Mbit/s. Sampling changes the plotted peak. The
+receiver log confirms the burst if the graph misses it.
