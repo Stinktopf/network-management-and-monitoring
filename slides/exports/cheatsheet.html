@@ -9,6 +9,11 @@ h1 { font-size: 23pt; line-height: 1.15; margin: 6mm 0 5mm; letter-spacing: -.5p
 section + section { border-top: 1px solid #bdc8bf; margin-top: 5mm; padding-top: 4mm; }
 h2 { font-size: 13pt; margin: 0 0 2mm; }
 h3 { font-size: 10pt; margin: 3mm 0 1mm; }
+.compact h1 { margin-bottom: 3mm; }
+.compact section + section { margin-top: 3mm; padding-top: 2mm; }
+.compact p { margin: 1mm 0; }
+.compact pre { margin: 1mm 0; padding: 1mm 3mm; }
+.compact pre code { line-height: 1.08; }
 p { margin: 1.5mm 0; }
 code { font: 8.5pt/1.35 'Liberation Mono', Consolas, monospace; }
 pre { margin: 1.5mm 0; padding: 1.5mm 3mm; border-left: 2px solid #72bf44; background: #f3f5f2; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -38,7 +43,8 @@ make automation      # repair through an API
 make monitoring      # measure traffic and loss
 </code></pre>
 <p><strong>Help:</strong> <code>make task</code>, <code>make hint STEP=2</code>, <code>make solution STEP=2</code>.</p>
-<p><strong>Lagoon probe</strong> (replace <code>lagoontransit</code> with <code>pacifictransit</code> for Pacific):</p>
+</section>
+<section><p><strong>Lagoon probe</strong> (replace <code>lagoontransit</code> with <code>pacifictransit</code> for Pacific):</p>
 <pre><code class="language-bash">make enter NODE=probe01.bob1.lagoontransit.test
 </code></pre>
 <h3>Inside a probe</h3>
@@ -76,10 +82,36 @@ info from running routing-policy
 </section>
     <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>1 / 4</span></footer>
   </article>
-<article class="page">
+<article class="page compact">
     <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
     <h1>Inspect and change configuration</h1>
-    <section><h3>Change the Lagoon export policy from the CLI</h3>
+    <section><h3>Management access, links and return route</h3>
+<p>From the Lagoon probe, trace the IPv4 path. A silent hop alone does not prove failure:</p>
+<pre><code class="language-bash">traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
+</code></pre>
+<p>Router management names resolve from the operator workstation. In WSL:</p>
+<pre><code class="language-bash">make enter NODE=operations01.bob1.reefnet.test
+</code></pre>
+<p>Inside operations01:</p>
+<pre><code class="language-bash">getent hosts edge01.bob1.reefnet.test
+ssh edge01.bob1.reefnet.test
+</code></pre>
+<p>Compare the ReefNet-Lagoon link at both ends. On ReefNet Edge 01:</p>
+<pre><code class="language-text">show interface ethernet-1/3 detail
+</code></pre>
+<p>On Lagoon Transit:</p>
+<pre><code class="language-text">show interface ethernet-1/1 detail
+show interface ethernet-1/2 detail
+</code></pre>
+<p>Lagoon <code>ethernet-1/1</code> faces ReefNet. <code>ethernet-1/2</code> faces the probe.</p>
+<p>Check the return route on the customer edge:</p>
+<pre><code class="language-bash">make enter NODE=edge01.bob1.oceanresearch.test
+</code></pre>
+<pre><code class="language-text">show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
+show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
+</code></pre>
+</section>
+<section><h3>Change the Lagoon export policy from the CLI</h3>
 <p>After the investigation, inspect both the group override and BGP's inherited policy:</p>
 <pre><code class="language-text">info from running network-instance default protocols bgp group lagoon-v4
 info from running network-instance default protocols bgp
@@ -100,7 +132,12 @@ diff
 commit now
 </code></pre>
 </section>
-<section><h2>Read through an API</h2>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>2 / 4</span></footer>
+  </article>
+<article class="page compact">
+    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
+    <h1>Read and change through APIs</h1>
+    <section><h2>Read through an API</h2>
 <p><strong>In WSL:</strong> enter the operator workstation.</p>
 <pre><code class="language-bash">make enter NODE=operations01.bob1.reefnet.test
 </code></pre>
@@ -121,12 +158,7 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
   get --type config --path &quot;$BGP_PATH&quot;
 </code></pre>
 </section>
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>2 / 4</span></footer>
-  </article>
-<article class="page">
-    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
-    <h1>Measure traffic</h1>
-    <section><h2>Change a BGP policy with gNMI</h2>
+<section><h2>Change a BGP policy with gNMI</h2>
 <p><strong>Still inside operations01:</strong> read the affected group and note its current policy.</p>
 <pre><code class="language-bash">BGP_PATH='/network-instance[name=default]/protocols/bgp'
 GROUP=&quot;$BGP_PATH/group[group-name=lagoon-v4]&quot;
@@ -139,6 +171,12 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 Its parent uses <code>EXPORT-BGP</code>. Delete the override to inherit that policy.</p>
 <pre><code class="language-bash">gnmic -a edge01.bob1.reefnet.test:57400 \
   -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
+  set --delete &quot;$GROUP/export-policy&quot; --dry-run
+</code></pre>
+<p>Check the target and path. <code>--dry-run</code> previews the request but does not validate it on the router.
+When it matches your diagnosis, repeat without <code>--dry-run</code> to apply it:</p>
+<pre><code class="language-bash">gnmic -a edge01.bob1.reefnet.test:57400 \
+  -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
   set --delete &quot;$GROUP/export-policy&quot;
 gnmic -a edge01.bob1.reefnet.test:57400 \
   -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
@@ -147,7 +185,12 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 <p>Verify routes and service from both probes. Use <code>exit</code> to return to WSL.
 Change and rollback: <code>make solution SCENARIO=automation STEP=3</code>.</p>
 </section>
-<section><h2>Watch traffic and loss</h2>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>3 / 4</span></footer>
+  </article>
+<article class="page">
+    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
+    <h1>Measure and experiment</h1>
+    <section><h2>Watch traffic and loss</h2>
 <p><strong>In WSL:</strong> choose one load. Wait at least 30 seconds at each level.</p>
 <pre><code class="language-bash">make traffic-40mbit
 make traffic-60mbit
@@ -167,12 +210,7 @@ Inside the service node:</p>
 <pre><code class="language-bash">tail -n 15 /tmp/iperf-server.log   # received Mbit/s and loss
 </code></pre>
 </section>
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>3 / 4</span></footer>
-  </article>
-<article class="page">
-    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
-    <h1>Run experiments</h1>
-    <section><h2>Control the experiment</h2>
+<section><h2>Control the experiment</h2>
 <p><strong>In WSL:</strong> run <code>make traffic-10mbit</code>, then <code>make test</code>.
 Start only when all four results pass. Try one fault at a time.</p>
 <table>

@@ -11,6 +11,8 @@ make monitoring      # measure traffic and loss
 
 **Help:** `make task`, `make hint STEP=2`, `make solution STEP=2`.
 
+---
+
 **Lagoon probe** (replace `lagoontransit` with `pacifictransit` for Pacific):
 
 ```bash
@@ -66,6 +68,55 @@ On ReefNet Edge 01, what do we advertise to Lagoon? Which policies apply?
 show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
 info from running network-instance default protocols bgp
 info from running routing-policy
+```
+
+---
+
+## Management access, links and return route
+
+From the Lagoon probe, trace the IPv4 path. A silent hop alone does not prove failure:
+
+```bash
+traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
+```
+
+Router management names resolve from the operator workstation. In WSL:
+
+```bash
+make enter NODE=operations01.bob1.reefnet.test
+```
+
+Inside operations01:
+
+```bash
+getent hosts edge01.bob1.reefnet.test
+ssh edge01.bob1.reefnet.test
+```
+
+Compare the ReefNet-Lagoon link at both ends. On ReefNet Edge 01:
+
+```text
+show interface ethernet-1/3 detail
+```
+
+On Lagoon Transit:
+
+```text
+show interface ethernet-1/1 detail
+show interface ethernet-1/2 detail
+```
+
+Lagoon `ethernet-1/1` faces ReefNet. `ethernet-1/2` faces the probe.
+
+Check the return route on the customer edge:
+
+```bash
+make enter NODE=edge01.bob1.oceanresearch.test
+```
+
+```text
+show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
+show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
 ```
 
 ---
@@ -155,6 +206,15 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 
 **After diagnosis:** the group uses `BLOCK-CUSTOMER-V4`, causing the fault.
 Its parent uses `EXPORT-BGP`. Delete the override to inherit that policy.
+
+```bash
+gnmic -a edge01.bob1.reefnet.test:57400 \
+  -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
+  set --delete "$GROUP/export-policy" --dry-run
+```
+
+Check the target and path. `--dry-run` previews the request but does not validate it on the router.
+When it matches your diagnosis, repeat without `--dry-run` to apply it:
 
 ```bash
 gnmic -a edge01.bob1.reefnet.test:57400 \

@@ -22,20 +22,25 @@ export async function buildHandout({ pdf = true } = {}) {
   };
   const source = fs.readFileSync(path.join(root, 'resources/CHEATSHEET.md'), 'utf8');
   const sections = source.trim().split(/\n---\n/);
-  const titles = ['Explore the network', 'Inspect and change configuration', 'Measure traffic', 'Run experiments'];
-  if (sections.length !== titles.length * 2) throw new Error('Expected eight command-reference sections');
-  const pages = titles.map((title, index) => `<article class="page">
+  const pages = [
+    { title: 'Explore the network', sections: [0, 1, 2] },
+    { title: 'Inspect and change configuration', sections: [3, 4] },
+    { title: 'Read and change through APIs', sections: [5, 6] },
+    { title: 'Measure and experiment', sections: [7, 8, 9] },
+  ];
+  if (sections.length !== 10) throw new Error('Expected ten command-reference sections');
+  const pagesHtml = pages.map(({ title, sections: pageSections }, index) => `<article class="page${index === 1 || index === 2 ? ' compact' : ''}">
     <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
     <h1>${title}</h1>
-    ${sections.slice(index * 2, index * 2 + 2).map(section => `<section>${renderSection(section)}</section>`).join('\n')}
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>${index + 1} / ${titles.length}</span></footer>
+    ${pageSections.map(sectionIndex => `<section>${renderSection(sections[sectionIndex])}</section>`).join('\n')}
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>${index + 1} / ${pages.length}</span></footer>
   </article>`).join('\n');
   const css = fs.readFileSync(path.join(root, 'theme/handout.css'), 'utf8');
   const output = path.join(root, 'exports/cheatsheet.html');
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ReefNet command reference</title><style>${css}</style></head><body>${pages}</body></html>\n`);
+<title>ReefNet command reference</title><style>${css}</style></head><body>${pagesHtml}</body></html>\n`);
   console.log('Command reference: exports/cheatsheet.html');
   if (!pdf) return;
   const browser = await puppeteer.launch({
@@ -53,7 +58,7 @@ export async function buildHandout({ pdf = true } = {}) {
     }));
     if (overflow.length) throw new Error(`Handout content exceeds page ${overflow.join(', ')}`);
     await page.pdf({ path: path.join(root, 'exports/cheatsheet.pdf'), preferCSSPageSize: true, printBackground: true });
-    console.log(`Command reference: exports/cheatsheet.pdf (A4, ${titles.length} pages)`);
+    console.log(`Command reference: exports/cheatsheet.pdf (A4, ${pages.length} pages)`);
   } finally {
     await browser.close();
   }

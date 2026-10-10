@@ -7,6 +7,11 @@ h1 { font-size: 23pt; line-height: 1.15; margin: 6mm 0 5mm; letter-spacing: -.5p
 section + section { border-top: 1px solid #bdc8bf; margin-top: 5mm; padding-top: 4mm; }
 h2 { font-size: 13pt; margin: 0 0 2mm; }
 h3 { font-size: 10pt; margin: 3mm 0 1mm; }
+.compact h1 { margin-bottom: 3mm; }
+.compact section + section { margin-top: 3mm; padding-top: 2mm; }
+.compact p { margin: 1mm 0; }
+.compact pre { margin: 1mm 0; padding: 1mm 3mm; }
+.compact pre code { line-height: 1.08; }
 p { margin: 1.5mm 0; }
 code { font: 8.5pt/1.35 'Liberation Mono', Consolas, monospace; }
 pre { margin: 1.5mm 0; padding: 1.5mm 3mm; border-left: 2px solid #72bf44; background: #f3f5f2; white-space: pre-wrap; overflow-wrap: anywhere; }
