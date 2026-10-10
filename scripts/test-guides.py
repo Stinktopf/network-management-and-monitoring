@@ -134,6 +134,57 @@ class Guides(unittest.TestCase):
                     self.assertNotIn("  ssh ", result.stdout)
                     self.assertIn("exit", result.stdout)
 
+    def test_enter_distinguishes_shell_command_errors_from_docker_errors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            bin_dir = Path(directory)
+            # Replace Docker transport, but run an actual interactive Bash.
+            # Skip machine-specific login profiles so this test is portable.
+            (bin_dir / "docker").write_text('''#!/bin/sh
+case "$1" in
+  inspect|cp) exit 0 ;;
+  exec)
+    if [ -n "${TEST_DOCKER_EXEC_STATUS:-}" ]; then
+      exit "$TEST_DOCKER_EXEC_STATUS"
+    fi
+    shift
+    [ "$1" = -it ] || exit 99
+    shift 2
+    exec "$@"
+    ;;
+  *) exit 99 ;;
+esac
+''')
+            (bin_dir / "bash").write_text('''#!/bin/sh
+if [ "$1" = -l ]; then
+  exec /bin/bash --noprofile --norc -i
+fi
+exec /bin/bash "$@"
+''')
+            for name in ("docker", "bash"):
+                (bin_dir / name).chmod(0o755)
+            env = dict(os.environ, PATH=f"{bin_dir}:{os.environ['PATH']}",
+                       AI5049_COLOR="never", HISTFILE="/dev/null")
+            for commands in ("true\nexit\n", "false\nexit\n",
+                             "missing_lab_command_127\nexit\n", "false\n"):
+                with self.subTest(commands=commands):
+                    result = subprocess.run(
+                        ["make", "--no-print-directory", "enter",
+                         "NODE=probe01.bob1.lagoontransit.test"], cwd=ROOT,
+                        input=commands, text=True, capture_output=True, env=env, timeout=5,
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    if "missing_lab_command_127" in commands:
+                        self.assertIn("command not found", result.stderr)
+            for status in (1, 125, 126, 127):
+                with self.subTest(docker_status=status):
+                    result = subprocess.run(
+                        ["/bin/bash", str(ROOT / "scripts/enter.sh"),
+                         "probe01.bob1.lagoontransit.test"], cwd=ROOT,
+                        text=True, capture_output=True, timeout=5,
+                        env=dict(env, TEST_DOCKER_EXEC_STATUS=str(status)),
+                    )
+                    self.assertEqual(result.returncode, status, result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

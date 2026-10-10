@@ -65,4 +65,6 @@ if [[ "$mode" == srl ]]; then
 fi
 # Refresh the greeting even when the running lab uses an older tools image.
 docker cp "$(dirname "$0")/../tools/welcome.sh" "$container:/etc/profile.d/ai5049.sh" >/dev/null
-exec docker exec -it "$container" bash -l
+# A command failure inside the interactive shell is not a failure to enter it.
+# Normalize the session's exit status inside Docker so Docker launch errors survive.
+exec docker exec -it "$container" bash -c 'bash -l; exit 0'
