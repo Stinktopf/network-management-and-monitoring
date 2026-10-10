@@ -21,7 +21,7 @@ After a short demo, work through the exercises on the university lab PCs. Repeat
 
 ## Setup
 
-The university lab PCs use [WSL-Containerlab by srl-labs](https://github.com/srl-labs/WSL-Containerlab), already installed. Clone the repository and run `make setup` there.
+The lab PCs have [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab) preinstalled. Clone the repository and run `make setup`.
 
 On your own Windows PC, follow the [WSL-Containerlab installation instructions](https://github.com/srl-labs/WSL-Containerlab#quick-start) to use the same environment. Then clone this repository and run `make setup` as below. On Linux, ensure the prerequisites below are installed.
 
@@ -72,7 +72,7 @@ Keep notes on your findings and next step. `make down` removes the running lab a
 
 The passwords above are lab defaults. Grafana allows anonymous administration and ports listen on host interfaces, so keep the lab on a trusted network.
 
-Use the [CheatSheet](slides/resources/CHEATSHEET.md) for node access, traffic controls and fault experiments. Leave Linux with `exit` and router CLIs with `quit`.
+See the [CheatSheet](slides/resources/CHEATSHEET.md) for access, traffic and faults. Leave Linux with `exit`, router CLIs with `quit`.
 
 Router management names and SSH resolve on `operations01.bob1.reefnet.test`. The probe DNS serves `data.oceanresearch.test`. Device names and links are defined in the [network model](tools/bob1_model.json).
 
@@ -125,21 +125,20 @@ Project submission: [contributions and declaration of independent work](slides/r
 <details>
 <summary>Editing slides and handouts</summary>
 
-Build with Node.js 18+, npm and Chromium:
+With Node.js 18+, npm and Chromium installed, build from the repository root:
 
 ```bash
-cd slides
-npm ci
-npm run build
+npm --prefix slides ci
+make slides
 ```
+
+Use `make handouts` to rebuild only the CheatSheet.
 
 - Exports: lecture HTML, PDF and PPTX plus CheatSheet HTML/PDF in `slides/exports/`. PowerPoint contains slide images. Edit lecture content in the Marp source.
 - Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
 - For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
 - Lecture theme: `slides/theme/ai5049.css`. A4 reference: `slides/resources/CHEATSHEET.md` and `slides/theme/handout.css`. The CLI uses the same reference source.
 - [Diagram sources](slides/assets/README.md) and [teaching data](slides/assets/data/README.md) describe regeneration. Python 3 is needed for the generators.
-- `npm run build:handouts` builds only the CheatSheet. `npm run sampling` regenerates the synthetic timing-model data. Run all npm commands from `slides/`.
-
-From the repository root, `make slides` builds all exports and `make handouts` builds only the CheatSheet.
+- `npm --prefix slides run sampling` regenerates the synthetic timing-model data.
 
 </details>
