@@ -157,7 +157,12 @@ Inside operations01:
   jq '.[].updates[].values[]' /state/automation-group-after.json
 Compare configuration fields, not envelope timestamps. Read the parent when a
 removed leaf cannot be returned. Use exit to return to WSL.
-Repeat your route and customer DNS checks. Did only the intended behavior change?
+For HTTP checks, in WSL:
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit, then repeat on the Pacific probe. Did only the intended behavior change?
 @@ investigation
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
@@ -182,8 +187,21 @@ Inside the Lagoon probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   exit
 
+WSL repository:
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+WSL repository:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Inside the Pacific probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+
 Inspect: absence of only the intended override, restored advertisement and active
-receiver route, all four PASS cells and a NOERROR DNS answer from Lagoon.
+receiver route, all four PASS cells, a NOERROR DNS answer and four successful HTTP controls.
 Decision: commit acknowledgement plus read-back alone is insufficient. If the route
 recovered but the service did not, investigate forwarding/return path. If a healthy
 control regressed, assess rollback. Close only after the independent checks agree.
@@ -194,3 +212,6 @@ installs it. All four ICMP controls pass and Lagoon DNS returns A 198.51.100.10.
 Before/after files and the Set response are retained under .state/ in WSL.
 Report the scoped deletion, effective inherited policy, route proof and external
 service recovery. An API success alone would not have met these closure criteria.
+
+HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
+Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.

@@ -45,7 +45,7 @@ def flow(name,labels,subs=None,caption='',height=235):
  if caption:a+=text(550,200,caption,24)
  save(name,a,height,caption or ' → '.join(labels))
 
-flow('environment-create.svg',['Topology file','Containerlab','Devices + links'],caption='Creation is not verification.')
+flow('environment-create.svg',['Topology file','Containerlab','Devices + links'],caption='')
 flow('observation-path.svg',['Collect','Store','Query','Grafana'],caption='A panel is the end of an observation pipeline.')
 flow('address-hierarchy.svg',['IANA','RIR','Network'],['Global pool','Regional registry','More-specific prefix'],caption='Administrative delegation, not a forwarding path')
 flow('incident-loop.svg',['Reproduce','Bound + explain','Repair','Verify'],caption='Evidence before action. Recovery before closure.')

@@ -5,10 +5,17 @@ GUIDE_SCENARIO = $(or $(SCENARIO),$(shell cat .scenario 2>/dev/null || echo netw
 .PHONY: help setup doctor pull networking operations automation monitoring reset enter \
         inspect status next hint solution test healthy fault-routing clear-routing fault-link clear-link \
         traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-diagnostics traffic-burst-40mbit traffic-stop \
-        netbox-token netbox-reset diagnostics course-check down clean ui slides check
+        netbox-token netbox-reset diagnostics course-check down clean ui exercises cheatsheet handouts slides check
 
 help:
 	@bash scripts/help.sh
+
+exercises:
+	@bash scripts/materials.sh exercises
+cheatsheet:
+	@bash scripts/materials.sh cheatsheet
+handouts:
+	npm --prefix slides run build:handouts
 
 setup:
 	bash scripts/setup.sh

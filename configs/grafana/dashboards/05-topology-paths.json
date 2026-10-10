@@ -95,7 +95,7 @@
     {
       "id": 1,
       "type": "canvas",
-      "title": "BOB1 topology · physical paths and routing domains",
+      "title": "BOB1 topology / physical paths and routing domains",
       "datasource": {
         "type": "grafana",
         "uid": "grafana"
@@ -635,7 +635,7 @@
                 "size": 14,
                 "text": {
                   "field": "",
-                  "fixed": "BOB1 · 4 ASes · 5 SR Linux routers · 8 physical data-plane links",
+                  "fixed": "BOB1 / 4 ASes / 5 SR Linux routers / 8 physical data-plane links",
                   "mode": "fixed"
                 },
                 "valign": "middle"
@@ -674,7 +674,7 @@
                 "size": 11,
                 "text": {
                   "field": "",
-                  "fixed": "core-a · OSPF",
+                  "fixed": "core-a / OSPF",
                   "mode": "fixed"
                 },
                 "valign": "middle"
@@ -713,7 +713,7 @@
                 "size": 11,
                 "text": {
                   "field": "",
-                  "fixed": "core-b · OSPF",
+                  "fixed": "core-b / OSPF",
                   "mode": "fixed"
                 },
                 "valign": "middle"
@@ -776,7 +776,7 @@
     {
       "id": 2,
       "type": "stat",
-      "title": "Lagoon path · success",
+      "title": "Lagoon path / success",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -823,7 +823,7 @@
     {
       "id": 3,
       "type": "stat",
-      "title": "Pacific path · success",
+      "title": "Pacific path / success",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -870,7 +870,7 @@
     {
       "id": 4,
       "type": "stat",
-      "title": "ReefNet Edge 01 · BGP peers",
+      "title": "ReefNet Edge 01 / BGP peers",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -916,7 +916,7 @@
     {
       "id": 5,
       "type": "stat",
-      "title": "ReefNet Edge 02 · BGP peers",
+      "title": "ReefNet Edge 02 / BGP peers",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -962,7 +962,7 @@
     {
       "id": 92,
       "type": "row",
-      "title": "Selected network link · state and traffic",
+      "title": "Selected network link / state and traffic",
       "gridPos": {
         "x": 0,
         "y": 22,
@@ -975,7 +975,7 @@
     {
       "id": 11,
       "type": "stat",
-      "title": "Selected links · admin state",
+      "title": "Selected links / admin state",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -988,7 +988,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}",
+          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}",
           "instant": true
         }
       ],
@@ -1050,7 +1050,7 @@
     {
       "id": 12,
       "type": "stat",
-      "title": "Selected links · oper state",
+      "title": "Selected links / oper state",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1063,7 +1063,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}",
+          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}",
           "instant": true
         }
       ],
@@ -1125,7 +1125,7 @@
     {
       "id": 6,
       "type": "timeseries",
-      "title": "Selected links · traffic by direction",
+      "title": "Selected links / traffic by direction",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1179,7 +1179,7 @@
     {
       "id": 94,
       "type": "row",
-      "title": "Selected network link · fault classes",
+      "title": "Selected network link / fault classes",
       "gridPos": {
         "x": 0,
         "y": 39,
@@ -1192,7 +1192,7 @@
     {
       "id": 13,
       "type": "timeseries",
-      "title": "Ingress discards · 5m",
+      "title": "Ingress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1205,7 +1205,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
+          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -1238,7 +1238,7 @@
     {
       "id": 15,
       "type": "timeseries",
-      "title": "Egress discards · 5m",
+      "title": "Egress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1251,7 +1251,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
+          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -1284,7 +1284,7 @@
     {
       "id": 14,
       "type": "timeseries",
-      "title": "Errors · 5m",
+      "title": "Errors / 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1425,7 +1425,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "BOB1 · Topology & Paths",
+  "title": "BOB1 / Topology & Paths",
   "uid": "reefnet-bob1-topology",
   "version": 5
 }

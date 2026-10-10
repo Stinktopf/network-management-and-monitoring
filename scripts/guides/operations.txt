@@ -258,12 +258,10 @@ Expected prefix trace:
   Pacific IPv4 forwarding table        active via 192.0.2.4, ethernet-1/1.0
 This is the first demonstrated divergence: the customer prefix exists on Edge 01
 but does not cross its export boundary toward Lagoon. The receiver corroborates it.
-Lagoon may still display a BGP path received from IPv6 peer 2001:db8:0:a::1,
-with BGP next-hop 10.255.0.1 and path flags <> rather than Best,Valid,Used.
-That is not an installed IPv4
-forwarding route. Compare the route source, selection and active table instead
-of concluding that any BGP entry proves a usable path. The affected advertisement
-being tested here is specifically Edge 01's IPv4 peer 192.0.2.2.
+IPv4 and IPv6 address families are explicitly separated in the current baseline.
+The IPv6 session should not carry the missing IPv4 customer prefix. If it does,
+inspect the effective AFI/SAFI configuration and confirm that the current scenario
+was deployed. Compare received BGP paths with the active forwarding table.
 A BGP reset is not supported by this evidence. Inspect the applicable export rules.
 
 @@ 5 Resolve the effective policy and prove its effect
@@ -389,7 +387,9 @@ For the customer check, in WSL:
 Inside the probe:
   ping -4 -c 3 -W 1 198.51.100.10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
-Use exit to return. Does the application work as well as the route?
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit, then repeat these checks on the Pacific probe. Does HTTP work too?
 Read all four cells in make test. Its exit code alone is not a PASS verdict.
 If a control regresses or the service still fails, keep the incident open.
 @@ investigation
@@ -414,8 +414,21 @@ Inside the Lagoon probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   exit
 
+WSL repository:
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+WSL repository:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Inside the Pacific probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+
 Inspect: restored prefix advertisement, active receiver route, all four PASS
-cells and a successful application-level DNS answer from the previously affected source.
+cells, a successful DNS answer and HTTP responses from both sources over both families.
 Decision:
 - Route and service recovered with controls intact: record the closure evidence.
 - Route absent: re-check committed configuration and allow for convergence.
@@ -433,6 +446,18 @@ Closure example:
   Impact: Lagoon could not reach the customer's IPv4 service. Three controls worked.
   Cause: lagoon-v4 overrode EXPORT-BGP with a policy rejecting the customer prefix.
   Change: deleted that group's export-policy override on ReefNet Edge 01.
-  Proof: prefix advertised and installed on Lagoon, 4/4 ICMP checks and DNS recovered.
+  Proof: prefix advertised and installed on Lagoon, 4/4 ICMP and HTTP controls plus DNS recovered.
   Controls: Lagoon IPv6 and Pacific IPv4/IPv6 remained healthy.
 make reset would recreate the incident. It is not part of this successful repair.
+
+HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
+Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.
+
+Before stopping, save evidence outside the containers. In WSL:
+  mkdir -p work/operations
+  cp .state/operations-before.txt .state/operations-after.txt work/operations/
+  make test | tee work/operations/reachability.txt
+Copy any other needed container files to WSL, then stop with make down.
+If an evidence file is missing, keep the available files and document the gap.
+Restarting make operations or make reset recreates the initial incident.
+make clean also deletes lab state and NetBox data.

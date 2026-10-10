@@ -144,7 +144,7 @@
     {
       "id": 4,
       "type": "stat",
-      "title": "Loki events · last 5m",
+      "title": "Loki events / last 5m",
       "datasource": {
         "type": "loki",
         "uid": "loki"
@@ -282,7 +282,7 @@
         {
           "refId": "A",
           "expr": "scrape_duration_seconds{job=~\"$job\"}",
-          "legendFormat": "{{job}} · {{instance}}",
+          "legendFormat": "{{job}} / {{instance}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -326,7 +326,7 @@
         {
           "refId": "A",
           "expr": "time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -370,7 +370,7 @@
         {
           "refId": "A",
           "expr": "scrape_samples_scraped{job=~\"$job\"}",
-          "legendFormat": "{{job}} · {{instance}}",
+          "legendFormat": "{{job}} / {{instance}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -416,7 +416,7 @@
     {
       "id": 10,
       "type": "timeseries",
-      "title": "Linux queue drops · 5m",
+      "title": "Linux queue drops (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -429,7 +429,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{link_id}} · {{source}} · {{interface_name}}"
+          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -462,7 +462,7 @@
     {
       "id": 92,
       "type": "row",
-      "title": "Events · selected network devices",
+      "title": "Events / selected network devices",
       "collapsed": false,
       "panels": [],
       "gridPos": {
@@ -609,7 +609,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "BOB1 · Telemetry Health",
+  "title": "BOB1 / Telemetry Health",
   "uid": "reefnet-bob1-telemetry",
   "version": 5,
   "links": [

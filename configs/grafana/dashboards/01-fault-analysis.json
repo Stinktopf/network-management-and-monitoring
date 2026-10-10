@@ -8,7 +8,7 @@
     {
       "id": 90,
       "type": "row",
-      "title": "Symptoms · what is affected?",
+      "title": "Symptoms / what is affected?",
       "collapsed": false,
       "panels": [],
       "gridPos": {
@@ -21,7 +21,7 @@
     {
       "id": 1,
       "type": "timeseries",
-      "title": "Probe success · what is failing?",
+      "title": "Probe success / what is failing?",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -30,7 +30,7 @@
         {
           "refId": "A",
           "expr": "avg_over_time(reefnet_probe_success{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}[30s])",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -66,7 +66,7 @@
     {
       "id": 2,
       "type": "timeseries",
-      "title": "Probe duration · is it slow rather than down?",
+      "title": "Probe duration / is it slow rather than down?",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -75,7 +75,7 @@
         {
           "refId": "A",
           "expr": "reefnet_probe_duration_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -123,7 +123,7 @@
     {
       "id": 8,
       "type": "stat",
-      "title": "Selected interfaces · admin state",
+      "title": "Selected interfaces / admin state",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -136,7 +136,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}} · {{link}}",
+          "legendFormat": "{{source}} / {{interface_name}} / {{link}}",
           "instant": true
         }
       ],
@@ -198,7 +198,7 @@
     {
       "id": 9,
       "type": "stat",
-      "title": "Selected interfaces · oper state",
+      "title": "Selected interfaces / oper state",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -211,7 +211,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}} · {{link}}",
+          "legendFormat": "{{source}} / {{interface_name}} / {{link}}",
           "instant": true
         }
       ],
@@ -273,7 +273,7 @@
     {
       "id": 3,
       "type": "timeseries",
-      "title": "Selected interfaces · traffic",
+      "title": "Selected interfaces / traffic",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -286,7 +286,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}} · receive"
+          "legendFormat": "{{source}} / {{interface_name}} / receive"
         },
         {
           "refId": "B",
@@ -295,7 +295,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}} · transmit"
+          "legendFormat": "{{source}} / {{interface_name}} / transmit"
         }
       ],
       "gridPos": {
@@ -327,7 +327,7 @@
     {
       "id": 94,
       "type": "row",
-      "title": "Interface quality · separate fault classes",
+      "title": "Interface quality / separate fault classes",
       "gridPos": {
         "x": 0,
         "y": 24,
@@ -340,7 +340,7 @@
     {
       "id": 10,
       "type": "timeseries",
-      "title": "Ingress discards · 5m",
+      "title": "Ingress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -353,7 +353,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}}"
+          "legendFormat": "{{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -386,7 +386,7 @@
     {
       "id": 12,
       "type": "timeseries",
-      "title": "Egress discards · 5m",
+      "title": "Egress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -399,7 +399,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}}"
+          "legendFormat": "{{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -432,7 +432,7 @@
     {
       "id": 11,
       "type": "timeseries",
-      "title": "Errors · 5m",
+      "title": "Errors / 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -445,7 +445,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{source}} · {{interface_name}}"
+          "legendFormat": "{{source}} / {{interface_name}}"
         }
       ],
       "gridPos": {
@@ -488,7 +488,7 @@
     {
       "id": 5,
       "type": "timeseries",
-      "title": "BGP peers · control plane",
+      "title": "BGP peers / control plane",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -497,7 +497,7 @@
         {
           "refId": "A",
           "expr": "reefnet_bgp_up_peers{source=~\"$device\"}",
-          "legendFormat": "up · {{source}}",
+          "legendFormat": "up / {{source}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -506,7 +506,7 @@
         {
           "refId": "B",
           "expr": "reefnet_bgp_total_peers{source=~\"$device\"}",
-          "legendFormat": "configured · {{source}}",
+          "legendFormat": "configured / {{source}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -540,7 +540,7 @@
     {
       "id": 6,
       "type": "timeseries",
-      "title": "BGP routes · control plane",
+      "title": "BGP routes / control plane",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -549,7 +549,7 @@
         {
           "refId": "A",
           "expr": "reefnet_bgp_route_total{source=~\"$device\",route_view=~\"$bgp_view\"}",
-          "legendFormat": "{{route_view}} · {{source}}",
+          "legendFormat": "{{route_view}} / {{source}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -583,7 +583,7 @@
     {
       "id": 93,
       "type": "row",
-      "title": "Events · correlate the timeline",
+      "title": "Events / correlate the timeline",
       "gridPos": {
         "x": 0,
         "y": 42,
@@ -596,7 +596,7 @@
     {
       "id": 7,
       "type": "logs",
-      "title": "SR Linux events · correlate state changes",
+      "title": "SR Linux events / correlate state changes",
       "datasource": {
         "type": "loki",
         "uid": "loki"
@@ -756,7 +756,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "BOB1 · Fault Analysis",
+  "title": "BOB1 / Fault Analysis",
   "uid": "reefnet-bob1-faults",
   "version": 5,
   "links": [

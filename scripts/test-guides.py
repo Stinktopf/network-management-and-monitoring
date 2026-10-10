@@ -79,6 +79,37 @@ class Guides(unittest.TestCase):
                      ("operations", "../x"), ("operations", 1, "unknown")):
             self.assertEqual(self.render(*args).returncode, 2)
 
+    def test_cheatsheet_preserves_copyable_commands(self):
+        source = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
+        for color in ("never", "always"):
+            with self.subTest(color=color):
+                result = subprocess.run(
+                    ["bash", "scripts/materials.sh", "cheatsheet"], cwd=ROOT,
+                    capture_output=True, text=True, check=True,
+                    env=dict(os.environ, AI5049_COLOR=color),
+                )
+                plain = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout)
+                self.assertNotIn("marp: true", plain)
+                self.assertNotIn("```", plain)
+                self.assertNotIn("**", plain)
+                for code in re.findall(r"```[^\n]*\n(.*?)\n```", source, re.S):
+                    self.assertIn("\n".join("  " + line for line in code.splitlines()), plain)
+                self.assertIn("make fault-link", plain)
+                self.assertIn("make clear-routing", plain)
+                self.assertEqual("\x1b[" in result.stdout, color == "always")
+
+    def test_color_changes_presentation_only(self):
+        for scenario in ("networking", "operations", "automation", "monitoring"):
+            for level in ("task", "hint", "solution"):
+                with self.subTest(scenario=scenario, level=level):
+                    plain = self.render(scenario, "all", level).stdout
+                    colored = subprocess.run(
+                        ["bash", "scripts/next-steps.sh", scenario, "all", level],
+                        cwd=ROOT, capture_output=True, text=True, check=True,
+                        env=dict(os.environ, AI5049_COLOR="always"),
+                    ).stdout
+                    self.assertEqual(re.sub(r"\x1b\[[0-9;]*m", "", colored), plain)
+
     def test_welcome_matches_the_actual_node(self):
         roles = {
             "operations01.bob1.reefnet.test": "Operator workstation",
@@ -96,7 +127,7 @@ class Guides(unittest.TestCase):
                     env=dict(os.environ, TEST_NODE=node),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertIn(f"AI5049 · {node}", result.stdout)
+                self.assertIn(f"AI5049 / {node}", result.stdout)
                 self.assertIn(role, result.stdout)
                 if node.startswith("probe"):
                     self.assertNotIn("Operator workstation", result.stdout)

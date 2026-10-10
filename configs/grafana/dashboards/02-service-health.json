@@ -21,7 +21,7 @@
     {
       "id": 1,
       "type": "stat",
-      "title": "Selected probes · success",
+      "title": "Selected probes / success",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -68,7 +68,7 @@
     {
       "id": 2,
       "type": "stat",
-      "title": "Selected probes · worst duration",
+      "title": "Selected probes / worst duration",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -115,7 +115,7 @@
     {
       "id": 3,
       "type": "stat",
-      "title": "Selected probes · oldest sample",
+      "title": "Selected probes / oldest sample",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -175,7 +175,7 @@
     {
       "id": 4,
       "type": "timeseries",
-      "title": "Probe success · selected view",
+      "title": "Probe success / selected view",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -184,7 +184,7 @@
         {
           "refId": "A",
           "expr": "avg_over_time(reefnet_probe_success{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}[30s])",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -219,7 +219,7 @@
     {
       "id": 5,
       "type": "timeseries",
-      "title": "Probe duration · selected view",
+      "title": "Probe duration / selected view",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -228,7 +228,7 @@
         {
           "refId": "A",
           "expr": "reefnet_probe_duration_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -263,7 +263,7 @@
     {
       "id": 92,
       "type": "row",
-      "title": "Freshness · is the evidence current?",
+      "title": "Freshness / is the evidence current?",
       "collapsed": false,
       "panels": [],
       "gridPos": {
@@ -276,7 +276,7 @@
     {
       "id": 6,
       "type": "timeseries",
-      "title": "Probe data age · selected view",
+      "title": "Probe data age / selected view",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -285,7 +285,7 @@
         {
           "refId": "A",
           "expr": "time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} · {{probe}} · {{af}}",
+          "legendFormat": "{{source}} / {{probe}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -391,7 +391,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "BOB1 · Service Health",
+  "title": "BOB1 / Service Health",
   "uid": "reefnet-bob1-service",
   "version": 3,
   "links": [

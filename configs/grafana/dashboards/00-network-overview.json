@@ -21,7 +21,7 @@
     {
       "id": 1,
       "type": "stat",
-      "title": "Lagoon path · probe success (30s)",
+      "title": "Lagoon path / probe success (30s)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -63,7 +63,7 @@
     {
       "id": 2,
       "type": "stat",
-      "title": "Pacific path · probe success (30s)",
+      "title": "Pacific path / probe success (30s)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -105,7 +105,7 @@
     {
       "id": 3,
       "type": "stat",
-      "title": "ReefNet Edge 01 · BGP peers",
+      "title": "ReefNet Edge 01 / BGP peers",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -146,7 +146,7 @@
     {
       "id": 4,
       "type": "stat",
-      "title": "ReefNet Edge 02 · BGP peers",
+      "title": "ReefNet Edge 02 / BGP peers",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -331,7 +331,7 @@
     {
       "id": 5,
       "type": "timeseries",
-      "title": "Ocean Research handoff · traffic",
+      "title": "Ocean Research handoff / traffic",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -376,7 +376,7 @@
     {
       "id": 6,
       "type": "timeseries",
-      "title": "Upstream handoffs · traffic",
+      "title": "Upstream handoffs / traffic",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -444,7 +444,7 @@
     {
       "id": 7,
       "type": "timeseries",
-      "title": "ReefNet core · traffic",
+      "title": "ReefNet core / traffic",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -453,22 +453,22 @@
         {
           "refId": "A",
           "expr": "reefnet_interface_in_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"}",
-          "legendFormat": "Edge 02 → Edge 01 · core-a"
+          "legendFormat": "Edge 02 → Edge 01 / core-a"
         },
         {
           "refId": "B",
           "expr": "reefnet_interface_out_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"}",
-          "legendFormat": "Edge 01 → Edge 02 · core-a"
+          "legendFormat": "Edge 01 → Edge 02 / core-a"
         },
         {
           "refId": "C",
           "expr": "reefnet_interface_in_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"}",
-          "legendFormat": "Edge 02 → Edge 01 · core-b"
+          "legendFormat": "Edge 02 → Edge 01 / core-b"
         },
         {
           "refId": "D",
           "expr": "reefnet_interface_out_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"}",
-          "legendFormat": "Edge 01 → Edge 02 · core-b"
+          "legendFormat": "Edge 01 → Edge 02 / core-b"
         }
       ],
       "gridPos": {
@@ -539,7 +539,7 @@
     {
       "id": 96,
       "type": "row",
-      "title": "Interface quality · separate fault classes",
+      "title": "Interface quality / separate fault classes",
       "gridPos": {
         "x": 0,
         "y": 28,
@@ -552,7 +552,7 @@
     {
       "id": 14,
       "type": "timeseries",
-      "title": "Ingress discards · by device · 5m",
+      "title": "Ingress discards by device (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -597,7 +597,7 @@
     {
       "id": 16,
       "type": "timeseries",
-      "title": "Egress discards · by device · 5m",
+      "title": "Egress discards by device (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -642,7 +642,7 @@
     {
       "id": 15,
       "type": "timeseries",
-      "title": "Errors · by device · 5m",
+      "title": "Errors / by device / 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -696,7 +696,7 @@
     {
       "id": 10,
       "type": "timeseries",
-      "title": "BGP routes · ReefNet edges",
+      "title": "BGP routes / ReefNet edges",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -805,7 +805,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "BOB1 · Network Overview",
+  "title": "BOB1 / Network Overview",
   "uid": "reefnet-bob1-overview",
   "version": 5,
   "links": [

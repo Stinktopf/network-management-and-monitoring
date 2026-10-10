@@ -102,19 +102,20 @@ Keep the offered load fixed during the two diagnostic snapshots.
 Compare the same interface and direction in both snapshots, then in WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
-  show interface ethernet-1/1 detail
+  info from state interface ethernet-1/1 statistics
 Use quit, then reduce the load in WSL:
   make traffic-10mbit
-Do new drops stop accumulating? Check counter deltas and resets, not just totals.
+Do new drops stop accumulating? Compare physical out-discarded-packets, not
+the subinterface discard row in show interface detail. Check deltas and resets.
 A rolling five-minute panel still includes earlier loss.
 @@ investigation
 Keep the offered load fixed. In Telemetry Health inspect Capacity queue collection
-and Linux queue drops · 5m for Lagoon Transit.
+and Linux queue drops (last 5 min) for Lagoon Transit.
 WSL repository:
   make traffic-diagnostics
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside the Lagoon router:
-  show interface ethernet-1/1 detail
+  info from state interface ethernet-1/1 statistics
   quit
 WSL repository:
   make traffic-10mbit
@@ -139,6 +140,9 @@ Run a controlled link outage and explain its effect on customer service.
 Record the baseline first and restore the link after collecting your evidence.
 
 Start in WSL:
+  make traffic-10mbit
+  make test
+Continue only when all four results pass, then inject:
   make fault-link
 @@ hint
 In WSL:
@@ -153,6 +157,9 @@ Repeat the interface, neighbor and service checks after convergence.
 @@ investigation
 This is a controlled experiment. Record the baseline first.
 WSL repository:
+  make traffic-10mbit
+  make test
+Confirm all four results pass before injecting the fault:
   make fault-link
 In Grafana inspect Topology & Paths and the network events in Telemetry Health.
 WSL repository:
@@ -188,6 +195,9 @@ Compare a routing incident with the load and link experiments.
 Explain the different evidence, then restore reachability and stop the test load.
 
 Start in WSL:
+  make traffic-10mbit
+  make test
+Restore any previous fault and confirm all four results pass before injecting:
   make fault-routing
 @@ hint
 In WSL:
@@ -202,6 +212,9 @@ Allow convergence and check again if necessary. What recovered, and which older
 events remain visible in the selected Grafana window?
 @@ investigation
 WSL repository:
+  make traffic-10mbit
+  make test
+Confirm the previous fault is restored and all four results pass, then inject:
   make fault-routing
   make test
 In Grafana compare external probes, BGP sessions, interfaces and logs.
@@ -229,3 +242,45 @@ Only Lagoon IPv4 fails during the routing incident. Links and BGP sessions stay
 up. This differs from load-dependent queue loss and the core-b interface event.
 After clearing the routing fault and allowing convergence, all four probes pass.
 Traffic-stop removes generated load. Older samples remain in the selected window.
+
+@@ 6 Compare a short burst with the dashboard's rate window
+Can Grafana show a five-second burst? Compare short and long rate windows.
+
+Start in WSL:
+  make traffic-stop
+  make traffic-burst-40mbit
+The burst stops automatically. Keep previous faults cleared.
+@@ hint
+In WSL:
+  make traffic-status
+In Grafana, select the time around the burst on Lagoon's transit interface.
+Compare a short rate window with a five-minute window. Keep the interface,
+direction and units the same. What happens to the peak height?
+Check the receiver in WSL:
+  make enter NODE=service01.bob1.oceanresearch.test
+Inside the service node:
+  tail -n 15 /tmp/iperf-server.log
+Use exit to return. Scrape timing can affect the visible peak.
+@@ investigation
+WSL repository:
+  make test
+Confirm all four results pass, then:
+  make traffic-stop
+  date -Is
+  make traffic-burst-40mbit
+After at least five seconds:
+  make traffic-status
+  make enter NODE=service01.bob1.oceanresearch.test
+Inside the service node:
+  tail -n 15 /tmp/iperf-server.log
+  exit
+In Grafana inspect the same Lagoon handoff and the time around the burst.
+Compare the short and five-minute rate windows while holding other filters fixed.
+Record the burst timestamp, both windows and their displayed peaks.
+@@ solution
+The source offers 40 Mbit/s for five seconds, then stops. This is below the
+50 Mbit/s transit cap. A longer rate window spreads that activity over more
+time and lowers the displayed peak. With otherwise idle traffic, its idealized
+five-minute average is about 40 * 5 / 300 = 0.67 Mbit/s. The actual plotted value
+depends on sampling, window alignment and overhead. The receiver log confirms
+traffic independently. A low plotted peak does not mean the burst never happened.

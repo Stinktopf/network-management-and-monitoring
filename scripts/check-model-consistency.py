@@ -4,6 +4,7 @@ import ast
 import json
 import re
 from pathlib import Path
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description="Check the standalone BOB1 lab model.")
@@ -143,11 +144,19 @@ require(str(lagoon * 1000) in rules, "Prometheus transit capacity denominator di
 # Slides are an explicit integration check, never a standalone dependency.
 if args.slides:
     slides = args.slides.read_text()
-    canonical_slide_line = (
-        f"Routing domains: **ReefNet AS{asns['reefnet']} · Ocean Research AS{asns['oceanresearch']} · "
-        f"Lagoon Transit AS{asns['lagoontransit']} · Pacific Transit AS{asns['pacifictransit']}**."
-    )
-    require(canonical_slide_line in slides, "slides do not contain the canonical four-AS mapping")
+    # The projected topology carries the mapping, without a duplicate prose caption.
+    diagram_path = "assets/diagrams/reefnet-overview.svg"
+    require(diagram_path in slides, "slides do not show the ReefNet topology")
+    diagram = ElementTree.parse(args.slides.parent / diagram_path)
+    labels = ["".join(node.itertext()) for node in diagram.iter()
+              if node.tag.endswith("}text")]
+    for name, domain in [("ReefNet E1", "reefnet"), ("ReefNet E2", "reefnet"),
+                         ("Ocean Research", "oceanresearch"),
+                         ("Lagoon Transit", "lagoontransit"),
+                         ("Pacific Transit", "pacifictransit")]:
+        expected = f"AS{asns[domain]}"
+        require(any(a == name and b == expected for a, b in zip(labels, labels[1:])),
+                f"slide topology does not label {name} with {expected}")
 readme = (ROOT / "README.md").read_text()
 for line in [
     f"Customer handoff: **{customer // 1000} Mbit/s**",

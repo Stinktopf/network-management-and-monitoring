@@ -251,7 +251,7 @@
     {
       "id": 91,
       "type": "row",
-      "title": "Interfaces · cabled ports only",
+      "title": "Interfaces / cabled ports only",
       "gridPos": {
         "x": 0,
         "y": 5,
@@ -277,7 +277,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{interface_name}} · {{link}}",
+          "legendFormat": "{{interface_name}} / {{link}}",
           "instant": true
         }
       ],
@@ -352,7 +352,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{interface_name}} · {{link}}",
+          "legendFormat": "{{interface_name}} / {{link}}",
           "instant": true
         }
       ],
@@ -500,7 +500,7 @@
     {
       "id": 94,
       "type": "row",
-      "title": "Interface quality · separate fault classes",
+      "title": "Interface quality / separate fault classes",
       "gridPos": {
         "x": 0,
         "y": 21,
@@ -513,7 +513,7 @@
     {
       "id": 15,
       "type": "timeseries",
-      "title": "Ingress discards · 5m",
+      "title": "Ingress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -559,7 +559,7 @@
     {
       "id": 17,
       "type": "timeseries",
-      "title": "Egress discards · 5m",
+      "title": "Egress discards (last 5 min)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -605,7 +605,7 @@
     {
       "id": 16,
       "type": "timeseries",
-      "title": "Errors · 5m",
+      "title": "Errors / 5m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -648,7 +648,7 @@
     {
       "id": 7,
       "type": "timeseries",
-      "title": "Carrier transitions · 15m",
+      "title": "Carrier transitions / 15m",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -739,7 +739,7 @@
     {
       "id": 93,
       "type": "row",
-      "title": "Events · selected device",
+      "title": "Events / selected device",
       "gridPos": {
         "x": 0,
         "y": 46,
@@ -752,7 +752,7 @@
     {
       "id": 9,
       "type": "logs",
-      "title": "SR Linux events · selected device",
+      "title": "SR Linux events / selected device",
       "datasource": {
         "type": "loki",
         "uid": "loki"
@@ -861,7 +861,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "BOB1 · Device Detail",
+  "title": "BOB1 / Device Detail",
   "uid": "reefnet-bob1-device",
   "version": 8,
   "refresh": "5s",

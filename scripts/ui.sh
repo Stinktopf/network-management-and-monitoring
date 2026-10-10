@@ -112,3 +112,23 @@ ui_url() {
   [[ -n $extra ]] && printf '  %s%s%s' "$UI_DIM" "$extra" "$UI_RESET"
   printf '\n'
 }
+
+# Human-readable command rows. No shell quoting or command execution.
+ui_command_row() {
+  local command=$1 description=$2
+  if (( ${#command} > 32 )); then
+    printf '  %s%s%s\n    %s\n' "$UI_MAGENTA" "$command" "$UI_RESET" "$description"
+  else
+    printf '  %s%-32s%s %s\n' "$UI_MAGENTA" "$command" "$UI_RESET" "$description"
+  fi
+}
+
+# Shared presentation for Markdown handouts and plain-text investigation guides.
+ui_document() {
+  local mode=${1:-markdown}
+  shift
+  awk -v mode="$mode" -v bold="$UI_BOLD" -v reset="$UI_RESET" \
+    -v command="$UI_MAGENTA" -v blue="$UI_BLUE" -v cyan="$UI_CYAN" \
+    -v gray="$UI_GRAY" -v arrow="$UI_ARROW" \
+    -f "$(dirname "${BASH_SOURCE[0]}")/render-material.awk" "$@"
+}

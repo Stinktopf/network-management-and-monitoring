@@ -1,6 +1,6 @@
-@@ 1 Map the two external vantage points
-Map how the two external probes reach the customer service at 198.51.100.10
-and 2001:db8:100::10. Start with your source address and first hop.
+@@ 1 Start on the Lagoon probe
+Find your source address and the first hop toward the customer service.
+Start with IPv4. Compare Pacific and IPv6 when you are ready.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -55,16 +55,18 @@ Lagoon reaches the customer through Lagoon Transit and ReefNet Edge 01.
 Pacific uses Pacific Transit, ReefNet Edge 02 and the internal ReefNet path.
 Individual traceroute hops may time out without end-to-end failure.
 
-@@ 2 Distinguish service DNS from management names
-Resolve the customer service and connect to a router by name.
-Explain which machine resolves each name and which network it uses.
+@@ 2 Resolve the name and fetch the service
+Resolve data.oceanresearch.test and fetch its web page.
+Then compare the service name with a router management name.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 @@ hint
 Inside the probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
-Read status, answer and server. Return with exit, then in WSL:
+  curl --fail --max-time 5 -4 http://data.oceanresearch.test/
+Read the DNS answer and HTTP response. Does name resolution prove HTTP works?
+Return with exit, then in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
   getent hosts edge01.bob1.reefnet.test
@@ -78,6 +80,7 @@ WSL repository:
 Inside the probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://data.oceanresearch.test/
   exit
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
@@ -154,7 +157,7 @@ between Edge 01 and Edge 02. A BGP session alone does not prove service delivery
 
 @@ 4 Cross-check the customer and summarize the baseline
 Complete your path map with the customer and the return routes.
-Record a healthy service baseline for the next lab.
+Save the healthy results for comparison with later incidents.
 
 Start in WSL:
   make enter NODE=edge01.bob1.oceanresearch.test
@@ -191,14 +194,30 @@ Inside the service host:
 WSL repository:
   make test
 
+WSL repository:
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+WSL repository:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Inside the Pacific probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+
 Inspect: service addresses/default routes, customer routes back to BOTH probe
 networks, local DNS response and the four external service checks.
 Decision: local DNS failure needs service diagnosis. Local success with remote
 failure needs forward/return-path diagnosis. Mark the baseline ready only when
-all four external checks pass and service DNS responds. Save addresses, next hops
+all four external ICMP and HTTP checks pass and service DNS responds. Save addresses, next hops
 and the result matrix for comparison during Operations.
 @@ solution
 The service uses 198.51.100.10/24 with gateway 198.51.100.1 and IPv6
 2001:db8:100::10/48 with gateway 2001:db8:100::1. Its customer router advertises
 the service networks. Local DNS responds and all four external checks pass.
 No configuration repair is needed in this scenario.
+
+HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
+Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.

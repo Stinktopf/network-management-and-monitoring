@@ -27,9 +27,9 @@ def card(x,y,w,h,label,sub='',accent=False):
  s+=t(x+w/2,y+h/2-(16 if sub else 0),label,25,weight=700).replace('<text ', '<text dominant-baseline="central" ')
  if sub:s+=t(x+w/2,y+h/2+16,sub,22,color=M).replace('<text ', '<text dominant-baseline="central" ')
  return s
-def save(name,s,h=300,desc=None):
+def save(name,s,h=300,desc=None,w=1100):
  s=s.replace(G,K if name in PRIMARY_SERIES else M)
- (A/(name+'.svg')).write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="{h}" viewBox="0 0 1100 {h}" role="img" aria-label="{escape(desc or name,quote=True)}"><title>{escape(desc or name)}</title><defs><marker id="a" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{M}"/></marker><marker id="a-grey" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{M}"/></marker></defs><g font-family="Arial, Liberation Sans, sans-serif">{s}</g></svg>')
+ (A/(name+'.svg')).write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(desc or name,quote=True)}"><title>{escape(desc or name)}</title><defs><marker id="a" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{M}"/></marker><marker id="a-grey" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{M}"/></marker></defs><g font-family="Arial, Liberation Sans, sans-serif">{s}</g></svg>')
 def pathflow(name,labels,subs=None,caption='',h=250):
  n=len(labels);w=(1060-56*(n-1))/n;s=''
  for i,label in enumerate(labels):
@@ -104,12 +104,28 @@ for x,y,label,sub in [(160,160,'Customer AS','Own routing policy'),(550,75,'Tran
  s+=f'<ellipse cx="{x}" cy="{y}" rx="145" ry="64" fill="#fafafa" stroke="#bbb" stroke-width="1.5"/>'+t(x,y-16,label,27,weight=700).replace('<text ', '<text dominant-baseline="central" ')+t(x,y+16,sub,22).replace('<text ', '<text dominant-baseline="central" ')
 s+=ln(300,126,417,99,True)+ln(690,102,795,128,True)+ln(310,183,780,183,False,True)+t(550,218,'Policy defines the relationship.',23)+t(550,279,'An AS is an administrative boundary, not one router.',25)
 save('as-domains',s,305)
+# Two routing methods: neighbor estimates versus a shared topology.
+s=t(25,35,'Distance vector (RIP)',27,'start',700)
+s+=t(595,35,'Link state (OSPF)',27,'start',700)
+s+=ln(550,10,550,242,color='#ddd')
+s+=ln(85,155,260,155)+ln(260,155,450,155)
+for x,label in [(85,'A'),(260,'B'),(450,'D')]:
+ s+=circle(x,155,26)+t(x,164,label,27,weight=700)
+s+=ln(230,98,114,98,True)+t(260,77,'B → A: “D is 1 hop away.”',27)
+for x,y,xx,yy,c in [(635,155,815,95,1),(815,95,1040,155,1),(635,155,815,215,5),(815,215,1040,155,2)]:
+ s+=ln(x,y,xx,yy,width=3 if c==1 else 2)+t((x+xx)/2,(y+yy)/2-12,c,27)
+for x,y,label in [(635,155,'A'),(815,95,'B'),(1040,155,'D'),(815,215,'C')]:
+ s+=circle(x,y,26)+t(x,y+9,label,27,weight=700)
+save('routing-methods',s,250,'Distance vector: neighbors advertise distances. A adds its link cost, selects B and advertises its own distance of two hops. Link state: routers flood local links and costs within the area, build the topology map and calculate shortest paths locally.')
+
+
+# Compact topology leaves room for the explanation beside the figure.
 s=''
-for x,y,xx,yy,c in [(190,135,550,40,1),(550,40,915,135,1),(190,135,550,240,5),(550,240,915,135,2)]:
- s+=ln(x,y,xx,yy,color=G if c==1 else '#aaa',width=3 if c==1 else 2)+t((x+xx)/2,(y+yy)/2-12,c,24)
-for x,y,l in [(190,135,'A'),(550,40,'B'),(915,135,'D'),(550,240,'C')]:s+=circle(x,y,30)+t(x,y+9,l,26,weight=700)
-s+=t(550,302,'Example link costs: the shortest internal path costs 2.',24)
-save('igp-costs',s,325)
+for x,y,xx,yy,c in [(55,135,245,40,1),(245,40,450,135,1),(55,135,245,230,5),(245,230,450,135,2)]:
+ s+=ln(x,y,xx,yy,width=4 if c==1 else 2,color=K if c==1 else '#aaa')+t((x+xx)/2,(y+yy)/2-12,c,24)
+for x,y,label in [(55,135,'A'),(245,40,'B'),(450,135,'D'),(245,230,'C')]:
+ s+=circle(x,y,26)+t(x,y+8,label,25,weight=700)
+save('igp-costs',s,270,'Example OSPF link costs: A via B to D costs 2, A via C to D costs 7.',w=510)
 pathflow('destination-demux',['IP address','Transport port','Socket','Application'],['This host','This service','Receive bytes','Produce response'],h=190)
 s=t(165,27,'Client sends',25,weight=700)+t(580,27,'Router 1',25,weight=700)+t(955,27,'Router 2',25,weight=700)
 for y,l,xx in [(90,'TTL 1',580),(205,'TTL 2',955)]:

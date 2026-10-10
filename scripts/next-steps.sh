@@ -20,7 +20,7 @@ if [[ "$step" != all ]]; then
     exit 2
   fi
 fi
-ui_banner "BOB1 · ${scenario^^} · ${level^^}"
+ui_banner "BOB1 / ${scenario^^} / ${level^^}"
 if [[ "$level" == solution ]]; then
   ui_info 'Run make commands in WSL. Leave Linux nodes with exit and router CLIs with quit.'
   ui_info 'Expected results describe the prepared scenario. Compare them with your live evidence.'
@@ -41,13 +41,13 @@ awk -v wanted="$step" -v level="$level" '
   /^@@ / {
     section=$2
     if (selected && level == "solution" && section == "investigation")
-      print "\nInvestigation · device context and commands\n"
+      print "\nInvestigation commands\n"
     if (selected && level == "solution" && section == "solution")
-      print "\nWorked answer · expected observations and explanation\n"
+      print "\nWorked answer\n"
     next
   }
   selected && (section == level || (level == "solution" && (section == "task" || section == "investigation"))) { print }
-' "$guide"
+' "$guide" | ui_document guide
 if [[ "$level" == task ]]; then
   ui_hint "Commands and clues: make hint SCENARIO=$scenario STEP=$step"
 fi

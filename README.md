@@ -9,27 +9,15 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 ## Slides
 
-[PDF](slides/exports/nmm.pdf) · [HTML](slides/exports/nmm.html) · [PowerPoint](slides/exports/nmm.pptx) · [Source](slides/nmm.md)
+[PDF](slides/exports/nmm.pdf) | [HTML](slides/exports/nmm.html) | [PowerPoint](slides/exports/nmm.pptx) | [Source](slides/nmm.md)
 
-Build with Node.js 18+, npm and Chromium:
+## Exercises
 
-```bash
-cd slides
-npm ci
-npm run build
-```
+After a short demo, work through the exercises at your own pace. You can finish at home.
 
-<details>
-<summary>Editing and build notes</summary>
+[Worksheets](EXERCISES.md) | [CheatSheet](slides/resources/CHEATSHEET.md) | [Printable CheatSheet](slides/exports/cheatsheet.pdf)
 
-- Exports: HTML, PDF and PPTX in `slides/exports/`. PowerPoint contains slide images and notes. Edit content in the Marp source.
-- Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
-- For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
-- Edit `slides/theme/ai5049.css` for theme changes, then rebuild.
-- Diagrams are editable SVGs. To regenerate them, edit the generators in `slides/tools/` and run `npm run diagrams` followed by `npm run build`. This needs Python 3 and overwrites direct SVG edits.
-- `npm run sampling` regenerates the synthetic timing-model data. Run all npm commands from `slides/`.
-
-</details>
+`make exercises` shows the overview. `make cheatsheet` prints the command reference without a running lab.
 
 ## Setup
 
@@ -67,9 +55,9 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 | `make automation` | Same routing fault, ready for the automation exercise |
 | `make monitoring` | Healthy network with telemetry and traffic |
 
-`make next` gives a short task and starting point. `make hint` supplies commands and questions to explore. Select a step with `STEP=2`. `make solution` shows the full investigation, expected results, repair and verification. These commands only display instructions in the WSL terminal.
+`make next` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
 
-Work through the first checks together, then let students choose their next checks. [Teaching notes](INSTRUCTOR.md) cover all four labs. For offline preparation: `make solution SCENARIO=operations`.
+Save your notes before stopping. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
 
 ## Access
 
@@ -99,14 +87,6 @@ Router management names and SSH are available from the operations node. If you a
 
 ```bash
 ssh edge01.bob1.reefnet.test
-```
-
-Example gNMI read from the same node:
-
-```bash
-gnmic -a edge01.bob1.reefnet.test:57400 \
-  -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
-  get --path '/interface[name=ethernet-1/1]/oper-state'
 ```
 
 The customer DNS at `198.51.100.10` serves `data.oceanresearch.test`, not router management names. It can time out when the customer path fails. From the operations node, NetBox is reachable at `netbox.bob1.reefnet.test`. Device names, addresses and links are defined in [`tools/bob1_model.json`](tools/bob1_model.json).
@@ -155,7 +135,7 @@ Open the `ReefNet / BOB1` folder. Dashboards refresh every 5 seconds.
 
 Dashboards show SR Linux ingress and egress discards separately. **Telemetry Health** adds Linux queue drops for diagnosis. These can count the same losses, so do not add them together.
 
-After updating the lab, run `make monitoring` to rebuild the scenario.
+
 
 ## Housekeeping
 
@@ -185,4 +165,26 @@ Common causes:
 
 Fix the cause and rerun `make setup`. Existing NetBox data is kept unless the database schema has changed.
 
-Project submission: [team contributions and AI disclosure](slides/resources/templates/DECLARATION.md).
+Project submission: [contributions and declaration of independent work](slides/resources/templates/DECLARATION.md).
+
+<details>
+<summary>Editing slides and handouts</summary>
+
+Build with Node.js 18+, npm and Chromium:
+
+```bash
+cd slides
+npm ci
+npm run build
+```
+
+- Exports: lecture HTML, PDF and PPTX plus CheatSheet HTML/PDF in `slides/exports/`. PowerPoint contains slide images and notes. Edit content in the Marp source.
+- Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
+- For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
+- Edit `slides/theme/ai5049.css` for theme changes, then rebuild.
+- Diagrams are editable SVGs. To regenerate them, edit the generators in `slides/tools/` and run `npm run diagrams` followed by `npm run build`. This needs Python 3 and overwrites direct SVG edits.
+- `npm run build:handouts` builds only the CheatSheet. `npm run sampling` regenerates the synthetic timing-model data. Run all npm commands from `slides/`.
+
+From the repository root, `make slides` builds all exports and `make handouts` builds only the CheatSheet.
+
+</details>

@@ -5,11 +5,11 @@ case $- in
 esac
 
 _lab_node=$(hostname)
-printf '\nAI5049 · %s\n' "$_lab_node"
+printf '\nAI5049 / %s\n' "$_lab_node"
 case "$_lab_node" in
   operations01.bob1.reefnet.test)
     cat <<'GUIDE'
-Operator workstation · BOB1
+Operator workstation / BOB1
 
 Router SSH and gNMI use management names from this workstation.
   ssh edge01.bob1.reefnet.test
@@ -23,7 +23,7 @@ GUIDE
     ;;
   probe01.bob1.lagoontransit.test|probe01.bob1.pacifictransit.test)
     cat <<'GUIDE'
-External service probe · BOB1
+External service probe / BOB1
 
 Inspect the customer data path from this probe:
   ip -br addr
@@ -40,7 +40,7 @@ GUIDE
     ;;
   service01.bob1.oceanresearch.test)
     cat <<'GUIDE'
-Customer service · BOB1
+Customer service / BOB1
 
   ip -br addr
   ip route

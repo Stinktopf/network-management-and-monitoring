@@ -1,0 +1,129 @@
+Additional physical counter check · 2026-10-10T12:22:55.057235+02:00
+Lagoon Transit SR Linux CLI
+$ info from state interface ethernet-1/1 statistics
+    in-packets 2133
+    in-octets 237940
+    in-unicast-packets 2090
+    in-broadcast-packets 6
+    in-multicast-packets 37
+    in-discarded-packets 0
+    in-error-packets 0
+    in-fcs-error-packets 0
+    out-packets 939501
+    out-octets 1168120891
+    out-mirror-octets 0
+    out-unicast-packets 939458
+    out-broadcast-packets 8
+    out-multicast-packets 35
+    out-discarded-packets 145862
+    out-error-packets 0
+    out-mirror-packets 0
+    carrier-transitions 1
+
+Prometheus historical physical egress counter during the measured load sequence
+Query: reefnet_interface_out_discards_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}
+Range: last 300 seconds, step 15 seconds
+{
+  "status": "success",
+  "data": {
+    "resultType": "matrix",
+    "result": [
+      {
+        "metric": {
+          "__name__": "reefnet_interface_out_discards_total",
+          "instance": "clab-ai5049-gnmic:9804",
+          "interface_name": "ethernet-1/1",
+          "job": "gnmic",
+          "source": "edge01.bob1.lagoontransit.test",
+          "subscription_name": "interfaces"
+        },
+        "values": [
+          [
+            1791627476.701,
+            "0"
+          ],
+          [
+            1791627491.701,
+            "0"
+          ],
+          [
+            1791627506.701,
+            "0"
+          ],
+          [
+            1791627521.701,
+            "0"
+          ],
+          [
+            1791627536.701,
+            "0"
+          ],
+          [
+            1791627551.701,
+            "0"
+          ],
+          [
+            1791627566.701,
+            "0"
+          ],
+          [
+            1791627581.701,
+            "0"
+          ],
+          [
+            1791627596.701,
+            "0"
+          ],
+          [
+            1791627611.701,
+            "0"
+          ],
+          [
+            1791627626.701,
+            "1357"
+          ],
+          [
+            1791627641.701,
+            "17631"
+          ],
+          [
+            1791627656.701,
+            "35981"
+          ],
+          [
+            1791627671.701,
+            "50132"
+          ],
+          [
+            1791627686.701,
+            "91565"
+          ],
+          [
+            1791627701.701,
+            "133131"
+          ],
+          [
+            1791627716.701,
+            "145862"
+          ],
+          [
+            1791627731.701,
+            "145862"
+          ],
+          [
+            1791627746.701,
+            "145862"
+          ],
+          [
+            1791627761.701,
+            "145862"
+          ],
+          [
+            1791627776.701,
+            "145862"
+          ]
+        ]
+      }
+    ]
+  }
+}
