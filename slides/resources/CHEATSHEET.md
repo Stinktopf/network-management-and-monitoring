@@ -196,9 +196,9 @@ make traffic-status         # current load
 
 Queries: `make hint SCENARIO=monitoring STEP=6`.
 
-## Stop and resume
+## Stop and repeat
 
-Note your findings and next step, then stop with `make down`.
+Keep notes on your findings. `make down` removes the lab and discards router changes.
 
 Scenario commands and `make reset` recreate the initial state.
 `make clean` also deletes lab state and NetBox data.

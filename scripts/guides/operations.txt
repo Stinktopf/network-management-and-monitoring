@@ -455,5 +455,6 @@ Note those results alongside ICMP and DNS. An HTTP timeout keeps recovery unprov
 
 Note the cause, change and verification results, then stop in WSL:
   make down
+This removes the running lab and discards router changes.
 Restarting make operations or make reset recreates the initial incident.
 make clean also deletes lab state and NetBox data.

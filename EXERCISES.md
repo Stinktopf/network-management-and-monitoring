@@ -1,8 +1,10 @@
 # Working with ReefNet
 
-After the demo, work through the exercises at your own pace. Finish at home if needed. No submission is required.
+After the demo, work through the exercises at your own pace on the university lab PCs. No submission is required.
 
-The course WSL is already installed. [Clone the repository and run `make setup`](README.md#setup). Wait for `READY FOR CLASS`, then start Networking.
+Containerlab and the course WSL are preinstalled there. [Clone the repository and run `make setup`](README.md#setup). Wait for `READY FOR CLASS`, then start Networking.
+
+To repeat an exercise at home, first prepare your own [Containerlab environment](README.md#setup). Use your notes to repeat the investigation from the scenario's initial state.
 
 Keep the [CheatSheet](slides/exports/cheatsheet.pdf) open for node access, investigation commands, traffic and faults. In the terminal: `make cheatsheet`.
 
@@ -15,7 +17,7 @@ Run `make` commands in the WSL repository. Choose a scenario below, then run `ma
 | `make task` | Task and starting point |
 | `make hint` | Investigation commands and clues |
 | `make solution` | Complete worked investigation |
-| `make down` | Stop the lab |
+| `make down` | Remove the running lab and discard router changes |
 
 Use `STEP=2` to select a step, for example `make hint STEP=2`. Help does not advance automatically. Each scenario command recreates its starting state. Note your findings and next step before restarting or stopping.
 

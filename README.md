@@ -13,7 +13,7 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 ## Exercises
 
-After a short demo, work through the exercises at your own pace. You can finish at home.
+After a short demo, work through the exercises on the university lab PCs. Repeating them at home requires your own Containerlab environment.
 
 [Exercises](EXERCISES.md) | [CheatSheet PDF](slides/exports/cheatsheet.pdf) | [CheatSheet HTML](slides/exports/cheatsheet.html)
 
@@ -21,19 +21,21 @@ After a short demo, work through the exercises at your own pace. You can finish 
 
 ## Setup
 
-Use the Containerlab WSL distribution provided for the course.
+The university lab PCs have the Containerlab WSL environment preinstalled. Clone the repository and run `make setup` there.
+
+On a personal computer, first install the prerequisites below. `make setup` prepares this lab, not Docker or Containerlab itself.
 
 - Docker must be running. Docker Compose, Containerlab, Git, Make and curl must be installed.
 - Leave 15 GiB of disk space for the lab and its images. Setup needs Internet access.
 - Recommended: 12 GiB RAM and four CPU threads.
 
-In PowerShell:
+On the lab PC, open WSL from PowerShell:
 
 ```powershell
 wsl -d Containerlab
 ```
 
-Inside WSL, clone into your Linux home directory. Avoid `/mnt/c` and OneDrive.
+Inside WSL (or your own Linux environment), clone into your Linux home directory. Avoid `/mnt/c` and OneDrive.
 
 ```bash
 cd ~
@@ -57,7 +59,7 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 
 `make task` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
 
-Note your findings and next step before stopping. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
+Keep notes on your findings and next step. `make down` removes the running lab and discards router changes. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
 
 ## Access
 

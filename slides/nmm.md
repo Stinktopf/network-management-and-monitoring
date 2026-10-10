@@ -168,7 +168,7 @@ We study how operators keep these networks working.
 | 14 October 2026 | 08:45–15:15 | Monitoring / Observability |
 
 Short demos, then time to try it yourself.
-You can finish the exercises at home.
+Use the university lab PCs with Containerlab preinstalled.
 
 ---
 
@@ -849,7 +849,7 @@ and how does the reply get back?
 
 **60 minutes:** 30 to [clone the repo](https://github.com/Stinktopf/network-management-and-monitoring#setup) and run `make setup`, then 30 to explore.
 
-After `READY FOR CLASS`, in WSL:
+After `READY FOR CLASS`, in WSL on the lab PC:
 ```bash
 make networking
 make task
@@ -1188,15 +1188,16 @@ Our repair touched several areas at once.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Pick it up at home
+# Stop here, repeat later
 
-Note what you checked, what you found and what to try next.
-Then stop the lab with `make down`.
+Keep notes on your checks, findings and next step.
 
-When you return, `make operations` recreates the incident.
-Use your notes to pick up the investigation.
+`make down` removes the running lab. **Router changes are discarded.**
 
-Tomorrow’s Automation exercise starts from a fresh scenario.
+`make operations` starts the **original incident**, not your last state.
+
+At home, first [set up your own Containerlab environment](https://github.com/Stinktopf/network-management-and-monitoring#setup).
+Use your notes to repeat the investigation.
 
 
 ---
@@ -3785,7 +3786,7 @@ make traffic-stop
 make down
 ```
 
-Use `make monitoring` to repeat the experiment at home.
+Use `make monitoring` to start a fresh experiment on a configured lab machine.
 
 
 ---
