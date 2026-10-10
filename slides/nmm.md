@@ -401,17 +401,6 @@ ReefNet connects **Ocean Research** through two upstreams.
 
 ---
 
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Three planes, three roles
-
-![width:1040px](assets/diagrams/planes-introduction.svg)
-
-These are **roles within a device**, not layers of the TCP/IP stack.
-
----
-
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1070,7 +1059,7 @@ make operations
 make task
 ```
 
-**60 minutes:** find the fault, repair it and verify recovery.
+**45 minutes:** find the fault, repair it and verify recovery.
 Keep your commands and evidence. We compare diagnoses before repairing.
 
 [Exercises](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/EXERCISES.md) / [CheatSheet](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/exports/cheatsheet.pdf)

@@ -26,7 +26,7 @@ Times exclude the demo. Networking includes 30 minutes for cloning, `make setup`
 | Start in WSL | Task | In class |
 |---|---|---|
 | `make networking` | Follow a request from Lagoon to `data.oceanresearch.test`. Explain name resolution, the outward path and the reply path. | 60 min: 30 setup + 30 exercise |
-| `make operations` | Lagoon reports a service failure. Reproduce it, locate the fault, repair it and verify recovery from both probes over IPv4 and IPv6. | 60 min |
+| `make operations` | Lagoon reports a service failure. Reproduce it, locate the fault, repair it and verify recovery from both probes over IPv4 and IPv6. | 45 min |
 | `make automation` | Investigate the same incident using NetBox and gNMI. Inspect the current configuration, apply a justified change and verify recovery. | 60 min |
 | `make monitoring` | Compare offered load, received traffic and loss at the 50 Mbit/s cap. Then compare a link failure, a routing failure and a short burst. Restore the baseline after each experiment. | 75 min |
 
