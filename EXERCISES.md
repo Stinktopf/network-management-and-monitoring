@@ -4,7 +4,7 @@ After the demo, work through the exercises at your own pace on the university la
 
 Containerlab and the course WSL are preinstalled there. [Clone the repository and run `make setup`](README.md#setup). Wait for `READY FOR CLASS`, then start Networking.
 
-To repeat an exercise at home, first prepare your own [Containerlab environment](README.md#setup). Use your notes to repeat the investigation from the scenario's initial state.
+To repeat an exercise on your own Windows PC, install [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab), the same environment used in class, then follow the [lab setup](README.md#setup). Use your notes to repeat the investigation from the scenario's initial state.
 
 Keep the [CheatSheet](slides/exports/cheatsheet.pdf) open for node access, investigation commands, traffic and faults. In the terminal: `make cheatsheet`.
 

@@ -1196,7 +1196,7 @@ Keep notes on your checks, findings and next step.
 
 `make operations` starts the **original incident**, not your last state.
 
-At home, first [set up your own Containerlab environment](https://github.com/Stinktopf/network-management-and-monitoring#setup).
+On your own Windows PC, install [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab), then follow the [lab setup](https://github.com/Stinktopf/network-management-and-monitoring#setup).
 Use your notes to repeat the investigation.
 
 

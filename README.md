@@ -21,15 +21,15 @@ After a short demo, work through the exercises on the university lab PCs. Repeat
 
 ## Setup
 
-The university lab PCs have the Containerlab WSL environment preinstalled. Clone the repository and run `make setup` there.
+The university lab PCs use [WSL-Containerlab by srl-labs](https://github.com/srl-labs/WSL-Containerlab), already installed. Clone the repository and run `make setup` there.
 
-On a personal computer, first install the prerequisites below. `make setup` prepares this lab, not Docker or Containerlab itself.
+On your own Windows PC, follow the [WSL-Containerlab installation instructions](https://github.com/srl-labs/WSL-Containerlab#quick-start) to use the same environment. Then clone this repository and run `make setup` as below. On Linux, ensure the prerequisites below are installed.
 
 - Docker must be running. Docker Compose, Containerlab, Git, Make and curl must be installed.
 - Leave 15 GiB of disk space for the lab and its images. Setup needs Internet access.
 - Recommended: 12 GiB RAM and four CPU threads.
 
-On the lab PC, open WSL from PowerShell:
+Open the installed WSL environment from PowerShell:
 
 ```powershell
 wsl -d Containerlab
