@@ -172,12 +172,15 @@ Inside operations01:
     jq '.[].updates[].values[]'
 Compare configuration fields, not envelope timestamps. Read the parent when a
 removed leaf cannot be returned. Use exit to return to WSL.
-For HTTP checks, in WSL:
+For reachability and HTTP checks, in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the probe:
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
-Use exit, then repeat on the Pacific probe. Did only the intended behavior change?
+Use exit, then repeat on the Pacific probe.
+Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
 @@ investigation
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
@@ -199,18 +202,17 @@ WSL repository, after routing convergence:
   make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
-  exit
-
-WSL repository:
-  make enter NODE=probe01.bob1.lagoontransit.test
-Inside the Lagoon probe:
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
 WSL repository:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit

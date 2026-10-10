@@ -416,10 +416,12 @@ For the customer check, in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the probe:
   ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
-Use exit, then repeat these checks on the Pacific probe. Does HTTP work too?
+Use exit, then repeat these checks on the Pacific probe.
+Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
 Read all four cells in make test. Its exit code alone is not a PASS verdict.
 If a control regresses or the service still fails, keep the incident open.
 @@ investigation
@@ -441,18 +443,16 @@ WSL repository:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
   ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
-  exit
-
-WSL repository:
-  make enter NODE=probe01.bob1.lagoontransit.test
-Inside the Lagoon probe:
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
 WSL repository:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
@@ -465,7 +465,7 @@ Decision:
 - Route present but service still fails: inspect the data/return path. Do not
   call the incident resolved based only on the configuration commit.
 Close the incident with the affected path, proven cause, exact change, before/after
-observations and any remaining uncertainty. Keep the before/after files.
+observations and any remaining uncertainty. Note the before/after results.
 @@ solution
 The customer prefix appears in Edge 01's Lagoon advertisement and Lagoon installs
 an active route via 192.0.2.3 on ethernet-1/1.0. The four matrix cells all PASS.
