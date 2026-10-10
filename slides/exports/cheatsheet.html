@@ -44,7 +44,7 @@ make monitoring      # measure traffic and loss
 <p>For the other probe, replace <code>lagoontransit</code> with <code>pacifictransit</code>.
 Leave Linux with <code>exit</code>, a router CLI with <code>quit</code>.</p>
 <h3>Inside a probe</h3>
-<pre><code class="language-bash">ip -br addr                             # my addresses
+<pre><code class="language-bash">ip -br addr                              # my addresses
 ip route get 198.51.100.10               # gateway and source
 dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
 ping -4 -c 3 -W 1 198.51.100.10          # IPv4 reachability
@@ -176,7 +176,7 @@ Investigation: <code>make hint SCENARIO=monitoring STEP=4</code> (link), <code>S
 </code></pre>
 <p>For the rate-window comparison, wait five minutes. Then:</p>
 <pre><code class="language-bash">make traffic-burst-40mbit   # stops after five seconds
-make traffic-status        # current load
+make traffic-status         # current load
 </code></pre>
 <p>Queries: <code>make hint SCENARIO=monitoring STEP=6</code>.</p>
 <h3>Stop and resume</h3>

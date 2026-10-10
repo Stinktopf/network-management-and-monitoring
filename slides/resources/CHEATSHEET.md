@@ -23,7 +23,7 @@ Leave Linux with `exit`, a router CLI with `quit`.
 ## Inside a probe
 
 ```bash
-ip -br addr                             # my addresses
+ip -br addr                              # my addresses
 ip route get 198.51.100.10               # gateway and source
 dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
 ping -4 -c 3 -W 1 198.51.100.10          # IPv4 reachability
@@ -191,7 +191,7 @@ For the rate-window comparison, wait five minutes. Then:
 
 ```bash
 make traffic-burst-40mbit   # stops after five seconds
-make traffic-status        # current load
+make traffic-status         # current load
 ```
 
 Queries: `make hint SCENARIO=monitoring STEP=6`.
