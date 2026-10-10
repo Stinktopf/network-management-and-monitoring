@@ -21,7 +21,17 @@ capture() {
 }
 
 ui_info "Collecting two snapshots, 15 seconds apart · $report"
-capture 'Configured traffic and process status' bash scripts/traffic.sh status
+traffic_active=0
+printf '\n--- Configured traffic and process status · %s ---\n' "$(date -Is)" >> "$report"
+if traffic_status=$(bash scripts/traffic.sh status 2>&1); then
+  printf '%s\n' "$traffic_status" >> "$report"
+  if [[ $traffic_status == *'Traffic running'* || $traffic_status == *'Traffic reconnecting'* ]]; then
+    traffic_active=1
+  fi
+else
+  printf '%s\nCOLLECTION FAILED: Configured traffic and process status' "$traffic_status" >> "$report"
+  failures=$((failures + 1))
+fi
 for sample in 1 2; do
   for endpoint in transit01:e1-1 edge01:e1-3 edge01:e1-1 cust01:e1-1 edge02:e1-2 transit02:e1-1; do
     node=${endpoint%:*}
@@ -43,16 +53,24 @@ for sample in 1 2; do
     curl --fail --silent --show-error --max-time 10 --get \
       --data-urlencode 'query={__name__=~"reefnet_link_(in|out)_bps"}' \
       http://localhost:9090/api/v1/query
-  capture "Sample $sample · iperf sender" \
-    docker exec clab-ai5049-host01 tail -n 15 /tmp/iperf-client.log
-  capture "Sample $sample · iperf receiver" \
-    docker exec clab-ai5049-svc01 tail -n 15 /tmp/iperf-server.log
+  if (( traffic_active )); then
+    capture "Sample $sample · iperf sender" \
+      docker exec clab-ai5049-host01 tail -n 15 /tmp/iperf-client.log
+    capture "Sample $sample · iperf receiver" \
+      docker exec clab-ai5049-svc01 tail -n 15 /tmp/iperf-server.log
+  else
+    printf '\n--- Sample %s · iperf sender and receiver · %s ---\nSkipped: traffic generator is stopped.\n' \
+      "$sample" "$(date -Is)" >> "$report"
+  fi
   if [[ $sample == 1 ]]; then sleep 15; fi
 done
 
 ui_info "Report saved · $report"
 ui_info 'Compare netem dropped on transit01:e1-1 between samples with SR Linux discards and receiver loss.'
 ui_info 'overlimits is not a packet-loss counter. Missing data or collection errors do not mean zero drops.'
+if (( ! traffic_active )); then
+  ui_warn 'Traffic was stopped · qdisc, SR Linux and Prometheus snapshots are available, iperf loss evidence is not.'
+fi
 if (( failures > 0 )); then
   ui_fail "$failures collections failed · see report for details"
   exit 1
