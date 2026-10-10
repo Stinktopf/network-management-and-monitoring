@@ -20,7 +20,7 @@ current state. Record time, source, destination, address family and test result.
 
 WSL repository:
   date -Is
-  make test | tee .state/operations-before.txt
+  make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
   hostname
@@ -276,7 +276,7 @@ Inside ReefNet Edge 01:
   info from running routing-policy
 Trace the peer to its group, the effective policy and the matching action.
 Compare affected and working address families. A policy definition alone is
-not evidence that a peer uses it. Save the relevant before-state. Leave with quit.
+not evidence that a peer uses it. Note the current policy attachment and its value. Leave with quit.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -407,7 +407,7 @@ Inside Lagoon Transit:
   quit
 WSL repository:
   date -Is
-  make test | tee .state/operations-after.txt
+  make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
   ping -4 -c 3 -W 1 198.51.100.10
@@ -451,13 +451,9 @@ Closure example:
 make reset would recreate the incident. It is not part of this successful repair.
 
 HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
-Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.
+Note those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.
 
-Before stopping, save evidence outside the containers. In WSL:
-  mkdir -p work/operations
-  cp .state/operations-before.txt .state/operations-after.txt work/operations/
-  make test | tee work/operations/reachability.txt
-Copy any other needed container files to WSL, then stop with make down.
-If an evidence file is missing, keep the available files and document the gap.
+Note the cause, change and verification results, then stop in WSL:
+  make down
 Restarting make operations or make reset recreates the initial incident.
 make clean also deletes lab state and NetBox data.

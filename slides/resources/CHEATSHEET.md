@@ -106,15 +106,14 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 
 # Change a BGP policy with gNMI
 
-**Still inside operations01:** read and save the affected group.
+**Still inside operations01:** read the affected group and note its current policy.
 
 ```bash
 BGP_PATH='/network-instance[name=default]/protocols/bgp'
 GROUP="$BGP_PATH/group[group-name=lagoon-v4]"
 gnmic -a edge01.bob1.reefnet.test:57400 \
   -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
-  get --type config --path "$GROUP" > /state/bgp-group-before.json
-cat /state/bgp-group-before.json
+  get --type config --path "$GROUP"
 ```
 
 ## Remove the group's policy override
@@ -145,7 +144,7 @@ make traffic-40mbit
 make traffic-60mbit
 make traffic-75mbit
 make traffic-10mbit
-make traffic-diagnostics    # save counters and receiver loss
+make traffic-diagnostics    # inspect counters and receiver loss
 ```
 
 **Grafana:** http://localhost:3000, folder **ReefNet / BOB1**.
@@ -197,9 +196,9 @@ make traffic-status        # current load
 
 Queries: `make hint SCENARIO=monitoring STEP=6`.
 
-## Save and stop
+## Stop and resume
 
-Keep notes in WSL `work/`. Copy needed container files before `make down`.
+Note your findings and next step, then stop with `make down`.
 
 Scenario commands and `make reset` recreate the initial state.
 `make clean` also deletes lab state and NetBox data.

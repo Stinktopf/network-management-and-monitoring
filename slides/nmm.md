@@ -1173,8 +1173,8 @@ Our repair touched several areas at once.
 
 # Pick it up at home
 
-Save your commands, results and next step in WSL `work/`.
-Copy any files you need out of the containers before `make down`.
+Note what you checked, what you found and what to try next.
+Then stop the lab with `make down`.
 
 When you return, `make operations` recreates the incident.
 Use your notes to pick up the investigation.
@@ -2082,7 +2082,7 @@ Two minutes:
 - Name the independent service check.
 - Name the evidence for the next operator.
 
-Save evidence to WSL before `make down`.
+Note the original policy, your change and the verification results.
 Restart the exercise later with `make automation`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
@@ -3762,7 +3762,7 @@ Sketch a design for the **40-target brief**.
 Was it congestion, a missing route or missing data?
 Choose the measurements that explain your answer.
 
-Save your notes in WSL, then stop the lab:
+Note your observations, then stop the lab:
 ```bash
 make traffic-stop
 make down

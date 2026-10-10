@@ -57,7 +57,7 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 
 `make task` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
 
-Save your notes before stopping. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
+Note your findings and next step before stopping. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
 
 ## Access
 

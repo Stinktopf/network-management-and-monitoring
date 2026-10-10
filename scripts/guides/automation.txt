@@ -7,22 +7,22 @@ Start in WSL:
 @@ hint
 Inside operations01:
   TOKEN=$(cat /state/netbox-token)
-  curl -fsS -H "Authorization: Bearer $TOKEN" 'http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test' > /state/automation-inventory.json
-  jq '{count, devices: [.results[] | {name, primary_ip4}]}' /state/automation-inventory.json
+  curl -fsS -H "Authorization: Bearer $TOKEN" 'http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test' |
+    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
   getent hosts edge01.bob1.reefnet.test
 Does inventory identify exactly one device and agree with name resolution?
 Return with exit, then make test in WSL to establish the service impact.
-Keep the token out of your evidence. Inventory is intent, not proof of reachability.
+Keep the token out of your notes. Inventory is intent, not proof of reachability.
 @@ investigation
 WSL repository:
   date -Is
-  make test | tee .state/automation-before.txt
+  make test
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
   hostname
   TOKEN=$(cat /state/netbox-token)
-  curl -fsS -H "Authorization: Bearer $TOKEN" 'http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test' > /state/automation-inventory.json
-  jq '{count, devices: [.results[] | {name, primary_ip4}]}' /state/automation-inventory.json
+  curl -fsS -H "Authorization: Bearer $TOKEN" 'http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test' |
+    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
   getent hosts edge01.bob1.reefnet.test
   exit
 
@@ -30,25 +30,24 @@ Inspect: four service results, NetBox count, device name and primary management 
 Decision: require one matching device and agreement between inventory and the
 resolved address. Stop on API/authentication errors or an ambiguous target.
 A correct inventory record identifies the target, it does not prove live reachability.
-Do not expose the token in evidence files or paste it into the incident report.
+Do not include the token in your notes.
 @@ solution
 Expected: only Lagoon IPv4 fails. NetBox count is 1 and the device is ReefNet Edge 01
 with management address 172.20.20.11. getent returns that same address.
-The file /state/automation-inventory.json is .state/automation-inventory.json in WSL.
 The lab operator has the necessary tooling and token. Continue with a read-only
-snapshot before proposing any write. If the service matrix differs, investigate
+inspection before proposing any write. If the service matrix differs, investigate
 that difference rather than assuming this exercise's known repair applies.
 
-@@ 2 Capture configuration and corroborate the routing boundary
-Read and save the target configuration through gNMI.
+@@ 2 Inspect configuration and corroborate the routing boundary
+Read the target configuration through gNMI. Note the relevant policy and its attachment.
 Corroborate your suspected cause with live routing evidence before planning a write.
 
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
 @@ hint
 Inside operations01:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp' --path '/routing-policy' > /state/automation-config-before.json
-  jq '.[].updates[].values[]' /state/automation-config-before.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp' --path '/routing-policy' |
+    jq '.[].updates[].values[]'
 Follow attachments and matching actions, not just policy names.
 Return with exit. For independent route checks from WSL:
   make hint SCENARIO=operations STEP=4
@@ -57,8 +56,8 @@ Which configuration observation explains the routing boundary you found?
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp' --path '/routing-policy' > /state/automation-config-before.json
-  jq '.[].updates[].values[]' /state/automation-config-before.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp' --path '/routing-policy' |
+    jq '.[].updates[].values[]'
   exit
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -76,11 +75,11 @@ Inspect: instance policy, peer-to-group mapping, group overrides, referenced
 prefix matches and actions. Compare that configuration with the observed route trace.
 Decision: if the route exists locally but is not advertised, identify the effective
 export rule. If it is advertised or absent locally, investigate that different
-boundary first. An API error or empty snapshot is not evidence of an absent override.
-Keep the raw snapshot. Do not generate a write from an unverified or stale assumption.
+boundary first. An API error or empty response is not evidence of an absent override.
+Note the original policy attachment so you can restore it if needed.
 @@ solution
 Edge 01 has the customer route, but its Lagoon advertisement lacks the prefix and
-Lagoon has no matching forwarding entry. The snapshot shows:
+Lagoon has no matching forwarding entry. The configuration shows:
   instance export-policy: EXPORT-BGP
   peer 192.0.2.2: peer-group lagoon-v4
   group export-policy: BLOCK-CUSTOMER-V4
@@ -92,7 +91,7 @@ BGP subtree or editing a shared policy would exceed the evidence-based scope.
 
 @@ 3 Re-read preconditions and execute a scoped change
 Define and apply one justified API change with a known rollback.
-Re-read the affected scope first. Stop if your saved assumptions no longer hold.
+Re-read the affected scope first. Stop if your earlier observations no longer hold.
 
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
@@ -101,7 +100,7 @@ Inside operations01:
   gnmic set --help
 Construct the exact path from the configuration you read. Choose the operation
 that changes only the proven cause. Re-read that scope with get --type config
-immediately before writing and save the Set response.
+immediately before writing and inspect the Set response.
 A read followed by Set is not an atomic conditional transaction. Coordinate with
 other operators. What will you restore if a previously healthy control regresses?
 Use exit to return. The worked change is in make solution SCENARIO=automation STEP=3.
@@ -109,15 +108,15 @@ Use exit to return. The worked change is in make solution SCENARIO=automation ST
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' > /state/automation-group-before.json
-  jq '.[].updates[].values[]' /state/automation-group-before.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
+    jq '.[].updates[].values[]'
   exit
 
-Inspect: whether the current group still matches the saved evidence. Define the
+Inspect: whether the current group still matches your notes. Define the
 one permitted operation, expected inherited behavior and original rollback value.
 Decision: if the value changed, stop and reconcile it. If it still matches the
 proven cause, apply only that operation, then read the parent group back in step 4.
-Retain the API response. A Set acknowledgement does not establish service recovery.
+Check the API response for errors. A Set acknowledgement does not establish service recovery.
 @@ solution
 Preconditions: target and incident match steps 1-2, instance policy is EXPORT-BGP,
 and the re-read group still carries BLOCK-CUSTOMER-V4. On this single-operator lab,
@@ -126,8 +125,7 @@ ownership before writing because the read and Set are not a conditional transact
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation, after verifying those preconditions:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy' > /state/automation-set-result.json
-  cat /state/automation-set-result.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy'
   exit
 Inspect the response for the exact deletion and any error. Continue at step 4.
 
@@ -153,8 +151,8 @@ Start in WSL:
 In WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' > /state/automation-group-after.json
-  jq '.[].updates[].values[]' /state/automation-group-after.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
+    jq '.[].updates[].values[]'
 Compare configuration fields, not envelope timestamps. Read the parent when a
 removed leaf cannot be returned. Use exit to return to WSL.
 For HTTP checks, in WSL:
@@ -167,8 +165,8 @@ Use exit, then repeat on the Pacific probe. Did only the intended behavior chang
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' > /state/automation-group-after.json
-  jq '.[].updates[].values[]' /state/automation-group-after.json
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
+    jq '.[].updates[].values[]'
   exit
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -181,7 +179,7 @@ Inside Lagoon Transit:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
 WSL repository, after routing convergence:
-  make test | tee .state/automation-after.txt
+  make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
@@ -209,9 +207,8 @@ control regressed, assess rollback. Close only after the independent checks agre
 The after-group retains peer-as and AFI/SAFI configuration and has no export-policy
 override. The customer prefix crosses Edge 01's Lagoon export boundary and Lagoon
 installs it. All four ICMP controls pass and Lagoon DNS returns A 198.51.100.10.
-Before/after files and the Set response are retained under .state/ in WSL.
-Report the scoped deletion, effective inherited policy, route proof and external
+In your notes, explain the scoped deletion, effective inherited policy, route proof and external
 service recovery. An API success alone would not have met these closure criteria.
 
 HTTP postcheck: both sources must receive the customer response over IPv4 and IPv6.
-Retain those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.
+Note those results alongside ICMP and DNS. An HTTP timeout keeps recovery unproven.

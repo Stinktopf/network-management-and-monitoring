@@ -80,7 +80,7 @@ egress discards, receiving-interface rate and iperf receiver throughput/loss.
 Keep the device/interface filters and observation window fixed during comparison.
 Decision: a capped receive rate plus growing drops at the sending handoff supports
 congestion there. Low receive rate without those drops requires checking sender,
-receiver and collector state before attributing it to the cap. Save the 40 Mbit/s
+receiver and collector state before attributing it to the cap. Note the 40 Mbit/s
 control alongside the 60/75 Mbit/s results.
 @@ solution
 40 Mbit/s is below the transit cap. At 60/75 Mbit/s the offered load exceeds it.
@@ -120,17 +120,17 @@ Inside the Lagoon router:
 WSL repository:
   make traffic-10mbit
 
-Inspect: counter deltas between the two saved snapshots and the receiver's loss,
+Inspect: counter deltas between the two displayed samples and the receiver's loss,
 not only an absolute cumulative counter. Match interface, direction and time window.
 Decision: consistent sending-queue drops and receiver loss corroborate congestion.
 A missing queue sample, reset counter or failed collection invalidates a numeric
 comparison. After reducing to 10 Mbit/s, check whether NEW drops stop accumulating.
-Retain the diagnostic report filename as incident evidence.
+Note the counter deltas and receiver loss.
 @@ solution
 The lab cap is a Linux netem egress queue. Its drops can also appear in the
 SR Linux egress counter, so the two values must not be added together.
 Normal dashboards show SR Linux discards. Linux queue drops are diagnostic
-evidence in Telemetry Health and the saved traffic report under .state/.
+evidence in Telemetry Health and the output of make traffic-diagnostics.
 The collection streams are sampled separately, so their deltas need not match exactly.
 At 10 Mbit/s new congestion drops should stop. Rolling-window panels retain
 earlier loss until it ages out, so they need not return to zero immediately.

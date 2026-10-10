@@ -100,13 +100,12 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 </code></pre>
 </section>
 <section><h2>Change a BGP policy with gNMI</h2>
-<p><strong>Still inside operations01:</strong> read and save the affected group.</p>
+<p><strong>Still inside operations01:</strong> read the affected group and note its current policy.</p>
 <pre><code class="language-bash">BGP_PATH='/network-instance[name=default]/protocols/bgp'
 GROUP=&quot;$BGP_PATH/group[group-name=lagoon-v4]&quot;
 gnmic -a edge01.bob1.reefnet.test:57400 \
   -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf \
-  get --type config --path &quot;$GROUP&quot; &gt; /state/bgp-group-before.json
-cat /state/bgp-group-before.json
+  get --type config --path &quot;$GROUP&quot;
 </code></pre>
 <h3>Remove the group's policy override</h3>
 <p><strong>After diagnosis:</strong> the group uses <code>BLOCK-CUSTOMER-V4</code>, causing the fault.
@@ -132,7 +131,7 @@ Change and rollback: <code>make solution SCENARIO=automation STEP=3</code>.</p>
 make traffic-60mbit
 make traffic-75mbit
 make traffic-10mbit
-make traffic-diagnostics    # save counters and receiver loss
+make traffic-diagnostics    # inspect counters and receiver loss
 </code></pre>
 <p><strong>Grafana:</strong> http://localhost:3000, folder <strong>ReefNet / BOB1</strong>.
 Check the interface, direction and time window.</p>
@@ -180,8 +179,8 @@ Investigation: <code>make hint SCENARIO=monitoring STEP=4</code> (link), <code>S
 make traffic-status        # current load
 </code></pre>
 <p>Queries: <code>make hint SCENARIO=monitoring STEP=6</code>.</p>
-<h3>Save and stop</h3>
-<p>Keep notes in WSL <code>work/</code>. Copy needed container files before <code>make down</code>.</p>
+<h3>Stop and resume</h3>
+<p>Note your findings and next step, then stop with <code>make down</code>.</p>
 <p>Scenario commands and <code>make reset</code> recreate the initial state.
 <code>make clean</code> also deletes lab state and NetBox data.</p>
 </section>

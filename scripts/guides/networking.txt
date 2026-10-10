@@ -157,7 +157,7 @@ between Edge 01 and Edge 02. A BGP session alone does not prove service delivery
 
 @@ 4 Cross-check the customer and summarize the baseline
 Complete your path map with the customer and the return routes.
-Save the healthy results for comparison with later incidents.
+Note the healthy results for comparison with later incidents.
 
 Start in WSL:
   make enter NODE=edge01.bob1.oceanresearch.test
@@ -211,7 +211,7 @@ Inspect: service addresses/default routes, customer routes back to BOTH probe
 networks, local DNS response and the four external service checks.
 Decision: local DNS failure needs service diagnosis. Local success with remote
 failure needs forward/return-path diagnosis. Mark the baseline ready only when
-all four external ICMP and HTTP checks pass and service DNS responds. Save addresses, next hops
+all four external ICMP and HTTP checks pass and service DNS responds. Note addresses, next hops
 and the result matrix for comparison during Operations.
 @@ solution
 The service uses 198.51.100.10/24 with gateway 198.51.100.1 and IPv6
