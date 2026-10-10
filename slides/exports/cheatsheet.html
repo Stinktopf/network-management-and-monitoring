@@ -74,12 +74,33 @@ info from running network-instance default protocols bgp
 info from running routing-policy
 </code></pre>
 </section>
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>1 / 3</span></footer>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>1 / 4</span></footer>
   </article>
 <article class="page">
     <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
-    <h1>Read and change configuration</h1>
-    <section><h2>Read through an API</h2>
+    <h1>Inspect and change configuration</h1>
+    <section><h3>Change the Lagoon export policy from the CLI</h3>
+<p>After the investigation, inspect both the group override and BGP's inherited policy:</p>
+<pre><code class="language-text">info from running network-instance default protocols bgp group lagoon-v4
+info from running network-instance default protocols bgp
+</code></pre>
+<p>Stage the scoped change. It removes the group's override so it inherits <code>EXPORT-BGP</code>.</p>
+<pre><code class="language-text">enter candidate
+delete / network-instance default protocols bgp group lagoon-v4 export-policy
+diff
+</code></pre>
+<p>Commit only if <code>diff</code> shows that single removal. Then verify the running config and test from the probe.</p>
+<pre><code class="language-text">commit now
+info from running network-instance default protocols bgp group lagoon-v4
+</code></pre>
+<p>Use <code>discard now</code> to cancel uncommitted edits. To restore the committed before-state, set the original attachment:</p>
+<pre><code class="language-text">enter candidate
+set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
+diff
+commit now
+</code></pre>
+</section>
+<section><h2>Read through an API</h2>
 <p><strong>In WSL:</strong> enter the operator workstation.</p>
 <pre><code class="language-bash">make enter NODE=operations01.bob1.reefnet.test
 </code></pre>
@@ -100,7 +121,12 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
   get --type config --path &quot;$BGP_PATH&quot;
 </code></pre>
 </section>
-<section><h2>Change a BGP policy with gNMI</h2>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>2 / 4</span></footer>
+  </article>
+<article class="page">
+    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
+    <h1>Measure traffic</h1>
+    <section><h2>Change a BGP policy with gNMI</h2>
 <p><strong>Still inside operations01:</strong> read the affected group and note its current policy.</p>
 <pre><code class="language-bash">BGP_PATH='/network-instance[name=default]/protocols/bgp'
 GROUP=&quot;$BGP_PATH/group[group-name=lagoon-v4]&quot;
@@ -121,12 +147,7 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
 <p>Verify routes and service from both probes. Use <code>exit</code> to return to WSL.
 Change and rollback: <code>make solution SCENARIO=automation STEP=3</code>.</p>
 </section>
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>2 / 3</span></footer>
-  </article>
-<article class="page">
-    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
-    <h1>Measure and experiment</h1>
-    <section><h2>Watch traffic and loss</h2>
+<section><h2>Watch traffic and loss</h2>
 <p><strong>In WSL:</strong> choose one load. Wait at least 30 seconds at each level.</p>
 <pre><code class="language-bash">make traffic-40mbit
 make traffic-60mbit
@@ -146,7 +167,12 @@ Inside the service node:</p>
 <pre><code class="language-bash">tail -n 15 /tmp/iperf-server.log   # received Mbit/s and loss
 </code></pre>
 </section>
-<section><h2>Control the experiment</h2>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>3 / 4</span></footer>
+  </article>
+<article class="page">
+    <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
+    <h1>Run experiments</h1>
+    <section><h2>Control the experiment</h2>
 <p><strong>In WSL:</strong> run <code>make traffic-10mbit</code>, then <code>make test</code>.
 Start only when all four results pass. Try one fault at a time.</p>
 <table>
@@ -180,10 +206,11 @@ Investigation: <code>make hint SCENARIO=monitoring STEP=4</code> (link), <code>S
 make traffic-status         # current load
 </code></pre>
 <p>Queries: <code>make hint SCENARIO=monitoring STEP=6</code>.</p>
-<h3>Stop and repeat</h3>
+</section>
+<section><h3>Stop and repeat</h3>
 <p>Keep notes on your findings. <code>make down</code> removes the lab and discards router changes.</p>
 <p>Scenario commands and <code>make reset</code> recreate the initial state.
 <code>make clean</code> also deletes lab state and NetBox data.</p>
 </section>
-    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>3 / 3</span></footer>
+    <footer><span>WSL = repository terminal. Exit Linux with <code>exit</code>, SR Linux with <code>quit</code>.</span><span>4 / 4</span></footer>
   </article></body></html>

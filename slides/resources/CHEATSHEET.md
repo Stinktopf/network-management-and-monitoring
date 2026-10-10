@@ -70,6 +70,41 @@ info from running routing-policy
 
 ---
 
+## Change the Lagoon export policy from the CLI
+
+After the investigation, inspect both the group override and BGP's inherited policy:
+
+```text
+info from running network-instance default protocols bgp group lagoon-v4
+info from running network-instance default protocols bgp
+```
+
+Stage the scoped change. It removes the group's override so it inherits `EXPORT-BGP`.
+
+```text
+enter candidate
+delete / network-instance default protocols bgp group lagoon-v4 export-policy
+diff
+```
+
+Commit only if `diff` shows that single removal. Then verify the running config and test from the probe.
+
+```text
+commit now
+info from running network-instance default protocols bgp group lagoon-v4
+```
+
+Use `discard now` to cancel uncommitted edits. To restore the committed before-state, set the original attachment:
+
+```text
+enter candidate
+set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
+diff
+commit now
+```
+
+---
+
 # Read through an API
 
 **In WSL:** enter the operator workstation.
@@ -195,6 +230,8 @@ make traffic-status         # current load
 ```
 
 Queries: `make hint SCENARIO=monitoring STEP=6`.
+
+---
 
 ## Stop and repeat
 
