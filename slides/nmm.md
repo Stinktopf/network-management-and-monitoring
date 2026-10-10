@@ -836,7 +836,7 @@ and how does the reply get back?
 After `READY FOR CLASS`, in WSL:
 ```bash
 make networking
-make next
+make task
 ```
 
 Check addresses, DNS and HTTP. Sketch the path.
@@ -1039,7 +1039,7 @@ A user behind Lagoon cannot reach the Ocean Research service.
 In WSL:
 ```bash
 make operations
-make next
+make task
 ```
 
 **60 minutes:** find the fault, repair it and verify recovery.
@@ -2039,7 +2039,7 @@ Find ReefNet Edge 01 in NetBox. Read its configuration and justify a change.
 In WSL:
 ```bash
 make automation
-make next
+make task
 ```
 
 **60 minutes:** repair through gNMI and verify the service from both probes.
@@ -3500,7 +3500,7 @@ What happens when offered traffic exceeds the **50 Mbit/s** handoff?
 In WSL:
 ```bash
 make monitoring
-make next
+make task
 ```
 
 **75 minutes:** compare load, received traffic and new discards.

@@ -81,9 +81,6 @@ s+=device(100,116,'Host','host')+device(545,116,'Gateway')+device(970,116,'Remot
 s+=ln(160,103,483,103,True)+t(325,94,'198.51.100.10 → gateway',22)+ln(602,103,914,103,True)
 s+=circle(310,170,7,G,G)+ln(158,144,298,169,True)+t(313,209,'203.0.113.42: direct',22)
 save('local-remote',s,260)
-s=device(90,97,'Client','host','203.0.113.10')+device(485,97,'Next hop','router','203.0.113.1')+device(1000,97,'Destination','server','198.51.100.10')
-s+=ln(145,94,430,94,True,color=G,width=3)+ln(540,94,944,94,True,dash=True)+t(286,64,'Local link',24)+t(740,64,'Remaining path',24)+t(550,274,'The packet keeps its final IP destination.',25)
-save('next-hop',s,295)
 s=rect(430,90,240,120,'white',M,10)+t(550,150,'Switch',29,weight=700).replace('<text ', '<text dominant-baseline="central" ')
 for x,y,lab in [(80,150,'A'),(1010,75,'B'),(1010,250,'C')]:
  s+=device(x,y,lab,'host')
@@ -126,7 +123,6 @@ for x,y,xx,yy,c in [(55,135,245,40,1),(245,40,450,135,1),(55,135,245,230,5),(245
 for x,y,label in [(55,135,'A'),(245,40,'B'),(450,135,'D'),(245,230,'C')]:
  s+=circle(x,y,26)+t(x,y+8,label,25,weight=700)
 save('igp-costs',s,270,'Example OSPF link costs: A via B to D costs 2, A via C to D costs 7.',w=510)
-pathflow('destination-demux',['IP address','Transport port','Socket','Application'],['This host','This service','Receive bytes','Produce response'],h=190)
 s=t(165,27,'Client sends',25,weight=700)+t(580,27,'Router 1',25,weight=700)+t(955,27,'Router 2',25,weight=700)
 for y,l,xx in [(90,'TTL 1',580),(205,'TTL 2',955)]:
  s+=t(25,y+7,l,24,'start')+ln(150,y,xx-12,y,True,color=G,width=3)+circle(xx,y,9,'white',G)+ln(xx-10,y+38,150,y+38,True,dash=True)+t((xx+150)/2,y+68,'ICMP Time Exceeded',23)
@@ -148,12 +144,6 @@ s=''
 for i,(a,b) in enumerate([('Control plane','Routes learned and selected'),('Forwarding plane','Entries used to move packets'),('Service behavior','The customer gets a response')]):
  y=12+i*92;s+=rect(20,y,1060,76,'white')+ln(20,y+2,20,y+74,color=G,width=4)+t(48,y+47,a,27,'start',700)+t(1035,y+47,b,25,'end')
 save('three-planes',s,290)
-pathflow('hypothesis-chain',['Policy override','Export absent','Route absent','IPv4 probe fails'],caption='Predict the missing evidence before changing the router.')
-s=ln(95,110,1020,110)
-for x,a,b in [(100,'Report','Scope'),(330,'Reproduce','Observation'),(570,'Hypothesis','Prediction'),(790,'Repair','Diff'),(1010,'Verify','Service proof')]:
- s+=circle(x,110,9,'white',G)+t(x,72,a,24,weight=700)+t(x,157,b,22)
-s+=t(550,239,'Record timestamps, actions and evidence at each boundary.',25)
-save('recovery-record',s,270)
 s=card(20,85,230,110,'Device','ReefNet Edge 01')+card(325,85,200,110,'Interface','ethernet-1/3')+card(605,85,210,110,'Circuit','Lagoon handoff')+card(890,85,190,110,'Provider','Lagoon Transit')
 for x,xx in [(255,320),(530,600),(820,885)]:s+=ln(x,140,xx,140,True)
 s+=t(550,38,'An inventory is a graph of relationships.',27)+t(550,258,'Join the intended circuit to the actual change target.',25)
@@ -326,13 +316,6 @@ for i,(title,detail) in enumerate([('Receive','Paper + review sheet'),('Read','D
 save('paper-review',s,285)
 # Supplied forecast source is retained for reproducible regeneration.
 source=R/'resources/source-graphics'
-# Re-layout three supplied diagrams: uniform nodes, centered labels, clear arrow gaps.
-s=''
-for i,(label,sub) in enumerate([('Received','from customer'),('Import','check policy'),('Selected','check best path'),('Export','check export'),('Lagoon','check receipt')]):
- x=20+i*222;s+=card(x,20,170,90,label,sub)
- if i<4:s+=ln(x+182,65,x+210,65,True)
-s+=card(409,200,280,85,'Forwarding entry','customer next hop')+ln(549,120,549,190,True)
-save('bgp-route-stages',s,310,'Adapted supplied diagram: inspect received, imported, selected, exported and remotely received routes')
 pathflow('citation-chain',['Source','Sentence','Citation'],['What was demonstrated?','What do you claim?','Where can I check it?'],h=180)
 s=t(20,27,'SubscriptionList mode',25,'start')
 for x,label,sub in [(20,'ONCE','one initial transfer'),(390,'POLL','client requests updates'),(760,'STREAM','continuing updates')]:

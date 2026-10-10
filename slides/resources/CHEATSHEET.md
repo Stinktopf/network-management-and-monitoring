@@ -1,24 +1,3 @@
----
-marp: true
-theme: default
-size: 4:3
-paginate: true
-title: ReefNet command reference
-style: |
-  section { background: white; color: #303030; font-family: Arial, sans-serif; font-size: 21px; line-height: 1.3; padding: 38px 46px 52px; justify-content: flex-start; }
-  section h1 { color: #72bf44; font-size: 34px; margin: 0 0 18px; }
-  section h2 { color: #303030; font-size: 21px; margin: 16px 0 6px; }
-  section p { margin: 5px 0; }
-  section pre, section marp-pre { font-size: 16px; line-height: 1.3; margin: 8px 0; padding: 12px 14px; background: #f5f5f5; }
-  section code { font-size: 16px; background: none; padding: 0; }
-  section pre, section marp-pre { border: 0; border-radius: 0; }
-  section table { width: 100%; }
-  section table tr, section table tr:nth-child(2n), section table th, section table td { background: white; }
-  section table th, section table td { border: 0; border-bottom: 1px solid #ddd; text-align: left; }
-  section footer { font-size: 12px; color: #777; }
-footer: AI5049 / ReefNet
----
-
 # Start here
 
 **In WSL:** choose an exercise. Each command starts it afresh.
@@ -29,6 +8,8 @@ make operations      # find the fault
 make automation      # repair through an API
 make monitoring      # measure traffic and loss
 ```
+
+**Help in WSL:** `make task`, `make hint STEP=2`, `make solution STEP=2`.
 
 Enter the Lagoon probe:
 
@@ -97,7 +78,7 @@ info from running routing-policy
 make enter NODE=operations01.bob1.reefnet.test
 ```
 
-Run the commands below **inside operations01**. Router management names resolve here.
+Run the commands below **inside operations01**.
 
 ## Find a device in NetBox
 
@@ -121,14 +102,11 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
   get --type config --path "$BGP_PATH"
 ```
 
-Next: **Change a BGP policy with gNMI**.
-
 ---
 
 # Change a BGP policy with gNMI
 
-**In WSL:** `make enter NODE=operations01.bob1.reefnet.test`
-**Inside operations01:** read and save the affected group.
+**Still inside operations01:** read and save the affected group.
 
 ```bash
 BGP_PATH='/network-instance[name=default]/protocols/bgp'
@@ -153,8 +131,8 @@ gnmic -a edge01.bob1.reefnet.test:57400 \
   get --type config --path "$GROUP"
 ```
 
-Check advertised routes and service from both probes (first two sections).
-Worked change and rollback, in WSL: `make solution SCENARIO=automation STEP=3`.
+Verify routes and service from both probes. Use `exit` to return to WSL.
+Change and rollback: `make solution SCENARIO=automation STEP=3`.
 
 ---
 
@@ -208,9 +186,16 @@ Investigation: `make hint SCENARIO=monitoring STEP=4` (link), `STEP=5` (routing)
 
 ```bash
 make traffic-stop           # stop continuous traffic first
+```
+
+For the rate-window comparison, wait five minutes. Then:
+
+```bash
 make traffic-burst-40mbit   # stops after five seconds
 make traffic-status        # current load
 ```
+
+Queries: `make hint SCENARIO=monitoring STEP=6`.
 
 ## Save and stop
 

@@ -8,11 +8,11 @@ Keep the [CheatSheet](slides/exports/cheatsheet.pdf) open for node access, inves
 
 ## Start and get help
 
-Run `make` commands in the WSL repository. Choose a scenario below, then run `make next`.
+Run `make` commands in the WSL repository. Choose a scenario below, then run `make task`.
 
 | Command | Purpose |
 |---|---|
-| `make next` | Task and starting point |
+| `make task` | Task and starting point |
 | `make hint` | Investigation commands and clues |
 | `make solution` | Complete worked investigation |
 | `make down` | Stop the lab |
@@ -30,4 +30,4 @@ Times exclude the demo. Networking includes 30 minutes for cloning, `make setup`
 | `make automation` | Investigate the same incident using NetBox and gNMI. Save the original configuration, apply a justified change and verify recovery. | 60 min |
 | `make monitoring` | Compare offered load, received traffic and loss at the 50 Mbit/s cap. Then compare a link failure, a routing failure and a short burst. Restore the baseline after each experiment. | 75 min |
 
-Each scenario works independently. Record the commands and observations that support your explanation. Procedures and expected results are in `make next`, `make hint` and `make solution`.
+Each scenario works independently. Record the commands and observations that support your explanation. Procedures and expected results are in `make task`, `make hint` and `make solution`.

@@ -50,5 +50,5 @@ GUIDE
     ;;
   *) printf 'Lab shell\n' ;;
 esac
-printf '\nReturn to the WSL repository with exit. Run make next there for the guided investigation.\n\n'
+printf '\nReturn to the WSL repository with exit. Run make task there for the guided investigation.\n\n'
 unset _lab_node

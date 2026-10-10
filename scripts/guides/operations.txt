@@ -313,7 +313,7 @@ policy definition would broaden the change unnecessarily.
 
 @@ 6 Review and apply the smallest supported change
 Propose the smallest change supported by your evidence and its rollback.
-Explain the expected route change to the class before applying it.
+Record the expected route change before applying it.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test

@@ -15,7 +15,24 @@ for directory in ("scripts", "tools"):
 for directory in ("configs", "tools"):
     for path in (ROOT / directory).rglob("*.json"):
         json.loads(path.read_text())
-for path in sorted(ROOT.glob("*.md")):
+panel_titles = {
+    panel['title']
+    for path in (ROOT / 'configs/grafana/dashboards').glob('*.json')
+    for panel in json.loads(path.read_text()).get('panels', [])
+}
+for name in ('validate-configs.sh', 'setup-smoke.sh'):
+    source = (ROOT / 'scripts' / name).read_text()
+    for title in re.findall(r'(?:any|select)\(\.title == "([^"]+)"\)(?! \| not)', source):
+        if title not in panel_titles:
+            raise SystemExit(f'Stale Grafana panel assertion in {name}: {title}')
+documents = subprocess.check_output(
+    ['git', 'ls-files', '--cached', '--others', '--exclude-standard', '--', '*.md'],
+    cwd=ROOT, text=True,
+).splitlines()
+for name in sorted(set(documents)):
+    path = ROOT / name
+    if not path.exists():
+        continue
     for target in re.findall(r"\]\(([^)]+)\)", path.read_text()):
         if "://" not in target and not target.startswith("#"):
             resolved = (path.parent / target.split("#")[0]).resolve()

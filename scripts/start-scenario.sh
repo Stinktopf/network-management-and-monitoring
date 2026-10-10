@@ -87,7 +87,7 @@ ui_section "Scenario · $scenario"
 case "$scenario" in
   networking) ui_info 'Healthy baseline · no fault injection' ;;
   operations|automation)
-    ui_info 'Preparing the incident exercise. Use make next to investigate.'
+    ui_info 'Preparing the incident exercise. Use make task to investigate.'
     bash scripts/fault-routing.sh > .state/scenario-preparation.log 2>&1
     ;;
   monitoring) ui_info 'Starting background traffic probe01.bob1.lagoontransit.test → service01.bob1.oceanresearch.test'; bash scripts/traffic.sh set 25M ;;

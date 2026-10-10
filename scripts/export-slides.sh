@@ -15,10 +15,7 @@ case "${1:-html}" in
       --browser-path "${CHROME_PATH:-/usr/bin/chromium}" --browser-timeout 120 \
       -o "exports/nmm.$format"
     if [[ "$format" == pdf ]]; then
-      node node_modules/@marp-team/marp-cli/marp-cli.js resources/CHEATSHEET.md \
-        --html --pdf --allow-local-files \
-        --browser-path "${CHROME_PATH:-/usr/bin/chromium}" --browser-timeout 120 \
-        -o exports/cheatsheet.pdf
+      node tools/handout.mjs
     fi
     ;;
   *) echo 'Usage: scripts/export-slides.sh [html|pdf|pptx|all]' >&2; exit 2 ;;

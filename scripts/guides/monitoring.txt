@@ -248,14 +248,19 @@ Can Grafana show a five-second burst? Compare short and long rate windows.
 
 Start in WSL:
   make traffic-stop
+For an isolated burst, wait five minutes so earlier load leaves the long rate
+window. Then run:
   make traffic-burst-40mbit
 The burst stops automatically. Keep previous faults cleared.
 @@ hint
 In WSL:
   make traffic-status
-In Grafana, select the time around the burst on Lagoon's transit interface.
-Compare a short rate window with a five-minute window. Keep the interface,
-direction and units the same. What happens to the peak height?
+In Grafana Explore, select Prometheus and switch to Code. Use Add query for
+the second expression, also in Code mode. Both queries return Mbit/s:
+  rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[10s]) * 8 / 1e6
+  rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[5m]) * 8 / 1e6
+Show both over the same time range containing the burst. Changing the dashboard
+time range alone does not change the rate window. What happens to the peak height?
 Check the receiver in WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the service node:
@@ -266,6 +271,8 @@ WSL repository:
   make test
 Confirm all four results pass, then:
   make traffic-stop
+Wait five minutes with no generated traffic. This clears earlier experiments
+from the five-minute rate window. Then, in WSL:
   date -Is
   make traffic-burst-40mbit
 After at least five seconds:
@@ -274,8 +281,11 @@ After at least five seconds:
 Inside the service node:
   tail -n 15 /tmp/iperf-server.log
   exit
-In Grafana inspect the same Lagoon handoff and the time around the burst.
-Compare the short and five-minute rate windows while holding other filters fixed.
+In Grafana Explore, select Prometheus and use Code mode. Add a second query
+with Add query and select Code there too. Compare these expressions (Mbit/s):
+  rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[10s]) * 8 / 1e6
+  rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[5m]) * 8 / 1e6
+Use the same visible time range around the burst for both queries.
 Record the burst timestamp, both windows and their displayed peaks.
 @@ solution
 The source offers 40 Mbit/s for five seconds, then stops. This is below the

@@ -12,7 +12,7 @@ case "${1:-exercises}" in
     ui_command_row 'make automation' 'Repair through an API'
     ui_command_row 'make monitoring' 'Compare load, loss and faults'
     ui_section 'Work through it'
-    ui_command_row 'make next' 'Task and starting point'
+    ui_command_row 'make task' 'Task and starting point'
     ui_command_row 'make cheatsheet' 'Commands and terminal context'
     ui_command_row 'make hint STEP=2' 'Investigation help for step 2'
     ui_command_row 'make solution STEP=2' 'Worked investigation for step 2'

@@ -55,7 +55,7 @@ if [[ "$step" != all ]] && (( step < count )); then
   if [[ "$level" == solution ]]; then
     ui_hint "Next worked step: make solution SCENARIO=$scenario STEP=$((step + 1))"
   else
-    ui_hint "When ready: make next SCENARIO=$scenario STEP=$((step + 1))"
+    ui_hint "When ready: make task SCENARIO=$scenario STEP=$((step + 1))"
   fi
 fi
 if [[ "$level" == hint ]]; then

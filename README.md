@@ -15,7 +15,7 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 After a short demo, work through the exercises at your own pace. You can finish at home.
 
-[Worksheets](EXERCISES.md) | [CheatSheet](slides/resources/CHEATSHEET.md) | [Printable CheatSheet](slides/exports/cheatsheet.pdf)
+[Exercises](EXERCISES.md) | [CheatSheet PDF](slides/exports/cheatsheet.pdf) | [CheatSheet HTML](slides/exports/cheatsheet.html)
 
 `make exercises` shows the overview. `make cheatsheet` prints the command reference without a running lab.
 
@@ -55,7 +55,7 @@ Run from `~/network-management-and-monitoring`. Start one session at a time.
 | `make automation` | Same routing fault, ready for the automation exercise |
 | `make monitoring` | Healthy network with telemetry and traffic |
 
-`make next` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
+`make task` gives the task, `make hint` offers help and `make solution STEP=1` shows a worked step. Choose another step with `STEP=2`. Run these in WSL.
 
 Save your notes before stopping. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
 
@@ -70,35 +70,9 @@ Save your notes before stopping. Starting a scenario again recreates its initial
 
 The passwords above are lab defaults. Grafana allows anonymous administration and ports listen on host interfaces, so keep the lab on a trusted network.
 
-### Node shells
+Use the [CheatSheet](slides/resources/CHEATSHEET.md) for node access, traffic controls and fault experiments. Leave Linux with `exit` and router CLIs with `quit`.
 
-Choose one command. Leave the shell before entering another node.
-
-```bash
-make enter NODE=probe01.bob1.lagoontransit.test
-make enter NODE=probe01.bob1.pacifictransit.test
-make enter NODE=operations01.bob1.reefnet.test
-make enter NODE=edge01.bob1.reefnet.test
-```
-
-Leave Linux shells with `exit`, router CLIs with `quit`.
-
-Router management names and SSH are available from the operations node. If you are on a probe, run `exit`, then `make enter NODE=operations01.bob1.reefnet.test` in WSL. From that node:
-
-```bash
-ssh edge01.bob1.reefnet.test
-```
-
-The customer DNS at `198.51.100.10` serves `data.oceanresearch.test`, not router management names. It can time out when the customer path fails. From the operations node, NetBox is reachable at `netbox.bob1.reefnet.test`. Device names, addresses and links are defined in [`tools/bob1_model.json`](tools/bob1_model.json).
-
-## Faults
-
-| Inject | Restore |
-|---|---|
-| `make fault-routing` | `make clear-routing` |
-| `make fault-link` | `make clear-link` |
-
-`make healthy` clears both faults, stops traffic and restores the capacity profile.
+Router management names and SSH resolve on `operations01.bob1.reefnet.test`. The probe DNS serves `data.oceanresearch.test`. Device names and links are defined in the [network model](tools/bob1_model.json).
 
 ## Traffic
 
@@ -106,36 +80,15 @@ The customer DNS at `198.51.100.10` serves `data.oceanresearch.test`, not router
 - Lagoon Transit handoff: **50 Mbit/s**
 - Pacific Transit handoff: **50 Mbit/s**
 
-Choose one continuous load. Run traffic commands from the repository directory.
-
-| Command | Effect |
-|---|---|
-| `make traffic-10mbit`, `make traffic-25mbit`, `make traffic-40mbit` | Below transit capacity |
-| `make traffic-50mbit` | At transit capacity |
-| `make traffic-60mbit`, `make traffic-75mbit` | Transit congestion |
-| `make traffic-stop` | Stop traffic |
-| `make traffic-burst-40mbit` | Standalone burst, stop background traffic first |
-| `make traffic-status` | Show current traffic |
-| `make traffic-diagnostics` | Save traffic and drop counters to `.state/` |
-
-Continuous traffic reconnects after short path interruptions.
+Choose one load at a time with `make traffic-40mbit`, `make traffic-60mbit` or `make traffic-75mbit`. Return to `make traffic-10mbit` after measuring. `make traffic-stop` stops it. More controls: `make help`.
 
 The SR Linux container has a 10,000 packets/s forwarding limit. Traffic uses 1200-byte UDP datagrams and tops out at 75 Mbit/s, so the transit link should hit its limit first.
 
 ## Grafana
 
-Open the `ReefNet / BOB1` folder. Dashboards refresh every 5 seconds.
+Open the `ReefNet / BOB1` folder, starting with **Network Overview**. Use **Topology & Paths** to locate links, **Fault Analysis** to investigate, **Service Health** for probes and **Device Detail** for one router. **Telemetry Health** checks collection and logs. Dashboards refresh every five seconds.
 
-- **Network Overview** is the starting point for a quick check.
-- **Topology & Paths** shows links and routing domains. `core-a` and `core-b` are the two parallel links between the ReefNet routers.
-- **Fault Analysis** compares probes, interfaces and BGP routes.
-- **Service Health** shows reachability from the probes.
-- **Telemetry Health** helps check the collectors and device logs.
-- **Device Detail** narrows the view to one router.
-
-Dashboards show SR Linux ingress and egress discards separately. **Telemetry Health** adds Linux queue drops for diagnosis. These can count the same losses, so do not add them together.
-
-
+Ingress and egress discards are separate. Linux queue drops in Telemetry Health can count the same losses, so do not add them to SR Linux discards.
 
 ## Housekeeping
 
@@ -146,9 +99,9 @@ Dashboards show SR Linux ingress and egress discards separately. **Telemetry Hea
 | `make clean` | **Delete lab state and NetBox data**, keep downloaded images |
 | `make status` | Show runtime status |
 | `make test` | Probe customer IPv4/IPv6 reachability from both upstreams |
-| `make course-check` | Repeat all scenario and workflow checks |
+| `make course-check` | Restart and test all four scenarios, then stop |
 | `make check` | Check source, documentation and network model without Docker |
-| `make next`, `make hint`, `make solution` | Scenario tasks, clues and worked answers |
+| `make healthy` | Clear faults, stop traffic and restore link capacities |
 | `make help` | List commands |
 
 After `make clean`, run `make setup` again.
@@ -178,11 +131,11 @@ npm ci
 npm run build
 ```
 
-- Exports: lecture HTML, PDF and PPTX plus CheatSheet HTML/PDF in `slides/exports/`. PowerPoint contains slide images and notes. Edit content in the Marp source.
+- Exports: lecture HTML, PDF and PPTX plus CheatSheet HTML/PDF in `slides/exports/`. PowerPoint contains slide images. Edit lecture content in the Marp source.
 - Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
 - For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
-- Edit `slides/theme/ai5049.css` for theme changes, then rebuild.
-- Diagrams are editable SVGs. To regenerate them, edit the generators in `slides/tools/` and run `npm run diagrams` followed by `npm run build`. This needs Python 3 and overwrites direct SVG edits.
+- Lecture theme: `slides/theme/ai5049.css`. A4 reference: `slides/resources/CHEATSHEET.md` and `slides/theme/handout.css`. The CLI uses the same reference source.
+- [Diagram sources](slides/assets/README.md) and [teaching data](slides/assets/data/README.md) describe regeneration. Python 3 is needed for the generators.
 - `npm run build:handouts` builds only the CheatSheet. `npm run sampling` regenerates the synthetic timing-model data. Run all npm commands from `slides/`.
 
 From the repository root, `make slides` builds all exports and `make handouts` builds only the CheatSheet.

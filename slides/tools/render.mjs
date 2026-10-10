@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildHandout } from './handout.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 process.chdir(root);
@@ -42,11 +43,4 @@ if (!process.argv.includes('--handout-only')) {
 
 }
 
-// The command reference is also available as a printable handout.
-runMarp(['-o', 'exports/cheatsheet.html'], {}, 'resources/CHEATSHEET.md');
-if (!process.argv.includes('--html-only')) {
-  runMarp(['--pdf', '--allow-local-files', '--browser-path',
-    process.env.CHROME_PATH || '/usr/bin/chromium', '--browser-timeout', '120',
-    '-o', 'exports/cheatsheet.pdf'],
-  { env: { ...process.env, CHROME_NO_SANDBOX: '1' } }, 'resources/CHEATSHEET.md');
-}
+await buildHandout({ pdf: !process.argv.includes('--html-only') });
