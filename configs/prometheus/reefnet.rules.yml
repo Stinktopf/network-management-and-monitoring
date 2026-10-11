@@ -136,7 +136,7 @@ groups:
       - record: reefnet_interface_carrier_transitions_total
         expr: 'ai5049_srl_nokia_interfaces_interface_statistics_carrier_transitions'
       - record: reefnet_bgp_neighbor_session_state
-        expr: '{__name__=~"ai5049_.*bgp.*neighbor.*session_state"}'
+        expr: '{__name__=~"ai5049_.*bgp.*neighbor.*session_state"} and (timestamp({__name__=~"ai5049_.*bgp.*neighbor.*session_state"}) > time() - 6)'
       - record: reefnet_bgp_total_peers
         expr: '{__name__=~"ai5049_.*bgp.*statistics.*total_peers"}'
       - record: reefnet_bgp_up_peers
