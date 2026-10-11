@@ -8232,6 +8232,510 @@
                   "oneClick": true
                 }
               ]
+            },
+            {
+              "name": "transit01 ethernet-1/1 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 361.5,
+                "top": 283,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit01 ethernet-1/1 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 361.5,
+                "top": 306,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit02 ethernet-1/1 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -418.5,
+                "top": 283,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit02 ethernet-1/1 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -418.5,
+                "top": 306,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/3 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 191.5,
+                "top": 563,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/3 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 191.5,
+                "top": 586,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/1 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 187.5,
+                "top": 797,
+                "width": 73,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "100 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/1 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 187.5,
+                "top": 820,
+                "width": 73,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "100 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge02 ethernet-1/2 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -248.5,
+                "top": 719,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge02 ethernet-1/2 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -248.5,
+                "top": 742,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "50 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "cust01 ethernet-1/1 in capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 187.5,
+                "top": 993,
+                "width": 73,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "100 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "cust01 ethernet-1/1 out capacity tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 187.5,
+                "top": 1016,
+                "width": 73,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "fixed",
+                  "fixed": "100 Mbit/s"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
             }
           ]
         },
