@@ -135,12 +135,10 @@ ui_command_row() {
   fi
 }
 
-# Shared presentation for Markdown handouts and plain-text investigation guides.
-ui_document() {
-  local mode=${1:-markdown}
-  shift
-  awk -v mode="$mode" -v bold="$UI_BOLD" -v reset="$UI_RESET" \
+# Presentation for task, hint and solution output.
+ui_guide() {
+  awk -v bold="$UI_BOLD" -v reset="$UI_RESET" \
     -v command="$UI_MAGENTA" -v blue="$UI_BLUE" -v cyan="$UI_CYAN" \
-    -v gray="$UI_GRAY" -v arrow="$UI_ARROW" \
-    -f "$(dirname "${BASH_SOURCE[0]}")/render-material.awk" "$@"
+    -v gray="$UI_GRAY" \
+    -f "$(dirname "${BASH_SOURCE[0]}")/render-guide.awk" "$@"
 }

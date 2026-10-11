@@ -10,8 +10,7 @@
     "build": "node tools/render.mjs",
     "build:html": "node tools/render.mjs --html-only",
     "diagrams": "python3 tools/diagrams.py && python3 tools/visual-assets.py && python3 tools/normalize-palette.py",
-    "sampling": "python3 tools/sampling_demo.py",
-    "build:handouts": "node tools/render.mjs --handout-only"
+    "sampling": "python3 tools/sampling_demo.py"
   },
   "engines": {
     "node": ">=18"

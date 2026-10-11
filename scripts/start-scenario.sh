@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eEuo pipefail
+source "$(dirname "$0")/check-platform.sh"
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then export AI5049_COLOR=always; fi
 source "$(dirname "$0")/ui.sh"
 

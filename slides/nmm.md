@@ -858,7 +858,7 @@ make task
 Check addresses, DNS and HTTP. Sketch the path.
 Then try Pacific and IPv6.
 
-[Exercises](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/EXERCISES.md) / [CheatSheet](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/exports/cheatsheet.pdf)
+[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
 
 ---
@@ -1062,7 +1062,7 @@ make task
 **45 minutes:** find the fault, repair it and verify recovery.
 Keep your commands and evidence. We compare diagnoses before repairing.
 
-[Exercises](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/EXERCISES.md) / [CheatSheet](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/exports/cheatsheet.pdf)
+[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
 
 ---
@@ -2063,7 +2063,7 @@ make task
 **60 minutes:** repair through gNMI and verify the service from both probes.
 Use `make hint` for investigation commands.
 
-[Exercises](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/EXERCISES.md) / [CheatSheet](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/exports/cheatsheet.pdf)
+[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
 
 ---
@@ -3524,7 +3524,7 @@ make task
 **75 minutes:** compare load, received traffic and new discards.
 Then try link and routing faults and a short burst.
 
-[Exercises](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/EXERCISES.md) / [CheatSheet](https://github.com/Stinktopf/network-management-and-monitoring/blob/main/slides/exports/cheatsheet.pdf)
+[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
 
 ---

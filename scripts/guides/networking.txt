@@ -1,6 +1,8 @@
 @@ 1 Start on the Lagoon probe
-Find your source address and the first hop toward the customer service.
-Compare Lagoon and Pacific over IPv4 and IPv6.
+From the Lagoon and Pacific probes, test the customer service at
+198.51.100.10 and 2001:db8:100::10. Find each probe's source address and gateway,
+then compare ping and traceroute over IPv4 and IPv6. Sketch the router path
+from each probe to the service and note which tests succeed.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -18,6 +20,11 @@ Inside the probe:
 Return with exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
+  ip -br addr
+  ip route
+  ip -6 route
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
   traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
 Compare the source and hops across probes and families. A silent traceroute
@@ -61,14 +68,18 @@ name resolution from customer reachability. A failed traceroute hop alone is inc
 @@ solution
 Lagoon probe: 203.0.113.10/25, gateway 203.0.113.1, IPv6 2001:db8:a::10/64.
 Pacific probe: 203.0.113.138/25, gateway 203.0.113.129, IPv6 2001:db8:b::10/64.
+Their IPv6 gateways are 2001:db8:a::1 and 2001:db8:b::1 respectively.
 All four service checks pass in the networking baseline.
 Lagoon reaches the customer through Lagoon Transit and ReefNet Edge 01.
 Pacific uses Pacific Transit, ReefNet Edge 02 and the internal ReefNet path.
 Individual traceroute hops may time out without end-to-end failure.
 
-@@ 2 Resolve the name and fetch the service
-Resolve data.oceanresearch.test and fetch its web page.
-Then compare the service name with a router management name.
+@@ 2 Check DNS, HTTP and router access
+From the Lagoon probe, resolve data.oceanresearch.test and fetch its web page
+over IPv4 and IPv6. Then switch to the operator workstation, operations01.
+There, resolve edge01.bob1.reefnet.test and use SSH to inspect its interfaces.
+Note the addresses and whether HTTP and SSH work. Explain what each connection
+tests: using the customer service or accessing the router for administration.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -82,14 +93,24 @@ Inside the probe:
   curl --fail --max-time 5 -6 http://data.oceanresearch.test/
 The server address selects DNS transport. A or AAAA selects the record type.
 Read the DNS answers and HTTP responses. Does name resolution prove HTTP works?
+
+Next, check administrative access to ReefNet Edge 01. The operator workstation
+resolves router names from its /etc/hosts file. SSH opens the router's CLI.
+
 Return with exit, then in WSL:
   make enter NODE=operations01.bob1.reefnet.test
-Inside operations01:
+Inside operations01, resolve the router name and connect with SSH:
   getent hosts edge01.bob1.reefnet.test
   ssh edge01.bob1.reefnet.test
-Login: admin / NokiaSrl1! (SSH selects admin.) Use quit to leave the router.
-Compare the two resolved addresses. Router management names belong on operations01.
-Return to WSL with exit.
+Login: admin / NokiaSrl1! (SSH selects admin.) Only inspect the router.
+
+Inside ReefNet Edge 01:
+  show interface brief
+  quit
+Back on operations01, return to WSL:
+  exit
+Note the web service's addresses and the router's management address.
+Which result proves name resolution, an HTTP response or an SSH login?
 @@ investigation
 WSL repository:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -115,7 +136,7 @@ Back on the operator workstation:
 Inspect: DNS response status, ANSWER SECTION and server address. For getent, record
 the resolved management IP and the workstation hostname before attempting SSH.
 Decision: NOERROR plus an answer proves this DNS exchange. NXDOMAIN means the
-name was rejected, while a timeout requires a transport/server check. If direct
+queried name does not exist, while a timeout requires a transport/server check. If direct
 IP reachability fails too, follow the data path in step 3 before changing DNS.
 If router SSH naming fails, confirm you are on operations01 and inspect its hosts
 mapping. Customer DNS and operator management names serve different purposes.
@@ -124,11 +145,15 @@ Customer DNS returns 198.51.100.10 and 2001:db8:100::10 for data.oceanresearch.t
 The operator's router name resolves to management IP 172.20.20.11.
 SSH uses admin from the operator's SSH configuration. Router names are provided
 there through /etc/hosts. They are not records in the customer's DNS service.
+HTTP tests access to the customer web service. SSH tests access to the router's
+administrative CLI. Success with one does not prove the other works.
 Use exit before running make enter for another node in the WSL repository.
 
-@@ 3 Follow routes through the provider
-Explain how ReefNet learns the customer route and selects a forwarding hop.
-Compare Edge 01 with Edge 02. Keep neighbor state and route evidence separate.
+@@ 3 Follow the customer routes through ReefNet
+On ReefNet Edge 01 and Edge 02, inspect the BGP and OSPF neighbors. Find the
+customer prefixes 198.51.100.0/24 and 2001:db8:100::/48 in BGP and in the active
+route tables. For each router, note who advertises the prefixes and where it
+forwards packets next. Explain the different jobs of BGP and OSPF here.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
@@ -189,9 +214,11 @@ shares them internally through iBGP. OSPF provides reachability inside ReefNet,
 including the path between Edge 01 and Edge 02. A BGP session alone does not
 prove service delivery.
 
-@@ 4 Cross-check the customer and summarize the baseline
-Complete your path map with the customer and the return routes.
-Note the healthy results for comparison with later incidents.
+@@ 4 Check the reply path and record the baseline
+On the Ocean Research router, find the IPv4 and IPv6 return routes to both
+probe networks. On service01, check its default gateways and local DNS replies.
+Complete your path sketch with the reply direction. Finish by testing ping and
+HTTP from both probes over IPv4 and IPv6, and record this healthy baseline.
 
 Start in WSL:
   make enter NODE=edge01.bob1.oceanresearch.test
@@ -211,8 +238,17 @@ Inside the service host:
   ip -6 route
   dig -4 @127.0.0.1 data.oceanresearch.test A
   dig -6 @::1 data.oceanresearch.test AAAA
-Use exit, then make test in WSL. Can you explain both directions of an exchange?
-Keep the four results and your path map as the baseline.
+Use exit, then check ping from both probes and enter Lagoon in WSL:
+  make test
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit, then in WSL:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Repeat both curl checks on Pacific, then use exit to return to WSL.
+Keep the ping and HTTP results and your path sketch as the baseline.
+Can you explain both directions of an exchange? make test checks ping only.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.oceanresearch.test

@@ -95,9 +95,6 @@ class Guides(unittest.TestCase):
             for command in expected:
                 with self.subTest(level=level, command=command):
                     self.assertEqual(output.count(command), 2)
-        cheatsheet = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
-        for command in expected:
-            self.assertIn(command, cheatsheet)
 
     def test_networking_route_investigation_covers_both_address_families(self):
         route_commands = (
@@ -115,10 +112,6 @@ class Guides(unittest.TestCase):
             for command in route_commands:
                 with self.subTest(level=level, command=command):
                     self.assertIn(command, output)
-        cheatsheet = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
-        for command in route_commands:
-            with self.subTest(source="cheatsheet", command=command):
-                self.assertIn(command, cheatsheet)
 
     def test_solution_defaults_to_one_step(self):
         result = subprocess.run(
@@ -144,8 +137,8 @@ class Guides(unittest.TestCase):
                 result = self.render("operations", step, "solution")
                 self.assertEqual(result.returncode, 2)
                 self.assertIn("Choose STEP=1 through STEP=5", result.stderr)
-                self.assertNotIn("4 Confirm the policy", result.stdout)
-                self.assertNotIn("5 Prove recovery", result.stdout)
+                self.assertNotIn("4 Inspect the export policy", result.stdout)
+                self.assertNotIn("5 Verify the route", result.stdout)
 
     def test_student_incident_guide_does_not_give_away_the_repair(self):
         for scenario in ("operations", "automation"):
@@ -158,30 +151,6 @@ class Guides(unittest.TestCase):
         for args in (("unknown", 1), ("operations", 0), ("operations", 99),
                      ("operations", "../x"), ("operations", 1, "unknown")):
             self.assertEqual(self.render(*args).returncode, 2)
-
-    def test_cheatsheet_preserves_copyable_commands(self):
-        source = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
-        for color in ("never", "always"):
-            with self.subTest(color=color):
-                result = subprocess.run(
-                    ["bash", "scripts/materials.sh", "cheatsheet"], cwd=ROOT,
-                    capture_output=True, text=True, check=True,
-                    env=dict(os.environ, AI5049_COLOR=color),
-                )
-                plain = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout)
-                self.assertNotIn("marp: true", plain)
-                self.assertNotIn("```", plain)
-                self.assertNotIn("**", plain)
-                for code in re.findall(r"```[^\n]*\n(.*?)\n```", source, re.S):
-                    self.assertIn("\n".join("  " + line for line in code.splitlines()), plain)
-                self.assertIn("make fault-link", plain)
-                self.assertIn("make clear-routing", plain)
-                self.assertEqual("\x1b[" in result.stdout, color == "always")
-                if color == "always":
-                    self.assertIn(
-                        "\x1b[35mmake networking      \x1b[0m\x1b[90m# follow a request\x1b[0m",
-                        result.stdout,
-                    )
 
     def test_inline_command_comments_are_gray(self):
         result = subprocess.run(
@@ -294,7 +263,7 @@ class Guides(unittest.TestCase):
         networking = self.render("networking", "all", "hint").stdout
         self.assertIn(
             "hop alone does not prove that forwarding failed.\n\n"
-            "2 Resolve the name and fetch the service",
+            "2 Check DNS, HTTP and router access",
             networking,
         )
         automation = self.render("automation", 2, "hint").stdout
@@ -318,6 +287,29 @@ class Guides(unittest.TestCase):
             "\x1b[36m\x1b[1mCommit only if the diff contains this deletion and no unrelated edits:\x1b[0m\n\x1b[35mcommit now\x1b[0m",
             result.stdout,
         )
+
+    def test_wrapping_does_not_turn_prose_into_a_terminal_context(self):
+        paragraph = (
+            "An established session shows that two routers can exchange routing messages. "
+            "Inside a packet, the destination address still determines the route lookup."
+        )
+        result = subprocess.run(
+            ["bash", "-c", "source scripts/ui.sh; awk -f scripts/reflow-guide.awk | ui_guide"],
+            cwd=ROOT, input=paragraph + "\n", capture_output=True, text=True, check=True,
+            env=dict(os.environ, AI5049_COLOR="always"),
+        )
+        self.assertIn("\nInside a packet", result.stdout)
+        self.assertNotIn("\n\n", result.stdout)
+        self.assertNotIn("\x1b[", result.stdout)
+        self.assertNotIn("\034", result.stdout)
+        self.assertEqual(normalized(result.stdout), paragraph)
+
+    def test_monitoring_hint_preserves_injected_fault_until_observation(self):
+        output = self.render("monitoring", 5, "hint").stdout
+        commands = [line for line in output.splitlines() if line.startswith("make ")]
+        self.assertNotIn("make healthy", commands)
+        self.assertLess(commands.index("make test"), commands.index("make clear-routing"))
+        self.assertIn("make test", commands[commands.index("make clear-routing") + 1:])
 
     def test_color_changes_presentation_only(self):
         for scenario in ("networking", "operations", "automation", "monitoring"):

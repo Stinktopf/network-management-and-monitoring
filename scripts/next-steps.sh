@@ -4,7 +4,6 @@ source "$(dirname "$0")/ui.sh"
 scenario=${1:-networking}
 step=${2:-1}
 level=${3:-task}
-legacy_step=''
 case "$scenario" in
   networking|operations|automation|monitoring) ;;
   *) ui_fail "Unknown scenario: $scenario"; exit 2 ;;
@@ -45,7 +44,7 @@ awk -v wanted="$step" -v level="$level" '
     next
   }
   selected && (section == level || (level == "solution" && section == "investigation")) { print }
-' "$guide" | awk -f "$(dirname "$0")/reflow-guide.awk" | ui_document guide
+' "$guide" | awk -f "$(dirname "$0")/reflow-guide.awk" | ui_guide
 if [[ "$level" == task ]]; then
   ui_action 'Commands and clues:' "make hint SCENARIO=$scenario STEP=$step"
 fi

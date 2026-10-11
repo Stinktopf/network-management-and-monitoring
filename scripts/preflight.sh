@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$0")/check-platform.sh"
 source "$(dirname "$0")/ui.sh"
 fail=0
-for cmd in docker containerlab curl; do
+for cmd in docker containerlab curl timeout ss; do
   if ! command -v "$cmd" >/dev/null 2>&1; then ui_fail "Missing command · $cmd"; fail=1; fi
 done
 if (( fail )); then ui_hint 'Run make doctor for the full environment check.'; exit 1; fi

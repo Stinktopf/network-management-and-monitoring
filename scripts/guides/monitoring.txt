@@ -1,6 +1,8 @@
-@@ 1 Establish a baseline and identify the measurement points
-Establish a healthy baseline before experimenting with load or faults.
-Can you distinguish a service failure from stale or missing telemetry?
+@@ 1 Check service health and telemetry freshness
+Run make test and check the current traffic rate. In Grafana, compare Service
+Health, Network Overview and Telemetry Health. Confirm that both probes have
+recent results for IPv4 and IPv6, and that telemetry collection is working.
+Record the load and time before starting the experiments.
 
 Start in WSL:
   make test
@@ -11,6 +13,7 @@ In WSL:
 In Grafana compare Service Health, Network Overview and Telemetry Health.
 Record the selected time window, traffic source and interface direction.
 Check collection health and sample freshness before treating an empty panel as zero.
+
 For a raw check, enter operations01 from WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
@@ -36,13 +39,15 @@ Decision: missing/stale data needs collection diagnosis before a network verdict
 With fresh data, compare service probes against interface observations. If the
 baseline already fails, investigate it before adding experimental load in step 2.
 @@ solution
-Baseline: 25 Mbit/s background traffic and all four probes pass. Transit caps are
+Baseline: 25 Mbit/s background traffic and both probes pass over IPv4 and IPv6. Transit caps are
 50 Mbit/s and the customer cap is 100 Mbit/s. Check exporter health and sample
 freshness. Missing data is not zero traffic or zero loss.
 
-@@ 2 Change load and compare offered versus delivered traffic
-Find where increasing offered load begins to affect delivered traffic.
-Choose a healthy control and correlate rate, loss and interface direction.
+@@ 2 Increase load and locate packet loss
+Send 40, 60 and 75 Mbit/s from Lagoon to the customer service, one rate at a
+time. Observe each for at least 30 seconds. Compare interface rates and discards
+in Grafana with throughput and loss in service01's iperf receiver log.
+Locate the sending interface where loss starts. Leave 75 Mbit/s running for step 3.
 
 Start in WSL:
   make traffic-status
@@ -51,15 +56,19 @@ In WSL, choose ONE load, observe for at least 30 seconds, then choose the next:
   make traffic-40mbit
   make traffic-60mbit
   make traffic-75mbit
-Compare rate and discards in Grafana with the receiver. In WSL:
+Compare rate and discards in Grafana with the receiver.
+
+In WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the receiver:
   tail -n 15 /tmp/iperf-server.log
 Use exit to return. Keep filters and observation windows consistent.
 Which sending interface loses packets? Do not infer a location from low rate alone.
 @@ investigation
-WSL repository, run ONE load command at a time. Wait at least 30 seconds and inspect
-the same panels/receiver before choosing the next level:
+Wait at least 30 seconds at each rate and inspect the same panels and receiver
+before choosing the next level.
+
+WSL repository, run ONE load command at a time:
   make traffic-40mbit
   make traffic-60mbit
   make traffic-75mbit
@@ -83,9 +92,12 @@ control alongside the 60/75 Mbit/s results.
 ReefNet Edge 01 is the bottleneck. Payload stays around or below 50 Mbit/s and
 egress discards rise. Routes and sessions can stay up during congestion.
 
-@@ 3 Cross-check loss without double counting
-Corroborate the observed loss with an independent measurement.
-Explain whether Linux queue drops and SR Linux discards can be added together.
+@@ 3 Compare queue drops and router discards
+At 75 Mbit/s, compare Linux queue drops and SR Linux egress discards on Lagoon
+Transit's ethernet-1/1, which sends toward ReefNet. Use the diagnostic report's
+two samples and the receiver loss to check your explanation. Then reduce load
+to 10 Mbit/s and check whether new drops stop. Explain whether the two drop
+counters represent separate losses.
 
 Start in WSL:
   make traffic-diagnostics
@@ -93,7 +105,11 @@ Start in WSL:
 In WSL:
   make traffic-diagnostics
 Keep the offered load fixed during its two diagnostic snapshots.
-Compare the same interface and direction in both snapshots, then in WSL:
+Open the report path printed by the command in VS Code. Compare Sample 1 and
+Sample 2 for transit01:e1-1, the Linux name of Lagoon Transit's ethernet-1/1.
+Match its netem dropped counter with the SR Linux discard counter and receiver loss.
+
+For the current router counters, in WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
   info from state interface ethernet-1/1 statistics
@@ -102,6 +118,8 @@ Use quit, then reduce the load in WSL:
 Do new drops stop accumulating? Compare physical out-discarded-packets, not
 the subinterface discard row in show interface detail. Check deltas and resets.
 A rolling five-minute panel still includes earlier loss.
+After observing at 10 Mbit/s, run make traffic-diagnostics again in WSL.
+Compare the two new samples to see whether the counters are still increasing.
 @@ investigation
 Keep the offered load fixed. In Telemetry Health inspect Capacity queue collection
 and Linux queue drops (last 5 min) for Lagoon Transit.
@@ -113,8 +131,12 @@ Inside the Lagoon router:
   quit
 WSL repository:
   make traffic-10mbit
+  make traffic-diagnostics
 
-Inspect: counter deltas between the two displayed samples and the receiver's loss,
+Open the report paths printed by the two diagnostic runs in VS Code.
+Compare Sample 1 and Sample 2 within each report, before and after reducing load.
+
+Inspect: counter deltas between the two report samples and the receiver's loss,
 not only an absolute cumulative counter. Match interface, direction and time window.
 Decision: consistent sending-queue drops and receiver loss corroborate congestion.
 A missing queue sample, reset counter or failed collection invalidates a numeric
@@ -126,9 +148,11 @@ At 10 Mbit/s, new congestion drops stop. Rolling-window graphs retain old sample
 until they age out. Queue and router samples may differ because they are sampled
 separately.
 
-@@ 4 Distinguish topology change from service failure
-Run a controlled link outage and explain its effect on customer service.
-Record the baseline first and restore the link after collecting your evidence.
+@@ 4 Disable a core link and check service
+Record the four ping results, then disable core-b, the link from ReefNet
+Edge 01 ethernet-1/4 to Edge 02. During the outage, compare interface state,
+OSPF neighbors and Grafana events with new ping results. Explain whether the
+remaining core link carries the traffic. Restore core-b and repeat the checks.
 
 Start in WSL:
   make traffic-10mbit
@@ -142,7 +166,9 @@ Inside ReefNet Edge 01:
   show interface ethernet-1/4 detail
   show network-instance default protocols ospf neighbor
 Use quit, then make test in WSL. Compare interface events with external probes.
-Is another forwarding path available? Restore in WSL:
+Is another forwarding path available?
+
+Restore in WSL:
   make clear-link
 Repeat the interface, neighbor and service checks after convergence.
 @@ investigation
@@ -181,9 +207,12 @@ so service should pass again after OSPF converges. Short probe loss can occur
 during convergence. Interface/OSPF state and logs show the topology change.
 After make clear-link the interface and adjacency should recover.
 
-@@ 5 Compare a routing incident and restore the baseline
-Compare a routing incident with the load and link experiments.
-Explain the different evidence, then restore reachability and stop the test load.
+@@ 5 Inject a routing fault and compare the symptoms
+Inject the prepared routing fault after confirming a healthy baseline.
+Compare ping results from both probes over IPv4 and IPv6 with BGP sessions,
+interface state and the customer-prefix advertisement on ReefNet Edge 01.
+Explain how the evidence differs from congestion and the link outage.
+Clear the routing fault, verify recovery and stop the traffic generator.
 
 Start in WSL:
   make healthy
@@ -192,12 +221,14 @@ Start in WSL:
 Continue only when all four results pass, then inject:
   make fault-routing
 @@ hint
-In WSL, clear any leftover fault and set the experiment load:
-  make healthy
-  make traffic-10mbit
+Keep the routing fault from the task active while collecting evidence.
+If you have not injected it yet, follow this step's task first.
+
+In WSL:
   make test
 Compare Service Health with BGP sessions and interface state. If you need route
 commands, use make hint SCENARIO=operations STEP=3.
+
 After recording your evidence, restore in WSL:
   make clear-routing
   make test
@@ -235,28 +266,37 @@ of all four passing controls and the remaining historical data in the graphs.
 @@ solution
 Only Lagoon IPv4 fails during the routing incident. Links and BGP sessions stay
 up. This differs from load-dependent queue loss and the core-b interface event.
-After clearing the routing fault and allowing convergence, all four probes pass.
+After clearing the routing fault and allowing convergence, both probes pass over
+IPv4 and IPv6.
 `make traffic-stop` stops the generated load. Older samples remain in the
 selected window.
 
-@@ 6 Compare a short burst with the dashboard's rate window
-Can Grafana show a five-second burst? Compare short and long rate windows.
+@@ 6 Compare a short burst with two rate windows
+Generate a five-second burst at 40 Mbit/s. In Grafana Explore, compare the
+outgoing rate on Lagoon Transit ethernet-1/1 using 10-second and five-minute
+rate windows over the same time range. Record both peak rates and use the
+receiver log to confirm the burst. Explain why the plotted peaks differ.
 
 Start in WSL:
   make traffic-stop
 For a clean burst, ensure there has been no generated traffic for five minutes.
-Use that interval to review your earlier graphs if needed. Then run:
+Use that interval to review your earlier graphs if needed.
+
+Then run in WSL:
   make traffic-burst-40mbit
 The burst stops automatically. Keep previous faults cleared.
 @@ hint
 In WSL:
   make traffic-status
 In Grafana Explore, select Prometheus and switch to Code. Use Add query for
-the second expression, also in Code mode. Both queries return Mbit/s:
+the second expression, also in Code mode.
+
+Both queries return Mbit/s:
   rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[10s]) * 8 / 1e6
   rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[5m]) * 8 / 1e6
 Show both over the same time range containing the burst. Changing the dashboard
 time range alone does not change the rate window. What happens to the peak height?
+
 Check the receiver in WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the service node:
@@ -268,7 +308,9 @@ WSL repository:
 Confirm all four results pass, then:
   make traffic-stop
 Wait five minutes with no generated traffic. This clears earlier experiments
-from the five-minute rate window. Then, in WSL:
+from the five-minute rate window.
+
+Then, in WSL:
   date -Is
   make traffic-burst-40mbit
 After at least five seconds:
@@ -278,7 +320,9 @@ Inside the service node:
   tail -n 15 /tmp/iperf-server.log
   exit
 In Grafana Explore, select Prometheus and use Code mode. Add a second query
-with Add query and select Code there too. Compare these expressions (Mbit/s):
+with Add query and select Code there too.
+
+Compare these expressions (Mbit/s):
   rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[10s]) * 8 / 1e6
   rate(reefnet_interface_out_octets_total{source="edge01.bob1.lagoontransit.test",interface_name="ethernet-1/1"}[5m]) * 8 / 1e6
 Use the same visible time range around the burst for both queries.

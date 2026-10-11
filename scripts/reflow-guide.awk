@@ -15,16 +15,19 @@ function emit_paragraph(s,    words, count, i, word, line, width, continuation) 
         if (line == "") line = word
         else if (length(line) + 1 + length(word) <= width) line = line " " word
         else {
-            print line
+            print "\034" line
             line = continuation word
         }
     }
-    if (line != "") print line
+    if (line != "") print "\034" line
 }
 function flush_paragraph() {
     if (paragraph == "") return
     if (previous == "command" || previous == "data") print ""
-    emit_paragraph(paragraph)
+    # Mark prose so a wrapped fragment cannot become a heading in the renderer.
+    # Keep command lead-ins intact. The terminal can wrap the full heading.
+    if (paragraph ~ /:$/) print paragraph
+    else emit_paragraph(paragraph)
     paragraph = ""
     previous = "prose"
 }

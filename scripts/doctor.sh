@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$0")/check-platform.sh"
 source "$(dirname "$0")/ui.sh"
 quiet=0
 [[ ${1:-} == --quiet ]] && quiet=1
 ok=1
 issues=()
 
-for cmd in docker containerlab make curl; do
+for cmd in docker containerlab make curl timeout ss; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     issues+=("$cmd is missing")
     ok=0

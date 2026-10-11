@@ -1,18 +1,4 @@
-# Presentation only. Never execute text from the guides or command reference.
-function trim(s) { sub(/^[[:space:]]+/, "", s); sub(/[[:space:]]+$/, "", s); return s }
-function inline(s,    out, token, marker, style, start, finish) {
-    out = ""
-    while (match(s, /`[^`]+`|\*\*[^*]+\*\*/)) {
-        out = out substr(s, 1, RSTART - 1)
-        token = substr(s, RSTART, RLENGTH)
-        marker = substr(token, 1, 1) == "`" ? 1 : 2
-        style = marker == 1 ? command : bold
-        out = out style substr(token, marker + 1, length(token) - 2 * marker) reset
-        s = substr(s, RSTART + RLENGTH)
-    }
-    return out s
-}
-function plain(s) { gsub(/`|\*\*/, "", s); return s }
+# Presentation only. Never execute text from the investigation guides.
 function styled_command(s, prefix,    marker, before, comment) {
     if (match(s, /[[:space:]]+#/)) {
         marker = RSTART + RLENGTH - 1
@@ -22,23 +8,8 @@ function styled_command(s, prefix,    marker, before, comment) {
     }
     return prefix command s reset
 }
-function table_flush(    i, j, value, pad) {
-    if (!rows) return
-    for (i = 1; i <= rows; i++) {
-        printf "  "
-        for (j = 1; j <= columns; j++) {
-            value = cells[i, j]
-            if (i == 1) printf "%s%s%s", bold, plain(value), reset
-            else printf "%s", inline(value)
-            pad = widths[j] - length(plain(value)) + 3
-            if (j < columns) printf "%*s", pad, ""
-        }
-        printf "\n"
-    }
-    delete cells; delete widths; rows = 0; columns = 0
-}
-mode == "guide" && NR == 1 { last_blank = 1 }
-mode == "guide" {
+NR == 1 { last_blank = 1 }
+{
     if ($0 == "") {
         if (skip_heading_gap) {
             skip_heading_gap = 0
@@ -60,6 +31,12 @@ mode == "guide" {
     }
     had_blank = last_blank
     last_blank = 0
+    if ($0 ~ /^\034/) {
+        sub(/^\034/, "")
+        print $0
+        last_was_command = 0
+        next
+    }
     if ($0 ~ /^[1-9] /) {
         if (!had_blank) print ""
         print blue bold $0 reset
@@ -114,25 +91,3 @@ mode == "guide" {
     if ($0 !~ /^(WSL repository:|WSL:|Start in WSL:|Inside |In the |In WSL:|Router CLI|Investigation commands|Worked answer|[1-9] )/ && $0 !~ /:$/) last_blank = 0
     next
 }
-NR == 1 && /^---$/ { metadata = 1; next }
-metadata && /^---$/ { metadata = 0; next }
-metadata { next }
-/^```/ { table_flush(); fenced = !fenced; next }
-fenced { print styled_command($0, "  "); next }
-/^\|/ {
-    if ($0 ~ /^\|[ :|\-]+$/) next
-    line = $0; sub(/^\|/, "", line); sub(/\|$/, "", line)
-    n = split(line, parts, "|"); rows++; columns = n
-    for (j = 1; j <= n; j++) {
-        cells[rows, j] = trim(parts[j])
-        width = length(plain(cells[rows, j]))
-        if (width > widths[j]) widths[j] = width
-    }
-    next
-}
-{ table_flush() }
-/^---$/ { print gray "--------------------------------------------------------------------" reset; next }
-/^# / { print blue bold arrow reset " " bold substr($0, 3) reset; next }
-/^## / { print bold substr($0, 4) reset; next }
-{ print inline($0) }
-END { table_flush() }

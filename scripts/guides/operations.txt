@@ -1,6 +1,9 @@
 @@ 1 Reproduce the report and identify the affected path
-A Lagoon user cannot reach data.oceanresearch.test. Investigate and restore
-service. Start by reproducing the report. Do not change configuration yet.
+A Lagoon user cannot reach data.oceanresearch.test. From the Lagoon and
+Pacific probes, compare ping and DNS to the customer service over IPv4 and
+IPv6. Note which source/address-family combinations fail and which still work.
+Keep the working combinations as comparisons for later checks. Do not change
+configuration yet.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -17,7 +20,8 @@ Inside the Lagoon probe, choose a check for each question:
 Compare the same destination from another source. Return with exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
 Repeat both route lookups, both pings and both DNS queries from the checks above.
-Which combinations work? Keep a working one as a control. DNS failure alone
+Which combinations work? Keep a working one as a comparison for later checks.
+DNS failure alone
 does not distinguish an unreachable server from a DNS problem.
 @@ investigation
 Incident: a user behind Lagoon cannot reach the customer service. Preserve the
@@ -65,9 +69,11 @@ Its DNS A query also fails because it uses that path, while IPv6 DNS succeeds.
 This points to Lagoon IPv4 forwarding, not a DNS configuration fault. Next check
 the links and routing sessions, then trace the prefix before proposing a change.
 
-@@ 2 Check access, physical state and routing adjacencies
-Check the links and routing neighbors on the affected path.
-Which observation would justify investigating a session rather than a route?
+@@ 2 Check router access, links and routing sessions
+From operations01, connect to edge01.bob1.reefnet.test with SSH. Check its
+customer and Lagoon interfaces, BGP sessions and internal OSPF neighbors.
+Then check the interfaces and BGP session on Lagoon Transit.
+Note whether a link or session is down before investigating individual routes.
 
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
@@ -84,6 +90,7 @@ Login: admin / NokiaSrl1! (SSH selects admin.) Inside the router:
 Match descriptions, admin/oper state and peer addresses to your path. Compare
 both ends of a suspect link. An established session does not prove route export.
 Use quit to return to operations01, then exit to return to WSL.
+
 Check the Lagoon peer from WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
@@ -128,9 +135,12 @@ BGP sessions and internal OSPF neighbors are up, so no current link or session
 failure explains the report. This does not prove the customer prefix is exported.
 Continue by checking the route at each boundary.
 
-@@ 3 Trace the customer prefix to its upstream receivers
-Follow the customer prefix from Ocean Research through ReefNet to both upstreams.
-Find the first point where the route is no longer advertised or installed.
+@@ 3 Trace the customer prefix toward Lagoon
+Trace 198.51.100.0/24 from the Ocean Research router through ReefNet Edge 01
+to Lagoon Transit. At each router, check whether the prefix is advertised,
+received and installed for forwarding. Check the customer's return route to
+203.0.113.0/25 too. Identify the first missing advertisement or route.
+Use the Pacific path as a comparison if needed.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
@@ -202,25 +212,35 @@ Compare the exact prefix at each boundary and verify the return route. The missi
 Edge 01 advertisement is the first divergence. An invalid command is not evidence
 that a route is absent.
 @@ solution
-The customer advertises 198.51.100.0/24 and Edge 01 installs it, with a return
-route to Lagoon. Edge 01 does not advertise it to Lagoon, which has no route.
+The customer advertises 198.51.100.0/24 and has a return route to Lagoon.
+Edge 01 installs the customer prefix but does not advertise it to Lagoon,
+which has no route to it.
 Edge 02 advertises the prefix to Pacific, which installs it via 192.0.2.4.
 The first divergence is Edge 01's Lagoon export boundary. Check its policy.
 
-@@ 4 Confirm the policy and make the scoped repair
-Prove which export rule explains the missing advertisement. Re-read the target,
-then stage and review one change before committing it.
+@@ 4 Inspect the export policy and repair the fault
+On ReefNet Edge 01, inspect the export rules for the affected BGP neighbor.
+Explain which attached rule accounts for the missing customer prefix.
+Record the current setting, prepare the smallest justified CLI change and
+review its diff before committing. Keep the original setting for rollback.
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
-Trace the BGP neighbor, peer-group, export-policy, prefix-set and action:
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01:
+Follow the affected neighbor's peer-group and export-policy to its prefix match
+and accept/reject action:
   info from running network-instance default protocols bgp
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
 A group-level export policy overrides the instance policy. If the evidence
-supports removing an override, re-read the configuration, then use candidate mode:
+supports removing an override, re-read the configuration. Replace <group-name>
+with the group you identified, without angle brackets.
+
+Stage the change in candidate mode, then inspect it with diff:
   enter candidate
   delete / network-instance default protocols bgp group <group-name> export-policy
   diff
@@ -265,9 +285,11 @@ but the group overrides it with BLOCK-CUSTOMER-V4. That policy rejects
 198.51.100.0/24. Removing only the group override restores inheritance from
 EXPORT-BGP. Do not edit the shared policy. Continue to step 5 to prove recovery.
 
-@@ 5 Prove recovery at the boundary and at the customer service
-Prove recovery from the affected source and check your unchanged controls.
-Close with impact, cause, change and before/after evidence.
+@@ 5 Verify the route and customer service
+Check that Edge 01 now advertises 198.51.100.0/24 to Lagoon and that Lagoon
+installs it. Repeat ping, DNS and HTTP from both probes over IPv4 and IPv6.
+Confirm that the failed path recovers and the previously working paths still
+work. Note the cause, change and before/after results.
 
 Start in WSL:
   make test
@@ -283,7 +305,9 @@ Inside the probe:
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
-Use exit, then repeat these checks on the Pacific probe.
+Use exit, then in WSL:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Repeat the six checks above, then use exit to return to WSL.
 Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
 Read all four cells in make test. Its exit code alone is not a PASS verdict.
 If a control regresses or the service still fails, keep the incident open.

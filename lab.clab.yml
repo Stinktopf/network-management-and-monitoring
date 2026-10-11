@@ -87,6 +87,8 @@ topology:
       restart-policy: "no"
       mgmt-ipv4: 172.20.20.33
       group: endpoints
+      binds:
+        - services/data-service/index.html:/usr/share/nginx/html/index.html:ro
       exec:
         - ip address add 198.51.100.10/24 dev eth1
         - ip -6 address add 2001:db8:100::10/48 dev eth1

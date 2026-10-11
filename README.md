@@ -1,6 +1,8 @@
-# network-management-and-monitoring
+# Network Management and Monitoring
 
-Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP with two upstream providers and one customer, Bora Bora Ocean Research.
+Lecture slides and practical exercises for AI5049 at Hochschule Fulda.
+
+The exercises use ReefNet, a small dual-stack ISP with two upstream providers and one customer, Bora Bora Ocean Research.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/topology-dark.svg">
@@ -11,25 +13,30 @@ Networking lab for AI5049 at Hochschule Fulda. ReefNet is a small dual-stack ISP
 
 [PDF](slides/exports/nmm.pdf) | [HTML](slides/exports/nmm.html) | [PowerPoint](slides/exports/nmm.pptx) | [Source](slides/nmm.md)
 
-## Exercises
+<details>
+<summary>Editing slides</summary>
 
-After a short demo, work through the exercises on the university lab PCs. Repeating them at home requires your own Containerlab environment.
+With Node.js 18+, npm and Chromium installed, build from the repository root:
 
-[Exercises](EXERCISES.md) | [CheatSheet PDF](slides/exports/cheatsheet.pdf) | [CheatSheet HTML](slides/exports/cheatsheet.html)
+```bash
+npm --prefix slides ci
+make slides
+```
 
-`make exercises` shows the overview. `make cheatsheet` prints the command reference without a running lab.
+- Exports: lecture HTML, PDF and PPTX in `slides/exports/`. PowerPoint contains slide images. Edit lecture content in the Marp source.
+- Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
+- For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
+- Lecture theme: `slides/theme/ai5049.css`.
+- [Diagram sources](slides/assets/README.md) and [teaching data](slides/assets/data/README.md) describe regeneration. Python 3 is needed for the generators.
+- `npm --prefix slides run sampling` regenerates the synthetic timing-model data.
+
+</details>
 
 ## Setup
 
 The lab PCs have [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab) preinstalled. Clone the repository and run `make setup`.
 
-On your own Windows PC, follow the [WSL-Containerlab installation instructions](https://github.com/srl-labs/WSL-Containerlab#quick-start) to use the same environment. Then clone this repository and run `make setup` as below. On Linux, ensure the prerequisites below are installed.
-
-- Docker must be running. Docker Compose, Containerlab, Git, Make and curl must be installed.
-- Leave 15 GiB of disk space for the lab and its images. Setup needs Internet access.
-- Recommended: 12 GiB RAM and four CPU threads.
-
-Open the installed WSL environment from PowerShell:
+On Windows, open the installed WSL environment from PowerShell:
 
 ```powershell
 wsl -d Containerlab
@@ -44,37 +51,67 @@ cd network-management-and-monitoring
 make setup
 ```
 
-Wait for `READY FOR CLASS`. Setup checks all four scenarios, then stops the containers. NetBox data is kept for the exercises. Setup logs are in `.state/`.
+Wait for `READY FOR CLASS`. Setup checks all four scenarios, then stops the containers.
 
-## Sessions
+<details>
+<summary>Setup on your own computer</summary>
 
-Run from `~/network-management-and-monitoring`. Start one session at a time.
+- **Windows:** use [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab#quick-start).
+- **Linux:** install [Containerlab](https://containerlab.dev/install/) and Docker Engine locally.
+- **macOS:** use [a Linux VM](https://containerlab.dev/macos/) with Docker Engine, Containerlab and this repository inside it. Run all lab commands there. Docker Desktop alone is insufficient.
 
-| Command | Starting point |
-|---|---|
-| `make networking` | Healthy baseline |
-| `make operations` | Service incident for guided diagnosis |
-| `make automation` | Same routing fault, ready for the automation exercise |
-| `make monitoring` | Healthy network with telemetry and traffic |
+Tested on x86-64 WSL. Native Linux and Mac VMs are untested, including image compatibility on Apple Silicon. Run `make setup` to check your environment.
 
-`make task` gives the task, `make hint` adds investigation commands and `make solution STEP=1` shows the commands and worked answer. Choose another step with `STEP=2`. Run these in WSL.
+- Docker must be running on the same Linux host as the repository. Install Docker Compose, Containerlab, Git, Make, curl, Bash 4+, GNU coreutils (`timeout`) and iproute2 (`ss`).
+- Leave 15 GiB of disk space for the lab and its images. Setup needs Internet access.
+- Recommended: 12 GiB RAM and four CPU threads, allocated to the VM when using one.
 
-Keep notes on your findings and next step. `make down` removes the running lab and discards router changes. Starting a scenario again recreates its initial state. See the [exercise instructions](EXERCISES.md#start-and-get-help).
+### Troubleshooting
 
-## Access
+Start with `make doctor` and the failed phase in `.state/setup-*.log`. `make diagnostics` collects more detail.
 
-| Service | Address | Login |
+Check disk space, Docker access and occupied ports (8000, 3000, 9090, 3100, 12345).
+
+Fix the cause and rerun `make setup`.
+
+</details>
+
+## Exercises
+
+Work at your own pace after the demo. Keep notes, no submission is required. To continue at home, set up the lab and repeat the investigation using your notes.
+
+Run `make` commands in the repository. “WSL” in the guides also means your Linux or VM terminal. Start one scenario at a time:
+
+| Start | Task | In class |
 |---|---|---|
-| NetBox | http://localhost:8000 | `admin` / `admin` |
-| Grafana | http://localhost:3000 | Anonymous administration |
-| Prometheus | http://localhost:9090 | No login |
-| Router CLI / gNMI | Device FQDN | `admin` / `NokiaSrl1!` |
+| `make networking` | Follow a request to `data.oceanresearch.test`. Explain DNS, routing and the reply path. | 60 min |
+| `make operations` | Diagnose the Lagoon service failure, repair it and verify recovery. | 45 min |
+| `make automation` | Investigate the same fault using NetBox and gNMI, then apply and verify an API change. | 60 min |
+| `make monitoring` | Compare congestion, a link outage, a routing fault and a short traffic burst. | 75 min |
 
-The passwords above are lab defaults. Grafana allows anonymous administration and ports listen on host interfaces, so keep the lab on a trusted network.
+Times exclude demos. Networking includes 30 minutes of setup and 30 minutes of exercises.
 
-See the [CheatSheet](slides/resources/CHEATSHEET.md) for access, traffic and faults. Leave Linux with `exit`, router CLIs with `quit`.
+| Help | Purpose |
+|---|---|
+| `make task` | Task and starting point |
+| `make hint` | Investigation commands and clues |
+| `make solution` | Commands and expected results |
 
-Router management names and SSH resolve on `operations01.bob1.reefnet.test`. The probe DNS serves `data.oceanresearch.test`. Device names and links are defined in the [network model](tools/bob1_model.json).
+Select a step with `STEP=2`, for example `make hint STEP=2`.
+
+`make down` discards router changes. Restarting a scenario recreates its initial state.
+
+## Lab services
+
+| Service | Start here | Login |
+|---|---|---|
+| [NetBox](http://localhost:8000) | Inventory: **Devices**, then `edge01.bob1.reefnet.test` | `admin` / `admin` |
+| [Prometheus](http://localhost:9090) | Metrics: query `up` to check collection | No login |
+| [Grafana](http://localhost:3000) | Dashboards: **ReefNet / BOB1 → Network Overview** | Anonymous administration |
+
+Use a trusted network: these services expose lab access without secure credentials. For a VM, use its IP address or forward the ports.
+
+For router access, follow the hints' `make enter NODE=...` commands. SSH from `operations01.bob1.reefnet.test` uses `admin` / `NokiaSrl1!`. Leave Linux with `exit`, router CLIs with `quit`.
 
 ## Traffic
 
@@ -82,15 +119,14 @@ Router management names and SSH resolve on `operations01.bob1.reefnet.test`. The
 - Lagoon Transit handoff: **50 Mbit/s**
 - Pacific Transit handoff: **50 Mbit/s**
 
-Choose one load at a time with `make traffic-40mbit`, `make traffic-60mbit` or `make traffic-75mbit`. Return to `make traffic-10mbit` after measuring. `make traffic-stop` stops it. More controls: `make help`.
+| Command | Load |
+|---|---|
+| `make traffic-10mbit` | Baseline, restore after measuring |
+| `make traffic-40mbit` | Below transit capacity |
+| `make traffic-60mbit` or `make traffic-75mbit` | Above transit capacity |
+| `make traffic-stop` | Stop traffic |
 
-The SR Linux container has a 10,000 packets/s forwarding limit. Traffic uses 1200-byte UDP datagrams and tops out at 75 Mbit/s, so the transit link should hit its limit first.
-
-## Grafana
-
-Open the `ReefNet / BOB1` folder, starting with **Network Overview**. Use **Topology & Paths** to locate links, **Fault Analysis** to investigate, **Service Health** for probes and **Device Detail** for one router. **Telemetry Health** checks collection and logs. Dashboards refresh every five seconds.
-
-Ingress and egress discards are separate. Linux queue drops in Telemetry Health can count the same losses, so do not add them to SR Linux discards.
+Choose one load at a time.
 
 ## Housekeeping
 
@@ -100,45 +136,10 @@ Ingress and egress discards are separate. Linux queue drops in Telemetry Health 
 | `make reset` | Rebuild the current scenario |
 | `make clean` | **Delete lab state and NetBox data**, keep downloaded images |
 | `make status` | Show runtime status |
-| `make test` | Probe customer IPv4/IPv6 reachability from both upstreams |
+| `make test` | Ping the customer over IPv4/IPv6 from both probes |
 | `make course-check` | Restart and test all four scenarios, then stop |
 | `make check` | Check source, documentation and network model without Docker |
 | `make healthy` | Clear faults, stop traffic and restore link capacities |
 | `make help` | List commands |
 
 After `make clean`, run `make setup` again.
-
-## Troubleshooting
-
-Start with `make doctor` and the failed phase in `.state/setup-*.log`. `make diagnostics` collects more detail.
-
-Common causes:
-
-- Not enough free disk space
-- Docker stopped or inaccessible to your Linux user
-- Another process using port 8000, 3000, 9090, 3100 or 12345
-
-Fix the cause and rerun `make setup`. Existing NetBox data is kept unless the database schema has changed.
-
-Project submission: [contributions and declaration of independent work](slides/resources/templates/DECLARATION.md).
-
-<details>
-<summary>Editing slides and handouts</summary>
-
-With Node.js 18+, npm and Chromium installed, build from the repository root:
-
-```bash
-npm --prefix slides ci
-make slides
-```
-
-Use `make handouts` to rebuild only the CheatSheet.
-
-- Exports: lecture HTML, PDF and PPTX plus CheatSheet HTML/PDF in `slides/exports/`. PowerPoint contains slide images. Edit lecture content in the Marp source.
-- Install Liberation fonts. Set `CHROME_PATH` if Chromium is not at `/usr/bin/chromium`.
-- For VS Code preview, use the Marp extension and enable `markdown.marp.enableHtml`.
-- Lecture theme: `slides/theme/ai5049.css`. A4 reference: `slides/resources/CHEATSHEET.md` and `slides/theme/handout.css`. The CLI uses the same reference source.
-- [Diagram sources](slides/assets/README.md) and [teaching data](slides/assets/data/README.md) describe regeneration. Python 3 is needed for the generators.
-- `npm --prefix slides run sampling` regenerates the synthetic timing-model data.
-
-</details>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Ocean Research | Data Service</title>
+  <style>
+    :root {
+      color: #203b39;
+      background: #f3f6f3;
+      font: 16px/1.6 system-ui, sans-serif;
+    }
+    body {
+      display: grid;
+      min-height: 100vh;
+      margin: 0;
+      place-items: center;
+    }
+    main {
+      width: min(38rem, calc(100% - 3rem));
+      padding: 2.5rem;
+      border-top: 5px solid #1d7771;
+      border-radius: 0.75rem;
+      background: #fff;
+      box-shadow: 0 1rem 3rem #203b3914;
+    }
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: #1d7771;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 7vw, 3rem);
+      line-height: 1.1;
+    }
+    .message {
+      margin: 1.25rem 0 2rem;
+      color: #49615d;
+      font-size: 1.1rem;
+    }
+    dl {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 0.5rem 1rem;
+      margin: 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid #dce6e1;
+    }
+    dt { color: #61746f; }
+    dd { margin: 0; font-family: ui-monospace, monospace; }
+    footer {
+      margin-top: 2rem;
+      color: #71817c;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 480px) {
+      main { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Ocean Research / BOB1</p>
+    <h1>Data service reachable</h1>
+    <p class="message">Your request reached the Ocean Research customer service. This page is served by service01.</p>
+    <dl>
+      <dt>IPv4</dt>
+      <dd>198.51.100.10</dd>
+      <dt>IPv6</dt>
+      <dd>2001:db8:100::10</dd>
+    </dl>
+    <footer>A successful response confirms HTTP reachability over the address family you tested.</footer>
+  </main>
+</body>
+</html>

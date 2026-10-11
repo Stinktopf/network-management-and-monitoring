@@ -14,9 +14,6 @@ case "${1:-html}" in
       --html "--$format" --allow-local-files \
       --browser-path "${CHROME_PATH:-/usr/bin/chromium}" --browser-timeout 120 \
       -o "exports/nmm.$format"
-    if [[ "$format" == pdf ]]; then
-      node tools/handout.mjs
-    fi
     ;;
   *) echo 'Usage: scripts/export-slides.sh [html|pdf|pptx|all]' >&2; exit 2 ;;
 esac
