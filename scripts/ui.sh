@@ -128,8 +128,10 @@ ui_url() {
 # Human-readable command rows. No shell quoting or command execution.
 ui_command_row() {
   local command=$1 description=$2
-  if (( ${#command} > 32 )); then
+  if (( ${#command} > 32 && ${#command} + ${#description} + 3 > 68 )); then
     printf '  %s%s%s\n    %s\n' "$UI_MAGENTA" "$command" "$UI_RESET" "$description"
+  elif (( ${#command} > 32 )); then
+    printf '  %s%s%s %s\n' "$UI_MAGENTA" "$command" "$UI_RESET" "$description"
   else
     printf '  %s%-32s%s %s\n' "$UI_MAGENTA" "$command" "$UI_RESET" "$description"
   fi
