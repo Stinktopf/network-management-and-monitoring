@@ -236,13 +236,12 @@ and accept/reject action:
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
-A group-level export policy overrides the instance policy. If the evidence
-supports removing an override, re-read the configuration. Replace <group-name>
-with the group you identified, without angle brackets.
+A group-level export policy overrides the instance policy. In this incident,
+confirm that the affected group is lagoon-v4 before making the scoped change.
 
 Stage the change in candidate mode, then inspect it with diff:
   enter candidate
-  delete / network-instance default protocols bgp group <group-name> export-policy
+  delete / network-instance default protocols bgp group lagoon-v4 export-policy
   diff
 Commit only if the diff shows that one intended deletion:
   commit now
