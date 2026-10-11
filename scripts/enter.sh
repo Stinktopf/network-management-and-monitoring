@@ -50,11 +50,6 @@ if ! docker inspect "$container" >/dev/null 2>&1; then
   exit 1
 fi
 
-if [[ "$mode" == srl ]]; then
-  ui_banner "$fqdn / SR Linux" 'Opening the CLI / use quit to return'
-  ui_hint 'Use make task or make hint in WSL for guided commands'
-  echo
-fi
 if [[ "$fqdn" == operations01.bob1.reefnet.test ]]; then
   docker exec "$container" sh -lc 'mkdir -p /root/.ssh && cp /opt/ai5049/ssh_config /root/.ssh/config && chown root:root /root/.ssh /root/.ssh/config && chmod 0700 /root/.ssh && chmod 0600 /root/.ssh/config'
 fi
