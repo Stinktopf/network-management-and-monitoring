@@ -85,6 +85,20 @@ class Guides(unittest.TestCase):
         self.assertIn("make solution SCENARIO=operations STEP=4", output)
         self.assertNotIn("Worked answer: make solution", output)
 
+    def test_networking_traces_both_address_families_from_both_probes(self):
+        expected = (
+            "traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10",
+            "traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10",
+        )
+        for level in ("hint", "solution"):
+            output = self.render("networking", 1, level).stdout
+            for command in expected:
+                with self.subTest(level=level, command=command):
+                    self.assertEqual(output.count(command), 2)
+        cheatsheet = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
+        for command in expected:
+            self.assertIn(command, cheatsheet)
+
     def test_solution_defaults_to_one_step(self):
         result = subprocess.run(
             ["make", "--no-print-directory", "solution", "SCENARIO=networking"],

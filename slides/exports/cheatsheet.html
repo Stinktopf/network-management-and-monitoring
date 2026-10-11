@@ -86,8 +86,9 @@ info from running routing-policy
     <header><span>AI5049 / ReefNet</span><span>Command reference</span></header>
     <h1>Inspect and change configuration</h1>
     <section><h3>Management access, links and return route</h3>
-<p>From the Lagoon probe, trace the IPv4 path. A silent hop alone does not prove failure:</p>
+<p>From the Lagoon probe, compare the IPv4 and IPv6 paths. A silent hop alone does not prove failure:</p>
 <pre><code class="language-bash">traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
+traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
 </code></pre>
 <p>Router management names resolve from the operator workstation. In WSL:</p>
 <pre><code class="language-bash">make enter NODE=operations01.bob1.reefnet.test

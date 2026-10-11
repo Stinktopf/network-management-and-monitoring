@@ -74,10 +74,11 @@ info from running routing-policy
 
 ## Management access, links and return route
 
-From the Lagoon probe, trace the IPv4 path. A silent hop alone does not prove failure:
+From the Lagoon probe, compare the IPv4 and IPv6 paths. A silent hop alone does not prove failure:
 
 ```bash
 traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
+traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
 ```
 
 Router management names resolve from the operator workstation. In WSL:
