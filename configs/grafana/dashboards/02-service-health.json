@@ -6,176 +6,125 @@
   "graphTooltip": 1,
   "panels": [
     {
-      "id": 90,
-      "type": "row",
-      "title": "Selected service view",
-      "collapsed": false,
-      "panels": [],
+      "id": 1,
+      "type": "table",
+      "title": "Service checks / current status",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "x": 0,
         "y": 0,
         "w": 24,
-        "h": 1
+        "h": 8
+      },
+      "description": "Each cell is one test from one probe over one IP version. UNKNOWN means missing, stale (>10s) or unavailable collection. DNS checks the expected record. HTTP checks a 2xx response at the fixed service address, independently of DNS.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"icmp\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"icmp\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"icmp\", \"\", \"\")), \"Path\", \"Lagoon / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"dns\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"dns\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"dns\", \"\", \"\")), \"Path\", \"Lagoon / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"http\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv4\",probe=\"http\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"http\", \"\", \"\")), \"Path\", \"Lagoon / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"icmp\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"icmp\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"icmp\", \"\", \"\")), \"Path\", \"Lagoon / IPv6\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"dns\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"dns\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"dns\", \"\", \"\")), \"Path\", \"Lagoon / IPv6\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"http\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.lagoontransit.test\",af=\"ipv6\",probe=\"http\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.lagoontransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"http\", \"\", \"\")), \"Path\", \"Lagoon / IPv6\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"icmp\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"icmp\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"icmp\", \"\", \"\")), \"Path\", \"Pacific / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"dns\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"dns\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"dns\", \"\", \"\")), \"Path\", \"Pacific / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"http\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv4\",probe=\"http\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv4\", \"\", \"\"), \"probe\", \"http\", \"\", \"\")), \"Path\", \"Pacific / IPv4\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"icmp\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"icmp\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"icmp\", \"\", \"\")), \"Path\", \"Pacific / IPv6\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"dns\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"dns\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"dns\", \"\", \"\")), \"Path\", \"Pacific / IPv6\", \"\", \"\") or label_replace(((reefnet_probe_success{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"http\"} and (time() - reefnet_probe_last_run_timestamp_seconds{source=\"probe01.bob1.pacifictransit.test\",af=\"ipv6\",probe=\"http\"} < 10) and on (job, instance) (up{job=\"reefnet-service-probes\"} == 1)) or on (source, af, probe) label_replace(label_replace(label_replace(vector(-1), \"source\", \"probe01.bob1.pacifictransit.test\", \"\", \"\"), \"af\", \"ipv6\", \"\", \"\"), \"probe\", \"http\", \"\", \"\")), \"Path\", \"Pacific / IPv6\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "probe",
+            "rowField": "Path",
+            "valueField": "Value",
+            "emptyValue": "null"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "Path\\probe": 0,
+              "icmp": 1,
+              "dns": 2,
+              "http": 3
+            },
+            "renameByName": {
+              "Path\\probe": "Probe / IP version",
+              "icmp": "ICMP",
+              "dns": "DNS",
+              "http": "HTTP"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            }
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "-1": {
+                  "text": "UNKNOWN",
+                  "color": "gray",
+                  "index": 0
+                },
+                "0": {
+                  "text": "FAIL",
+                  "color": "red",
+                  "index": 1
+                },
+                "1": {
+                  "text": "PASS",
+                  "color": "green",
+                  "index": 2
+                }
+              }
+            }
+          ]
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Probe / IP version"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "md",
+        "footer": {
+          "show": false
+        }
       }
     },
     {
-      "id": 1,
-      "type": "stat",
-      "title": "Selected probes / success",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "avg(avg_over_time(reefnet_probe_success{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}[30s]))",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "gridPos": {
-        "x": 0,
-        "y": 1,
-        "w": 8,
-        "h": 4
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "description": "Average success across the currently selected probe dimensions."
-    },
-    {
-      "id": 2,
-      "type": "stat",
-      "title": "Selected probes / worst duration",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "max(reefnet_probe_duration_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"})",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "gridPos": {
-        "x": 8,
-        "y": 1,
-        "w": 8,
-        "h": 4
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "description": "Worst current duration across the selected probe dimensions."
-    },
-    {
-      "id": 3,
-      "type": "stat",
-      "title": "Selected probes / oldest sample",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "max(time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"})",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "gridPos": {
-        "x": 16,
-        "y": 1,
-        "w": 8,
-        "h": 4
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "description": "Age of the oldest selected probe sample."
-    },
-    {
-      "id": 91,
-      "type": "row",
-      "title": "Probe history",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 5,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
-      "id": 4,
+      "id": 10,
       "type": "timeseries",
-      "title": "Probe success / selected view",
+      "title": "ICMP / success",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -183,8 +132,8 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "avg_over_time(reefnet_probe_success{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}[30s])",
-          "legendFormat": "{{source}} / {{probe}} / {{af}}",
+          "expr": "label_replace(reefnet_probe_success{probe=\"icmp\"}, \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -193,19 +142,21 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 6,
+        "y": 8,
         "w": 12,
         "h": 8
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1
         },
         "overrides": []
       },
       "options": {
         "legend": {
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
@@ -214,12 +165,12 @@
           "sort": "desc"
         }
       },
-      "description": "Filter by probe, address family and probe type."
+      "description": "Individual check results in the selected time range: 1 succeeded, 0 failed."
     },
     {
-      "id": 5,
+      "id": 11,
       "type": "timeseries",
-      "title": "Probe duration / selected view",
+      "title": "ICMP / successful request duration",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -227,8 +178,8 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "reefnet_probe_duration_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} / {{probe}} / {{af}}",
+          "expr": "label_replace(reefnet_probe_duration_seconds{probe=\"icmp\"} and (reefnet_probe_success{probe=\"icmp\"} == 1), \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -237,7 +188,7 @@
       ],
       "gridPos": {
         "x": 12,
-        "y": 6,
+        "y": 8,
         "w": 12,
         "h": 8
       },
@@ -249,7 +200,7 @@
       },
       "options": {
         "legend": {
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
@@ -258,25 +209,12 @@
           "sort": "desc"
         }
       },
-      "description": "Latency and timeout evidence for exactly the selected probes."
+      "description": "Separate series for each source and IP version. Failed requests are omitted from duration."
     },
     {
-      "id": 92,
-      "type": "row",
-      "title": "Freshness / is the evidence current?",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 14,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
-      "id": 6,
+      "id": 12,
       "type": "timeseries",
-      "title": "Probe data age / selected view",
+      "title": "DNS / success",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -284,8 +222,8 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} / {{probe}} / {{af}}",
+          "expr": "label_replace(reefnet_probe_success{probe=\"dns\"}, \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -294,9 +232,55 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 15,
-        "w": 24,
-        "h": 7
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Individual check results in the selected time range: 1 succeeded, 0 failed."
+    },
+    {
+      "id": 13,
+      "type": "timeseries",
+      "title": "DNS / successful request duration",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "label_replace(reefnet_probe_duration_seconds{probe=\"dns\"} and (reefnet_probe_success{probe=\"dns\"} == 1), \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
       },
       "fieldConfig": {
         "defaults": {
@@ -306,7 +290,7 @@
       },
       "options": {
         "legend": {
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
@@ -315,7 +299,97 @@
           "sort": "desc"
         }
       },
-      "description": "Separates a healthy value from a stale value."
+      "description": "Separate series for each source and IP version. Failed requests are omitted from duration."
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "HTTP / success",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "label_replace(reefnet_probe_success{probe=\"http\"}, \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Individual check results in the selected time range: 1 succeeded, 0 failed."
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "HTTP / successful request duration",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "label_replace(reefnet_probe_duration_seconds{probe=\"http\"} and (reefnet_probe_success{probe=\"http\"} == 1), \"site\", \"$1\", \"source\", \"probe01[.]bob1[.](.*)transit[.]test\")",
+          "legendFormat": "{{site}} / {{af}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Separate series for each source and IP version. Failed requests are omitted from duration."
     }
   ],
   "schemaVersion": 41,
@@ -325,66 +399,7 @@
     "reefnet"
   ],
   "templating": {
-    "list": [
-      {
-        "name": "probe_source",
-        "label": "Probe",
-        "type": "query",
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(reefnet_probe_success, source)",
-        "query": {
-          "query": "label_values(reefnet_probe_success, source)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "sort": 1,
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      },
-      {
-        "name": "af",
-        "label": "Address family",
-        "type": "custom",
-        "query": "IPv4 : ipv4,IPv6 : ipv6",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      },
-      {
-        "name": "probe_type",
-        "label": "Probe type",
-        "type": "custom",
-        "query": "ICMP : icmp,DNS : dns",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-15m",
@@ -393,79 +408,70 @@
   "timezone": "browser",
   "title": "BOB1 / Service Health",
   "uid": "reefnet-bob1-service",
-  "version": 3,
+  "version": 5,
   "links": [
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Overview",
-      "tooltip": "",
       "type": "link",
+      "title": "Network Overview",
       "url": "/d/reefnet-bob1-overview"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Topology & Paths",
-      "tooltip": "",
       "type": "link",
-      "url": "/d/reefnet-bob1-topology"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": false,
-      "title": "Fault Analysis",
-      "tooltip": "",
-      "type": "link",
-      "url": "/d/reefnet-bob1-faults"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": false,
       "title": "Service Health",
-      "tooltip": "",
-      "type": "link",
       "url": "/d/reefnet-bob1-service"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Telemetry Health",
-      "tooltip": "",
       "type": "link",
-      "url": "/d/reefnet-bob1-telemetry"
+      "title": "BGP",
+      "url": "/d/reefnet-bob1-bgp"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Device Detail",
-      "tooltip": "",
       "type": "link",
+      "title": "OSPF",
+      "url": "/d/reefnet-bob1-ospf"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Devices & Interfaces",
       "url": "/d/reefnet-bob1-device"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Traffic & Capacity",
+      "url": "/d/reefnet-bob1-traffic"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Telemetry Health",
+      "url": "/d/reefnet-bob1-telemetry"
     }
   ],
   "refresh": "5s",

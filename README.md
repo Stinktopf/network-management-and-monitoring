@@ -107,7 +107,7 @@ Select a step with `STEP=2`, for example `make hint STEP=2`.
 |---|---|---|
 | [NetBox](http://localhost:8000) | Inventory: **Devices**, then `edge01.bob1.reefnet.test` | `admin` / `admin` |
 | [Prometheus](http://localhost:9090) | Metrics: query `up` to check collection | No login |
-| [Grafana](http://localhost:3000) | Dashboards: **ReefNet / BOB1 → Network Overview** | Anonymous administration |
+| [Grafana](http://localhost:3000) | **ReefNet / BOB1 → Network Overview**, then service, routing, interfaces, traffic or telemetry | Anonymous administration |
 
 Use a trusted network: these services expose lab access without secure credentials. For a VM, use its IP address or forward the ports.
 

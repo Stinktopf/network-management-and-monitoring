@@ -6,8 +6,8 @@
     "pacifictransit": {"name": "Pacific Transit", "asn": 65200}
   },
   "nodes": {
-    "edge01": {"fqdn": "edge01.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.11"},
-    "edge02": {"fqdn": "edge02.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.12"},
+    "edge01": {"fqdn": "edge01.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.11", "loopback_ipv4": "10.255.0.1/32", "loopback_ipv6": "2001:db8:ffff::1/128"},
+    "edge02": {"fqdn": "edge02.bob1.reefnet.test", "asn": 65000, "mgmt_ipv4": "172.20.20.12", "loopback_ipv4": "10.255.0.2/32", "loopback_ipv6": "2001:db8:ffff::2/128"},
     "cust01": {"fqdn": "edge01.bob1.oceanresearch.test", "asn": 65010, "mgmt_ipv4": "172.20.20.21"},
     "transit01": {"fqdn": "edge01.bob1.lagoontransit.test", "asn": 65100, "mgmt_ipv4": "172.20.20.22"},
     "transit02": {"fqdn": "edge01.bob1.pacifictransit.test", "asn": 65200, "mgmt_ipv4": "172.20.20.23"},

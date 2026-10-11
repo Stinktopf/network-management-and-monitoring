@@ -30,8 +30,8 @@ assert_count 'Racks' 'dcim/racks/' 1
 assert_count 'Devices' 'dcim/devices/?site=bob1' 14
 assert_count 'Interfaces' 'dcim/interfaces/' 35
 assert_count 'Physical cables' 'dcim/cables/' 8
-assert_count 'Prefixes' 'ipam/prefixes/' 21
-assert_count 'IP addresses' 'ipam/ip-addresses/' 51
+assert_count 'Prefixes' 'ipam/prefixes/' 22
+assert_count 'IP addresses' 'ipam/ip-addresses/' 53
 assert_count 'ASNs' 'ipam/asns/' 4
 assert_count 'Tenants' 'tenancy/tenants/' 4
 assert_count 'Providers' 'circuits/providers/' 2
@@ -66,7 +66,7 @@ for spec in \
   nb_eval "dcim/interfaces/?device=$dev&name=$iface" '.count == 1 and .results[0].cable != null' >/dev/null
  done
 ui_ok 'All 8 physical lab links are traceable from both endpoints'
-for addr in 10.255.0.1/32 10.255.0.2/32 10.255.10.1/32 10.255.100.1/32 10.255.200.1/32; do
+for addr in 2001:db8:ffff::1/128 2001:db8:ffff::2/128 10.255.0.1/32 10.255.0.2/32 10.255.10.1/32 10.255.100.1/32 10.255.200.1/32; do
   enc=${addr//\//%2F}
   nb_eval "ipam/ip-addresses/?address=$enc" '.count == 1 and .results[0].role.value == "loopback"' >/dev/null
  done

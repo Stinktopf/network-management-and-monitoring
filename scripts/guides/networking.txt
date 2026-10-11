@@ -176,6 +176,7 @@ Repeat the checks on Edge 02:
   show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
+Check both OSPFv2 and OSPFv3 sections. Each should show two full adjacencies.
 Which entries change? Distinguish learning a prefix from reaching its next hop.
 Leave the router with quit.
 @@ investigation
@@ -210,9 +211,12 @@ the return path in step 4. Record which observation supports each hop of the pat
 @@ solution
 ReefNet is AS65000, the customer AS65010, Lagoon AS65100 and Pacific AS65200.
 Edge 01 learns the customer's IPv4 and IPv6 service prefixes through eBGP and
-shares them internally through iBGP. OSPF provides reachability inside ReefNet,
-including the path between Edge 01 and Edge 02. A BGP session alone does not
-prove service delivery.
+shares them internally through iBGP between loopbacks. OSPFv2 carries IPv4 and
+OSPFv3 carries IPv6 internally, each with two core adjacencies. Router IDs
+remain 10.255.0.1 and 10.255.0.2 in both versions. IPv6 iBGP uses
+2001:db8:ffff::1 and 2001:db8:ffff::2.
+Either core link can carry both families. A BGP session alone does not prove
+service delivery.
 
 @@ 4 Check the reply path and record the baseline
 On the Ocean Research router, find the IPv4 and IPv6 return routes to both

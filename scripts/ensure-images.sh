@@ -33,11 +33,8 @@ else
   ui_ok 'All pinned classroom images are already present'
 fi
 
-if [[ "$mode" == "--all" ]] || ! docker image inspect ai5049-tools:bob1-v20 >/dev/null 2>&1; then
-  ui_section 'Local classroom tools image'
-  ui_cmd docker build -t ai5049-tools:bob1-v20 tools
-  docker build -t ai5049-tools:bob1-v20 tools 2>&1 | tee .state/tools-build.log
-  ui_ok 'ai5049-tools:bob1-v20 built'
-else
-  ui_ok 'Local tools image · ai5049-tools:bob1-v20'
-fi
+# Docker's build cache also detects changed bootstrap/model sources after git pull.
+ui_section 'Local classroom tools image'
+ui_cmd docker build -t ai5049-tools:bob1-v20 tools
+docker build -t ai5049-tools:bob1-v20 tools 2>&1 | tee .state/tools-build.log
+ui_ok 'ai5049-tools:bob1-v20 ready'

@@ -1,7 +1,7 @@
 @@ 1 Check service health and telemetry freshness
 Run make test and check the current traffic rate. In Grafana, compare Service
 Health, Network Overview and Telemetry Health. Confirm that both probes have
-recent results for IPv4 and IPv6, and that telemetry collection is working.
+recent ICMP, DNS and HTTP results for IPv4 and IPv6 in the status matrix.
 Record the load and time before starting the experiments.
 
 Start in WSL:
@@ -11,6 +11,7 @@ Open Grafana at http://localhost:3000, folder ReefNet / BOB1.
 In WSL:
   make traffic-status
 In Grafana compare Service Health, Network Overview and Telemetry Health.
+Read each matrix cell separately. UNKNOWN means missing or stale evidence.
 Record the selected time window, traffic source and interface direction.
 Check collection health and sample freshness before treating an empty panel as zero.
 
@@ -39,12 +40,13 @@ Decision: missing/stale data needs collection diagnosis before a network verdict
 With fresh data, compare service probes against interface observations. If the
 baseline already fails, investigate it before adding experimental load in step 2.
 @@ solution
-Baseline: 25 Mbit/s background traffic and both probes pass over IPv4 and IPv6. Transit caps are
+Baseline: 25 Mbit/s IPv4 background traffic and both probes pass over IPv4 and IPv6. Transit caps are
 50 Mbit/s and the customer cap is 100 Mbit/s. Check exporter health and sample
-freshness. Missing data is not zero traffic or zero loss.
+freshness. DNS checks the expected answer. HTTP checks a 2xx response at the fixed
+service address, independently of DNS. Missing data is not zero traffic or zero loss.
 
 @@ 2 Increase load and locate packet loss
-Send 40, 60 and 75 Mbit/s from Lagoon to the customer service, one rate at a
+Send IPv4 UDP traffic at 40, 60 and 75 Mbit/s from Lagoon to the customer service, one rate at a
 time. Observe each for at least 30 seconds. Compare interface rates and discards
 in Grafana with throughput and loss in service01's iperf receiver log.
 Locate the sending interface where loss starts. Leave 75 Mbit/s running for step 3.
@@ -72,8 +74,9 @@ WSL repository, run ONE load command at a time:
   make traffic-40mbit
   make traffic-60mbit
   make traffic-75mbit
-Leave 75 Mbit/s running while inspecting Topology & Paths and Fault Analysis.
-Compare interface rate, utilization, ingress discards and egress discards.
+Leave 75 Mbit/s running while inspecting Traffic & Capacity and Devices & Interfaces.
+In Traffic & Capacity select Lagoon Transit and compare RX/TX at both endpoints.
+Check ingress and egress discards in Devices & Interfaces.
 WSL repository:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the receiver:
@@ -117,12 +120,14 @@ Use quit, then reduce the load in WSL:
   make traffic-10mbit
 Do new drops stop accumulating? Compare physical out-discarded-packets, not
 the subinterface discard row in show interface detail. Check deltas and resets.
-A rolling five-minute panel still includes earlier loss.
+The top counters total the selected Grafana time range. The graphs below
+show packets per second. Select a range after the load change to exclude earlier loss.
 After observing at 10 Mbit/s, run make traffic-diagnostics again in WSL.
 Compare the two new samples to see whether the counters are still increasing.
 @@ investigation
-Keep the offered load fixed. In Telemetry Health inspect Capacity queue collection
-and Linux queue drops (last 5 min) for Lagoon Transit.
+Keep the offered load fixed. In Telemetry Health check Queue collection.
+In Devices & Interfaces select Lagoon Transit and inspect egress discards.
+Use traffic-diagnostics below for the underlying Linux queue counters.
 WSL repository:
   make traffic-diagnostics
   make enter NODE=edge01.bob1.lagoontransit.test
@@ -178,7 +183,8 @@ WSL repository:
   make test
 Confirm all four results pass before injecting the fault:
   make fault-link
-In Grafana inspect Topology & Paths and the network events in Telemetry Health.
+In Grafana inspect interface state and Device events in Devices & Interfaces.
+Compare the OSPFv2 and OSPFv3 adjacencies in OSPF.
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
@@ -205,7 +211,9 @@ after the restored interface/adjacency and the four service checks agree.
 The fault disables core-b, Edge 01 ethernet-1/4. The parallel core-a remains,
 so service should pass again after OSPF converges. Short probe loss can occur
 during convergence. Interface/OSPF state and logs show the topology change.
-After make clear-link the interface and adjacency should recover.
+Both OSPFv2 and OSPFv3 lose the core-b adjacency. IPv4 and IPv6 iBGP use
+loopbacks and stay established through core-a. After make clear-link both
+OSPF adjacencies should recover.
 
 @@ 5 Inject a routing fault and compare the symptoms
 Inject the prepared routing fault after confirming a healthy baseline.
@@ -226,7 +234,7 @@ If you have not injected it yet, follow this step's task first.
 
 In WSL:
   make test
-Compare Service Health with BGP sessions and interface state. If you need route
+Compare Service Health, BGP and Devices & Interfaces. If you need route
 commands, use make hint SCENARIO=operations STEP=3.
 
 After recording your evidence, restore in WSL:

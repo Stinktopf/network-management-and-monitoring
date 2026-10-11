@@ -1,0 +1,767 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Network Overview",
+      "url": "/d/reefnet-bob1-overview"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Service Health",
+      "url": "/d/reefnet-bob1-service"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "BGP",
+      "url": "/d/reefnet-bob1-bgp"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "OSPF",
+      "url": "/d/reefnet-bob1-ospf"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Devices & Interfaces",
+      "url": "/d/reefnet-bob1-device"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Traffic & Capacity",
+      "url": "/d/reefnet-bob1-traffic"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Telemetry Health",
+      "url": "/d/reefnet-bob1-telemetry"
+    }
+  ],
+  "panels": [
+    {
+      "id": 100,
+      "type": "stat",
+      "title": "Capacity per direction",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 8,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(max(reefnet_link_capacity_bps{link_id=~\"$link\"})) or (0 * max(reefnet_link_oper_up{link_id=~\"core-a|core-b\",link_id=~\"$link\"}) - 2)",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "decimals": 1,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "-2": {
+                  "text": "Uncapped",
+                  "color": "#a3a7af"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 101,
+      "type": "stat",
+      "title": "Peak utilization",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 0,
+        "w": 8,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(max(reefnet_link_utilization_ratio{link_id=~\"$link\"})) or (0 * max(reefnet_link_oper_up{link_id=~\"core-a|core-b\",link_id=~\"$link\"}) - 2)",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 1,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "-2": {
+                  "text": "Uncapped",
+                  "color": "#a3a7af"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 102,
+      "type": "stat",
+      "title": "Endpoints up",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 0,
+        "w": 8,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(reefnet_link_oper_up{link_id=~\"$link\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "$endpoint_a / traffic",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (source, interface_name, link_id) (reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"})",
+          "legendFormat": "RX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "B",
+          "expr": "max by (source, interface_name, link_id) (reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_out_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_out_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"})",
+          "legendFormat": "TX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#56B8C9"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#C8A1E0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "RX and TX at this interface. The legend identifies its router and port. Compare the opposite endpoint over the same time window."
+    },
+    {
+      "id": 10,
+      "type": "stat",
+      "title": "$endpoint_a / capacity usage",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(max by (source, interface_name, link_id) ((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} / 100000000) or (reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} / 50000000) or (reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} / 50000000))) or ((0 * (max by (source, interface_name, link_id) (reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"})) - 2) and on(link_id) reefnet_link_oper_up{link_id=~\"core-a|core-b\"})",
+          "legendFormat": "RX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        },
+        {
+          "refId": "B",
+          "expr": "(max by (source, interface_name, link_id) ((reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} / 100000000) or (reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} / 50000000) or (reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} / 50000000))) or ((0 * (max by (source, interface_name, link_id) (reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_out_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_out_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"})) - 2) and on(link_id) reefnet_link_oper_up{link_id=~\"core-a|core-b\"})",
+          "legendFormat": "TX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 1,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "-2": {
+                  "text": "Uncapped",
+                  "color": "#a3a7af"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#56B8C9"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#C8A1E0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Current RX/TX share of the configured capacity. Uncapped means no configured rate limit. Missing telemetry remains Unknown."
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "$endpoint_z / traffic",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (source, interface_name, link_id) (reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"})",
+          "legendFormat": "RX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "B",
+          "expr": "max by (source, interface_name, link_id) (reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"})",
+          "legendFormat": "TX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#56B8C9"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#C8A1E0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "RX and TX at this interface. The legend identifies its router and port. Compare the opposite endpoint over the same time window."
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "$endpoint_z / capacity usage",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(max by (source, interface_name, link_id) ((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} / 100000000) or (reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} / 50000000) or (reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} / 50000000))) or ((0 * (max by (source, interface_name, link_id) (reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"})) - 2) and on(link_id) reefnet_link_oper_up{link_id=~\"core-a|core-b\"})",
+          "legendFormat": "RX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        },
+        {
+          "refId": "B",
+          "expr": "(max by (source, interface_name, link_id) ((reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} / 100000000) or (reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} / 50000000) or (reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} / 50000000))) or ((0 * (max by (source, interface_name, link_id) (reefnet_link_out_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_out_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"})) - 2) and on(link_id) reefnet_link_oper_up{link_id=~\"core-a|core-b\"})",
+          "legendFormat": "TX",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 1,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "-2": {
+                  "text": "Uncapped",
+                  "color": "#a3a7af"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#56B8C9"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#C8A1E0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "description": "Current RX/TX share of the configured capacity. Uncapped means no configured rate limit. Missing telemetry remains Unknown."
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "ai5049",
+    "bob1",
+    "reefnet",
+    "topology"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "link",
+        "label": "Routed link",
+        "type": "custom",
+        "query": "Ocean Research : customer,Lagoon Transit : lagoon,Pacific Transit : pacific,ReefNet core-a : core-a,ReefNet core-b : core-b",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "options": [],
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "Lagoon Transit",
+          "value": "lagoon"
+        }
+      },
+      {
+        "name": "endpoint_a",
+        "type": "query",
+        "hide": 2,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "query": {
+          "query": "query_result(label_join((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"}), \"endpoint\", \" / \", \"source\", \"interface_name\"))",
+          "refId": "VariableQuery"
+        },
+        "definition": "query_result(label_join((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/2\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/4\"}), \"endpoint\", \" / \", \"source\", \"interface_name\"))",
+        "regex": "/endpoint=\"([^\"]+)\"/",
+        "refresh": 1,
+        "options": []
+      },
+      {
+        "name": "endpoint_z",
+        "type": "query",
+        "hide": 2,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "query": {
+          "query": "query_result(label_join((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"}), \"endpoint\", \" / \", \"source\", \"interface_name\"))",
+          "refId": "VariableQuery"
+        },
+        "definition": "query_result(label_join((reefnet_link_in_bps{link_id=\"customer\",link_id=~\"$link\",source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"lagoon\",link_id=~\"$link\",source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"pacific\",link_id=~\"$link\",source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-a\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/1\"} or reefnet_link_in_bps{link_id=\"core-b\",link_id=~\"$link\",source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/3\"}), \"endpoint\", \" / \", \"source\", \"interface_name\"))",
+        "regex": "/endpoint=\"([^\"]+)\"/",
+        "refresh": 1,
+        "options": []
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  },
+  "timezone": "browser",
+  "title": "BOB1 / Traffic & Capacity",
+  "uid": "reefnet-bob1-traffic",
+  "version": 9
+}

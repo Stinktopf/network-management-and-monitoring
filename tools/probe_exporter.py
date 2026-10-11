@@ -3,7 +3,9 @@
 import argparse
 import concurrent.futures
 import http.server
+import ipaddress
 import os
+import re
 import subprocess
 import threading
 import time
@@ -15,30 +17,54 @@ LOCK = threading.Lock()
 RESULTS: dict[tuple[str, str], tuple[float, float, float]] = {}
 
 
-def run(cmd: list[str], timeout: float = 1.5) -> tuple[float, float]:
+def run(cmd: list[str], timeout: float = 1.5, validate=None) -> tuple[float, float]:
     start = time.monotonic()
     try:
-        cp = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                            timeout=timeout, check=False)
-        ok = 1.0 if cp.returncode == 0 else 0.0
+        cp = subprocess.run(cmd, stdout=subprocess.PIPE if validate else subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, text=True, timeout=timeout, check=False)
+        ok = float(cp.returncode == 0 and (validate is None or validate(cp.stdout)))
     except (subprocess.TimeoutExpired, OSError):
         ok = 0.0
     return ok, time.monotonic() - start
 
 
+def dns_answer_valid(output: str, qtype: str, expected: str) -> bool:
+    if not re.search(r"status: NOERROR[,\s]", output):
+        return False
+    addresses = set()
+    for line in output.splitlines():
+        fields = line.split()
+        if (len(fields) == 5 and fields[0].lower() == SERVICE_NAME.lower() + "."
+                and fields[2:4] == ["IN", qtype]):
+            try:
+                addresses.add(ipaddress.ip_address(fields[4]))
+            except ValueError:
+                return False
+    return addresses == {ipaddress.ip_address(expected)}
+
+
 def probe(kind: str, af: str) -> tuple[float, float]:
+    target = SERVICE_V4 if af == "ipv4" else SERVICE_V6
+    family = "-4" if af == "ipv4" else "-6"
     if kind == "icmp":
-        target = SERVICE_V4 if af == "ipv4" else SERVICE_V6
-        return run(["ping", "-4" if af == "ipv4" else "-6", "-c", "1", "-W", "1", target])
+        return run(["ping", family, "-c", "1", "-W", "1", target])
     if kind == "dns":
-        server = SERVICE_V4 if af == "ipv4" else SERVICE_V6
         qtype = "A" if af == "ipv4" else "AAAA"
-        return run(["dig", f"@{server}", SERVICE_NAME, qtype, "+short", "+time=1", "+tries=1"])
+        return run(["dig", family, f"@{target}", SERVICE_NAME, qtype,
+                    "+noall", "+comments", "+answer", "+time=1", "+tries=1"],
+                   validate=lambda output: dns_answer_valid(output, qtype, target))
+    if kind == "http":
+        address = target if af == "ipv4" else f"[{target}]"
+        # Pin the destination so DNS and HTTP failures remain distinguishable.
+        return run(["curl", family, "--silent", "--noproxy", "*", "--max-time", "1",
+                    "--resolve", f"{SERVICE_NAME}:80:{address}", "--output", "/dev/null",
+                    "--write-out", "%{http_code}", f"http://{SERVICE_NAME}/"],
+                   validate=lambda output: bool(re.fullmatch(r"2\d\d", output)))
     raise ValueError(kind)
 
 
 def worker() -> None:
-    tests = [(kind, af) for kind in ("icmp", "dns") for af in ("ipv4", "ipv6")]
+    tests = [(kind, af) for kind in ("icmp", "dns", "http") for af in ("ipv4", "ipv6")]
     while True:
         now = time.time()
         with concurrent.futures.ThreadPoolExecutor(max_workers=len(tests)) as pool:

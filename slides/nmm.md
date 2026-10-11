@@ -696,7 +696,7 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 ---
 
 <!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc2328.html\">OSPF: RFC 2328</a></span>" -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc2328.html\">OSPFv2: RFC 2328</a><a href=\"https://www.rfc-editor.org/rfc/rfc5340.html\">OSPFv3: RFC 5340</a></span>" -->
 
 # OSPF: each router calculates its own paths
 
@@ -704,7 +704,7 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <img src="assets/diagrams/igp-costs.svg" alt="Example: A reaches D through B at cost 2 rather than through C at cost 7.">
 <div>
 <p>Example costs:<br>Via B: <strong>1 + 1 = 2</strong>. Via C: 5 + 2 = 7.</p>
-<p>In ReefNet, OSPF makes BGP next hops reachable.</p>
+<p>ReefNet uses OSPFv2 for IPv4 and OSPFv3 for IPv6.</p><p>Both provide paths to the iBGP loopbacks over either core link.</p>
 </div>
 </div>
 
@@ -736,6 +736,25 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <pre><code>show network-instance default protocols bgp neighbor
 show network-instance default protocols bgp routes ipv4 summary</code></pre>
 </div>
+
+<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
+
+---
+
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc4760.html\">Multiprotocol BGP: RFC 4760</a></span>" -->
+
+# BGP separates route families
+
+**AFI** (Address Family Identifier): IPv4 or IPv6.<br>
+**SAFI** (Subsequent Address Family Identifier): e.g. unicast.
+
+| In ReefNet | Routes to destinations such as |
+|---|---|
+| `ipv4-unicast` | `198.51.100.0/24` |
+| `ipv6-unicast` | `2001:db8:100::/48` |
+
+**Established** confirms the session is up. Check which families exchange routes.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -2782,9 +2801,9 @@ Streaming sampled values still leaves gaps.
 
 # Budget the ReefNet probe round
 
-**2 sources × 2 families × 2 probe types = 8 checks**
+**2 sources × 2 families × 3 probe types = 12 checks**
 
-A round every 5 seconds would need **1.6 checks/s**.
+A round every 5 seconds would need **2.4 checks/s**.
 
 ReefNet waits for the round to finish, then pauses for 1 second.
 What happens when a check times out?
@@ -2921,7 +2940,7 @@ Combine observations first, then calculate the percentile.
 
 # What is Grafana telling us?
 
-At **25 Mbit/s**, open `http://localhost:3000`.
+At **25 Mbit/s IPv4 traffic**, open `http://localhost:3000`.
 Choose **ReefNet / BOB1 → Network Overview**.
 
 - What is measured, and where?
@@ -3035,9 +3054,9 @@ What context must the collector retain to decode it?
 |---|---|
 | Observation | Source, target, family, protocol, time, result |
 | Limit | Failure does not locate the fault |
-| ReefNet | ICMP/DNS exporters and manual HTTP checks |
+| ReefNet | ICMP, DNS and HTTP over IPv4 and IPv6 |
 
-The DNS exporter checks command success, not the returned answer.
+DNS checks the expected answer. HTTP checks a 2xx response independently of DNS.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3375,12 +3394,13 @@ Check the central monitoring service from outside.
 
 | Question | BOB1 dashboard |
 |---|---|
-| Scope? | Network Overview |
-| Path? | Topology & Paths |
-| Cause? | Fault Analysis |
-| Service? | Service Health |
-| Freshness? | Telemetry Health |
-| Device? | Device Detail |
+| Network status and topology | Network Overview |
+| Reachability and response time | Service Health |
+| Sessions, routes and updates | BGP |
+| Core adjacencies and SPF activity | OSPF |
+| Port state and errors | Devices & Interfaces |
+| Rates and utilization | Traffic & Capacity |
+| Collection and freshness | Telemetry Health |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3418,7 +3438,7 @@ In WSL: `make fault-link`
 show network-instance default protocols ospf neighbor</code></pre>
 </div>
 
-Check the service and Grafana **Topology & Paths**.
+Check **Service Health** and **Devices & Interfaces** in Grafana.
 
 Did the customer notice? Explain the path that remains.
 

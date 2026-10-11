@@ -41,6 +41,8 @@ for scenario in "${scenarios[@]}"; do
       docker exec clab-ai5049-host01 sh -c 'dig @2001:db8:100::10 +short data.oceanresearch.test AAAA | grep -qx 2001:db8:100::10'
       docker exec clab-ai5049-host01 sh -c 'ip route get 198.51.100.10 >/dev/null'
       docker exec clab-ai5049-host01 sh -c 'ip -6 route get 2001:db8:100::10 >/dev/null'
+      phase='networking dual-stack core failover'; bash scripts/check-core.sh
+      phase='networking NetBox inventory'; bash scripts/netbox-check.sh
       ;;
     operations)
       phase='operations documented CLI repair'; ui_section 'Operations repair'

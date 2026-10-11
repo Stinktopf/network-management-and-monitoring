@@ -165,6 +165,7 @@ topology:
       binds:
         - configs/grafana/provisioning:/etc/grafana/provisioning:ro
         - configs/grafana/dashboards:/var/lib/grafana/dashboards:ro
+        - configs/grafana/assets:/usr/share/grafana/public/img/reefnet:ro
       ports:
         - 3000:3000
       env:

@@ -1,0 +1,1082 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "links": [
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Network Overview",
+      "url": "/d/reefnet-bob1-overview"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Service Health",
+      "url": "/d/reefnet-bob1-service"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "BGP",
+      "url": "/d/reefnet-bob1-bgp"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "OSPF",
+      "url": "/d/reefnet-bob1-ospf"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Devices & Interfaces",
+      "url": "/d/reefnet-bob1-device"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Traffic & Capacity",
+      "url": "/d/reefnet-bob1-traffic"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Telemetry Health",
+      "url": "/d/reefnet-bob1-telemetry"
+    }
+  ],
+  "panels": [
+    {
+      "id": 100,
+      "type": "stat",
+      "title": "Interfaces",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "count(reefnet_cabled_interface_oper_up{source=~\"$device\",interface_name=~\"$interface\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 101,
+      "type": "stat",
+      "title": "Oper up",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(reefnet_cabled_interface_oper_up{source=~\"$device\",interface_name=~\"$interface\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 102,
+      "type": "stat",
+      "title": "Oper down",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(1 - reefnet_cabled_interface_oper_up{source=~\"$device\",interface_name=~\"$interface\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "thresholds",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 103,
+      "type": "stat",
+      "title": "Admin disabled",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(1 - reefnet_cabled_interface_admin_enabled{source=~\"$device\",interface_name=~\"$interface\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "thresholds",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 206,
+      "type": "stat",
+      "title": "Ingress discards",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 6,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_interface_in_discards_total{source=~\"$device\",interface_name=~\"$interface\"}[$__range]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 208,
+      "type": "stat",
+      "title": "Egress discards",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 4,
+        "w": 6,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_interface_out_discards_total{source=~\"$device\",interface_name=~\"$interface\"}[$__range]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 210,
+      "type": "stat",
+      "title": "Interface errors",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 6,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_interface_in_errors_total{source=~\"$device\",interface_name=~\"$interface\"}[$__range]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 212,
+      "type": "stat",
+      "title": "Carrier transitions",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 18,
+        "y": 4,
+        "w": 6,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_interface_carrier_transitions_total{source=~\"$device\",interface_name=~\"$interface\"}[$__range]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Interface admin state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_cabled_interface_admin_enabled{source=~\"$device\",interface_name=~\"$interface\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}} / {{link}}",
+          "instant": true
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Disabled",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "Enabled",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "description": "Only interfaces that are physically connected in the lab are shown. Only physically cabled interfaces are shown."
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Interface oper state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_cabled_interface_oper_up{source=~\"$device\",interface_name=~\"$interface\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}} / {{link}}",
+          "instant": true
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Down",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "Up",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "description": "Observed state of the same cabled ports. Only physically cabled interfaces are shown."
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Ingress discards / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_interface_in_discards_total{source=~\"$device\",interface_name=~\"$interface\"}[$__rate_interval]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: packets/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Egress discards / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_interface_out_discards_total{source=~\"$device\",interface_name=~\"$interface\"}[$__rate_interval]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 8,
+        "y": 15,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: packets/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Interface errors / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_interface_in_errors_total{source=~\"$device\",interface_name=~\"$interface\"}[$__rate_interval]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 16,
+        "y": 15,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: errors/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Carrier transitions / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_interface_carrier_transitions_total{source=~\"$device\",interface_name=~\"$interface\"}[$__rate_interval]) and on(source,interface_name) reefnet_cabled_interface_admin_enabled{source=~\"$device\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: transitions/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Interface oper state / history",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_cabled_interface_oper_up{source=~\"$device\",interface_name=~\"$interface\"}",
+          "legendFormat": "{{source}} / {{interface_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": ""
+    },
+    {
+      "id": 8,
+      "type": "logs",
+      "title": "Device events",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{job=\"srlinux\",source=~\"$device\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 24,
+        "h": 10
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "dedupStrategy": "none"
+      },
+      "description": "Router syslog for the selected devices and time range. No message types are hidden."
+    }
+  ],
+  "schemaVersion": 41,
+  "tags": [
+    "AI5049",
+    "BOB1",
+    "device"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "device",
+        "label": "Device (FQDN)",
+        "type": "custom",
+        "query": "edge01.bob1.reefnet.test,edge02.bob1.reefnet.test,edge01.bob1.oceanresearch.test,edge01.bob1.lagoontransit.test,edge01.bob1.pacifictransit.test",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "options": [],
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "edge01.bob1.reefnet.test",
+          "value": "edge01.bob1.reefnet.test"
+        }
+      },
+      {
+        "name": "interface",
+        "label": "Interface",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(reefnet_cabled_interface_admin_enabled{source=~\"$device\"}, interface_name)",
+        "query": {
+          "query": "label_values(reefnet_cabled_interface_admin_enabled{source=~\"$device\"}, interface_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "sort": 1,
+        "hide": 0,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": true,
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "options": []
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "BOB1 / Devices & Interfaces",
+  "uid": "reefnet-bob1-device",
+  "version": 10,
+  "refresh": "5s",
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  }
+}

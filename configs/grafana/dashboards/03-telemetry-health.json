@@ -6,19 +6,6 @@
   "graphTooltip": 1,
   "panels": [
     {
-      "id": 90,
-      "type": "row",
-      "title": "Pipeline summary",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
       "id": 1,
       "type": "stat",
       "title": "gNMIc scrape",
@@ -34,13 +21,14 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 1,
+        "y": 0,
         "w": 6,
         "h": 4
       },
       "fieldConfig": {
         "defaults": {
-          "min": 0
+          "min": 0,
+          "decimals": 0
         },
         "overrides": []
       },
@@ -55,14 +43,17 @@
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "text": {
+          "valueSize": 32
+        }
       }
     },
     {
       "id": 2,
       "type": "stat",
-      "title": "Probe exporter scrapes",
+      "title": "Probe exporters / 2 expected",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -75,13 +66,14 @@
       ],
       "gridPos": {
         "x": 6,
-        "y": 1,
+        "y": 0,
         "w": 6,
         "h": 4
       },
       "fieldConfig": {
         "defaults": {
-          "min": 0
+          "min": 0,
+          "decimals": 0
         },
         "overrides": []
       },
@@ -96,14 +88,17 @@
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "text": {
+          "valueSize": 32
+        }
       }
     },
     {
       "id": 3,
       "type": "stat",
-      "title": "gNMI series sources",
+      "title": "Router sources / 5 expected",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -116,13 +111,14 @@
       ],
       "gridPos": {
         "x": 12,
-        "y": 1,
+        "y": 0,
         "w": 6,
         "h": 4
       },
       "fieldConfig": {
         "defaults": {
-          "min": 0
+          "min": 0,
+          "decimals": 0
         },
         "overrides": []
       },
@@ -137,57 +133,17 @@
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "text": {
+          "valueSize": 32
+        }
       }
     },
     {
       "id": 4,
       "type": "stat",
-      "title": "Loki events / last 5m",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "sum(count_over_time({job=\"srlinux\",source=~\"$device\"} != \"Unable to retrieve TLS profile 'EDA'\" != \"No valid license\" != \"no default license file nor configured license instances\" != \"Memory utilization on ram module\" != \"CPU utilization on cpu module\" != \"LogSetConfigLevelsToWarning\" != \"HandleFibMgrNhResolve\"[5m])) or on() vector(0)",
-          "queryType": "range"
-        }
-      ],
-      "gridPos": {
-        "x": 18,
-        "y": 1,
-        "w": 6,
-        "h": 4
-      },
-      "fieldConfig": {
-        "defaults": {
-          "min": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "orientation": "auto",
-        "textMode": "auto",
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
-      },
-      "description": "Count of curated SR Linux events for the selected devices. Known simulator noise is excluded from this teaching view."
-    },
-    {
-      "id": 9,
-      "type": "stat",
-      "title": "Capacity queue collection",
+      "title": "Queue collection",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -200,9 +156,9 @@
         }
       ],
       "gridPos": {
-        "x": 0,
-        "y": 5,
-        "w": 24,
+        "x": 18,
+        "y": 0,
+        "w": 6,
         "h": 4
       },
       "fieldConfig": {
@@ -237,7 +193,8 @@
               }
             ]
           },
-          "noValue": "NO DATA"
+          "noValue": "NO DATA",
+          "decimals": 0
         },
         "overrides": []
       },
@@ -252,28 +209,109 @@
         "orientation": "auto",
         "textMode": "auto",
         "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "text": {
+          "valueSize": 32
+        }
       },
       "description": "Healthy only when all five exporters are scraped and all six expected netem queues are present. Missing data is not zero packet loss."
     },
     {
-      "id": 91,
-      "type": "row",
-      "title": "Collection detail",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 9,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
       "id": 5,
       "type": "timeseries",
-      "title": "Prometheus scrape duration",
+      "title": "Scrape availability",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "up{job=~\"$job\"}",
+          "legendFormat": "{{job}} / {{instance}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": ""
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Oldest probe sample",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (source) (time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\"})",
+          "legendFormat": "{{source}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Age of the oldest check from each selected probe. All checks in a worker batch share a timestamp."
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Scrape duration",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -291,7 +329,7 @@
       ],
       "gridPos": {
         "x": 0,
-        "y": 10,
+        "y": 12,
         "w": 12,
         "h": 8
       },
@@ -304,51 +342,7 @@
       },
       "options": {
         "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      }
-    },
-    {
-      "id": 6,
-      "type": "timeseries",
-      "title": "Probe data age",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "time() - reefnet_probe_last_run_timestamp_seconds{source=~\"$probe_source\",af=~\"$af\",probe=~\"$probe_type\"}",
-          "legendFormat": "{{source}} / {{probe}} / {{af}}",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "gridPos": {
-        "x": 12,
-        "y": 10,
-        "w": 12,
-        "h": 8
-      },
-      "fieldConfig": {
-        "defaults": {
-          "min": 0,
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
@@ -361,7 +355,7 @@
     {
       "id": 8,
       "type": "timeseries",
-      "title": "Prometheus scrape samples",
+      "title": "Samples per scrape",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -378,10 +372,10 @@
         }
       ],
       "gridPos": {
-        "x": 0,
-        "y": 18,
-        "w": 24,
-        "h": 7
+        "x": 12,
+        "y": 12,
+        "w": 12,
+        "h": 8
       },
       "fieldConfig": {
         "defaults": {},
@@ -389,7 +383,7 @@
       },
       "options": {
         "legend": {
-          "displayMode": "table",
+          "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
@@ -399,109 +393,6 @@
         }
       },
       "description": "How many samples each selected scrape target contributes. Useful for spotting an exporter that is up but unexpectedly empty."
-    },
-    {
-      "id": 93,
-      "type": "row",
-      "title": "Capacity queue diagnostics",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 25,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
-      "id": 10,
-      "type": "timeseries",
-      "title": "Linux queue drops (last 5 min)",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "increase(reefnet_qdisc_dropped_packets_total{source=~\"$device\"}[5m])",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "legendFormat": "{{link_id}} / {{source}} / {{interface_name}}"
-        }
-      ],
-      "gridPos": {
-        "x": 0,
-        "y": 26,
-        "w": 24,
-        "h": 8
-      },
-      "fieldConfig": {
-        "defaults": {
-          "min": 0,
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "calcs": []
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "description": "Drops at the Linux netem queues that enforce lab link capacities. These counters can describe the same packet losses as SR Linux egress discards. Compare them for diagnosis, never add them. Missing data is not zero loss. Check Capacity queue collection above."
-    },
-    {
-      "id": 92,
-      "type": "row",
-      "title": "Events / selected network devices",
-      "collapsed": false,
-      "panels": [],
-      "gridPos": {
-        "x": 0,
-        "y": 34,
-        "w": 24,
-        "h": 1
-      }
-    },
-    {
-      "id": 7,
-      "type": "logs",
-      "title": "Collector / network events",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "{job=\"srlinux\",source=~\"$device\"} != \"Unable to retrieve TLS profile 'EDA'\" != \"No valid license\" != \"no default license file nor configured license instances\" != \"Memory utilization on ram module\" != \"CPU utilization on cpu module\" != \"LogSetConfigLevelsToWarning\" != \"HandleFibMgrNhResolve\"",
-          "queryType": "range"
-        }
-      ],
-      "gridPos": {
-        "x": 0,
-        "y": 35,
-        "w": 24,
-        "h": 10
-      },
-      "options": {
-        "showTime": true,
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "prettifyLogMessage": false,
-        "enableLogDetails": true,
-        "sortOrder": "Descending"
-      },
-      "description": "Curated network events for the selected devices. Raw Loki still contains all ingested SR Linux logs."
     }
   ],
   "schemaVersion": 41,
@@ -553,54 +444,6 @@
           "text": "All",
           "value": "$__all"
         }
-      },
-      {
-        "name": "af",
-        "label": "Address family",
-        "type": "custom",
-        "query": "IPv4 : ipv4,IPv6 : ipv6",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      },
-      {
-        "name": "probe_type",
-        "label": "Probe type",
-        "type": "custom",
-        "query": "ICMP : icmp,DNS : dns",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
-      },
-      {
-        "name": "device",
-        "label": "Log device",
-        "type": "custom",
-        "query": "edge01.bob1.reefnet.test,edge02.bob1.reefnet.test,edge01.bob1.oceanresearch.test,edge01.bob1.lagoontransit.test,edge01.bob1.pacifictransit.test",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "options": [],
-        "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        }
       }
     ]
   },
@@ -611,79 +454,70 @@
   "timezone": "browser",
   "title": "BOB1 / Telemetry Health",
   "uid": "reefnet-bob1-telemetry",
-  "version": 5,
+  "version": 7,
   "links": [
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Overview",
-      "tooltip": "",
       "type": "link",
+      "title": "Network Overview",
       "url": "/d/reefnet-bob1-overview"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Topology & Paths",
-      "tooltip": "",
       "type": "link",
-      "url": "/d/reefnet-bob1-topology"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": false,
-      "title": "Fault Analysis",
-      "tooltip": "",
-      "type": "link",
-      "url": "/d/reefnet-bob1-faults"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": false,
       "title": "Service Health",
-      "tooltip": "",
-      "type": "link",
       "url": "/d/reefnet-bob1-service"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Telemetry Health",
-      "tooltip": "",
       "type": "link",
-      "url": "/d/reefnet-bob1-telemetry"
+      "title": "BGP",
+      "url": "/d/reefnet-bob1-bgp"
     },
     {
       "asDropdown": false,
-      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
       "targetBlank": false,
-      "title": "Device Detail",
-      "tooltip": "",
       "type": "link",
+      "title": "OSPF",
+      "url": "/d/reefnet-bob1-ospf"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Devices & Interfaces",
       "url": "/d/reefnet-bob1-device"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Traffic & Capacity",
+      "url": "/d/reefnet-bob1-traffic"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Telemetry Health",
+      "url": "/d/reefnet-bob1-telemetry"
     }
   ],
   "refresh": "5s",

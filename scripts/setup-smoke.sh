@@ -101,7 +101,7 @@ prom_expect 'Topology includes Lagoon output discards' 'reefnet_link_out_discard
 cmd bash scripts/traffic.sh burst 75M
 prom_expect 'Overload increases actual Lagoon queue drops' 'increase(reefnet_qdisc_dropped_packets_total{source="edge01.bob1.lagoontransit.test",link_id="lagoon"}[30s]) > 0'
 
-step 'Prometheus · overview dashboard queries'
+step 'Prometheus · network dashboard queries'
 prom_expect 'Edge 01 BGP query returns data' 'reefnet_bgp_up_peers{source="edge01.bob1.reefnet.test"}'
 prom_expect 'Edge 02 BGP query returns data' 'reefnet_bgp_up_peers{source="edge02.bob1.reefnet.test"}'
 prom_expect 'Customer handoff traffic query returns data' 'reefnet_interface_in_bps{source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
@@ -135,21 +135,22 @@ docker exec clab-ai5049-ops01 sh -c 'curl -fsSG --data-urlencode "query=$1" http
 ui_ok 'Loki event counter returns a value'
 step 'Prometheus · active service probes'
 for _ in $(seq 1 20); do
-  if docker exec clab-ai5049-ops01 sh -c 'curl -fsS "http://clab-ai5049-prometheus:9090/api/v1/query?query=reefnet_probe_success" | jq -e ".data.result | length == 8"' >/dev/null 2>&1; then break; fi
+  if docker exec clab-ai5049-ops01 sh -c 'curl -fsS "http://clab-ai5049-prometheus:9090/api/v1/query?query=reefnet_probe_success" | jq -e ".data.result | length == 12"' >/dev/null 2>&1; then break; fi
   sleep 1
 done
-docker exec clab-ai5049-ops01 sh -c 'curl -fsS "http://clab-ai5049-prometheus:9090/api/v1/query?query=reefnet_probe_success" | jq -e ".data.result | length == 8"' >/dev/null
+docker exec clab-ai5049-ops01 sh -c 'curl -fsS "http://clab-ai5049-prometheus:9090/api/v1/query?query=reefnet_probe_success" | jq -e ".data.result | length == 12"' >/dev/null
 ui_ok 'Active service probes visible in Prometheus'
 
 step 'Grafana · ReefNet / BOB1 dashboards'
 grafana_ok=0
 for i in $(seq 1 20); do
   if curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-overview' >/dev/null 2>&1 \
-    && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-faults' >/dev/null 2>&1 \
+    && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-bgp' >/dev/null 2>&1 \
     && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-service' >/dev/null 2>&1 \
     && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-telemetry' >/dev/null 2>&1 \
     && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-device' >/dev/null 2>&1 \
-    && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' >/dev/null 2>&1; then
+    && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-ospf' >/dev/null 2>&1 \
+    && curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-traffic' >/dev/null 2>&1; then
     grafana_ok=1
     break
   fi
@@ -157,24 +158,17 @@ for i in $(seq 1 20); do
   sleep 1
 done
 [[ $grafana_ok == 1 ]]
-ui_ok 'All six ReefNet / BOB1 dashboards provisioned'
+ui_ok 'All seven ReefNet / BOB1 dashboards provisioned'
 
 step 'Grafana · dashboard auto refresh'
-for uid in reefnet-bob1-overview reefnet-bob1-topology reefnet-bob1-faults reefnet-bob1-service reefnet-bob1-telemetry reefnet-bob1-device; do
+for uid in reefnet-bob1-overview reefnet-bob1-traffic reefnet-bob1-bgp reefnet-bob1-service reefnet-bob1-telemetry reefnet-bob1-device reefnet-bob1-ospf; do
   curl -fsS "http://localhost:3000/api/dashboards/uid/$uid" | jq -e '.dashboard.refresh == "5s"' >/dev/null
 done
-ui_ok 'All six dashboards refresh every 5 seconds'
+ui_ok 'All seven dashboards refresh every 5 seconds'
 
-step 'Grafana · drilldown controls'
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-faults' | jq -e '.dashboard.templating.list | map(.name) | index("device") != null and index("interface") != null and index("probe_source") != null and index("quality") == null and index("bgp_view") != null' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-service' | jq -e '.dashboard.templating.list | map(.name) | index("probe_source") != null and index("af") != null and index("probe_type") != null' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-telemetry' | jq -e '.dashboard.templating.list | map(.name) | index("job") != null and index("device") != null' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels | any(.type == "canvas")' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels[] | select(.type == "canvas") | .options.root.elements as $e | ([ $e[] | select(.name == "ReefNet Edge 01") | .connections[] | select(.targetName == "ReefNet Edge 02") ] | length == 2) and ([ $e[] | .connections[]? | select(.targetName == "Core A" or .targetName == "Core B") ] | length == 0)' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-faults' | jq -e '.dashboard.panels | any(.title == "Selected interfaces / admin state") and any(.title == "Selected interfaces / oper state") and any(.title == "Ingress discards (last 5 min)") and any(.title == "Errors / 5m") and any(.title == "Egress discards (last 5 min)")' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-device' | jq -e '.dashboard.panels | any(.title == "Interface admin state") and any(.title == "Interface oper state")' >/dev/null
-curl -fsS 'http://localhost:3000/api/dashboards/uid/reefnet-bob1-topology' | jq -e '.dashboard.panels | any(.title == "Selected links / admin state") and any(.title == "Selected links / oper state") and any(.title == "Selected links / traffic by direction") and (any(.title == "Selected links · receive traffic") | not) and (any(.title == "Selected links · transmit traffic") | not) and any(.title == "Ingress discards (last 5 min)") and any(.title == "Errors / 5m") and any(.title == "Egress discards (last 5 min)") and (any(.title == "Physical link inventory · endpoints, interfaces and routing role") | not) and (any(.title == "ReefNet IPv4 route tables") | not) and (any(.title == "ReefNet IPv6 route tables") | not)' >/dev/null
-ui_ok 'Drilldowns, topology and interface-state views provisioned'
+step 'Grafana dashboards and panel queries'
+python3 scripts/check-dashboards.py --live
+ui_ok 'Dashboard navigation, provisioning and live queries'
 step 'Restore healthy baseline'
 bash scripts/healthy.sh >/dev/null 2>&1 || true; bash scripts/traffic.sh stop >/dev/null 2>&1 || true
 cmd bash scripts/wait-healthy.sh

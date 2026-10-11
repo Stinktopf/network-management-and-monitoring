@@ -50,6 +50,28 @@ for filename, expected_asn in expected_local_as.items():
     require(local == {expected_asn}, f"{filename} local ASN {sorted(local)} != {expected_asn}")
     require(peers == expected_peer_as[filename], f"{filename} peer ASNs {sorted(peers)} != {sorted(expected_peer_as[filename])}")
 
+# Both iBGP families must remain independent of either physical core link.
+for node, peer in (("edge01", "edge02"), ("edge02", "edge01")):
+    text = (ROOT / "configs" / "srl" / f"{node}.cfg").read_text()
+    for family, instance, version in ((4, "default", "ospf-v2"), (6, "ipv6", "ospf-v3")):
+        address = MODEL["nodes"][node][f"loopback_ipv{family}"]
+        peer_address = MODEL["nodes"][peer][f"loopback_ipv{family}"].split("/")[0]
+        require(f"interface system0 subinterface 0 ipv{family} address {address}" in text,
+                f"{node} IPv{family} loopback differs from model")
+        require(f"bgp neighbor {peer_address} transport local-address {address.split('/')[0]}" in text,
+                f"{node} IPv{family} iBGP must use loopbacks")
+        base = f"protocols ospf instance {instance}"
+        require(f"{base} version {version}" in text, f"{node} missing {version}")
+        if family == 6:
+            require(f"{base} address-family ipv6-unicast" in text, f"{node} OSPFv3 needs IPv6")
+        for link_name in ("core-a", "core-b"):
+            link = MODEL["links"][link_name]
+            interface = next(iface for device, iface in (link["a"], link["z"]) if device == node)
+            require(f"{base} area 0.0.0.0 interface {interface}.0 admin-state enable" in text,
+                    f"{node} {version} missing {link_name}")
+        require(f"{base} area 0.0.0.0 interface system0.0 admin-state enable" in text,
+                f"{node} {version} must advertise its loopback")
+
 # Containerlab node identity and physical links must match the canonical model.
 topology = (ROOT / "lab.clab.yml").read_text()
 for node, data in MODEL["nodes"].items():
@@ -69,21 +91,20 @@ for link_id, link in MODEL["links"].items():
     require(forward in topology or reverse in topology, f"lab.clab.yml link {link_id} does not match {a} <-> {z}")
 
 # Grafana topology labels must use the same routing domains as the routers and NetBox.
-dash_path = ROOT / "configs" / "grafana" / "dashboards" / "05-topology-paths.json"
+dash_path = ROOT / "configs" / "grafana" / "dashboards" / "00-network-overview.json"
 dash = json.loads(dash_path.read_text())
 canvas = next((p for p in dash.get("panels", []) if p.get("type") == "canvas"), None)
-require(canvas is not None, "topology dashboard has no Canvas panel")
-elements = {e.get("name"): e for e in canvas["options"]["root"]["elements"]}
-expected_labels = {
-    "ReefNet Edge 01": f"ReefNet Edge 01\nAS{asns['reefnet']}",
-    "ReefNet Edge 02": f"ReefNet Edge 02\nAS{asns['reefnet']}",
-    "Ocean Research": f"Ocean Research\nAS{asns['oceanresearch']}",
-    "Lagoon Transit": f"Lagoon Transit\nAS{asns['lagoontransit']}",
-    "Pacific Transit": f"Pacific Transit\nAS{asns['pacifictransit']}",
-}
-for name, expected in expected_labels.items():
-    actual = elements.get(name, {}).get("config", {}).get("text", {}).get("fixed")
-    require(actual == expected, f"Grafana label {name!r} is {actual!r}, expected {expected!r}")
+require(canvas is not None, "overview has no live network map")
+queries = " ".join(t["expr"] for t in canvas["targets"])
+svg = (ROOT / "configs/grafana/assets/reefnet-topology.svg").read_text()
+for host in ("host01", "host02", "svc01"):
+    require(MODEL["nodes"][host]["fqdn"] in svg, f"Grafana topology is missing {host}")
+for node in ("edge01", "edge02", "cust01", "transit01", "transit02"):
+    data = MODEL["nodes"][node]
+    require(data["fqdn"] in queries, f"Topology is missing {node}")
+    require(f'AS{data["asn"]}' in svg, f"Topology AS mismatch for {node}")
+for link in ("customer", "lagoon", "pacific", "core-a", "core-b"):
+    require(f'link_id="{link}"' in queries, f"Topology is missing link {link}")
 
 # NetBox bootstrap must store capacity in structured fields rather than prose.
 bootstrap = (ROOT / "tools" / "netbox_bootstrap.py").read_text()

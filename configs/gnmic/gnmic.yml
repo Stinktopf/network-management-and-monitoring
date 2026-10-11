@@ -8,10 +8,10 @@ encoding: json_ietf
 targets:
   edge01.bob1.reefnet.test:
     address: 172.20.20.11:57400
-    subscriptions: [interfaces, bgp]
+    subscriptions: [interfaces, bgp, ospf]
   edge02.bob1.reefnet.test:
     address: 172.20.20.12:57400
-    subscriptions: [interfaces, bgp]
+    subscriptions: [interfaces, bgp, ospf]
   edge01.bob1.oceanresearch.test:
     address: 172.20.20.21:57400
     subscriptions: [interfaces, bgp]
@@ -37,6 +37,18 @@ subscriptions:
     paths:
       - /network-instance[name=default]/protocols/bgp/statistics
       - /network-instance[name=default]/protocols/bgp/neighbor[peer-address=*]/session-state
+      - /network-instance[name=default]/protocols/bgp/neighbor[peer-address=*]/received-messages/total-updates
+      - /network-instance[name=default]/protocols/bgp/neighbor[peer-address=*]/sent-messages/total-updates
+    mode: stream
+    stream-mode: sample
+    sample-interval: 2s
+
+  ospf:
+    paths:
+      - /network-instance[name=default]/protocols/ospf/instance[name=*]/area[area-id=*]/interface[interface-name=*]/neighbor[router-id=*]/adjacency-state
+      - /network-instance[name=default]/protocols/ospf/instance[name=*]/area[area-id=*]/interface[interface-name=*]/neighbor[router-id=*]/state-changes
+      - /network-instance[name=default]/protocols/ospf/instance[name=*]/area[area-id=*]/interface[interface-name=*]/neighbor-count
+      - /network-instance[name=default]/protocols/ospf/instance[name=*]/area[area-id=*]/full-spf-runs
     mode: stream
     stream-mode: sample
     sample-interval: 2s

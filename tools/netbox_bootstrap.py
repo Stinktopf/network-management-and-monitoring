@@ -328,6 +328,7 @@ def main():
       ("2001:db8:b::/64", "external-handoff", "transit02", "Pacific Transit probe LAN IPv6"),
       ("172.20.20.0/24", "management", "provider", "Containerlab management network"),
       ("10.255.0.0/24", "loopback", "provider", "ReefNet edge loopbacks"),
+      ("2001:db8:ffff::/64", "loopback", "provider", "ReefNet edge loopbacks IPv6"),
       ("10.255.10.0/24", "loopback", "customer", "Bora Bora Ocean Research loopbacks"),
       ("10.255.100.0/24", "loopback", "transit01", "Lagoon Transit loopbacks"),
       ("10.255.200.0/24", "loopback", "transit02", "Pacific Transit loopbacks"),
@@ -357,6 +358,7 @@ def main():
       ("host02", "eth1", "203.0.113.138/25", "probe01.bob1.pacifictransit.test"), ("host02", "eth1", "2001:db8:b::10/64", "probe01.bob1.pacifictransit.test"),
       ("svc01", "eth1", "198.51.100.10/24", "data.oceanresearch.test"), ("svc01", "eth1", "2001:db8:100::10/48", "data.oceanresearch.test"),
       ("edge01", "system0", "10.255.0.1/32", "edge01.bob1.reefnet.test"), ("edge02", "system0", "10.255.0.2/32", "edge02.bob1.reefnet.test"),
+      ("edge01", "system0", "2001:db8:ffff::1/128", "edge01.bob1.reefnet.test"), ("edge02", "system0", "2001:db8:ffff::2/128", "edge02.bob1.reefnet.test"),
       ("cust01", "system0", "10.255.10.1/32", "edge01.bob1.oceanresearch.test"), ("transit01", "system0", "10.255.100.1/32", "edge01.bob1.lagoontransit.test"),
       ("transit02", "system0", "10.255.200.1/32", "edge01.bob1.pacifictransit.test"),
     ]
