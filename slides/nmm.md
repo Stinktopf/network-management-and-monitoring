@@ -1,5 +1,4 @@
 ---
-
 marp: true
 theme: default
 paginate: true
@@ -102,7 +101,6 @@ style: |
   section .terminal-label { margin:0 0 6px; font-size:21px; font-weight:700; }
   section .terminal pre { margin:0; padding:12px 16px; }
 ---
-
 <!-- _class: title core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -116,11 +114,7 @@ style: |
 
 Lucas Immanuel Nickel
 
-Fulda University of Applied Sciences  
-Network Operations Engineer @ DE-CIX
-
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -133,7 +127,6 @@ Lucas Immanuel Nickel
 - M.Sc. Applied Computer Science, research stay at the University of Toronto
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -144,7 +137,6 @@ Find faults. Make safe changes. Measure the service.
 Use that experience to investigate one network-management question.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -155,7 +147,6 @@ ISP backbones, transit, peering and IXPs.
 We study how operators keep these networks working.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -171,7 +162,6 @@ Short demos, then time to try it yourself.
 Use the university lab PCs with Containerlab preinstalled.
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -181,7 +171,6 @@ Use the university lab PCs with Containerlab preinstalled.
 
 
 ---
-
 <!-- _class: content schedule core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -199,7 +188,6 @@ Friday sessions: **13:45–18:45**
 | 5 February 2027 | Presentations and reproducibility |
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -210,7 +198,6 @@ Short input together, then project work and individual support.
 Bring your code, data, draft and current blocker.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://conferences.ieeeauthorcenter.ieee.org/write-your-paper/authoring-tools-and-templates/\">IEEE paper templates</a></span>" -->
 
@@ -228,7 +215,6 @@ Group choice: **12 Oct, 13:45 → 27 Nov, 23:59**.
 Nominate one contact person.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -247,7 +233,6 @@ Substantial, documented contribution differences may lead to individual grades.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -265,7 +250,6 @@ Point to the work so the contribution can be checked.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -281,7 +265,6 @@ The paper makes the argument. The **artifact** lets me check it.
 Public repository: optional. Access for the examiner: required.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -299,7 +282,6 @@ A result against your hypothesis is still a result.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -316,7 +298,6 @@ You are responsible for the references, code and technical claims.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -331,7 +312,6 @@ You are responsible for the references, code and technical claims.
 | 12 February 2027, 23:59 | Paper, artifact, declaration → Moodle |
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -348,7 +328,6 @@ Work independently. **No AI or other aids.**
 For recognized accommodations, contact the lecturer early.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -364,7 +343,6 @@ A qualifying review covers four things:
 I record the four criteria and my reasons.
 
 ---
-
 <!-- _class: day core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -375,7 +353,6 @@ I record the four criteria and my reasons.
 One network carries the technical block.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -386,7 +363,6 @@ ReefNet connects **Ocean Research** through two upstreams.
 ![width:1040px](assets/diagrams/reefnet-overview.svg)
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -400,7 +376,6 @@ ReefNet connects **Ocean Research** through two upstreams.
 | External probe | Does the service work? |
 
 ---
-
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -409,7 +384,6 @@ ReefNet connects **Ocean Research** through two upstreams.
 How does this network actually work?
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -424,7 +398,6 @@ What must work before the application can return a response?
 <nav class="progress" aria-label="Module progress"><span class="active">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -437,7 +410,6 @@ Each layer carries data for the layer above it.
 <nav class="progress" aria-label="Module progress"><span class="active">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc1034.html\">DNS: RFC 1034</a></span>" -->
 
@@ -451,7 +423,6 @@ Each layer carries data for the layer above it.
 <nav class="progress" aria-label="Module progress"><span class="active">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -464,7 +435,6 @@ This query uses UDP. DNS also supports TCP.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc9293.html\">TCP: RFC 9293</a><a href=\"https://www.rfc-editor.org/rfc/rfc768.html\">UDP: RFC 768</a></span>" -->
 
@@ -482,7 +452,6 @@ An IP address + port identifies the transport endpoint.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -495,7 +464,6 @@ TCP orders bytes, retransmits loss and controls congestion.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc791.html\">IPv4: RFC 791</a><a href=\"https://www.rfc-editor.org/rfc/rfc8200.html\">IPv6: RFC 8200</a></span>" -->
 
@@ -509,7 +477,6 @@ Routers use the **destination address** to look up where to forward the packet.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -523,22 +490,6 @@ It sends directly to an **on-link destination**, otherwise via a **gateway**.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Same subnet: what crosses the switch?
-
-![width:1040px](assets/diagrams/local-ip-ethernet.svg)
-
-**IP identifies the destination. Ethernet carries the packet across the local link.**
-
-Remote destination: use the **gateway’s MAC**, but keep the **remote destination IP**.
-
-<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
-
----
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc1812.html#section-5.2.4.3\">Longest prefix match: RFC 1812</a></span>" -->
 
@@ -557,7 +508,6 @@ Destination: **198.51.100.200**. Example Forwarding Information Base (FIB):
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -565,47 +515,17 @@ Destination: **198.51.100.200**. Example Forwarding Information Base (FIB):
 
 ![width:1040px](assets/diagrams/ethernet-frame.svg)
 
-A frame belongs to one link. Its **Frame Check Sequence (FCS)** detects corruption.
+An Ethernet frame uses **MAC addresses for this link**.
+The IP packet still names the final destination.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
----
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Bits need a physical link.
-
-| Medium | Signal | Fault evidence |
-|---|---|---|
-| Copper | Electrical | Link loss, FCS errors |
-| Fiber | Light | Low receive power, FCS errors |
-
-Rising **FCS errors** can reveal a degraded link even while it stays up.
-
-BOB1 has virtual links. Optical diagnostics need physical equipment.
-
-<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# A switch forwards frames by MAC address
-
-![width:1040px](assets/diagrams/switch-forwarding.svg)
-
-A **MAC address** identifies an Ethernet interface on the local link.
-
-<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
-
----
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc826.html\">ARP: RFC 826</a><a href=\"https://www.rfc-editor.org/rfc/rfc4861.html\">ND: RFC 4861</a></span>" -->
 
-# Resolve the next hop.
+# Find the next-hop MAC
 
 ![width:1040px](assets/diagrams/neighbor-resolution.svg)
 
@@ -617,18 +537,18 @@ A **MAC address** identifies an Ethernet interface on the local link.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
-<!-- _class: visual lab -->
+<!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Remote IP, local MAC
+# Switches learn MAC addresses and forward frames
 
-![width:1040px](assets/diagrams/hop-encapsulation.svg)
+![width:1040px](assets/diagrams/switch-forwarding.svg)
+
+An IPv4 ARP request is broadcast. The switch floods it while learning the sender’s MAC.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -636,12 +556,12 @@ A **MAC address** identifies an Ethernet interface on the local link.
 
 ![width:1040px](assets/diagrams/router-forwarding.svg)
 
-Each router looks up the next hop and decreases TTL / Hop Limit.
+Each router looks up the next hop, builds a **new frame** and decreases TTL / Hop Limit.
+The packet keeps its **destination IP**. The link-layer MAC addresses change.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -664,7 +584,6 @@ Use the running Networking lab. Leave a Linux node with `exit`, a router with `q
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -678,7 +597,6 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc2453.html\">RIP: RFC 2453</a><a href=\"https://www.rfc-editor.org/rfc/rfc2328.html\">OSPF: RFC 2328</a></span>" -->
 
@@ -694,7 +612,6 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc2328.html\">OSPFv2: RFC 2328</a><a href=\"https://www.rfc-editor.org/rfc/rfc5340.html\">OSPFv3: RFC 5340</a></span>" -->
 
@@ -717,7 +634,6 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc4271.html\">BGP: RFC 4271</a></span>" -->
 
@@ -740,7 +656,6 @@ show network-instance default protocols bgp routes ipv4 summary</code></pre>
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc4760.html\">Multiprotocol BGP: RFC 4760</a></span>" -->
 
@@ -759,7 +674,6 @@ show network-instance default protocols bgp routes ipv4 summary</code></pre>
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -782,7 +696,6 @@ A longer path can be selected on purpose.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -799,7 +712,6 @@ Export policy determines the actual routes exchanged.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -812,7 +724,6 @@ BOB1 uses documentation prefixes. Its service is not on the public Internet.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -825,7 +736,6 @@ Reachability needs both directions. Paths may be asymmetric.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc792.html\">ICMP: RFC 792</a><a href=\"https://www.rfc-editor.org/rfc/rfc4443.html\">ICMPv6: RFC 4443</a></span>" -->
 
@@ -843,7 +753,6 @@ A ping reply proves IP reachability, not application health.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -857,7 +766,22 @@ A missing reply does not identify the failed forwarding hop.
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
 ---
+<!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# Even a correct path needs healthy links
+
+| Medium | Signal | Fault evidence |
+|---|---|---|
+| Copper | Electrical | Link loss, FCS errors |
+| Fiber | Light | Low receive power, FCS errors |
+
+A path may be correctly routed and still fail on a degraded link.
+Rising **FCS errors** can be evidence even while the link stays up.
+
+<nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
+
+---
 <!-- _class: content task -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -881,7 +805,6 @@ Then try Pacific and IPv6.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -896,7 +819,6 @@ Bring one result you can explain and one question that is still open.
 
 
 ---
-
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -907,7 +829,6 @@ The service is broken.
 What happened, and how do we restore it safely?
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -918,7 +839,6 @@ What happened, and how do we restore it safely?
 <nav class="progress" aria-label="Module progress"><span class="active">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -931,7 +851,6 @@ Record the source, address family, protocol and time.
 <nav class="progress" aria-label="Module progress"><span class="active">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -954,7 +873,6 @@ Repeat both tests. Which path and address family fail?
 
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -967,7 +885,6 @@ Keep the service and test method fixed. Vary the viewpoint.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="active">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -981,7 +898,6 @@ Verify the service from the customer's viewpoint.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1002,7 +918,6 @@ Verify the service from the customer's viewpoint.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1022,7 +937,6 @@ A route in BGP is not yet proof of forwarding.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1039,7 +953,6 @@ A route in BGP is not yet proof of forwarding.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1064,7 +977,6 @@ Find `198.51.100.0/24`.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content task -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1085,7 +997,6 @@ Keep your commands and evidence. We compare diagnoses before repairing.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1103,7 +1014,6 @@ What is attached only to IPv4?
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://documentation.nokia.com/srlinux/25-7/books/system-mgmt/cli-interface.html\">SR Linux CLI guide</a></span>" -->
 
@@ -1123,7 +1033,6 @@ The group inherits `EXPORT-BGP`. Leave the other paths unchanged.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="active">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://curl.se/docs/manpage.html#--fail\">curl: HTTP checks</a></span>" -->
 
@@ -1149,7 +1058,6 @@ Repeat both HTTP checks. Return with `exit`, then run `make test`.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1166,7 +1074,6 @@ For example:
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1186,7 +1093,6 @@ Record unknown times as **unknown**.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1203,7 +1109,6 @@ Our repair touched several areas at once.
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1220,7 +1125,6 @@ Use your notes to repeat the investigation.
 
 
 ---
-
 <!-- _class: day core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1236,7 +1140,6 @@ Today we need to make the same class of change
 At the end of today: **Who Broke the Internet?**
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1252,7 +1155,6 @@ You can begin even if you did not finish Operations.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1265,7 +1167,6 @@ YANG, NETCONF and gNMI support this workflow.
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1281,11 +1182,10 @@ YANG, NETCONF and gNMI support this workflow.
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# The change contract
+# The ReefNet change contract
 
 Target: **ReefNet Edge 01**, BGP group `lagoon-v4`.
 
@@ -1301,7 +1201,6 @@ Which facts need a fresh read from the router?
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1318,7 +1217,6 @@ A correct policy on the wrong group still fails the intent.
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1326,10 +1224,9 @@ A correct policy on the wrong group still fails the intent.
 
 ![width:1040px](assets/diagrams/inventory-relationships.svg)
 
-<nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://netbox.readthedocs.io/en/stable/integrations/rest-api/\">NetBox REST API</a></span>" -->
 
@@ -1351,7 +1248,6 @@ Expect one device. Keep the token private.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://netbox.readthedocs.io/en/stable/integrations/rest-api/\">NetBox REST API</a></span>" -->
 
@@ -1373,7 +1269,6 @@ Compare circuit intent with live router state.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1393,7 +1288,6 @@ Join these objects into one approved change input.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1407,7 +1301,6 @@ Check those before reconciling.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.youtube.com/watch?v=k1TMAgNROh8\">DE-CIX: automation in practice</a></span>" -->
 
@@ -1425,7 +1318,6 @@ Stop publication or use an approved, age-limited fallback.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1449,7 +1341,215 @@ Also keep the current state needed for backout.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
+<!-- _class: chapter core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# Choose the automation mechanism.
+
+| Layer | Examples |
+|---|---|
+| CLI automation | Netmiko |
+| Data models | YANG, OpenConfig |
+| Model-driven protocols | NETCONF, gNMI |
+
+The same preconditions, service checks and recovery contract still apply.
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/ktbyers/netmiko\">Netmiko documentation</a></span>" -->
+
+# Netmiko: automate the CLI you already know
+
+Illustrative SSH read on SR Linux:
+
+```python
+from netmiko import ConnectHandler
+
+with ConnectHandler(**device) as conn:
+    output = conn.send_command("show interface")
+```
+
+Netmiko handles the session. You interpret the result.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# A prompt is not a postcheck.
+
+Illustrative CLI error:
+
+```text
+router(config)# interface does-not-exist
+% Invalid interface
+router#
+```
+
+The session survived. The command did not.
+Read back state and check the service.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7950.html\">YANG: RFC 7950</a></span>" -->
+
+# YANG describes management data.
+
+![width:1040px](assets/diagrams/yang-tree.svg)
+
+The model constrains data. The change contract constrains behavior.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# YANG keys and constraints
+
+```yang
+list interface {
+  key "name";
+  leaf name { type string; }
+  leaf enabled { type boolean; default true; }
+  leaf mtu { type uint16 { range "1280..9216"; } }
+}
+```
+
+A module contains this fragment. The MTU range is illustrative.
+
+A list key must name an existing child leaf.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8342.html\">Datastores: RFC 8342</a></span>" -->
+
+# Enabled, but no carrier
+
+| View | Interface fact |
+|---|---|
+| Configuration | Interface is enabled |
+| Observed state | Carrier is down |
+
+Configuration and observed state answer different questions.
+
+Check the physical link and the peer before changing the configuration.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://openconfig.net/projects/models/\">OpenConfig models</a></span>" -->
+
+# OpenConfig
+
+Vendor-neutral YANG models for interfaces, routing and telemetry.
+
+A common model does not guarantee identical device support.
+**Check supported paths and operations.**
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html\">NETCONF: RFC 6241</a></span>" -->
+
+# NETCONF edits a datastore.
+
+With a supported candidate datastore:
+
+1. Lock, edit and validate.
+2. Commit.
+3. Verify the service independently.
+4. Unlock and record.
+
+Check the advertised capabilities.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Read the NETCONF error.
+
+```xml
+<rpc-error>
+  <error-type>application</error-type>
+  <error-tag>invalid-value</error-tag>
+  <error-severity>error</error-severity>
+</rpc-error>
+```
+
+Inspect the tag, path, message and datastore state after failure.
+Then decide whether a retry is safe.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: visual deep-dive -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html#section-8.4\">Confirmed commit: RFC 6241</a></span>" -->
+
+# Confirmed commit
+
+![width:1040px](assets/diagrams/confirmed-commit-branches.svg)
+
+Who confirms if automation loses contact? Test the revert path.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\">gNMI specification</a></span>" -->
+
+# gNMI defines four RPCs.
+
+**RPC = remote procedure call**
+
+![width:1040px](assets/diagrams/gnmi-operations.svg)
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Read a gNMI path
+
+```text
+/interface[name=ethernet-1/1]/statistics
+```
+
+- `name=ethernet-1/1` selects one interface.
+- `statistics` selects its subtree.
+- The **target** identifies the router.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#34-set\">gNMI Set specification</a></span>" -->
+
+# gNMI Set
+
+One request, one target, one transaction.
+
+| Result | Target behavior |
+|---|---|
+| Success | Apply all requested changes |
+| Failure | Restore the pre-request state |
+| Timeout | Outcome unknown to the client |
+
+Read back after a timeout. Verify the service after a change.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1461,10 +1561,9 @@ Also keep the current state needed for backout.
 
 A CLI precheck is useful, but it cannot make the later write atomic.
 
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1480,7 +1579,6 @@ A CLI precheck is useful, but it cannot make the later write atomic.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1497,7 +1595,6 @@ The group inherits `EXPORT-BGP`. Reject unrelated changes.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1508,7 +1605,6 @@ The group inherits `EXPORT-BGP`. Reject unrelated changes.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1521,7 +1617,6 @@ Passing a static model check cannot prove target API behavior.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1534,24 +1629,105 @@ Passing a static model check cannot prove target API behavior.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Define success before the change
+# Plan the repair verification
 
-| Check | This repair |
+| Check | Expected |
 |---|---|
-| Precondition | `lagoon-v4` still uses `BLOCK-CUSTOMER-V4` |
-| Postcondition | Customer IPv4 export and probes recover |
-| Invariant | Lagoon IPv6 and Pacific remain healthy |
+| Lagoon: `198.51.100.0/24` | Export restored |
+| Lagoon: `2001:db8:100::/48` | Still exported |
+| Pacific IPv4 path | Still healthy |
+| Both probes, both families | Service responds |
 
-Read routes locally. Test the service from outside.
+Read back the route export. Test service delivery from both external probes.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
+<!-- _class: task core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# Review a change plan
+
+Eight minutes in groups of 3–4.
+
+| Aspect | Proposed plan |
+|---|---|
+| Input | Yesterday’s inventory |
+| Validation | Syntax only |
+| Rollout | All routers at once |
+| Success | Exit code 0 |
+| Recovery | Rerun the change |
+
+Agree on **two improvements** and their acceptance checks.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content task -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/\">gNMIc documentation</a></span>" -->
+
+# Repair it through gNMI
+
+Find ReefNet Edge 01 in NetBox. Read its configuration and justify a change.
+
+In WSL:
+```bash
+make automation
+make task
+```
+
+**60 minutes:** repair through gNMI and verify the service from both probes.
+Use `make hint` for investigation commands.
+
+[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
+
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/cmd/set/\">gNMIc Set documentation</a></span>" -->
+
+# Did the API repair the service?
+
+<div class="terminal">
+<div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
+<div class="terminal-label">Inside operations01, after verifying the policy</div>
+<pre><code>BGP_PATH=&#x27;/network-instance[name=default]/protocols/bgp&#x27;
+POLICY_PATH=&quot;$BGP_PATH/group[group-name=lagoon-v4]/export-policy&quot;
+gnmic -a edge01.bob1.reefnet.test:57400 \
+  -u admin -p &#x27;NokiaSrl1!&#x27; --skip-verify --encoding json_ietf \
+  set --delete &quot;$POLICY_PATH&quot;</code></pre>
+</div>
+
+Read back the group. Check Lagoon’s route and HTTP from both probes.
+
+
+---
+<!-- _class: joke core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Job success is not service success.
+
+**Exit code:** 0
+
+**Probe:** timeout
+
+Read back state and test the service before declaring recovery.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="active">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: chapter core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Beyond one router: execute and recover
+
+
+What happens when a change spans multiple routers or a write has an unknown outcome?
+
+---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1563,10 +1739,9 @@ Read routes locally. Test the service from outside.
 
 Set a stop time. Keep the backout path reachable.
 
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1583,17 +1758,6 @@ Load credentials at runtime. Record the actor, never secrets.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
-<!-- _class: chapter core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Execute and recover
-
-
-**What happens when the write only partly succeeds, or we cannot tell?**
-
----
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1606,7 +1770,6 @@ More concurrency increases throughput and blast radius.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1619,7 +1782,6 @@ Record an unknown outcome explicitly in the audit trail.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1635,7 +1797,6 @@ A retry still needs a fresh read and service verification.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1648,7 +1809,6 @@ Which device needs a fresh read before any retry?
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1661,75 +1821,6 @@ Idempotence alone does not prove convergence.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-
-<!-- _class: joke core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Job success is not service success.
-
-**Exit code:** 0
-
-**Probe:** timeout
-
-Read back state and test the service before declaring recovery.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="active">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: chapter core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Test the intended behavior
-
-The device accepted the change.
-
-That only answers:
-
-> "Was the write accepted?"
-
-Now test what should pass, what should fail, and what must remain unchanged.
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Plan the repair verification
-
-| Check | Expected |
-|---|---|
-| Lagoon: `198.51.100.0/24` | Export restored |
-| Lagoon: `2001:db8:100::/48` | Still exported |
-| Pacific IPv4 path | Still healthy |
-| Both probes, both families | Service responds |
-
-Use this matrix to design the independent postchecks.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="active">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6811.html\">ROV: RFC 6811</a></span>" -->
-
-# Test rejected routes too.
-
-**Route Origin Validation (ROV)** checks RPKI origin authorizations.
-
-| Result | Meaning |
-|---|---|
-| Valid | Origin and prefix length permitted |
-| Invalid | Covered, but not authorized |
-| NotFound | No covering authorization |
-
-Policy decides the action. Test both acceptance and rejection.
-This example is outside BOB1.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="active">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1743,7 +1834,6 @@ Assign an owner to the full recovery procedure.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1760,7 +1850,6 @@ Keep identity, time, version and checksum outside the device.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1782,7 +1871,6 @@ Keep timestamps and before/after evidence. Exclude credentials.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1798,7 +1886,6 @@ The next shift must be able to run it.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -1811,7 +1898,6 @@ Approval applies to a specific code revision and input snapshot.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://opengitops.dev/\">OpenGitOps principles</a></span>" -->
 
@@ -1822,291 +1908,6 @@ Approval applies to a specific code revision and input snapshot.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
-<!-- _class: chapter core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Choose the automation mechanism.
-
-| Layer | Examples |
-|---|---|
-| CLI automation | Netmiko |
-| Data models | YANG, OpenConfig |
-| Model-driven protocols | NETCONF, gNMI |
-
-The same preconditions, service checks and recovery contract still apply.
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/ktbyers/netmiko\">Netmiko documentation</a></span>" -->
-
-# Netmiko: automate the CLI you already know
-
-Illustrative SSH read on SR Linux:
-
-```python
-from netmiko import ConnectHandler
-
-with ConnectHandler(**device) as conn:
-    output = conn.send_command("show interface")
-```
-
-Netmiko handles the session. You interpret the result.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# A prompt is not a postcheck.
-
-Illustrative CLI error:
-
-```text
-router(config)# interface does-not-exist
-% Invalid interface
-router#
-```
-
-The session survived. The command did not.
-Read back state and check the service.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7950.html\">YANG: RFC 7950</a></span>" -->
-
-# YANG describes management data.
-
-![width:1040px](assets/diagrams/yang-tree.svg)
-
-The model constrains data. The change contract constrains behavior.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# YANG keys and constraints
-
-```yang
-list interface {
-  key "name";
-  leaf name { type string; }
-  leaf enabled { type boolean; default true; }
-  leaf mtu { type uint16 { range "1280..9216"; } }
-}
-```
-
-A module contains this fragment. The MTU range is illustrative.
-
-A list key must name an existing child leaf.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8342.html\">Datastores: RFC 8342</a></span>" -->
-
-# Enabled, but no carrier
-
-| View | Interface fact |
-|---|---|
-| Configuration | Interface is enabled |
-| Observed state | Carrier is down |
-
-Configuration and observed state answer different questions.
-
-Check the physical link and the peer before changing the configuration.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://openconfig.net/projects/models/\">OpenConfig models</a></span>" -->
-
-# OpenConfig
-
-Vendor-neutral YANG models for interfaces, routing and telemetry.
-
-A common model does not guarantee identical device support.
-**Check supported paths and operations.**
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html\">NETCONF: RFC 6241</a></span>" -->
-
-# NETCONF edits a datastore.
-
-With a supported candidate datastore:
-
-1. Lock, edit and validate.
-2. Commit.
-3. Verify the service independently.
-4. Unlock and record.
-
-Check the advertised capabilities.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Read the NETCONF error.
-
-```xml
-<rpc-error>
-  <error-type>application</error-type>
-  <error-tag>invalid-value</error-tag>
-  <error-severity>error</error-severity>
-</rpc-error>
-```
-
-Inspect the tag, path, message and datastore state after failure.
-Then decide whether a retry is safe.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html#section-8.4\">Confirmed commit: RFC 6241</a></span>" -->
-
-# Confirmed commit
-
-![width:1040px](assets/diagrams/confirmed-commit-branches.svg)
-
-Who confirms if automation loses contact? Test the revert path.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\">gNMI specification</a></span>" -->
-
-# gNMI defines four RPCs.
-
-**RPC = remote procedure call**
-
-![width:1040px](assets/diagrams/gnmi-operations.svg)
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Read a gNMI path
-
-```text
-/interface[name=ethernet-1/1]/statistics
-```
-
-- `name=ethernet-1/1` selects one interface.
-- `statistics` selects its subtree.
-- The **target** identifies the router.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: task core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Review a change plan
-
-Eight minutes in groups of 3–4.
-
-| Aspect | Proposed plan |
-|---|---|
-| Input | Yesterday’s inventory |
-| Validation | Syntax only |
-| Rollout | All routers at once |
-| Success | Exit code 0 |
-| Recovery | Rerun the change |
-
-Agree on **two improvements** and their acceptance checks.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#34-set\">gNMI Set specification</a></span>" -->
-
-# gNMI Set
-
-One request, one target, one transaction.
-
-| Result | Target behavior |
-|---|---|
-| Success | Apply all requested changes |
-| Failure | Restore the pre-request state |
-| Timeout | Outcome unknown to the client |
-
-Read back after a timeout. Verify the service after a change.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-
-<!-- _class: content task -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/\">gNMIc documentation</a></span>" -->
-
-# Repair it through gNMI
-
-Find ReefNet Edge 01 in NetBox. Read its configuration and justify a change.
-
-In WSL:
-```bash
-make automation
-make task
-```
-
-**60 minutes:** repair through gNMI and verify the service from both probes.
-Use `make hint` for investigation commands.
-
-[Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
-
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/cmd/set/\">gNMIc Set documentation</a></span>" -->
-
-# Did the API repair the service?
-
-<div class="terminal">
-<div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
-<div class="terminal-label">Inside operations01, after verifying the policy</div>
-<pre><code>BGP_PATH=&#x27;/network-instance[name=default]/protocols/bgp&#x27;
-POLICY_PATH=&quot;$BGP_PATH/group[group-name=lagoon-v4]/export-policy&quot;
-gnmic -a edge01.bob1.reefnet.test:57400 \
-  -u admin -p &#x27;NokiaSrl1!&#x27; --skip-verify --encoding json_ietf \
-  set --delete &quot;$POLICY_PATH&quot;</code></pre>
-</div>
-
-Read back the group. Check Lagoon’s route and HTTP from both probes.
-
-
----
-
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2125,7 +1926,6 @@ Restart the exercise later with `make automation`.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-
 <!-- _class: chapter deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2138,7 +1938,6 @@ Which safeguard would have changed the outcome?
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2155,7 +1954,6 @@ For each case:
 We are studying mechanisms, not awarding blame.
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/\">Meta outage report (2021)</a> <a href=\"https://blog.cloudflare.com/october-2021-facebook-outage/\">Observed impact</a></span>" -->
 
@@ -2170,7 +1968,6 @@ We are studying mechanisms, not awarding blame.
 **Facebook, Instagram and WhatsApp went offline.**
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/\">Meta report</a><a href=\"https://www.rfc-editor.org/rfc/rfc1958.html#section-3.11\">RFC 1958 §3.11</a></span>" -->
 
@@ -2184,7 +1981,6 @@ They restored the backbone, then brought services back under controlled load.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2198,7 +1994,6 @@ They restored the backbone, then brought services back under controlled load.
 Check shared dependencies: **power, fiber, DNS and authentication**.
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://ftp.opengear.com/download/documentation/manual/previous%20versions/om_user_guide_24.11/Content/Configure_Serial_Ports.htm\">Opengear: serial ports</a></span>" -->
 
@@ -2213,7 +2008,6 @@ A **console server** provides remote serial access.
 Serial bypasses IP forwarding, but still needs power.
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2226,7 +2020,6 @@ This production recovery path is not emulated by BOB1.
 Test login and repair while the production path is unavailable.
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2237,7 +2030,6 @@ Test login and repair while the production path is unavailable.
 Exercise: AAA uses the failed backbone. Which fallback must exist?
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2254,7 +2046,6 @@ Exercise: AAA uses the failed backbone. Which fallback must exist?
 Test that the emergency account can make the repair.
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://docs.equinix.com/smart-hands/\">Equinix Smart Hands</a></span>" -->
 
@@ -2274,7 +2065,6 @@ For vendor escalation, add version, symptoms and logs.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/J5ia5t9p3g9Q5Wi7r8Ev\">Google Cloud report (Sep 2026)</a></span>" -->
 
@@ -2288,7 +2078,6 @@ The work crossed redundant routers before connectivity was checked.
 **Affected VMs lost connectivity** in parts of us-central1-b and us-central1-f.
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/J5ia5t9p3g9Q5Wi7r8Ev\">Google Cloud report (Sep 2026)</a></span>" -->
 
@@ -2303,7 +2092,6 @@ Recovery: divert traffic, reinstall the original optics, verify links.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://corporate.ovhcloud.com/en/newsroom/news/informations-site-strasbourg/\">OVHcloud: Strasbourg (2021)</a></span>" -->
 
@@ -2319,7 +2107,6 @@ Replacement capacity does not recreate lost data.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.datacenterdynamics.com/en/news/ovh-fire-destroys-rust-game-data-takes-other-sites-offline/\">Rust: reported impact</a> <a href=\"https://lichess.org/forum/lichess-feedback/fire-in-a-lichess-datacenter\">Lichess: recovery report</a></span>" -->
 
@@ -2336,7 +2123,6 @@ A replacement server does not bring back player progress.
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2349,7 +2135,6 @@ Which recovery plan still works?
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://labs.ripe.net/author/emileaben/a-deep-dive-into-the-baltic-sea-cable-cuts/\">RIPE Labs: Baltic Sea (2024)</a></span>" -->
 
@@ -2364,7 +2149,6 @@ This diagram shows the method, not traffic shares.
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://labs.ripe.net/author/emileaben/a-deep-dive-into-the-baltic-sea-cable-cuts/\">RIPE Labs: Baltic Sea (2024)</a></span>" -->
 
@@ -2376,7 +2160,6 @@ Traceroute alone cannot identify a damaged cable.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/what-caused-the-red-sea-submarine-cable-cuts/\">Kentik: Red Sea (2024)</a></span>" -->
 
@@ -2394,7 +2177,6 @@ Keep the claims separate:
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/subsea-cables-parted-in-red-sea-again/\">Kentik: Red Sea (2025)</a></span>" -->
 
@@ -2408,7 +2190,6 @@ Which measurement separates **slower** from **unreachable**?
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
 
@@ -2423,7 +2204,6 @@ Service Control checks API policy. Blank fields triggered HTTP 503 errors.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
 
@@ -2438,7 +2218,6 @@ Some customer monitoring failed too. The first status update took about an hour.
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
 
@@ -2453,7 +2232,6 @@ Internal load balancing also failed.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
 
@@ -2470,7 +2248,6 @@ Canary the architecture that runs the changed policy.
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
 
@@ -2485,7 +2262,6 @@ Older proxies returned zero bot scores. Blocking depended on customer rules.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
 
@@ -2503,7 +2279,6 @@ Websites returned 5xx. Turnstile blocked logins.
 Recovery also required restarting the core proxy.
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a> <a href=\"https://www.kentik.com/analysis/fastly-outage-knocks-major-websites-offline/\">Observed impact</a></span>" -->
 
@@ -2518,7 +2293,6 @@ Fastly disabled the triggering configuration. The software fix followed later.
 
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a></span>" -->
 
@@ -2533,7 +2307,6 @@ Detection, mitigation and permanent repair are different clocks.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2547,7 +2320,6 @@ Detection, mitigation and permanent repair are different clocks.
 | Green dashboard during impact | Missing or stale evidence |
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2561,7 +2333,6 @@ Propose a test that proves the revised path survives.
 **A second box is not a second failure domain.**
 
 ---
-
 <!-- _class: statement deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2575,7 +2346,6 @@ How would you verify recovery?
 **14 October: monitoring and observability.**
 
 ---
-
 <!-- _class: day core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2588,7 +2358,6 @@ In Operations, the customer had to tell us something was wrong.
 **How could the network have told us first?**
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2605,7 +2374,6 @@ Choose the question before the tool.
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2620,7 +2388,6 @@ Question → evidence → interpretation → action
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2639,7 +2406,23 @@ SNMP and gNMI deliver data. They are not signal types.
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
+<!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# The monitoring brief
+
+**40 service-family targets:** 20 services × IPv4/IPv6.
+Two observation sources per target.
+
+- Detect interruptions of **5 seconds or longer**.
+- Stay within **20 HTTP requests/s**.
+- Mark stale data **unknown within 15 seconds**.
+
+Sizing exercise: this exceeds the small BOB1 probe set.
+
+<nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2652,7 +2435,6 @@ One-way delay additionally needs synchronized clocks or bounded clock error.
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2670,7 +2452,6 @@ A successful ping does not prove the web service works.
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2694,112 +2475,12 @@ Two checks called "reachability" can still measure different things.
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# The monitoring brief
-
-**40 service-family targets:** 20 services × IPv4/IPv6.
-Two observation sources per target.
-
-- Detect interruptions of **5 seconds or longer**.
-- Stay within **20 HTTP requests/s**.
-- Mark stale data **unknown within 15 seconds**.
-
-Sizing exercise: this exceeds the small BOB1 probe set.
-
-<nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# One ReefNet interface, one series
-
-![width:1040px](assets/diagrams/time-series-samples.svg)
-
-`edge01`, `ethernet-1/3`: traffic arriving from Lagoon Transit.
-
-Each sample keeps that identity. The plotted values are illustrative.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Counter or gauge?
-
-![width:1040px](assets/diagrams/counter-gauge.svg)
-
-The byte counter accumulates. The probe duration can rise or fall.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Timestamps in the pipeline
-
-One event, several clocks.
-
-![width:1040px](assets/diagrams/telemetry-timestamps.svg)
-
-Subtract timestamps only after checking clock source and offset.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Clock error changes the story
-
-![width:1040px](assets/diagrams/clock-offsets.svg)
-
-Bound clock error before inferring event order.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Four seconds can disappear
-
-![width:1040px](assets/diagrams/sampling-phase.svg)
-
-Imagine a short Lagoon IPv4 outage. A healthy sample can miss it.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Sampling leaves gaps
-
-A fault can begin and end between samples.
-
-**Interval and onset phase** determine whether we see it.
-Streaming sampled values still leaves gaps.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Budget the ReefNet probe round
+
+For the smaller BOB1 probe set:
 
 **2 sources × 2 families × 3 probe types = 12 checks**
 
@@ -2811,146 +2492,22 @@ What happens when a check times out?
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Before subtracting counters
+# Active probes: does this exchange work?
 
-Check identity, timestamps and discontinuities.
-
-A negative delta may mean **reset, wrap or bad data**.
-Two values cannot reveal multiple wraps.
-
-Invalid evidence becomes **unknown**, never a fabricated rate.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Turn ReefNet byte counters into bit/s
-
-Use `in-octets` on `edge01`, interface `ethernet-1/3`.
-
-$$rate = \frac{8(C_2-C_1)}{t_2-t_1}$$
-
-Counter in **bytes**, time in **seconds**. Use a reset-free interval.
-
-Compare the result with the **50 Mbit/s Lagoon handoff**.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Calculate the Lagoon ingress rate
-
-Illustrative `in-octets` on `edge01`, interface `ethernet-1/3`.
-
-| Time | Byte counter | Reset? |
-|---|---:|---|
-| 10:00:00 | 1,000,000 | Initial sample |
-| 10:00:10 | 32,250,000 | No |
-| 10:00:20 | 20,000 | Yes |
-| 10:00:32 | 37,520,000 | No |
-
-Four minutes: calculate valid rates. Compare them with the 50 Mbit/s handoff.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# 25 Mbit/s on a 50 Mbit/s handoff
-
-| Interval | Rate |
+| | |
 |---|---|
-| 00–10 s | 8 × 31,250,000 / 10 = **25 Mbit/s** |
-| 10–20 s | Reset: **exclude** |
-| 20–32 s | 8 × 37,500,000 / 12 = **25 Mbit/s** |
+| Observation | Source, target, family, protocol, time, result |
+| Limit | Failure does not locate the fault |
+| ReefNet | ICMP, DNS and HTTP over IPv4 and IPv6 |
 
-Both valid intervals use **50%** of handoff capacity.
+DNS checks the expected answer. HTTP checks a 2xx response independently of DNS.
 
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# What Lagoon sees when it probes DNS
-
-![width:1040px](assets/diagrams/dns-check-latencies.svg)
-
-100 illustrative DNS checks to Ocean Research. Start with the individual waits.
-Would the **44 ms mean** explain the five long waits?
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/practices/histograms/\">Prometheus: histograms</a></span>" -->
-
-# Read the distribution
-
-| View | What it tells us |
-|---|---|
-| Median | Middle observation |
-| p95 | Threshold covering at least 95% |
-| Histogram | Counts within ranges |
-| Cumulative distribution | Fraction at or below each value |
-
-A percentile is not an “average slow request”.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Percentiles do not average
-
-A separate DNS example for `data.oceanresearch.test`. Nearest-rank p95:
-
-| Source | Checks | Duration of each check |
-|---|---:|---:|
-| Lagoon | 100 | 20 ms |
-| Pacific | 1 | 1,000 ms |
-
-Average of the two p95s: **510 ms**.
-Combined observations: **p95 = 20 ms**.
-
-Combine observations first, then calculate the percentile.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# What is Grafana telling us?
-
-At **25 Mbit/s IPv4 traffic**, open `http://localhost:3000`.
-Choose **ReefNet / BOB1 → Network Overview**.
-
-- What is measured, and where?
-- Which units and time window?
-- How fresh is it?
-
-Predict what changes when we send more traffic.
-
----
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc3411.html\">SNMP: RFC 3411</a></span>" -->
 
@@ -2969,7 +2526,6 @@ Not provisioned in BOB1. Compare with gNMI.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2988,7 +2544,6 @@ After restart or replacement, verify the mapping before joining counters.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc5424.html\">Syslog: RFC 5424</a></span>" -->
 
@@ -3005,7 +2560,6 @@ Keep source and receive times. Severity is the device’s judgment.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7011.html\">IPFIX: RFC 7011</a></span>" -->
 
@@ -3023,7 +2577,6 @@ Port 443 alone does not identify an application.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3044,50 +2597,6 @@ What context must the collector retain to decode it?
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Active probes: does this exchange work?
-
-| | |
-|---|---|
-| Observation | Source, target, family, protocol, time, result |
-| Limit | Failure does not locate the fault |
-| ReefNet | ICMP, DNS and HTTP over IPv4 and IPv6 |
-
-DNS checks the expected answer. HTTP checks a 2xx response independently of DNS.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://paris-traceroute.net/\">Paris Traceroute paper</a></span>" -->
-
-# Traceroute: read replies carefully
-
-![width:1040px](assets/diagrams/traceroute-rtt.svg)
-
-Hop 2 replies slowly. It does not delay all forwarded packets by 100 ms.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8201.html\">IPv6 path MTU: RFC 8201</a></span>" -->
-
-# Small ping, stalled download.
-
-![width:1040px](assets/diagrams/path-mtu.svg)
-
-IPv6 routers do not fragment transit packets. **ICMPv6 Packet Too Big** drives PMTUD.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3104,7 +2613,6 @@ The delivery mechanism does not define freshness.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#35-subscribing-to-telemetry-updates\">gNMI Subscribe specification</a></span>" -->
 
@@ -3117,7 +2625,6 @@ SAMPLE is periodic. ON_CHANGE depends on target support.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/user_guide/subscriptions/\">gNMIc subscriptions</a></span>" -->
 
@@ -3137,27 +2644,6 @@ Compare with Grafana’s rate. **Ctrl+C** stops the subscription.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Turn up the traffic
-
-In WSL, choose one load:
-```bash
-make traffic-40mbit
-make traffic-10mbit
-make traffic-25mbit
-```
-
-Allow 30 seconds at each level.
-Watch the interface counter and its Grafana rate.
-
-Which changes first? Where does the delay come from?
-
-
----
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3170,7 +2656,6 @@ Sync completes the initial transfer. It does not guarantee future freshness.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3183,7 +2668,6 @@ These states need different storage, query and alert behavior.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3196,7 +2680,6 @@ Rebuild current state after reconnect. Keep the observation gap visible.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3210,7 +2693,6 @@ Keep enough metadata to detect that loss.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3227,7 +2709,6 @@ Test isolation. A second collector may share the first one’s failure domain.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3240,7 +2721,6 @@ Grafana queries metrics and logs. Each collection path can fail separately.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/introduction/overview/\">Prometheus overview</a></span>" -->
 
@@ -3254,7 +2734,6 @@ Trace a suspicious panel back to its source timestamp.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3268,7 +2747,6 @@ Success, duration and timestamp together → **24 series**.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: task core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/practices/naming/#labels\">Prometheus: metric labels</a></span>" -->
 
@@ -3289,7 +2767,6 @@ What does `request_id` do to cardinality? Where should it go?
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3303,7 +2780,6 @@ For one dashboard, direct storage may suffice.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3318,7 +2794,6 @@ The buffer buys ten seconds. It cannot fix the slow writer.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3331,7 +2806,199 @@ Aggregation saves space but can erase short failures.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# One ReefNet interface, one series
+
+![width:1040px](assets/diagrams/time-series-samples.svg)
+
+`edge01`, `ethernet-1/3`: traffic arriving from Lagoon Transit.
+
+Each sample keeps that identity. The plotted values are illustrative.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Counter or gauge?
+
+![width:1040px](assets/diagrams/counter-gauge.svg)
+
+The byte counter accumulates. The probe duration can rise or fall.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Timestamps in the pipeline
+
+One event, several clocks.
+
+![width:1040px](assets/diagrams/telemetry-timestamps.svg)
+
+Subtract timestamps only after checking clock source and offset.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Clock error changes the story
+
+![width:1040px](assets/diagrams/clock-offsets.svg)
+
+Bound clock error before inferring event order.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Before subtracting counters
+
+Check identity, timestamps and discontinuities.
+
+A negative delta may mean **reset, wrap or bad data**.
+Two values cannot reveal multiple wraps.
+
+Invalid evidence becomes **unknown**, never a fabricated rate.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Turn ReefNet byte counters into bit/s
+
+Use `in-octets` on `edge01`, interface `ethernet-1/3`.
+
+$$rate = \frac{8(C_2-C_1)}{t_2-t_1}$$
+
+Counter in **bytes**, time in **seconds**. Use a reset-free interval.
+
+Compare the result with the **50 Mbit/s Lagoon handoff**.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Calculate the Lagoon ingress rate
+
+Illustrative `in-octets` on `edge01`, interface `ethernet-1/3`.
+
+| Time | Byte counter | Reset? |
+|---|---:|---|
+| 10:00:00 | 1,000,000 | Initial sample |
+| 10:00:10 | 32,250,000 | No |
+| 10:00:20 | 20,000 | Yes |
+| 10:00:32 | 37,520,000 | No |
+
+Four minutes: calculate valid rates. Compare them with the 50 Mbit/s handoff.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# 25 Mbit/s on a 50 Mbit/s handoff
+
+| Interval | Rate |
+|---|---|
+| 00–10 s | 8 × 31,250,000 / 10 = **25 Mbit/s** |
+| 10–20 s | Reset: **exclude** |
+| 20–32 s | 8 × 37,500,000 / 12 = **25 Mbit/s** |
+
+Both valid intervals use **50%** of handoff capacity.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# What Lagoon sees when it probes DNS
+
+![width:1040px](assets/diagrams/dns-check-latencies.svg)
+
+100 illustrative DNS checks to Ocean Research. Start with the individual waits.
+Would the **44 ms mean** explain the five long waits?
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/practices/histograms/\">Prometheus: histograms</a></span>" -->
+
+# Read the distribution
+
+| View | What it tells us |
+|---|---|
+| Median | Middle observation |
+| p95 | Threshold covering at least 95% |
+| Histogram | Counts within ranges |
+| Cumulative distribution | Fraction at or below each value |
+
+A percentile is not an “average slow request”.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Percentiles do not average
+
+A separate DNS example for `data.oceanresearch.test`. Nearest-rank p95:
+
+| Source | Checks | Duration of each check |
+|---|---:|---:|
+| Lagoon | 100 | 20 ms |
+| Pacific | 1 | 1,000 ms |
+
+Average of the two p95s: **510 ms**.
+Combined observations: **p95 = 20 ms**.
+
+Combine observations first, then calculate the percentile.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: visual core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Four seconds can disappear
+
+![width:1040px](assets/diagrams/sampling-phase.svg)
+
+Imagine a short Lagoon IPv4 outage. A healthy sample can miss it.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Sampling leaves gaps
+
+A fault can begin and end between samples.
+
+**Interval and onset phase** determine whether we see it.
+Streaming sampled values still leaves gaps.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3341,21 +3008,9 @@ Aggregation saves space but can erase short failures.
 
 Watch source age, even when the scrape succeeds.
 
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
-<!-- _class: statement core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Healthy yesterday.
-
-Today's status is still unknown.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3365,10 +3020,9 @@ Today's status is still unknown.
 
 **When should the panel stop looking healthy?**
 
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3383,10 +3037,9 @@ Today's status is still unknown.
 
 Check the central monitoring service from outside.
 
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3405,7 +3058,40 @@ Check the central monitoring service from outside.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# What is Grafana telling us?
+
+At **25 Mbit/s IPv4 traffic**, open `http://localhost:3000`.
+Choose **ReefNet / BOB1 → Network Overview**.
+
+- What is measured, and where?
+- Which units and time window?
+- How fresh is it?
+
+Predict what changes when we send more traffic.
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Turn up the traffic
+
+In WSL, choose one load:
+```bash
+make traffic-40mbit
+make traffic-10mbit
+make traffic-25mbit
+```
+
+Allow 30 seconds at each level.
+Watch the interface counter and its Grafana rate.
+
+Which changes first? Where does the delay come from?
+
+
+---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3423,7 +3109,30 @@ Session state distinguishes these hypotheses.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
+<!-- _class: visual deep-dive -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://paris-traceroute.net/\">Paris Traceroute paper</a></span>" -->
 
+# Traceroute: read replies carefully
+
+![width:1040px](assets/diagrams/traceroute-rtt.svg)
+
+Hop 2 replies slowly. It does not delay all forwarded packets by 100 ms.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content deep-dive -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8201.html\">IPv6 path MTU: RFC 8201</a></span>" -->
+
+# Small ping, stalled download.
+
+![width:1040px](assets/diagrams/path-mtu.svg)
+
+IPv6 routers do not fragment transit packets. **ICMPv6 Packet Too Big** drives PMTUD.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3444,7 +3153,6 @@ Did the customer notice? Explain the path that remains.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3465,7 +3173,6 @@ Prometheus exposes `reefnet_interface_admin_state` and
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3486,7 +3193,6 @@ Its service check can remain green while the topology changes.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3499,7 +3205,6 @@ A faster customer handoff does not remove the Lagoon bottleneck.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://research.google/pubs/b4-experience-with-a-globally-deployed-software-defined-wan/\">Google B4: design and results</a></span>" -->
 
@@ -3514,7 +3219,6 @@ Google controls the senders. Bulk transfers yield to higher priorities.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9600-series-switches/220491-understand-output-drops-on-high-speed-in.html\">Cisco: bursts and output drops</a></span>" -->
 
@@ -3527,7 +3231,6 @@ A full queue drops packets. Check **drops and peaks**, not only averages.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content task -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3548,7 +3251,6 @@ Then try link and routing faults and a short burst.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3571,7 +3273,6 @@ Use `exit`, then in WSL: `make traffic-10mbit`.
 
 
 ---
-
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3587,7 +3288,6 @@ Linux queue drops may mirror SR Linux discards. Do not add them.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/querying/functions/#rate\">Prometheus: counter rates</a></span>" -->
 
@@ -3607,7 +3307,6 @@ When finished: `make traffic-25mbit`
 
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3620,7 +3319,6 @@ Illustrative timestamps. Check clock offsets before inferring order.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3633,7 +3331,6 @@ The rule fires, but nobody is paged. Which boundary failed?
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/\">Prometheus: alerting rules</a></span>" -->
 
@@ -3657,7 +3354,6 @@ This sustained-failure rule does **not** meet our 5-second detection brief.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/querying/basics/#staleness\">Prometheus: staleness</a></span>" -->
 
@@ -3675,7 +3371,6 @@ Use the expected target set to detect disappearing sources.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/alerting/latest/alertmanager/\">Alertmanager documentation</a></span>" -->
 
@@ -3694,7 +3389,6 @@ A firing delay can prevent short-lived conditions from becoming alerts.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3708,7 +3402,6 @@ More than half the alerts in this synthetic example are false.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://sre.google/sre-book/service-level-objectives/\">Google SRE: service objectives</a></span>" -->
 
@@ -3725,7 +3418,6 @@ Define how missing records are handled before calculating the SLI.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3741,7 +3433,6 @@ Six failures leave **four**. Report missing checks separately.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3754,7 +3445,6 @@ Name the endpoints before reporting a recovery duration.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3773,7 +3463,6 @@ Explain why that observation distinguishes the leading hypotheses.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="active">RESPOND</span></nav>
 
 ---
-
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3791,7 +3480,6 @@ Sketch a design for the **40-target brief**.
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="active">RESPOND</span></nav>
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3810,7 +3498,6 @@ Use `make monitoring` to start a fresh experiment on a configured lab machine.
 
 
 ---
-
 <!-- _class: day research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3823,7 +3510,6 @@ Monitoring gave us a limitation: short events can disappear between samples.
 Now we turn that into a question we can actually test.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3837,7 +3523,6 @@ Now we turn that into a question we can actually test.
 Our running example: **short outages missed between probes**.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3854,7 +3539,6 @@ Bring your own question if you can evaluate it.
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3869,7 +3553,6 @@ Bring your own question if you can evaluate it.
 | Bound the claim | Tested fault durations and conditions |
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3883,7 +3566,6 @@ Define the schedules, fault distribution and detection criterion.
 The comparison must allow your preferred method to lose.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3894,7 +3576,6 @@ The comparison must allow your preferred method to lose.
 Your contribution is the finding this evidence supports.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3910,7 +3591,6 @@ Your contribution is the finding this evidence supports.
 Every approach needs evidence for a limited claim.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3925,7 +3605,6 @@ Two minutes:
 3. Choose a success criterion that allows the method to lose.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3940,7 +3619,6 @@ Two minutes:
 If the measurement cannot test the claim, change the claim or the experiment.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3956,7 +3634,6 @@ A **confounder** changes both condition and outcome.
 Injecting a fault is not enough. The comparison still has to be controlled.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3970,7 +3647,6 @@ Record your queries and selection criteria.
 “Nobody has done this before” is not a literature review.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3986,7 +3662,6 @@ Start here for literature on **management, monitoring and measurement**.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4002,7 +3677,6 @@ Start here for literature on **management, monitoring and measurement**.
 | [IEEE GLOBECOM](https://www.comsoc.org/conferences-events/ieee-global-communications-conference-2026) / [ICC](https://icc2026.ieee-icc.org/) | Communications and networking |
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4016,7 +3690,6 @@ Research Groups study long-term questions about Internet technology.
 
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4033,7 +3706,6 @@ Network automation, orchestration and operational tooling
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://svr-sk818-web.cl.cam.ac.uk/keshav/papers/07/paper-reading.pdf\">Keshav: How to Read a Paper</a></span>" -->
 
@@ -4048,7 +3720,6 @@ Network automation, orchestration and operational tooling
 Record **one supported claim, one limitation and one next question**.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4065,7 +3736,6 @@ Record **one supported claim, one limitation and one next question**.
 A reachable block does not prove application health.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4081,7 +3751,6 @@ A reachable block does not prove application health.
 For RFCs: check status, updates, errata and normative language.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4092,7 +3761,6 @@ For RFCs: check status, updates, errata and normative language.
 Match the sentence to the evidence in the source, not merely to its topic.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4107,7 +3775,6 @@ Match the sentence to the evidence in the source, not merely to its topic.
 A citation alone does not mark a quotation.
 
 ---
-
 <!-- _class: statement research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4116,7 +3783,6 @@ A citation alone does not mark a quotation.
 Read the result. Then check the claim.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4133,7 +3799,6 @@ Verify imported reference metadata. Mark synthetic examples.
 Citation does not replace reuse permission.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4145,7 +3810,6 @@ If your question extends beyond ReefNet, consider public observations.
 Their coverage and resolution must fit the claim.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://atlas.ripe.net/\">RIPE Atlas</a><a href=\"https://stat.ripe.net/\">RIPEstat</a></span>" -->
 
@@ -4158,7 +3822,6 @@ Neither covers every Internet path.
 
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7854.html\">BMP: RFC 7854</a></span>" -->
 
@@ -4171,7 +3834,6 @@ It is a collection protocol, not the public RIS dataset.
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://stat.ripe.net/docs/data-api/api-endpoints/routing-history\">RIPEstat: routing history</a></span>" -->
 
@@ -4195,7 +3857,6 @@ Keep the full file. Inspect one record.
 
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://stat.ripe.net/docs/data-api/api-endpoints/routing-history\">RIPEstat: routing history</a></span>" -->
 
@@ -4214,8 +3875,6 @@ One origin and a first hop. At least ten full-feed peers required.
 **Route visibility is not service availability.**
 
 ---
-
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4231,7 +3890,6 @@ Keep the details another person needs to repeat it:
 Save them with the conclusion.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://atlas.ripe.net/assets/legal/RIPEAtlasServiceTermsandConditionsV3.4.pdf\">RIPE Atlas: measurement terms</a></span>" -->
 
@@ -4245,7 +3903,6 @@ For collected data, define **access, retention and deletion**.
 Collect only what the question needs.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4263,7 +3920,6 @@ For each factual sentence, identify its role:
 If you cannot classify it, check whether it belongs.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4278,7 +3934,6 @@ Use the project time to work on it. Bring questions as they come up.
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4293,7 +3948,6 @@ Use today’s project time to check that you can access the evidence.
 
 
 ---
-
 <!-- _class: day research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4304,7 +3958,6 @@ Use today’s project time to check that you can access the evidence.
 Now the sampling question becomes a controlled comparison.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4319,7 +3972,6 @@ Keep fault workload, probe budget and reset conditions equal.
 Ten samples from one run are not ten independent experiments.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4336,7 +3988,6 @@ Use the same fault schedule for each pair.
 Compare detection fraction and delay among detections.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4353,7 +4004,6 @@ Document any dependencies shared by control and experiment.
 Two identical diagrams can conceal different experiments.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4366,7 +4016,6 @@ They do not reproduce hardware timing, optics or carrier scale by default.
 **Which part of your conclusion depends on the simulator?**
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4382,7 +4031,6 @@ A **100 ms reference interval** limits onset-time resolution.
 The evaluated detector cannot define its own ground truth.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4399,7 +4047,6 @@ Customer IPv4 export to Lagoon is rejected. BGP stays up.
 What would contradict your diagnosis?
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4410,7 +4057,6 @@ What would contradict your diagnosis?
 An HTTP 503 response is not evidence of a routing failure.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4426,7 +4072,6 @@ Block by host or workload and record contention.
 Pairing does not remove clock error or unequal host load.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4441,7 +4086,6 @@ Pairing does not remove clock error or unequal host load.
 Cold caches and convergence are real. Excluding them changes the experiment.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4457,7 +4101,6 @@ Cold caches and convergence are real. Excluding them changes the experiment.
 Choose categories **before** comparing methods.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4471,7 +4114,6 @@ Keep measuring until the service is restored.
 Config-change time is not traffic-failure time.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4484,7 +4126,6 @@ For the sampling comparison, repeat the same controlled sequence.
 A failed reset invalidates the comparison. Record it as a failed run.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4495,7 +4136,6 @@ A failed reset invalidates the comparison. Record it as a failed run.
 Timing model, not the 10 s study: **5 s mean spacing**, 120 fault phases.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4511,7 +4151,6 @@ Synthetic timing model: **120 phases, 5 s faults**.
 *Among detections. The lower median ignores 12 misses.*
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4528,7 +4167,6 @@ Five synthetic pairs. Delays in **milliseconds**.
 Choose a summary and state its limit.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4545,7 +4183,6 @@ A is earlier in 4/5 pairs. Its fifth run reverses the mean.
 Small sample. This only illustrates the calculation.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4561,7 +4198,6 @@ Small sample. This only illustrates the calculation.
 More runs cannot repair a bad clock or unfair comparison.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4575,7 +4211,6 @@ More runs cannot repair a bad clock or unfair comparison.
 | Statistical | Correlated samples counted as independent |
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4590,7 +4225,6 @@ More runs cannot repair a bad clock or unfair comparison.
 Decide what to hold constant, randomize and record.
 
 ---
-
 <!-- _class: day research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4603,7 +4237,6 @@ From paired runs to a defensible comparison.
 The graph is not the result. Check the evidence behind it.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4615,7 +4248,6 @@ Inspect individual traces before aggregation.
 Keep missed events in the detection denominator.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4626,7 +4258,6 @@ Keep missed events in the detection denominator.
 Choose a number from your draft. Can another team reproduce it?
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4644,7 +4275,6 @@ Illustrative paired runs. Delays in **milliseconds**.
 A miss stays in the detection denominator.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4660,7 +4290,6 @@ A miss stays in the detection denominator.
 Dropping timeouts can make a broken service look fast.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4673,7 +4302,6 @@ First compare coverage. This separate example has **20 faults**.
 Compare the same detected events before claiming that B is faster.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4684,7 +4312,6 @@ Compare the same detected events before claiming that B is faster.
 Return to the five synthetic pairs from **13 November**, methods A and B.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4702,7 +4329,6 @@ Return to the five synthetic pairs from **13 November**, methods A and B.
 Five synthetic pairs illustrate the calculation only.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm\">NIST: confidence limits</a></span>" -->
 
@@ -4718,7 +4344,6 @@ Five synthetic pairs illustrate the calculation only.
 Compare delays only where **both methods detected the event**.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4729,7 +4354,6 @@ Compare delays only where **both methods detected the event**.
 Use independent runs or matched pairs as the uncertainty unit.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4744,7 +4368,6 @@ State the estimator, interval method and independence assumptions.
 This is a property of the procedure, not a score for one interval.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4755,7 +4378,6 @@ This is a property of the procedure, not a score for one interval.
 Which observation or intervention could distinguish these explanations?
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4770,7 +4392,6 @@ Report units, direction, uncertainty and failure rate.
 A delay reduction is not a measured throughput gain.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4787,7 +4408,6 @@ If the expected method does not win:
 Keep the result, including when your preferred method loses.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4801,7 +4421,6 @@ Keep the result, including when your preferred method loses.
 A results paragraph states **what changed, by how much and under which conditions**.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4818,7 +4437,6 @@ Use the same four criteria as the bonus review:
 summary, method, strength/limitation, feasible revision.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4836,7 +4454,6 @@ Fictional claim: **“Randomization halves delay.”**
 *Among detections. What is confounded or omitted?*
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4852,7 +4469,6 @@ Fictional claim: **“Randomization halves delay.”**
 Explain how each revision makes the conclusion more defensible.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4868,7 +4484,6 @@ Three minutes. Anonymous notes.
 We discuss what I can still adjust.
 
 ---
-
 <!-- _class: day research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4881,7 +4496,6 @@ We have compared detectors. Now test a forecast before it drives a controller.
 What evidence would justify acting on the prediction?
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4897,7 +4511,6 @@ Same test data, horizon and missing-data rules.
 Which model warns usefully?
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4908,7 +4521,6 @@ Which model warns usefully?
 Use only information available at prediction time.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4926,7 +4538,6 @@ Watch prediction error.
 Decide when to retrain, fall back, or stop automated action.
 
 ---
-
 <!-- _class: figure research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4937,7 +4548,6 @@ Decide when to retrain, fall back, or stop automated action.
 Synthetic, 1 s ahead. **110 of 120 slots evaluated.** Shaded gaps excluded.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4953,7 +4563,6 @@ Synthetic, 1 s ahead. **110 of 120 slots evaluated.** Shaded gaps excluded.
 **MAE = mean absolute error.** No false alarms, but 25 misses.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4970,7 +4579,6 @@ Move 10 Mbit/s: **50 / 40 Mbit/s**. Lagoon still has no headroom.
 Would routing policy and traffic behavior permit the move?
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4981,7 +4589,6 @@ Would routing policy and traffic behavior permit the move?
 Acting twice on the same stale sample can overshoot the target.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5000,7 +4607,6 @@ recovery:         previous allocation or manual handover
 The same limits apply to rules, optimizers and LLMs.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5014,7 +4620,6 @@ Score the network state, not the explanation.
 Enforce permissions and verification outside the planner.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5027,7 +4632,6 @@ The tool enforces authorization and execution.
 The verifier checks independently. Where do we enforce the one-device limit?
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5050,7 +4654,6 @@ The tool enforces target scope, input checks, timeout and write permissions.
 What should happen if the agent supplies another device or group?
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5068,7 +4671,6 @@ Fictional trace after write approval:
 **One minute:** how should the evaluator score this?
 
 ---
-
 <!-- _class: statement research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5078,7 +4680,6 @@ Recovery is still unproven.
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5094,7 +4695,6 @@ Record refusal, failure, attempts, duration and cost.
 Test stale state, uncertain writes and incorrect ticket assumptions.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5110,7 +4710,6 @@ A benchmark result is bounded by those conditions.
 
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5122,7 +4721,6 @@ Separate fictional repair benchmark: 20 attempts. Is 80% success justified?
 What must we know about overlap and unintended changes?
 
 ---
-
 <!-- _class: day research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5138,7 +4736,6 @@ Work independently, without AI or other aids.
 Hand in today. The reviewed team receives a copy during this session.
 
 ---
-
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5152,7 +4749,6 @@ The instructor keeps the original and makes a copy.
 The reviewed team receives its copy **during this session**.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5168,7 +4764,6 @@ The reviewed team receives its copy **during this session**.
 Apply the same criteria we announced in October.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5183,7 +4778,6 @@ Five route changes, one emulated topology. Four restore the health check.
 What can the authors claim? Which result would you ask them to add?
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5201,7 +4795,6 @@ The draft calls B "the faster detector".
 Write one review sentence. Name the hidden condition and ask for context.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5216,7 +4809,6 @@ Name the missing information and ask for a concrete correction.
 A useful review explains how the issue affects the conclusion.
 
 ---
-
 <!-- _class: task research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5234,7 +4826,6 @@ Name one experiment needed for a broader claim.
 
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5249,7 +4840,6 @@ One page, legibly handwritten, in German or English.
 - Propose a feasible revision.
 
 ---
-
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5263,7 +4853,6 @@ For each comment: **clarify, add evidence, fix analysis or narrow the claim**.
 If you disagree, explain why and point to the result.
 
 ---
-
 <!-- _class: day core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5274,7 +4863,6 @@ If you disagree, explain why and point to the result.
 Show the result. Defend the choices. Let someone else reproduce the evidence.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5289,7 +4877,6 @@ Then trace one result back to its data and regenerate it.
 The presentation itself has no grade weight. Use it as the last technical check.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5308,7 +4895,6 @@ Can they find:
 "Works on my laptop" means the laptop is still an undocumented dependency.
 
 ---
-
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5324,7 +4910,6 @@ Choose three missing details that would stop another team.
 Give concrete replacements, including how they would recognize success.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5340,7 +4925,6 @@ Check the figure at its **final paper size**.
 Export the plot itself, not a dashboard screenshot.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5355,7 +4939,6 @@ Export the plot itself, not a dashboard screenshot.
 **Paper and artifact describe the same study.**
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5367,7 +4950,6 @@ Export the plot itself, not a dashboard screenshot.
 - **AI use:** required disclosure is in the Acknowledgments
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -5379,7 +4961,6 @@ Assistance covered structure, wording, diagrams, teaching examples
 and checks of formatting and rendered output.
 
 ---
-
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
