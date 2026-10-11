@@ -47,19 +47,17 @@ For Lagoon, use `NODE=edge01.bob1.lagoontransit.test`.
 
 ## SR Linux CLI
 
-Interfaces and routing sessions:
-
 ```text
 show interface brief
 show network-instance default protocols bgp neighbor
 show network-instance default protocols ospf neighbor
 ```
 
-Customer prefix: BGP and active route table.
-
 ```text
 show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
 show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
+show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 ```
 
 On ReefNet Edge 01, what do we advertise to Lagoon? Which policies apply?
@@ -118,6 +116,8 @@ make enter NODE=edge01.bob1.oceanresearch.test
 ```text
 show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
 show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
+show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
+show network-instance default route-table ipv6-unicast prefix 2001:db8:b::/64
 ```
 
 ---

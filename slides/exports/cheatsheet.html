@@ -65,14 +65,14 @@ curl --fail --max-time 5 -6 http://data.oceanresearch.test/
 </code></pre>
 <p>For Lagoon, use <code>NODE=edge01.bob1.lagoontransit.test</code>.</p>
 <h3>SR Linux CLI</h3>
-<p>Interfaces and routing sessions:</p>
 <pre><code class="language-text">show interface brief
 show network-instance default protocols bgp neighbor
 show network-instance default protocols ospf neighbor
 </code></pre>
-<p>Customer prefix: BGP and active route table.</p>
 <pre><code class="language-text">show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
 show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
+show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 </code></pre>
 <p>On ReefNet Edge 01, what do we advertise to Lagoon? Which policies apply?</p>
 <pre><code class="language-text">show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
@@ -110,6 +110,8 @@ show interface ethernet-1/2 detail
 </code></pre>
 <pre><code class="language-text">show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
 show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
+show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
+show network-instance default route-table ipv6-unicast prefix 2001:db8:b::/64
 </code></pre>
 </section>
 <section><h3>Change the Lagoon export policy from the CLI</h3>

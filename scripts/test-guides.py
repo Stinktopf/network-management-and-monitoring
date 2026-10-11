@@ -99,6 +99,27 @@ class Guides(unittest.TestCase):
         for command in expected:
             self.assertIn(command, cheatsheet)
 
+    def test_networking_route_investigation_covers_both_address_families(self):
+        route_commands = (
+            "show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24",
+            "show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48",
+            "show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24",
+            "show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48",
+            "show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25",
+            "show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25",
+            "show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64",
+            "show network-instance default route-table ipv6-unicast prefix 2001:db8:b::/64",
+        )
+        for level in ("hint", "solution"):
+            output = self.render("networking", "all", level).stdout
+            for command in route_commands:
+                with self.subTest(level=level, command=command):
+                    self.assertIn(command, output)
+        cheatsheet = (ROOT / "slides/resources/CHEATSHEET.md").read_text()
+        for command in route_commands:
+            with self.subTest(source="cheatsheet", command=command):
+                self.assertIn(command, cheatsheet)
+
     def test_solution_defaults_to_one_step(self):
         result = subprocess.run(
             ["make", "--no-print-directory", "solution", "SCENARIO=networking"],

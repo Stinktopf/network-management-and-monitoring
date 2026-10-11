@@ -1,6 +1,6 @@
 @@ 1 Start on the Lagoon probe
 Find your source address and the first hop toward the customer service.
-Start with IPv4. Compare Pacific and IPv6 when you are ready.
+Compare Lagoon and Pacific over IPv4 and IPv6.
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -139,14 +139,18 @@ Inside the router:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 Read peer AS, state, active route and next hop. Use quit, then in WSL:
   make enter NODE=edge02.bob1.reefnet.test
-Repeat the four checks on Edge 02:
+Repeat the checks on Edge 02:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 Which entries change? Distinguish learning a prefix from reaching its next hop.
 Leave the router with quit.
 @@ investigation
@@ -156,7 +160,9 @@ Inside ReefNet Edge 01:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
   quit
 WSL repository:
   make enter NODE=edge02.bob1.reefnet.test
@@ -164,20 +170,24 @@ Inside ReefNet Edge 02:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
   quit
 
 Inspect: peer AS and State in BGP, OSPF neighbor state, then the exact customer
-prefix, active route, next hop and outgoing interface in the forwarding table.
+prefix in both address families. Compare BGP receipt with the active route,
+next hop and outgoing interface in each forwarding table.
 Decision: if a peer is down, inspect its transport first. If the route exists in
 BGP but is not active for forwarding, investigate selection/next-hop resolution.
 If the active route exists on both ReefNet devices, continue to the customer and
 the return path in step 4. Record which observation supports each hop of the path.
 @@ solution
 ReefNet is AS65000, the customer AS65010, Lagoon AS65100 and Pacific AS65200.
-Edge 01 learns the customer prefix through eBGP and shares it internally through
-iBGP. OSPF provides reachability inside ReefNet, including the internal path
-between Edge 01 and Edge 02. A BGP session alone does not prove service delivery.
+Edge 01 learns the customer's IPv4 and IPv6 service prefixes through eBGP and
+shares them internally through iBGP. OSPF provides reachability inside ReefNet,
+including the path between Edge 01 and Edge 02. A BGP session alone does not
+prove service delivery.
 
 @@ 4 Cross-check the customer and summarize the baseline
 Complete your path map with the customer and the return routes.
@@ -192,6 +202,8 @@ Inside the customer router:
   show interface brief
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:b::/64
 Use quit, then in WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the service host:
@@ -210,6 +222,8 @@ Inside the customer router:
   show network-instance default route-table ipv4-unicast summary
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
+  show network-instance default route-table ipv6-unicast prefix 2001:db8:b::/64
   quit
 WSL repository:
   make enter NODE=service01.bob1.oceanresearch.test
@@ -236,8 +250,8 @@ Inside the Pacific probe:
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
 
-Inspect: service addresses/default routes, customer routes back to BOTH probe
-networks, local DNS response and the four external service checks.
+Inspect: service addresses/default routes, customer routes back to both probes
+over IPv4 and IPv6, local DNS response and the four external service checks.
 Decision: local DNS failure needs service diagnosis. Local success with remote
 failure needs forward/return-path diagnosis. Mark the baseline ready only when
 all four external ICMP and HTTP checks pass and service DNS responds. Note addresses, next hops
