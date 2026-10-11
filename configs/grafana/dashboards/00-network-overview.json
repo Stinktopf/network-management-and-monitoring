@@ -955,6 +955,126 @@
             "type": "prometheus",
             "uid": "prometheus"
           }
+        },
+        {
+          "refId": "U0",
+          "expr": "((reefnet_link_in_bps{source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\",link_id=\"lagoon\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "transit01 ethernet-1/1 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U1",
+          "expr": "((reefnet_link_out_bps{source=\"edge01.bob1.lagoontransit.test\",interface_name=\"ethernet-1/1\",link_id=\"lagoon\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "transit01 ethernet-1/1 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U2",
+          "expr": "((reefnet_link_in_bps{source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\",link_id=\"pacific\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "transit02 ethernet-1/1 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U3",
+          "expr": "((reefnet_link_out_bps{source=\"edge01.bob1.pacifictransit.test\",interface_name=\"ethernet-1/1\",link_id=\"pacific\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "transit02 ethernet-1/1 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U4",
+          "expr": "((reefnet_link_in_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\",link_id=\"lagoon\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge01 ethernet-1/3 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U5",
+          "expr": "((reefnet_link_out_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/3\",link_id=\"lagoon\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge01 ethernet-1/3 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U6",
+          "expr": "((reefnet_link_in_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\",link_id=\"customer\"} and on() (min(up{job=\"gnmic\"})==1)) / 1000000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge01 ethernet-1/1 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U7",
+          "expr": "((reefnet_link_out_bps{source=\"edge01.bob1.reefnet.test\",interface_name=\"ethernet-1/1\",link_id=\"customer\"} and on() (min(up{job=\"gnmic\"})==1)) / 1000000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge01 ethernet-1/1 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U8",
+          "expr": "((reefnet_link_in_bps{source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\",link_id=\"pacific\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge02 ethernet-1/2 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U9",
+          "expr": "((reefnet_link_out_bps{source=\"edge02.bob1.reefnet.test\",interface_name=\"ethernet-1/2\",link_id=\"pacific\"} and on() (min(up{job=\"gnmic\"})==1)) / 500000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "edge02 ethernet-1/2 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U10",
+          "expr": "((reefnet_link_in_bps{source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\",link_id=\"customer\"} and on() (min(up{job=\"gnmic\"})==1)) / 1000000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "cust01 ethernet-1/1 in utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        },
+        {
+          "refId": "U11",
+          "expr": "((reefnet_link_out_bps{source=\"edge01.bob1.oceanresearch.test\",interface_name=\"ethernet-1/1\",link_id=\"customer\"} and on() (min(up{job=\"gnmic\"})==1)) / 1000000) or on() vector(-1)",
+          "instant": true,
+          "legendFormat": "cust01 ethernet-1/1 out utilization tooltip",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "fieldConfig": {
@@ -2085,15 +2205,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2141,15 +2261,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2197,15 +2317,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2253,15 +2373,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2309,15 +2429,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2365,15 +2485,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2421,15 +2541,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2477,15 +2597,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2533,15 +2653,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2589,15 +2709,15 @@
                     "type": "value",
                     "options": {
                       "-1": {
-                        "text": "\u25cf",
+                        "text": "Unknown",
                         "color": "gray"
                       },
                       "0": {
-                        "text": "\u25cf",
+                        "text": "Down",
                         "color": "red"
                       },
                       "1": {
-                        "text": "\u25cf",
+                        "text": "Up",
                         "color": "green"
                       }
                     }
@@ -2745,6 +2865,366 @@
                       "1": {
                         "text": "IPv6 OK",
                         "color": "green"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "transit01 ethernet-1/1 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "transit01 ethernet-1/1 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "transit02 ethernet-1/1 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "transit02 ethernet-1/1 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge01 ethernet-1/3 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge01 ethernet-1/3 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge01 ethernet-1/1 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge01 ethernet-1/1 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge02 ethernet-1/2 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "edge02 ethernet-1/2 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cust01 ethernet-1/1 in utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cust01 ethernet-1/1 out utilization tooltip"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix:%"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "-1": {
+                        "text": "Unknown",
+                        "color": "gray"
                       }
                     }
                   }
@@ -2990,14 +3470,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit01 ethernet-1/1 in percent",
@@ -3032,14 +3505,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit01 ethernet-1/1 out label",
@@ -3186,14 +3652,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit01 ethernet-1/1 out percent",
@@ -3228,14 +3687,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "Pacific Transit sessions",
@@ -3424,14 +3876,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit02 ethernet-1/1 in percent",
@@ -3466,14 +3911,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit02 ethernet-1/1 out label",
@@ -3620,14 +4058,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit02 ethernet-1/1 out percent",
@@ -3662,14 +4093,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "ReefNet Edge 01 sessions",
@@ -3858,14 +4282,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/3 in percent",
@@ -3900,14 +4317,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/3 out label",
@@ -4054,14 +4464,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/3 out percent",
@@ -4096,14 +4499,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/2 in label",
@@ -4866,14 +5262,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/1 in percent",
@@ -4908,14 +5297,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/1 out label",
@@ -5062,14 +5444,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge01 ethernet-1/1 out percent",
@@ -5104,14 +5479,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "ReefNet Edge 02 sessions",
@@ -5916,14 +6284,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge02 ethernet-1/2 in percent",
@@ -5958,14 +6319,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge02 ethernet-1/2 out label",
@@ -6112,14 +6466,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "edge02 ethernet-1/2 out percent",
@@ -6154,14 +6501,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "Ocean Research sessions",
@@ -6350,14 +6690,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "cust01 ethernet-1/1 in percent",
@@ -6392,14 +6725,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "cust01 ethernet-1/1 out label",
@@ -6546,14 +6872,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "cust01 ethernet-1/1 out percent",
@@ -6588,14 +6907,7 @@
               "border": {
                 "width": 0
               },
-              "connections": [],
-              "links": [
-                {
-                  "title": "Traffic & Capacity",
-                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
-                  "oneClick": true
-                }
-              ]
+              "connections": []
             },
             {
               "name": "transit01 ethernet-1/1 state",
@@ -6612,8 +6924,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "transit01 ethernet-1/1 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6645,8 +6957,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "transit02 ethernet-1/1 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6678,8 +6990,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge01 ethernet-1/3 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6711,8 +7023,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge01 ethernet-1/2 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6744,8 +7056,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge01 ethernet-1/4 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6777,8 +7089,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge01 ethernet-1/1 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6810,8 +7122,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge02 ethernet-1/1 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6843,8 +7155,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge02 ethernet-1/3 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6876,8 +7188,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "edge02 ethernet-1/2 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -6909,8 +7221,8 @@
               },
               "config": {
                 "text": {
-                  "mode": "field",
-                  "field": "cust01 ethernet-1/1 state"
+                  "mode": "fixed",
+                  "fixed": "\u25cf"
                 },
                 "align": "center",
                 "size": 12,
@@ -7083,6 +7395,840 @@
                 {
                   "title": "Service Health",
                   "url": "/d/reefnet-bob1-service",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit01 ethernet-1/1 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 235,
+                "top": 262,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "transit01 ethernet-1/1 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "transit02 ethernet-1/1 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -545,
+                "top": 262,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "transit02 ethernet-1/1 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge01 ethernet-1/3 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 65,
+                "top": 542,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/3 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge01 ethernet-1/2 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 65,
+                "top": 620,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/2 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge01 ethernet-1/4 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 65,
+                "top": 698,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/4 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge01 ethernet-1/1 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 65,
+                "top": 776,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/1 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge02 ethernet-1/1 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -375,
+                "top": 542,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge02 ethernet-1/1 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge02 ethernet-1/3 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -375,
+                "top": 620,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge02 ethernet-1/3 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "edge02 ethernet-1/2 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -375,
+                "top": 698,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "edge02 ethernet-1/2 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "cust01 ethernet-1/1 state tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 65,
+                "top": 972,
+                "width": 14,
+                "height": 18
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "text": {
+                  "mode": "field",
+                  "field": "cust01 ethernet-1/1 state"
+                },
+                "align": "center",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              }
+            },
+            {
+              "name": "transit01 ethernet-1/1 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 296.5,
+                "top": 283,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "transit01 ethernet-1/1 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit01 ethernet-1/1 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 296.5,
+                "top": 306,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "transit01 ethernet-1/1 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit02 ethernet-1/1 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -483.5,
+                "top": 283,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "transit02 ethernet-1/1 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "transit02 ethernet-1/1 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -483.5,
+                "top": 306,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "transit02 ethernet-1/1 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/3 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 126.5,
+                "top": 563,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/3 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/3 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 126.5,
+                "top": 586,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/3 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=lagoon",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/1 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 118.5,
+                "top": 797,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/1 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge01 ethernet-1/1 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 118.5,
+                "top": 820,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge01 ethernet-1/1 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge02 ethernet-1/2 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -313.5,
+                "top": 719,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge02 ethernet-1/2 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "edge02 ethernet-1/2 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": -313.5,
+                "top": 742,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "edge02 ethernet-1/2 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=pacific",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "cust01 ethernet-1/1 in utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 118.5,
+                "top": 993,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "cust01 ethernet-1/1 in utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
+                  "oneClick": true
+                }
+              ]
+            },
+            {
+              "name": "cust01 ethernet-1/1 out utilization tooltip",
+              "type": "metric-value",
+              "placement": {
+                "left": 118.5,
+                "top": 1016,
+                "width": 65,
+                "height": 20
+              },
+              "constraint": {
+                "horizontal": "center",
+                "vertical": "top"
+              },
+              "config": {
+                "align": "left",
+                "valign": "middle",
+                "size": 12,
+                "color": {
+                  "fixed": "transparent"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "cust01 ethernet-1/1 out utilization tooltip"
+                }
+              },
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "width": 0
+              },
+              "connections": [],
+              "links": [
+                {
+                  "title": "Traffic & Capacity",
+                  "url": "/d/reefnet-bob1-traffic/traffic-capacity?var-link=customer",
                   "oneClick": true
                 }
               ]
