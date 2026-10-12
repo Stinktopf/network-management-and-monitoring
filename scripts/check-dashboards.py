@@ -4,12 +4,16 @@ import argparse
 import hashlib
 import xml.etree.ElementTree as ET
 import json
+import os
 from pathlib import Path
 import re
 import urllib.parse
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
+GRAFANA_URL = os.environ.get('AI5049_GRAFANA_URL', 'http://localhost:3000').rstrip('/')
+PROMETHEUS_URL = os.environ.get('AI5049_PROMETHEUS_URL', 'http://localhost:9090').rstrip('/')
+LOKI_URL = os.environ.get('AI5049_LOKI_URL', 'http://localhost:3100').rstrip('/')
 
 def get(url):
     with urllib.request.urlopen(url, timeout=20) as response:
@@ -26,7 +30,7 @@ def main():
     asset = ROOT / "configs/grafana/assets/reefnet-topology.svg"
     ET.fromstring(asset.read_text())
     if args.live:
-        with urllib.request.urlopen("http://localhost:3000/public/img/reefnet/reefnet-topology.svg", timeout=10) as response:
+        with urllib.request.urlopen(GRAFANA_URL + "/public/img/reefnet/reefnet-topology.svg", timeout=10) as response:
             assert response.read() == asset.read_bytes(), "SVG asset not current"
     count = 0
     for d in dashboards:
@@ -35,7 +39,7 @@ def main():
         variables = {v['name'] for v in d['templating']['list']} | {'__range', '__rate_interval'}
         assert len({p['id'] for p in d['panels']}) == len(d['panels'])
         if args.live:
-            live = get('http://localhost:3000/api/dashboards/uid/' + d['uid'])['dashboard']
+            live = get(GRAFANA_URL + '/api/dashboards/uid/' + d['uid'])['dashboard']
             assert live['panels'] == d['panels'], 'Provisioning not current: ' + d['title']
         for i, panel in enumerate(d['panels']):
             if panel['type'] == 'canvas':
@@ -70,7 +74,7 @@ def main():
                 expr = expr.replace('$__range', '15m').replace('$__rate_interval', '20s')
                 expr = re.sub(r'\$[A-Za-z_]\w*', '.*', expr)
                 is_loki = panel.get('datasource', {}).get('uid') == 'loki'
-                endpoint = 'http://localhost:3100/loki/api/v1/query_range' if is_loki else 'http://localhost:9090/api/v1/query'
+                endpoint = LOKI_URL + '/loki/api/v1/query_range' if is_loki else PROMETHEUS_URL + '/api/v1/query'
                 result = get(endpoint + '?' + urllib.parse.urlencode({'query': expr}))
                 assert result['status'] == 'success', (panel['title'], result)
                 if not is_loki:
@@ -78,7 +82,7 @@ def main():
                 count += 1
         print(d['title'] + ': OK')
     if args.live:
-        listed = get('http://localhost:3000/api/search?type=dash-db')
+        listed = get(GRAFANA_URL + '/api/search?type=dash-db')
         owned = {d['uid'] for d in listed if d['uid'].startswith('reefnet-bob1-')}
         assert owned == uids, ('Obsolete or missing dashboards', owned ^ uids)
         print(f'{count} live panel queries passed')

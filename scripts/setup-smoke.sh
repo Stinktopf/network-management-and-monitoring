@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eEuo pipefail
 source "$(dirname "$0")/ui.sh"
+root=$(cd "$(dirname "$0")/.." && pwd)
 current='initialization'; mkdir -p .state
 fail() { rc=$?; trap - ERR; ui_error_banner "COURSE CHECK FAILED · $current"; exit "$rc"; }
 trap fail ERR
@@ -167,7 +168,12 @@ done
 ui_ok 'All seven dashboards refresh every 5 seconds'
 
 step 'Grafana dashboards and panel queries'
-python3 scripts/check-dashboards.py --live
+cmd docker run --rm --network ai5049-mgmt \
+  -v "$root:/lab:ro" -w /lab \
+  -e AI5049_GRAFANA_URL=http://clab-ai5049-grafana:3000 \
+  -e AI5049_PROMETHEUS_URL=http://clab-ai5049-prometheus:9090 \
+  -e AI5049_LOKI_URL=http://clab-ai5049-loki:3100 \
+  ai5049-tools:bob1-v20 python3 scripts/check-dashboards.py --live
 ui_ok 'Dashboard navigation, provisioning and live queries'
 step 'Restore healthy baseline'
 bash scripts/healthy.sh >/dev/null 2>&1 || true; bash scripts/traffic.sh stop >/dev/null 2>&1 || true
