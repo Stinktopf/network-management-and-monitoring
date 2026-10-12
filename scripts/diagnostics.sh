@@ -72,7 +72,7 @@ printf '%s\n' 'AI5049 startup diagnostics' '=========================='
 printf 'Phase: %s\n' "$phase"
 printf 'Time:  %s\n\n' "$(date -Is 2>/dev/null || date)"
 
-for f in .state/validation.log .state/destroy.log .state/deploy.log .state/netbox-compose.log .state/queue-readiness.log .state/scenario-preparation.log; do
+for f in .state/validation.log .state/destroy.log .state/deploy.log .state/netbox-compose.log .state/queue-readiness.log .state/scenario-preparation.log .state/setup-smoke.log .state/setup-scenarios.log .state/course-check.log; do
   if [[ -s "$f" ]]; then
     printf '\n--- %s (last 100 lines) ---\n' "$f"
     tail -n 100 "$f" | sed -E $'s/\x1B\[[0-9;]*[mK]//g'

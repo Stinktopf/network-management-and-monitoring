@@ -116,8 +116,8 @@ prom_expect 'Interface egress discard query returns data' 'reefnet_interface_out
 prom_expect 'Device BGP view selector query returns data' 'reefnet_bgp_route_total{source="edge01.bob1.reefnet.test",route_view="active"}'
 prom_expect 'Topology link admin state is enabled' 'reefnet_link_admin_enabled{link_id="core-b"} == 1'
 prom_expect 'Topology link oper state is up' 'reefnet_link_oper_up{link_id="core-b"} == 1'
-prom_expect 'Topology Lagoon → ReefNet direction returns data' 'reefnet_link_in_bps{link_id="lagoon",traffic_direction="Lagoon Transit → ReefNet"}'
-prom_expect 'Topology ReefNet → Ocean Research direction returns data' 'reefnet_link_out_bps{link_id="customer",traffic_direction="ReefNet → Ocean Research"}'
+prom_expect 'Topology Lagoon → ReefNet direction returns data' 'reefnet_link_in_bps{link_id="lagoon",source="edge01.bob1.reefnet.test",interface_name="ethernet-1/3"}'
+prom_expect 'Topology ReefNet → Ocean Research direction returns data' 'reefnet_link_out_bps{link_id="customer",source="edge01.bob1.reefnet.test",interface_name="ethernet-1/1"}'
 prom_expect 'Topology utilization query returns data' 'reefnet_link_utilization_ratio{link_id="lagoon"}'
 
 step 'Loki · SR Linux logs'
