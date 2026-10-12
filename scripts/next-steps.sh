@@ -50,7 +50,7 @@ if [[ "$level" == task ]]; then
 fi
 if [[ "$step" != all ]] && (( step < count )); then
   if [[ "$level" == solution ]]; then
-    ui_action 'Next worked step:' "make solution SCENARIO=$scenario STEP=$((step + 1))"
+    ui_action 'Next worked step:' "make task SCENARIO=$scenario STEP=$((step + 1))"
   else
     ui_action 'When ready:' "make task SCENARIO=$scenario STEP=$((step + 1))"
   fi
