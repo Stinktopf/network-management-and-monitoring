@@ -4,6 +4,15 @@ source "$(dirname "$0")/check-platform.sh"
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then export AI5049_COLOR=always; fi
 source "$(dirname "$0")/ui.sh"
 
+if [[ ${AI5049_SETUP_RUN:-0} != 1 ]]; then
+  exec 9>/tmp/ai5049-setup.lock
+  if ! flock -n 9; then
+    ui_fail 'make setup is using the shared WSL Docker lab for validation.'
+    ui_hint 'Wait for setup to finish, then start your scenario again.'
+    exit 1
+  fi
+fi
+
 scenario=${1:?usage: start-scenario.sh networking|operations|automation|monitoring}
 case "$scenario" in networking|operations|automation|monitoring) ;; *) ui_fail "Unknown scenario: $scenario"; exit 2 ;; esac
 

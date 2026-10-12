@@ -53,6 +53,8 @@ make setup
 
 Wait for `READY FOR CLASS`. Setup checks all four scenarios, then stops the containers.
 
+The lab PCs share one WSL Docker engine. Only one AI5049 lab can run on a PC at a time. Run `make down` before handing the PC to another student. If setup fails after starting its checks, it saves diagnostics and removes its temporary lab.
+
 <details>
 <summary>Setup on your own computer</summary>
 

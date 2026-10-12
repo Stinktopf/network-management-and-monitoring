@@ -4,20 +4,35 @@ source "$(dirname "$0")/check-platform.sh"
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then export AI5049_COLOR=always; fi
 source "$(dirname "$0")/ui.sh"
 mkdir -p .state
-rm -f .state/setup-complete .state/course-check-scenarios
 phase='workstation check'
+runtime_started=0
+
+exec 9>/tmp/ai5049-setup.lock
+if ! flock -n 9; then
+  ui_fail 'Another make setup is already using the shared WSL Docker lab.'
+  ui_hint 'Wait for it to finish, then rerun make setup.'
+  exit 1
+fi
+rm -f .state/setup-complete .state/course-check-scenarios
 
 on_error() {
   rc=$?
-  trap - ERR
+  if (($#)); then rc=$1; fi
+  trap - ERR INT TERM
   ui_error_banner "SETUP FAILED · $phase"
   if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     bash scripts/diagnostics.sh "setup: $phase" full > .state/last-startup-diagnostics.log 2>&1 || true
     ui_hint 'Full diagnostics: .state/last-startup-diagnostics.log'
   fi
+  if (( runtime_started )); then
+    ui_info 'Removing the temporary validation lab after saving diagnostics.'
+    bash scripts/down.sh || true
+  fi
   exit "$rc"
 }
 trap on_error ERR
+trap 'on_error 130' INT
+trap 'on_error 143' TERM
 
 ui_banner 'AI5049 Classroom Lab · BOB1' 'One-time pre-class setup · live output stays visible and is logged under .state/'
 
@@ -55,6 +70,7 @@ phase='validation lab'
 ui_section 'Validation lab'
 ui_info 'Starting the complete networking scenario exactly as it will run in class.'
 ui_cmd bash scripts/start-scenario.sh networking
+runtime_started=1
 AI5049_NO_GUIDE=1 AI5049_SETUP_RUN=1 AI5049_PREFLIGHT_FAST=1 bash scripts/start-scenario.sh networking
 
 phase='course feature checks'
