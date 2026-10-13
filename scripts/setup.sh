@@ -9,7 +9,7 @@ runtime_started=0
 
 exec 9>/tmp/ai5049-setup.lock
 if ! flock -n 9; then
-  ui_fail 'Another make setup is already using the shared WSL Docker lab.'
+  ui_fail 'Another make setup is already running on this PC.'
   ui_hint 'Wait for it to finish, then rerun make setup.'
   exit 1
 fi
@@ -81,17 +81,18 @@ bash scripts/setup-smoke.sh 2>&1 | tee .state/setup-smoke.log
 
 phase='remaining course workflows'
 ui_section 'Remaining course workflows'
-ui_info 'Networking passed above. Operations, Automation and Monitoring now run through their documented classroom workflows.'
+ui_info 'Networking passed above. Operations and Monitoring now run through their documented classroom workflows.'
 ui_cmd bash scripts/course-check.sh
-AI5049_COURSE_CHECK_SCENARIOS='operations automation monitoring' \
+AI5049_COURSE_CHECK_SCENARIOS='operations monitoring' \
 AI5049_COURSE_CHECK_KEEP_UP=1 \
+AI5049_COURSE_CHECK_REUSE_LAB=1 \
 AI5049_SETUP_RUN=1 \
 AI5049_PREFLIGHT_FAST=1 \
   bash scripts/course-check.sh 2>&1 | tee .state/setup-scenarios.log
 passed_scenarios=$(paste -sd ' ' .state/course-check-scenarios)
-[[ "$passed_scenarios" == 'operations automation monitoring' ]]
+[[ "$passed_scenarios" == 'operations monitoring' ]]
 printf '%s\n' "$SCHEMA" > .state/netbox-schema-version
-ui_ok 'Networking, Operations, Automation and Monitoring passed'
+ui_ok 'Networking, Operations and Monitoring passed'
 
 phase='stop validation lab'
 ui_section 'Stop validation lab'

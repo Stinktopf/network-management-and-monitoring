@@ -5,7 +5,10 @@ root=$(cd "$(dirname "$0")/.." && pwd)
 current='initialization'; mkdir -p .state
 fail() { rc=$?; trap - ERR; ui_error_banner "COURSE CHECK FAILED · $current"; exit "$rc"; }
 trap fail ERR
-step() { current=$1; ui_section "$current"; }
+step_started=$(date +%s)
+# Print the duration of the previous step so slow checks stand out in the setup log.
+step_done() { [[ $current == initialization ]] || ui_duration "$current" "$(( $(date +%s) - step_started ))"; }
+step() { step_done; current=$1; step_started=$(date +%s); ui_section "$current"; }
 cmd() { ui_cmd "$@"; "$@"; }
 
 prom_expect() {
@@ -45,7 +48,7 @@ step 'Operations fault · IPv4 export'
 cmd bash scripts/fault-routing.sh
 cmd bash scripts/verify-scenario.sh operations
 ui_ok 'Expected IPv4-only failure externally visible'
-step 'Automation repair · gNMI Set'
+step 'Operations repair · gNMI Set'
 cmd docker exec clab-ai5049-ops01 gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy'
 ui_wait 'Waiting for routing after API change'
 cmd bash scripts/wait-healthy.sh
@@ -184,5 +187,6 @@ docker exec clab-ai5049-host01 curl --silent --show-error --fail --max-time 5 -4
 docker exec clab-ai5049-host01 curl --silent --show-error --fail --max-time 5 -6 http://data.oceanresearch.test/ >/dev/null
 docker exec clab-ai5049-host02 curl --silent --show-error --fail --max-time 5 -4 http://data.oceanresearch.test/ >/dev/null
 docker exec clab-ai5049-host02 curl --silent --show-error --fail --max-time 5 -6 http://data.oceanresearch.test/ >/dev/null
+step_done
 ui_success_banner 'COURSE FEATURE CHECKS PASSED'
 trap - ERR

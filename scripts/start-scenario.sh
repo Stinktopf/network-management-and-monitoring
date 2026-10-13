@@ -7,14 +7,14 @@ source "$(dirname "$0")/ui.sh"
 if [[ ${AI5049_SETUP_RUN:-0} != 1 ]]; then
   exec 9>/tmp/ai5049-setup.lock
   if ! flock -n 9; then
-    ui_fail 'make setup is using the shared WSL Docker lab for validation.'
+    ui_fail 'make setup is still running its validation lab on this PC.'
     ui_hint 'Wait for setup to finish, then start your scenario again.'
     exit 1
   fi
 fi
 
-scenario=${1:?usage: start-scenario.sh networking|operations|automation|monitoring}
-case "$scenario" in networking|operations|automation|monitoring) ;; *) ui_fail "Unknown scenario: $scenario"; exit 2 ;; esac
+scenario=${1:?usage: start-scenario.sh networking|operations|monitoring}
+case "$scenario" in networking|operations|monitoring) ;; *) ui_fail "Unknown scenario: $scenario"; exit 2 ;; esac
 
 mkdir -p .state
 : > .state/last-startup.log
@@ -56,6 +56,7 @@ ui_duration 'Preflight complete' "$(elapsed "$t")"
 phase='Reset previous Containerlab topology'
 t=$(date +%s)
 ui_section 'Reset previous topology'
+bash scripts/claim-runtime.sh
 ui_cmd containerlab destroy -t lab.clab.yml --cleanup --keep-mgmt-net
 containerlab destroy -t lab.clab.yml --cleanup --keep-mgmt-net 2>&1 | tee .state/destroy.log || true
 ui_duration 'Previous topology cleared' "$(elapsed "$t")"
@@ -92,22 +93,6 @@ bash scripts/netbox-up.sh wait --progress
 ui_duration 'NetBox inventory ready' "$(elapsed "$t")"
 
 phase="Apply and verify scenario: $scenario"
-t=$(date +%s)
-ui_section "Scenario · $scenario"
-case "$scenario" in
-  networking) ui_info 'Healthy baseline · no fault injection' ;;
-  operations|automation)
-    ui_info 'Preparing the incident exercise. Use make task to investigate.'
-    bash scripts/fault-routing.sh > .state/scenario-preparation.log 2>&1
-    ;;
-  monitoring) ui_info 'Starting background traffic probe01.bob1.lagoontransit.test → service01.bob1.oceanresearch.test'; bash scripts/traffic.sh set 25M ;;
-esac
-ui_info 'Verifying expected scenario state and all classroom containers'
-bash scripts/verify-scenario.sh "$scenario"
-bash scripts/check-containers.sh
-printf '%s\n' "$scenario" > .scenario
-ui_subsection 'End-to-end reachability'
-bash scripts/test.sh
-ui_duration 'Scenario verified' "$(elapsed "$t")"
+bash scripts/prepare-scenario.sh "$scenario"
 
 [[ "${AI5049_NO_GUIDE:-0}" == 1 ]] || bash scripts/next-steps.sh "$scenario"

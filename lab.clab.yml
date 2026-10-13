@@ -5,6 +5,9 @@ mgmt:
   ipv4-subnet: 172.20.20.0/24
 
 topology:
+  # Never let containers from an earlier session restart with WSL.
+  defaults:
+    restart-policy: "no"
   kinds:
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:25.10
@@ -60,6 +63,8 @@ topology:
       mgmt-ipv4: 172.20.20.31
       group: endpoints
       exec:
+        # Containerlab veths default to MTU 9500; the routers use ip-mtu 1500.
+        - ip link set eth1 mtu 1500
         - ip address add 203.0.113.10/25 dev eth1
         - ip -6 address add 2001:db8:a::10/64 dev eth1
         - ip route replace default via 203.0.113.1
@@ -74,6 +79,7 @@ topology:
       mgmt-ipv4: 172.20.20.32
       group: endpoints
       exec:
+        - ip link set eth1 mtu 1500
         - ip address add 203.0.113.138/25 dev eth1
         - ip -6 address add 2001:db8:b::10/64 dev eth1
         - ip route replace default via 203.0.113.129
@@ -90,6 +96,7 @@ topology:
       binds:
         - services/data-service/index.html:/usr/share/nginx/html/index.html:ro
       exec:
+        - ip link set eth1 mtu 1500
         - ip address add 198.51.100.10/24 dev eth1
         - ip -6 address add 2001:db8:100::10/48 dev eth1
         - ip route replace default via 198.51.100.1

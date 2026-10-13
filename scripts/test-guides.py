@@ -30,10 +30,11 @@ class Guides(unittest.TestCase):
             source = guide.read_text()
             sections = re.split(r"^@@ \d+ .*\n", source, flags=re.M)[1:]
             for step, section in enumerate(sections, 1):
-                task, rest = section.split("@@ hint\n")
+                task, rest = section.split("@@ start\n")
+                start, rest = rest.split("@@ hint\n")
                 hint, rest = rest.split("@@ investigation\n")
                 investigation, solution = rest.split("@@ solution\n")
-                for level, expected in (("task", task), ("hint", hint), ("solution", solution)):
+                for level, expected in (("task", task + start), ("hint", hint), ("solution", solution)):
                     with self.subTest(scenario=guide.stem, step=step, level=level):
                         result = self.render(guide.stem, step, level)
                         self.assertEqual(result.returncode, 0, result.stderr)
@@ -45,6 +46,7 @@ class Guides(unittest.TestCase):
                                 normalized(result.stdout).index(normalized(solution)),
                             )
                             self.assertNotIn(task.strip(), result.stdout)
+                            self.assertNotIn(start.strip(), result.stdout)
                             self.assertIn("Investigation commands", result.stdout)
                             self.assertIn(normalized(investigation), normalized(result.stdout))
                             self.assertLess(result.stdout.index("Investigation commands"), result.stdout.index("Worked answer"))
@@ -52,10 +54,106 @@ class Guides(unittest.TestCase):
                             self.assertNotIn(investigation.strip(), result.stdout)
                             self.assertNotIn(solution.strip(), result.stdout)
 
+    def test_task_commands_appear_in_hint_and_solution(self):
+        # The task names each command. The hint and the solution show it with arguments.
+        for guide in sorted((ROOT / "scripts/guides").glob("*.txt")):
+            source = guide.read_text()
+            for step, section in enumerate(re.split(r"^@@ \d+ .*\n", source, flags=re.M)[1:], 1):
+                start = section.split("@@ start\n")[1].split("@@ hint\n")[0]
+                hint = section.split("@@ hint\n")[1].split("@@ investigation\n")[0]
+                investigation = section.split("@@ investigation\n")[1].split("@@ solution\n")[0]
+                block = start.split("Commands:\n")[1].split("\n\n")[0]
+                hint = re.sub(r"\\\n\s*", " ", hint)
+                investigation = re.sub(r"\\\n\s*", " ", investigation)
+                for line in block.splitlines():
+                    # Headings name the device. Indented lines list its commands.
+                    if not line.startswith("  ") or "route commands from" in line:
+                        continue
+                    for command in line.strip().split(", "):
+                        command = re.sub(r" <[^>]+>", "", command.split(" for ")[0])
+                        words = command.split()
+                        for level, text in (("hint", start + hint), ("solution", start + investigation)):
+                            with self.subTest(scenario=guide.stem, step=step, level=level, command=command):
+                                def runs(line):
+                                    tokens = line.split()
+                                    starts = (tokens[:1] == words[:1] or f"| {words[0]} " in line + " "
+                                              or f"$({words[0]} " in line)
+                                    return starts and all(w in tokens for w in words[1:])
+                                self.assertTrue(
+                                    any(runs(l.strip()) for l in text.splitlines()),
+                                    f"{command!r} missing from {level}",
+                                )
+
+    def test_hint_and_solution_use_the_same_commands(self):
+        # The worked solution runs exactly the hint's commands. <placeholder> stands for any value.
+        command = re.compile(r"^  (make |show |info |enter |delete |set |discard |commit|diff$|date |ip |ping |dig "
+                             r"|traceroute |tracepath |mtr |curl |gnmic |cat |tail |jq |getent |hostname$|ssh "
+                             r"|[A-Z_][A-Z0-9_]*=)")
+        def commands(text):
+            text = re.sub(r"\\\n\s*", " ", text)
+            found = []
+            for line in text.splitlines():
+                if command.match(line):
+                    found.append(" ".join(re.sub(r"\s+#.*$", "", line).split()))
+            return set(found)
+        def pattern(line):
+            return re.compile("^" + re.sub(r"<[^>]+>", ".+", re.escape(line).replace("\\<", "<").replace("\\>", ">")) + "$")
+        for guide in sorted((ROOT / "scripts/guides").glob("*.txt")):
+            source = guide.read_text()
+            for step, section in enumerate(re.split(r"^@@ \d+ .*\n", source, flags=re.M)[1:], 1):
+                # The task's start block sets up the experiment. The hint continues from there.
+                start = section.split("@@ start\n")[1].split("@@ hint\n")[0]
+                hint = commands(start.split("Start in WSL:")[-1] + section.split("@@ hint\n")[1].split("@@ investigation\n")[0])
+                solution = commands(section.split("@@ investigation\n")[1].split("@@ solution\n")[0])
+                with self.subTest(scenario=guide.stem, step=step):
+                    only_hint = {h for h in hint if not any(pattern(h).match(x) for x in solution)}
+                    only_solution = {x for x in solution if not any(pattern(h).match(x) for h in hint)}
+                    self.assertEqual((only_hint, only_solution), (set(), set()))
+
+    def test_both_probes_run_the_same_checks(self):
+        # A Pacific block repeats the Lagoon block in full. Only the gateway differs.
+        def probe_blocks(text):
+            blocks, current = {}, None
+            for line in text.splitlines():
+                if line.startswith(("Inside", "In the")):
+                    current = ("pacific" if "Pacific probe" in line else
+                               "lagoon" if "Lagoon probe" in line or re.search(r"\bthe probe\b", line) else None)
+                    if current:
+                        blocks.setdefault(current, [])
+                elif current and line.startswith("  ") and line.strip():
+                    command = line.split("#")[0].strip()
+                    command = re.sub(r"203\.0\.113\.(129|1)\b", "GATEWAY", command)
+                    blocks[current].append(re.sub(r"2001:db8:[ab]::1\b", "GATEWAY6", command))
+                elif line.strip():
+                    current = None
+            return blocks
+        for guide in sorted((ROOT / "scripts/guides").glob("*.txt")):
+            source = guide.read_text()
+            for step, section in enumerate(re.split(r"^@@ \d+ .*\n", source, flags=re.M)[1:], 1):
+                for level in ("hint", "investigation"):
+                    text = re.split(r"^@@ \w+\n", section.split(f"@@ {level}\n")[1], flags=re.M)[0]
+                    blocks = probe_blocks(text)
+                    if "pacific" not in blocks and not ("lagoon" in blocks and "Pacific" in text):
+                        continue
+                    with self.subTest(scenario=guide.stem, step=step, level=level):
+                        self.assertEqual(blocks.get("lagoon"), blocks.get("pacific"))
+
+    def test_prose_fits_the_terminal(self):
+        # Commands and data may be long. Prose and lead-ins wrap at 80 columns.
+        literal = re.compile(r"^(make|show|info|ip|ping|dig|curl|gnmic|traceroute|tracepath|mtr|tail|rate|"
+                             r"getent|ssh|set|delete|GROUP|TOKEN|jq|enter|commit|diff|date|cat|  )")
+        for scenario in ("networking", "operations", "monitoring"):
+            for level in ("task", "hint", "solution"):
+                for line in self.render(scenario, "all", level).stdout.splitlines():
+                    if not literal.match(line):
+                        with self.subTest(scenario=scenario, level=level, line=line):
+                            self.assertLessEqual(len(line), 80)
+
     def test_entry_is_short_and_hints_offer_commands_without_results(self):
-        for scenario in ("networking", "operations", "automation", "monitoring"):
+        for scenario in ("networking", "operations", "monitoring"):
             task = self.render(scenario, 1).stdout
-            self.assertLessEqual(len(task.splitlines()), 18)
+            # Task, commands per device, logins and places to look fit one terminal screen.
+            self.assertLessEqual(len(task.splitlines()), 36)
             self.assertNotIn("Investigation steps", task)
             self.assertNotIn("make solution", task)
             hint = self.render(scenario, 1, "hint").stdout
@@ -82,7 +180,8 @@ class Guides(unittest.TestCase):
         self.assertIn("make enter NODE=edge01.bob1.reefnet.test", output)
         self.assertIn("show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24", output)
         self.assertIn("show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24", output)
-        self.assertIn("make solution SCENARIO=operations STEP=4", output)
+        self.assertIn("make task SCENARIO=operations STEP=4", output)
+        self.assertNotIn("make solution SCENARIO=operations STEP=4", output)
         self.assertNotIn("Worked answer: make solution", output)
 
     def test_networking_traces_both_address_families_from_both_probes(self):
@@ -120,28 +219,28 @@ class Guides(unittest.TestCase):
             env=dict(os.environ, AI5049_COLOR="never"),
         )
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("1 Start on the Lagoon probe", result.stdout)
+        self.assertIn("1 Test the service from both probes", result.stdout)
         self.assertNotIn("2 Resolve the name and fetch the service", result.stdout)
         self.assertIn("Worked answer", result.stdout)
         self.assertIn("make enter NODE=probe01.bob1.lagoontransit.test", result.stdout)
         self.assertIn("Investigation commands", result.stdout)
         self.assertIn(
             "BOB1 / NETWORKING / SOLUTION\n--------------------------------------------------------------------\n"
-            "1 Start on the Lagoon probe",
+            "1 Test the service from both probes",
             result.stdout,
         )
 
     def test_removed_operations_steps_are_rejected_without_remapping(self):
-        for step in (6, 7):
+        for step in (9, 10):
             with self.subTest(step=step):
                 result = self.render("operations", step, "solution")
                 self.assertEqual(result.returncode, 2)
-                self.assertIn("Choose STEP=1 through STEP=5", result.stderr)
+                self.assertIn("Choose STEP=1 through STEP=8", result.stderr)
                 self.assertNotIn("4 Inspect the export policy", result.stdout)
-                self.assertNotIn("5 Verify the route", result.stdout)
+                self.assertNotIn("8 Verify the API repair", result.stdout)
 
     def test_student_incident_guide_does_not_give_away_the_repair(self):
-        for scenario in ("operations", "automation"):
+        for scenario in ("operations",):
             output = self.render(scenario, "all").stdout
             for spoiler in ("BLOCK-CUSTOMER-V4", "commit now", "set --delete", "delete / network-instance"):
                 self.assertNotIn(spoiler, output)
@@ -165,7 +264,7 @@ class Guides(unittest.TestCase):
 
     def test_guide_spacing_is_consistent_across_scenarios(self):
         contexts = ("Inside ", "In the ", "WSL repository:", "Start in WSL:", "Router CLI")
-        for scenario in ("networking", "operations", "automation", "monitoring"):
+        for scenario in ("networking", "operations", "monitoring"):
             for level in ("task", "hint", "solution"):
                 output = self.render(scenario, "all", level).stdout
                 lines = output.splitlines()
@@ -202,7 +301,7 @@ class Guides(unittest.TestCase):
                             self.assertGreater(index, 0)
                             previous_is_action = any(label in lines[index - 1] for label in (
                                 "Next worked step:", "When ready:", "Commands and clues:",
-                                "Commands and expected results:",
+                                "Commands and expected results:", "Device names, logins and web UIs:",
                             ))
                             if not previous_is_action:
                                 self.assertEqual(lines[index - 1], "")
@@ -214,12 +313,12 @@ class Guides(unittest.TestCase):
             env=dict(os.environ, AI5049_COLOR="always"),
         )
         self.assertIn(
-            "\x1b[36m\x1b[1m→\x1b[0m Next worked step: \x1b[33m\x1b[1mmake solution SCENARIO=operations STEP=2\x1b[0m",
+            "\x1b[36m\x1b[1m→\x1b[0m When ready: \x1b[33m\x1b[1mmake task SCENARIO=operations STEP=2\x1b[0m",
             result.stdout,
         )
         plain = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout)
-        next_line = next(line for line in plain.splitlines() if "Next worked step:" in line)
-        self.assertTrue(next_line.startswith("→ Next worked step:"), next_line)
+        next_line = next(line for line in plain.splitlines() if "When ready:" in line)
+        self.assertTrue(next_line.startswith("→ When ready:"), next_line)
         task = subprocess.run(
             ["bash", "scripts/next-steps.sh", "operations", "1", "task"],
             cwd=ROOT, capture_output=True, text=True, check=True,
@@ -241,13 +340,13 @@ class Guides(unittest.TestCase):
 
     def test_explanatory_lines_between_commands_are_spaced_and_unstyled(self):
         result = subprocess.run(
-            ["bash", "scripts/next-steps.sh", "operations", "4", "solution"],
+            ["bash", "scripts/next-steps.sh", "operations", "7", "solution"],
             cwd=ROOT, capture_output=True, text=True, check=True,
             env=dict(os.environ, AI5049_COLOR="never"),
         )
-        self.assertIn("\ndiff\n\nCommit only if the diff contains this deletion and no unrelated edits:\ncommit now\n", result.stdout)
-        self.assertNotIn("\x1b[90mCommit only if", result.stdout)
-        self.assertIn("\nWorked answer\nNeighbor 192.0.2.2", result.stdout)
+        self.assertIn("\ndiff\n\nAfter confirming the original attachment is restored:\ncommit now\n", result.stdout)
+        self.assertNotIn("\x1b[90mAfter confirming", result.stdout)
+        self.assertIn("\nWorked answer\nBefore the change", result.stdout)
 
     def test_soft_wrapped_prose_and_section_transitions_render_as_paragraphs(self):
         operations = self.render("operations", 2, "solution").stdout
@@ -257,19 +356,14 @@ class Guides(unittest.TestCase):
             normalized(operations),
         )
         self.assertIn(
-            "If the name does not resolve, check hostname: router SSH belongs on operations01.",
+            "If the name does not resolve, check that the prompt shows operations01: router SSH belongs there.",
             normalized(operations),
         )
         networking = self.render("networking", "all", "hint").stdout
         self.assertIn(
-            "hop alone does not prove that forwarding failed.\n\n"
+            "continues to the last hop affects the service.\n\n"
             "2 Check DNS, HTTP and router access",
             networking,
-        )
-        automation = self.render("automation", 2, "hint").stdout
-        self.assertIn(
-            "Follow the referenced prefix-set and accept/reject action, not just policy names.",
-            normalized(automation),
         )
         monitoring = self.render("monitoring", 6, "hint").stdout
         self.assertIn(
@@ -279,12 +373,12 @@ class Guides(unittest.TestCase):
 
     def test_command_lead_ins_are_petrol_headings(self):
         result = subprocess.run(
-            ["bash", "scripts/next-steps.sh", "operations", "4", "solution"],
+            ["bash", "scripts/next-steps.sh", "operations", "7", "solution"],
             cwd=ROOT, capture_output=True, text=True, check=True,
             env=dict(os.environ, AI5049_COLOR="always"),
         )
         self.assertIn(
-            "\x1b[36m\x1b[1mCommit only if the diff contains this deletion and no unrelated edits:\x1b[0m\n\x1b[35mcommit now\x1b[0m",
+            "\x1b[36m\x1b[1mAfter confirming the original attachment is restored:\x1b[0m\n\x1b[35mcommit now\x1b[0m",
             result.stdout,
         )
 
@@ -312,7 +406,7 @@ class Guides(unittest.TestCase):
         self.assertIn("make test", commands[commands.index("make clear-routing") + 1:])
 
     def test_color_changes_presentation_only(self):
-        for scenario in ("networking", "operations", "automation", "monitoring"):
+        for scenario in ("networking", "operations", "monitoring"):
             for level in ("task", "hint", "solution"):
                 with self.subTest(scenario=scenario, level=level):
                     plain = self.render(scenario, "all", level).stdout

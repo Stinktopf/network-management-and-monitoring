@@ -2,8 +2,8 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 GUIDE_SCENARIO = $(or $(SCENARIO),$(shell cat .scenario 2>/dev/null || echo networking))
 
-.PHONY: help setup doctor pull networking operations automation monitoring reset enter \
-        inspect status task next hint solution test healthy fault-routing clear-routing fault-link clear-link \
+.PHONY: help setup doctor pull networking operations monitoring reset enter \
+        inspect status info task next hint solution test healthy fault-routing clear-routing fault-link clear-link \
         traffic-10mbit traffic-25mbit traffic-40mbit traffic-50mbit traffic-60mbit traffic-75mbit traffic-status traffic-diagnostics traffic-burst-40mbit traffic-stop \
         netbox-token netbox-reset diagnostics course-check down clean ui slides check
 
@@ -22,8 +22,6 @@ networking:
 	bash scripts/start-scenario.sh networking
 operations:
 	bash scripts/start-scenario.sh operations
-automation:
-	bash scripts/start-scenario.sh automation
 monitoring:
 	bash scripts/start-scenario.sh monitoring
 reset:
@@ -37,6 +35,8 @@ inspect:
 	containerlab inspect -t lab.clab.yml
 status:
 	bash scripts/status.sh
+info:
+	@bash scripts/info.sh
 # Compatibility for previously distributed commands.
 next: task
 

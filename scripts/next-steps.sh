@@ -5,7 +5,7 @@ scenario=${1:-networking}
 step=${2:-1}
 level=${3:-task}
 case "$scenario" in
-  networking|operations|automation|monitoring) ;;
+  networking|operations|monitoring) ;;
   *) ui_fail "Unknown scenario: $scenario"; exit 2 ;;
 esac
 case "$level" in
@@ -43,17 +43,15 @@ awk -v wanted="$step" -v level="$level" '
     }
     next
   }
-  selected && (section == level || (level == "solution" && section == "investigation")) { print }
+  selected && (section == level || (level == "task" && section == "start") || (level == "solution" && section == "investigation")) { print }
 ' "$guide" | awk -f "$(dirname "$0")/reflow-guide.awk" | ui_guide
 if [[ "$level" == task ]]; then
+  ui_action 'Device names, logins and web UIs:' 'make info'
   ui_action 'Commands and clues:' "make hint SCENARIO=$scenario STEP=$step"
 fi
 if [[ "$step" != all ]] && (( step < count )); then
-  if [[ "$level" == solution ]]; then
-    ui_action 'Next worked step:' "make task SCENARIO=$scenario STEP=$((step + 1))"
-  else
-    ui_action 'When ready:' "make task SCENARIO=$scenario STEP=$((step + 1))"
-  fi
+  # After any level, continue with the next task, not the next worked answer.
+  ui_action 'When ready:' "make task SCENARIO=$scenario STEP=$((step + 1))"
 fi
 if [[ "$level" == hint ]]; then
   ui_action 'Commands and expected results:' "make solution SCENARIO=$scenario STEP=$step"

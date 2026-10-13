@@ -1,28 +1,51 @@
 @@ 1 Reproduce the report and identify the affected path
 A Lagoon user cannot reach data.oceanresearch.test. From the Lagoon and
-Pacific probes, compare ping and DNS to the customer service over IPv4 and
-IPv6. Note which source/address-family combinations fail and which still work.
-Keep the working combinations as comparisons for later checks. Do not change
-configuration yet.
+Pacific probes, compare the selected gateway, ping, the path (mtr) and DNS to the
+customer service over IPv4 and IPv6. Note which
+source/address-family combinations fail and which still work. Keep the working
+combinations as comparisons for later checks. Do not change configuration yet.
+@@ start
+
+Commands:
+In WSL:
+  date, make test
+On probe01.bob1.lagoontransit.test and probe01.bob1.pacifictransit.test:
+  ip, ping, mtr, dig
+
+Look at:
+- Grafana → Service Health shows the same checks over time
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
 @@ hint
-In WSL:
+In WSL, record the time and the four ping results:
+  date -Is
+  make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe, choose a check for each question:
   ip route get 198.51.100.10                        # chosen source and gateway
-  ip -6 route get 2001:db8:100::10                  # IPv6 path
+  ip -6 route get 2001:db8:100::10
+  ping -4 -c 3 -W 1 203.0.113.1                     # is the gateway itself reachable?
   ping -4 -c 3 -W 1 198.51.100.10                   # reachability without DNS
   ping -6 -c 3 -W 1 2001:db8:100::10                # compare address families
+  mtr -n -r -c 5 198.51.100.10                      # where does the path end?
+  mtr -n -r -c 5 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
 Compare the same destination from another source. Return with exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
-Repeat both route lookups, both pings and both DNS queries from the checks above.
+Inside the Pacific probe:
+  ip route get 198.51.100.10
+  ip -6 route get 2001:db8:100::10
+  ping -4 -c 3 -W 1 203.0.113.129
+  ping -4 -c 3 -W 1 198.51.100.10
+  ping -6 -c 3 -W 1 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10
+  mtr -n -r -c 5 2001:db8:100::10
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
 Which combinations work? Keep a working one as a comparison for later checks.
-DNS failure alone
-does not distinguish an unreachable server from a DNS problem.
+DNS failure alone does not distinguish an unreachable server from a DNS problem.
 @@ investigation
 Incident: a user behind Lagoon cannot reach the customer service. Preserve the
 current state. Record time, source, destination, address family and test result.
@@ -32,33 +55,34 @@ WSL repository:
   make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
-  hostname
-  ip -br addr
   ip route get 198.51.100.10
   ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 203.0.113.1
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
-  traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
+  mtr -n -r -c 5 198.51.100.10
+  mtr -n -r -c 5 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   exit
 WSL repository:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
-  hostname
   ip route get 198.51.100.10
   ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 203.0.113.129
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10
+  mtr -n -r -c 5 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   exit
 
 Compare selected source/gateway and packet loss. DNS timeout and NXDOMAIN differ.
-If only Lagoon IPv4 fails, continue to step 2. If the report is not reproduced,
-do not change the network. Read the `make test` matrix, not only its exit code.
+If only Lagoon IPv4 fails (ping and the DNS query sent over IPv4), continue to
+step 2. If the report is not reproduced, do not change the network. Read the
+`make test` matrix, not only its exit code.
 @@ solution
 Expected matrix:
   Source   IPv4   IPv6   DNS A       DNS AAAA
@@ -66,6 +90,10 @@ Expected matrix:
   Pacific  PASS   PASS   NOERROR     NOERROR
 Both probes select their local gateway. Lagoon's IPv4 path is the only failure.
 Its DNS A query also fails because it uses that path, while IPv6 DNS succeeds.
+Lagoon's IPv4 mtr ends at its gateway 203.0.113.1 with high loss, for example
+80%. The gateway answers a direct ping without loss: it has no route to the
+customer, answers with network unreachable and rate-limits those replies. Lagoon IPv6 mtr reaches the service.
+Pacific mtr reaches it in five hops over IPv4 and IPv6, through Edge 02.
 This points to Lagoon IPv4 forwarding, not a DNS configuration fault. Next check
 the links and routing sessions, then trace the prefix before proposing a change.
 
@@ -74,6 +102,24 @@ From operations01, connect to edge01.bob1.reefnet.test with SSH. Check its
 customer and Lagoon interfaces, BGP sessions and internal OSPF neighbors.
 Then check the interfaces and BGP session on Lagoon Transit.
 Note whether a link or session is down before investigating individual routes.
+@@ start
+
+Commands:
+On operations01.bob1.reefnet.test:
+  getent, ssh
+On edge01.bob1.reefnet.test and edge01.bob1.lagoontransit.test:
+  show interface brief
+  show interface <name> detail
+  show network-instance default protocols bgp neighbor
+On edge01.bob1.reefnet.test:
+  show network-instance default protocols ospf neighbor
+
+Look at:
+- Grafana → BGP, OSPF and Devices & Interfaces
+- NetBox → Devices → edge01.bob1.reefnet.test
+
+Logins:
+- ssh from operations01.bob1.reefnet.test to the routers: admin / NokiaSrl1!
 
 Start in WSL:
   make enter NODE=operations01.bob1.reefnet.test
@@ -83,8 +129,11 @@ In WSL:
 Inside operations01:
   getent hosts edge01.bob1.reefnet.test
   ssh edge01.bob1.reefnet.test
-Login: admin / NokiaSrl1! (SSH selects admin.) Inside the router:
+Login: admin / NokiaSrl1! (SSH selects admin.)
+Inside ReefNet Edge 01:
   show interface brief
+  show interface ethernet-1/1 detail                # customer link
+  show interface ethernet-1/3 detail                # Lagoon link
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
 Match descriptions, admin/oper state and peer addresses to your path. Compare
@@ -95,6 +144,8 @@ Check the Lagoon peer from WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
   show interface brief
+  show interface ethernet-1/1 detail                # link to ReefNet Edge 01
+  show interface ethernet-1/2 detail                # link to the probe
   show network-instance default protocols bgp neighbor
 Compare the interface and BGP neighbor state with ReefNet Edge 01.
 Use quit to return to WSL.
@@ -102,11 +153,10 @@ Use quit to return to WSL.
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  hostname
   getent hosts edge01.bob1.reefnet.test
   ssh edge01.bob1.reefnet.test
-Password: NokiaSrl1! (SSH selects admin.)
-Inside the ReefNet Edge 01 SR Linux CLI:
+Login: admin / NokiaSrl1! (SSH selects admin.)
+Inside ReefNet Edge 01:
   show interface brief
   show interface ethernet-1/1 detail
   show interface ethernet-1/3 detail
@@ -118,21 +168,26 @@ Back on the operator workstation:
 WSL repository:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
+  show interface brief
   show interface ethernet-1/1 detail
   show interface ethernet-1/2 detail
   show network-instance default protocols bgp neighbor
   quit
 
-Compare both ends of cabled links and the relevant BGP/OSPF peers. A down peer
+Compare both ends of the Edge 01 to Lagoon link (Edge 01 ethernet-1/3, Lagoon
+ethernet-1/1) and the relevant BGP/OSPF peers. A down peer
 needs adjacency diagnosis before route-policy analysis. If links and peers are up,
 continue to the prefix trace.
 
-If the name does not resolve, check hostname: router SSH belongs on operations01.
+If the name does not resolve, check that the prompt shows operations01: router
+SSH belongs there.
 A direct WSL fallback is make enter NODE=edge01.bob1.reefnet.test, followed by quit.
 @@ solution
 The operator resolves Edge 01 to 172.20.20.11 and SSH succeeds. Cabled links,
 BGP sessions and internal OSPF neighbors are up, so no current link or session
-failure explains the report. This does not prove the customer prefix is exported.
+failure explains the report. Lagoon Transit's ethernet-1/1 and ethernet-1/2 are
+up and its sessions to 192.0.2.3 and 2001:db8:0:a::1 are established.
+This does not prove the customer prefix is exported.
 Continue by checking the route at each boundary.
 
 @@ 3 Trace the customer prefix toward Lagoon
@@ -141,10 +196,29 @@ to Lagoon Transit. At each router, check whether the prefix is advertised,
 received and installed for forwarding. Check the customer's return route to
 203.0.113.0/25 too. Identify the first missing advertisement or route.
 Use the Pacific path as a comparison if needed.
+@@ start
+
+Commands:
+On the routers on the path:
+  show network-instance default protocols bgp neighbor <peer> advertised-routes
+  show network-instance default protocols bgp routes
+  show network-instance default route-table
+
+Look at:
+- Path: edge01.bob1.oceanresearch.test → edge01.bob1.reefnet.test → edge01.bob1.lagoontransit.test
+- Optional control: edge02.bob1.reefnet.test → edge01.bob1.pacifictransit.test
+- Grafana → BGP compares received and active routes per session
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
+Follow the prefix from its origin. First check that the customer advertises it
+and has a return route, in WSL:
+  make enter NODE=edge01.bob1.oceanresearch.test
+Inside the Ocean Research router:
+  show network-instance default protocols bgp neighbor 192.0.2.1 advertised-routes ipv4
+  show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
+  quit
 On ReefNet Edge 01, compare the learned route with its Lagoon advertisement.
 In WSL:
   make enter NODE=edge01.bob1.reefnet.test
@@ -153,34 +227,30 @@ Inside ReefNet Edge 01:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
   quit
-Check that the customer originates the prefix and has a return route:
-  make enter NODE=edge01.bob1.oceanresearch.test
-Inside the customer router:
-  show network-instance default protocols bgp neighbor 192.0.2.1 advertised-routes ipv4
-  show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
-  quit
-Check whether Lagoon receives and installs the prefix:
+Check whether Lagoon receives and installs the prefix, in WSL:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
-Optional control, check that the Pacific path still works:
-In WSL:
+Optional control, the same checks on the Pacific path. In WSL:
   make enter NODE=edge02.bob1.reefnet.test
 Inside ReefNet Edge 02:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default protocols bgp neighbor 192.0.2.5 advertised-routes ipv4
   quit
 In WSL:
   make enter NODE=edge01.bob1.pacifictransit.test
 Inside Pacific Transit:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
 Look for the exact prefix. A session being up does not prove route delivery.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.oceanresearch.test
-Inside the customer router:
+Inside the Ocean Research router:
   show network-instance default protocols bgp neighbor 192.0.2.1 advertised-routes ipv4
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   quit
@@ -200,11 +270,14 @@ Inside Lagoon Transit:
 WSL repository:
   make enter NODE=edge02.bob1.reefnet.test
 Inside ReefNet Edge 02:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default protocols bgp neighbor 192.0.2.5 advertised-routes ipv4
   quit
 WSL repository:
   make enter NODE=edge01.bob1.pacifictransit.test
 Inside Pacific Transit:
+  show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
 
@@ -215,7 +288,8 @@ that a route is absent.
 The customer advertises 198.51.100.0/24 and has a return route to Lagoon.
 Edge 01 installs the customer prefix but does not advertise it to Lagoon,
 which has no route to it.
-Edge 02 advertises the prefix to Pacific, which installs it via 192.0.2.4.
+Edge 02 learns the prefix over iBGP from Edge 01 (next hop 10.255.0.1) and
+advertises it to Pacific, which receives it from 192.0.2.4 and installs it.
 The first divergence is Edge 01's Lagoon export boundary. Check its policy.
 
 @@ 4 Inspect the export policy and repair the fault
@@ -223,15 +297,24 @@ On ReefNet Edge 01, inspect the export rules for the affected BGP neighbor.
 Explain which attached rule accounts for the missing customer prefix.
 Record the current setting, prepare the smallest justified CLI change and
 review its diff before committing. Keep the original setting for rollback.
+@@ start
+
+Commands:
+On edge01.bob1.reefnet.test:
+  info from running
+  enter candidate, delete, set, diff, commit
+
+Look at:
+- the BGP group, its export-policy and the routing-policy it refers to
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
 In WSL:
   make enter NODE=edge01.bob1.reefnet.test
+Follow the affected neighbor's peer-group and export-policy to its prefix
+match and accept/reject action.
 Inside ReefNet Edge 01:
-Follow the affected neighbor's peer-group and export-policy to its prefix match
-and accept/reject action:
   info from running network-instance default protocols bgp
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
@@ -243,10 +326,16 @@ Stage the change in candidate mode, then inspect it with diff:
   enter candidate
   delete / network-instance default protocols bgp group lagoon-v4 export-policy
   diff
-Commit only if the diff shows that one intended deletion:
+Commit only if the diff shows that one intended deletion, then read it back:
   commit now
-To restore a committed change, set the original policy attachment, review diff
-and commit. `discard now` only cancels uncommitted changes. Leave with quit.
+  info from running network-instance default protocols bgp group lagoon-v4
+`discard now` only cancels uncommitted changes.
+Only if the repair causes an unintended regression, restore the recorded value:
+  enter candidate
+  set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
+  diff
+  commit now
+Leave with quit.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
@@ -255,12 +344,7 @@ Inside ReefNet Edge 01:
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
-  quit
 Before editing, confirm that the group still matches this evidence:
-WSL repository:
-  make enter NODE=edge01.bob1.reefnet.test
-Inside ReefNet Edge 01:
-  info from running network-instance default protocols bgp group lagoon-v4
   enter candidate
   delete / network-instance default protocols bgp group lagoon-v4 export-policy
   diff
@@ -282,54 +366,75 @@ After confirming that only the original attachment is restored:
 Neighbor 192.0.2.2 uses group lagoon-v4. The instance policy is EXPORT-BGP,
 but the group overrides it with BLOCK-CUSTOMER-V4. That policy rejects
 198.51.100.0/24. Removing only the group override restores inheritance from
-EXPORT-BGP. Do not edit the shared policy. Continue to step 5 to prove recovery.
+EXPORT-BGP. The diff shows only the removed line export-policy
+[BLOCK-CUSTOMER-V4] under group lagoon-v4. Do not edit the shared policy.
+Continue to step 5 to prove recovery.
 
-@@ 5 Verify the route and customer service
-Check that Edge 01 now advertises 198.51.100.0/24 to Lagoon and that Lagoon
-installs it. Repeat ping, DNS and HTTP from both probes over IPv4 and IPv6.
-Confirm that the failed path recovers and the previously working paths still
-work. Note the cause, change and before/after results.
+@@ 5 Verify the CLI repair
+Check that ReefNet Edge 01 advertises the customer prefix to Lagoon.
+Check the advertisement and Lagoon's route table. Check ping
+with make test, then DNS and HTTP from both probes over IPv4 and IPv6. Record the results and
+explain why a successful commit alone does not prove service recovery.
+@@ start
+
+Commands:
+In WSL:
+  make test
+On edge01.bob1.reefnet.test:
+  show network-instance default protocols bgp neighbor <peer> advertised-routes
+On edge01.bob1.lagoontransit.test:
+  show network-instance default route-table
+On probe01.bob1.lagoontransit.test and probe01.bob1.pacifictransit.test:
+  dig, curl
+
+Look at:
+- Grafana → Service Health and BGP
 
 Start in WSL:
   make test
 @@ hint
-For advertisement and receiver-route commands, in WSL:
-  make hint SCENARIO=operations STEP=3
-For the customer check, in WSL:
+Check advertisement and installation, in WSL:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01:
+  show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
+  quit
+In WSL:
+  make enter NODE=edge01.bob1.lagoontransit.test
+Inside Lagoon Transit:
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  quit
+After routing convergence, check the service in WSL:
+  make test
   make enter NODE=probe01.bob1.lagoontransit.test
-Inside the probe:
-  ping -4 -c 3 -W 1 198.51.100.10
-  ping -6 -c 3 -W 1 2001:db8:100::10
+Inside the Lagoon probe:
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
 Use exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
-Repeat the six checks above, then use exit to return to WSL.
+Inside the Pacific probe:
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit to return to WSL.
 Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
-Read all four cells in make test. Its exit code alone is not a PASS verdict.
-If a control regresses or the service still fails, keep the incident open.
 @@ investigation
-Allow routing to converge. Check both the repaired path and unchanged controls.
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
   show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
-  show network-instance default protocols bgp neighbor
   quit
 WSL repository:
   make enter NODE=edge01.bob1.lagoontransit.test
 Inside Lagoon Transit:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   quit
-WSL repository:
-  date -Is
+WSL repository, after routing convergence:
   make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
-  ping -4 -c 3 -W 1 198.51.100.10
-  ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
@@ -338,29 +443,283 @@ Inside the Lagoon probe:
 WSL repository:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
-  ping -4 -c 3 -W 1 198.51.100.10
-  ping -6 -c 3 -W 1 2001:db8:100::10
   dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
   dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
   curl --fail --max-time 5 -4 http://198.51.100.10/
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
   exit
 
-Inspect: restored prefix advertisement, active receiver route, all four PASS
-cells, a successful DNS answer and HTTP responses from both sources over both families.
-Decision:
-- Route and service recovered with controls intact: record the closure evidence.
-- Route absent: re-check committed configuration and allow for convergence.
-- Route present but service still fails: inspect the data/return path. Do not
-  call the incident resolved based only on the configuration commit.
-
-Close the incident with the affected path, proven cause, exact change, before/after
-observations and any remaining uncertainty. Note the before/after results.
+Inspect: absence of only the intended override, restored advertisement and active
+receiver route, all four PASS cells, four NOERROR DNS answers and four successful HTTP requests.
+Decision: a successful commit plus read-back alone is insufficient. If the route
+recovered but the service did not, investigate forwarding/return path. If a healthy
+control regressed, assess rollback. Close only after the independent checks agree.
 @@ solution
-Edge 01 advertises the prefix and Lagoon installs it via 192.0.2.3. All four
-probe/address-family combinations pass ICMP and HTTP. Lagoon DNS returns both
-records and BGP stays up. Record impact, cause, scoped change and this evidence.
-Repeat transient checks after convergence.
+After the change, the group keeps its peer AS and AFI/SAFI settings but has no
+export-policy override. The customer prefix crosses Edge 01's Lagoon export
+boundary and Lagoon installs it. All four ICMP checks pass. Both probes also pass
+HTTP over IPv4 and IPv6. Both probes get NOERROR: A 198.51.100.10 and AAAA
+2001:db8:100::10. The API response alone does not prove service recovery.
+
+@@ 6 Re-inject the fault and look up the target in NetBox
+Now repair the same fault through an API. Re-inject it with make
+fault-routing and confirm with make test that Lagoon IPv4 fails again. Before
+changing a router through an API, confirm the target. From operations01, look
+up edge01.bob1.reefnet.test in NetBox and compare its
+management IP with local name resolution. Confirm which device address you
+will use for the API change.
+@@ start
+
+Commands:
+In WSL:
+  make fault-routing, make test
+On operations01.bob1.reefnet.test:
+  cat, curl, jq, getent
+
+Look at:
+- NetBox at http://localhost:8000 → Devices, or its REST API from operations01
+
+Logins:
+- NetBox web UI: admin / admin
+- NetBox API token: /state/netbox-token on operations01.bob1.reefnet.test
+
+Start in WSL:
+  make fault-routing
+  make test
+  make enter NODE=operations01.bob1.reefnet.test
+@@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
+Inside operations01:
+  TOKEN=$(cat /state/netbox-token)
+  curl -fsSG -H "Authorization: Bearer $TOKEN" \
+    http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
+    --data-urlencode name=edge01.bob1.reefnet.test |
+    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
+  getent hosts edge01.bob1.reefnet.test
+Does inventory identify exactly one device and agree with name resolution?
+Return to WSL with exit.
+Keep the token out of your notes. Inventory is intent, not proof of reachability.
+@@ investigation
+WSL repository:
+  make fault-routing
+  make test
+  make enter NODE=operations01.bob1.reefnet.test
+Inside the operator workstation:
+  TOKEN=$(cat /state/netbox-token)
+  curl -fsSG -H "Authorization: Bearer $TOKEN" \
+    http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
+    --data-urlencode name=edge01.bob1.reefnet.test |
+    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
+  getent hosts edge01.bob1.reefnet.test
+  exit
+
+Inspect: NetBox count, device name and primary_ip4.
+Decision: require one matching device and agreement between inventory and the
+resolved address. Stop on API/authentication errors or an ambiguous target.
+A correct inventory record identifies the target, it does not prove live reachability.
+Do not include the token in your notes.
+@@ solution
+Expected: only Lagoon IPv4 fails again. NetBox count is 1, the name is
+edge01.bob1.reefnet.test and primary_ip4.address is 172.20.20.11/24. getent
+returns 172.20.20.11 edge01.bob1.reefnet.test, the same address.
+The lab operator has the necessary tooling and token. Continue with a read-only
+read of the group before any write.
+
+@@ 7 Repair the same fault through gNMI
+Use gNMI from operations01 to repair the setting identified on ReefNet Edge 01.
+Read it again and record its original value for rollback. Preview the request,
+check the device and configuration path, then apply only the justified change.
+Do not apply it if the current setting differs from your earlier evidence.
+@@ start
+
+Commands:
+On operations01.bob1.reefnet.test:
+  gnmic get, jq, gnmic set --dry-run, gnmic set
+On edge01.bob1.reefnet.test, only for a rollback:
+  enter candidate, set, diff, commit
+
+Look at:
+- the group from step 4. Read before you write
+
+Logins:
+- gNMI to edge01.bob1.reefnet.test:57400: admin / NokiaSrl1!
+
+Start in WSL:
+  make enter NODE=operations01.bob1.reefnet.test
+@@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
+Inside operations01:
+Replace <group-name> with the group identified in step 4, without angle brackets.
+gNMI selects a list entry with [group-name=...].
+
+Keep the quotes and square brackets:
+  GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=<group-name>]'
+Read the current group and note the original policy attachment:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path "$GROUP" |
+    jq '.[].updates[].values[]'
+If your diagnosis calls for removing its override, preview that deletion:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy" --dry-run
+--delete removes the attachment at this path, not the shared policy definition.
+--dry-run prints the request without sending it. It does not validate the path
+against the device. Check the target, group and final export-policy component.
+Only if the current state and request match your diagnosis, send the same
+request without --dry-run. That applies the change immediately, with no commit:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy"
+Inspect the Set response, then verify configuration, routes and service in step 8.
+Use exit to return.
+
+Only if the change causes an unintended regression, restore the recorded value.
+In WSL:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01, replace <group-name> and <original-policy>:
+  enter candidate
+  set / network-instance default protocols bgp group <group-name> export-policy [ <original-policy> ]
+  diff
+Commit only if the diff restores exactly the recorded attachment:
+  commit now
+  quit
+@@ investigation
+WSL repository:
+  make enter NODE=operations01.bob1.reefnet.test
+Inside the operator workstation:
+  GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]'
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path "$GROUP" |
+    jq '.[].updates[].values[]'
+Confirm the group still has the recorded override. Stop if its value changed.
+Then preview and apply only the deletion supported by steps 1-4:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy" --dry-run
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy"
+  exit
+Conditional rollback only after an unintended regression:
+WSL repository:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01:
+  enter candidate
+  set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
+  diff
+After confirming the original attachment is restored:
+  commit now
+  quit
+@@ solution
+Before the change, the Get shows group lagoon-v4 with peer-as 65100, ipv4-unicast
+enabled, ipv6-unicast disabled and export-policy [BLOCK-CUSTOMER-V4]. The
+dry-run prints one delete for this path:
+  network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy
+The group override BLOCK-CUSTOMER-V4 rejects the customer prefix. Removing only
+this attachment restores inheritance from EXPORT-BGP. Preserve the group and
+shared policy configuration. The rollback command restores the original fault.
+
+@@ 8 Verify the API repair
+Read the changed BGP group back from ReefNet Edge 01 through gNMI.
+Check its customer-prefix advertisement and Lagoon's route table. Check ping
+with make test, then DNS and HTTP from both probes over IPv4 and IPv6. Record the results and
+explain why a successful API response alone does not prove service recovery.
+@@ start
+
+Commands:
+In WSL:
+  make test
+On operations01.bob1.reefnet.test:
+  gnmic get, jq
+On edge01.bob1.reefnet.test:
+  show network-instance default protocols bgp neighbor <peer> advertised-routes
+On edge01.bob1.lagoontransit.test:
+  show network-instance default route-table
+On probe01.bob1.lagoontransit.test and probe01.bob1.pacifictransit.test:
+  dig, curl
+
+Look at:
+- Grafana → Service Health and BGP
+
+Logins:
+- gNMI to edge01.bob1.reefnet.test:57400: admin / NokiaSrl1!
+
+Start in WSL:
+  make test
+@@ hint
+In WSL:
+  make enter NODE=operations01.bob1.reefnet.test
+Inside operations01:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
+    jq '.[].updates[].values[]'
+Check the group's settings in the response. Reading the whole group lets you
+see whether the intended setting was removed. Use exit to return to WSL.
+
+Check advertisement and installation, in WSL:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01:
+  show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
+  quit
+In WSL:
+  make enter NODE=edge01.bob1.lagoontransit.test
+Inside Lagoon Transit:
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  quit
+After routing convergence, check the service in WSL:
+  make test
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit, then in WSL:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Inside the Pacific probe:
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit to return to WSL.
+Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
+@@ investigation
+WSL repository:
+  make enter NODE=operations01.bob1.reefnet.test
+Inside the operator workstation:
+  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
+    jq '.[].updates[].values[]'
+  exit
+WSL repository:
+  make enter NODE=edge01.bob1.reefnet.test
+Inside ReefNet Edge 01:
+  show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4
+  quit
+WSL repository:
+  make enter NODE=edge01.bob1.lagoontransit.test
+Inside Lagoon Transit:
+  show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
+  quit
+WSL repository, after routing convergence:
+  make test
+  make enter NODE=probe01.bob1.lagoontransit.test
+Inside the Lagoon probe:
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+WSL repository:
+  make enter NODE=probe01.bob1.pacifictransit.test
+Inside the Pacific probe:
+  dig @198.51.100.10 data.oceanresearch.test A +time=1 +tries=1
+  dig @2001:db8:100::10 data.oceanresearch.test AAAA +time=1 +tries=1
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+  exit
+
+Inspect: absence of only the intended override, restored advertisement and active
+receiver route, all four PASS cells, four NOERROR DNS answers and four successful HTTP requests.
+Decision: a successful Set response plus read-back alone is insufficient. If the route
+recovered but the service did not, investigate forwarding/return path. If a healthy
+control regressed, assess rollback. Close only after the independent checks agree.
+@@ solution
+After the change, the group keeps its peer AS and AFI/SAFI settings but has no
+export-policy override. The customer prefix crosses Edge 01's Lagoon export
+boundary and Lagoon installs it. All four ICMP checks pass. Both probes also pass
+HTTP over IPv4 and IPv6. Both probes get NOERROR: A 198.51.100.10 and AAAA
+2001:db8:100::10. The API response alone does not prove service recovery.
 
 Stop the lab after saving your notes:
   make down

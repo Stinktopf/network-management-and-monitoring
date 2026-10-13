@@ -9,6 +9,18 @@ The exercises use ReefNet, a small dual-stack ISP with two upstream providers an
   <img src="assets/topology.svg" alt="ReefNet BOB1 with two routers, two core links, two transit providers and Ocean Research">
 </picture>
 
+## Addresses and logins
+
+| Service | Address | Login |
+|---|---|---|
+| NetBox | [http://localhost:8000](http://localhost:8000) | `admin` / `admin` |
+| Grafana | [http://localhost:3000](http://localhost:3000) | none |
+| Prometheus | [http://localhost:9090](http://localhost:9090) | none |
+
+Routers (SSH and gNMI from `operations01`): `admin` / `NokiaSrl1!`
+
+`make info` shows all device names and logins.
+
 ## Slides
 
 [PDF](slides/exports/nmm.pdf) | [HTML](slides/exports/nmm.html) | [PowerPoint](slides/exports/nmm.pptx) | [Source](slides/nmm.md)
@@ -51,9 +63,9 @@ cd network-management-and-monitoring
 make setup
 ```
 
-Wait for `READY FOR CLASS`. Setup checks all four scenarios, then stops the containers.
+Wait for `READY FOR CLASS`. Setup checks all three scenarios, then stops the containers.
 
-The lab PCs share one WSL Docker engine. Only one AI5049 lab can run on a PC at a time. Run `make down` before handing the PC to another student. If setup fails after starting its checks, it saves diagnostics and removes its temporary lab.
+Only one AI5049 lab runs on a PC at a time. Starting a scenario removes containers left over from an earlier lab on the same PC, for example from another checkout or user. If setup fails after starting its checks, it saves diagnostics and removes its temporary lab.
 
 <details>
 <summary>Setup on your own computer</summary>
@@ -67,6 +79,7 @@ Tested on x86-64 WSL. Native Linux and Mac VMs are untested, including image com
 - Docker must be running on the same Linux host as the repository. Install Docker Compose, Containerlab, Git, Make, curl, Bash 4+, GNU coreutils (`timeout`) and iproute2 (`ss`).
 - Leave 15 GiB of disk space for the lab and its images. Setup needs Internet access.
 - Recommended: 12 GiB RAM and four CPU threads, allocated to the VM when using one.
+- Use a trusted network: the lab services use fixed demo credentials. For a VM, use its IP address or forward the ports.
 
 ### Troubleshooting
 
@@ -87,33 +100,21 @@ Run `make` commands in the repository. “WSL” in the guides also means your L
 | Start | Task | In class |
 |---|---|---|
 | `make networking` | Follow a request to `data.oceanresearch.test`. Explain DNS, routing and the reply path. | 60 min |
-| `make operations` | Diagnose the Lagoon service failure, repair it and verify recovery. | 45 min |
-| `make automation` | Investigate the same fault using NetBox and gNMI, then apply and verify an API change. | 60 min |
+| `make operations` | Diagnose the Lagoon service failure and repair it with the router CLI. Then re-inject the fault and repair it through NetBox and gNMI. | 120 min |
 | `make monitoring` | Compare congestion, a link outage, a routing fault and a short traffic burst. | 75 min |
 
 Times exclude demos. Networking includes 30 minutes of setup and 30 minutes of exercises.
 
 | Help | Purpose |
 |---|---|
-| `make task` | Task and starting point |
-| `make hint` | Investigation commands and clues |
-| `make solution` | Commands and expected results |
+| `make info` | Device names, logins and web interfaces |
+| `make task` | Task, commands to use and where to look |
+| `make hint` | The same commands with addresses and arguments |
+| `make solution` | The same commands with expected results and explanation |
 
 Select a step with `STEP=2`, for example `make hint STEP=2`.
 
 `make down` discards router changes. Restarting a scenario recreates its initial state.
-
-## Lab services
-
-| Service | Start here | Login |
-|---|---|---|
-| [NetBox](http://localhost:8000) | Inventory: **Devices**, then `edge01.bob1.reefnet.test` | `admin` / `admin` |
-| [Prometheus](http://localhost:9090) | Metrics: query `up` to check collection | No login |
-| [Grafana](http://localhost:3000) | **ReefNet / BOB1 → Network Overview**, then service, routing, interfaces, traffic or telemetry | Anonymous administration |
-
-Use a trusted network: these services expose lab access without secure credentials. For a VM, use its IP address or forward the ports.
-
-For router access, follow the hints' `make enter NODE=...` commands. SSH from `operations01.bob1.reefnet.test` uses `admin` / `NokiaSrl1!`. Leave Linux with `exit`, router CLIs with `quit`.
 
 ## Traffic
 
@@ -139,7 +140,7 @@ Choose one load at a time.
 | `make clean` | **Delete lab state and NetBox data**, keep downloaded images |
 | `make status` | Show runtime status |
 | `make test` | Ping the customer over IPv4/IPv6 from both probes |
-| `make course-check` | Restart and test all four scenarios, then stop |
+| `make course-check` | Restart and test all three scenarios, then stop |
 | `make check` | Check source, documentation and network model without Docker |
 | `make healthy` | Clear faults, stop traffic and restore link capacities |
 | `make help` | List commands |

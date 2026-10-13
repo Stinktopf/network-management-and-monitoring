@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 
-scenario=${1:?usage: verify-scenario.sh networking|operations|automation|monitoring}
+scenario=${1:?usage: verify-scenario.sh networking|operations|monitoring}
 fail=0
 
 ping_once() {
@@ -40,7 +40,7 @@ case "$scenario" in
     expect_ping pass host02 -4 198.51.100.10
     expect_ping pass host02 -6 2001:db8:100::10
     ;;
-  operations|automation)
+  operations)
     expect_ping fail host01 -4 198.51.100.10
     expect_ping pass host01 -6 2001:db8:100::10
     expect_ping pass host02 -4 198.51.100.10

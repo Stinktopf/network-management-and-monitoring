@@ -1,8 +1,16 @@
-@@ 1 Start on the Lagoon probe
+@@ 1 Test the service from both probes
 From the Lagoon and Pacific probes, test the customer service at
 198.51.100.10 and 2001:db8:100::10. Find each probe's source address and gateway,
-then compare ping and traceroute over IPv4 and IPv6. Sketch the router path
-from each probe to the service and note which tests succeed.
+then compare ping, traceroute, tracepath and mtr over IPv4 and IPv6. Sketch the
+router path from each probe to the service and note which tests succeed.
+@@ start
+
+Commands:
+On probe01.bob1.lagoontransit.test and probe01.bob1.pacifictransit.test:
+  ip, ping, traceroute, tracepath, mtr
+
+Look at:
+- Grafana → Network Overview for the live topology map
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -13,27 +21,39 @@ Inside the probe:
   ip -br addr                       # addresses and interface state
   ip route                          # IPv4 gateway
   ip -6 route                       # IPv6 gateway
+  ip route get 198.51.100.10        # chosen source and interface
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
   traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
+  tracepath -n 198.51.100.10        # hops and path MTU
+  tracepath -n 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10      # loss and delay per hop
+  mtr -n -r -c 5 2001:db8:100::10
 Return with exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
-  ip -br addr
-  ip route
-  ip -6 route
+  ip -br addr                       # addresses and interface state
+  ip route                          # IPv4 gateway
+  ip -6 route                       # IPv6 gateway
+  ip route get 198.51.100.10        # chosen source and interface
+  ip -6 route get 2001:db8:100::10
   ping -4 -c 3 -W 1 198.51.100.10
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
   traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
+  tracepath -n 198.51.100.10        # hops and path MTU
+  tracepath -n 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10      # loss and delay per hop
+  mtr -n -r -c 5 2001:db8:100::10
 Compare the source and hops across probes and families. A silent traceroute
-hop alone does not prove that forwarding failed.
+hop alone does not prove that forwarding failed. In mtr, only loss that
+continues to the last hop affects the service.
 @@ investigation
 WSL repository:
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
-  hostname
   ip -br addr
   ip route
   ip -6 route
@@ -43,11 +63,14 @@ Inside the Lagoon probe:
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
   traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
+  tracepath -n 198.51.100.10
+  tracepath -n 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10
+  mtr -n -r -c 5 2001:db8:100::10
   exit
 WSL repository:
   make enter NODE=probe01.bob1.pacifictransit.test
 Inside the Pacific probe:
-  hostname
   ip -br addr
   ip route
   ip -6 route
@@ -57,22 +80,35 @@ Inside the Pacific probe:
   ping -6 -c 3 -W 1 2001:db8:100::10
   traceroute -n -4 -w 1 -q 1 -m 8 198.51.100.10
   traceroute -n -6 -w 1 -q 1 -m 8 2001:db8:100::10
+  tracepath -n 198.51.100.10
+  tracepath -n 2001:db8:100::10
+  mtr -n -r -c 5 198.51.100.10
+  mtr -n -r -c 5 2001:db8:100::10
   exit
 
 Inspect: source address, prefix length, interface state, default gateway and the
 dev/src selected by route get. Record one path per probe and a four-cell ping matrix.
 Decision: compare the IPv4 and IPv6 hop paths from both probes. A wrong local
-route or down eth1 is a local access issue to resolve
-before looking upstream. With correct local addressing, use step 2 to distinguish
-name resolution from customer reachability. A failed traceroute hop alone is inconclusive.
+route or down eth1 is a local access issue to resolve before looking upstream.
+With correct local addressing, use step 2 to distinguish name resolution from
+customer reachability. A failed traceroute hop alone is inconclusive.
 @@ solution
 Lagoon probe: 203.0.113.10/25, gateway 203.0.113.1, IPv6 2001:db8:a::10/64.
 Pacific probe: 203.0.113.138/25, gateway 203.0.113.129, IPv6 2001:db8:b::10/64.
 Their IPv6 gateways are 2001:db8:a::1 and 2001:db8:b::1 respectively.
-All four service checks pass in the networking baseline.
-Lagoon reaches the customer through Lagoon Transit and ReefNet Edge 01.
-Pacific uses Pacific Transit, ReefNet Edge 02 and the internal ReefNet path.
+All four pings pass in the networking baseline. route get selects eth1 and the
+probe's own address as source.
+Lagoon IPv4: Lagoon Transit 203.0.113.1, ReefNet Edge 01 192.0.2.3, Ocean
+Research router 192.0.2.0, service. IPv6 uses the same routers: 2001:db8:a::1,
+2001:db8:0:a::1, 2001:db8:0:10::.
+Pacific IPv4: Pacific Transit 203.0.113.129, ReefNet Edge 02 192.0.2.4, ReefNet
+Edge 01 over a core link (10.0.0.0 or 10.0.0.2), Ocean Research router 192.0.2.0,
+service. Pacific has one hop more because it crosses the ReefNet core.
 Individual traceroute hops may time out without end-to-end failure.
+traceroute, tracepath and mtr show the same routers. tracepath reports pmtu 1500
+for both families.
+In mtr, a middle hop may answer slower than the service itself: routers create
+ICMP replies in software, but forward other packets directly.
 
 @@ 2 Check DNS, HTTP and router access
 From the Lagoon probe, resolve data.oceanresearch.test and fetch its web page
@@ -80,6 +116,19 @@ over IPv4 and IPv6. Then switch to the operator workstation, operations01.
 There, resolve edge01.bob1.reefnet.test and use SSH to inspect its interfaces.
 Note the addresses and whether HTTP and SSH work. Explain what each connection
 tests: using the customer service or accessing the router for administration.
+@@ start
+
+Commands:
+On probe01.bob1.lagoontransit.test:
+  dig, curl
+On operations01.bob1.reefnet.test:
+  getent, ssh
+On edge01.bob1.reefnet.test:
+  show interface brief
+
+
+Logins:
+- ssh from operations01.bob1.reefnet.test to the routers: admin / NokiaSrl1!
 
 Start in WSL:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -110,7 +159,8 @@ Inside ReefNet Edge 01:
 Back on operations01, return to WSL:
   exit
 Note the web service's addresses and the router's management address.
-Which result proves name resolution, an HTTP response or an SSH login?
+Which result proves access to the customer service, and which proves
+administrative access to the router?
 @@ investigation
 WSL repository:
   make enter NODE=probe01.bob1.lagoontransit.test
@@ -123,26 +173,29 @@ Inside the probe:
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  hostname
   getent hosts edge01.bob1.reefnet.test
   ssh edge01.bob1.reefnet.test
-Password: NokiaSrl1!
-Inside the router CLI:
+Login: admin / NokiaSrl1! (SSH selects admin.)
+Inside ReefNet Edge 01:
   show interface brief
   quit
 Back on the operator workstation:
   exit
 
 Inspect: DNS response status, ANSWER SECTION and server address. For getent, record
-the resolved management IP and the workstation hostname before attempting SSH.
+the resolved management IP before attempting SSH.
 Decision: NOERROR plus an answer proves this DNS exchange. NXDOMAIN means the
-queried name does not exist, while a timeout requires a transport/server check. If direct
-IP reachability fails too, follow the data path in step 3 before changing DNS.
+queried name does not exist, while a timeout requires a transport/server check. If
+the direct-IP pings from step 1 fail too, follow the data path in step 3 before
+changing DNS.
 If router SSH naming fails, confirm you are on operations01 and inspect its hosts
 mapping. Customer DNS and operator management names serve different purposes.
 @@ solution
 Customer DNS returns 198.51.100.10 and 2001:db8:100::10 for data.oceanresearch.test.
-The operator's router name resolves to management IP 172.20.20.11.
+curl returns the Ocean Research web page over IPv4 and IPv6.
+The operator's router name resolves to management IP 172.20.20.11. On Edge 01,
+show interface brief lists ethernet-1/1 to ethernet-1/4 and mgmt0 enabled and up.
+All other ports are disabled and down: they are not cabled in this lab.
 SSH uses admin from the operator's SSH configuration. Router names are provided
 there through /etc/hosts. They are not records in the customer's DNS service.
 HTTP tests access to the customer web service. SSH tests access to the router's
@@ -154,13 +207,26 @@ On ReefNet Edge 01 and Edge 02, inspect the BGP and OSPF neighbors. Find the
 customer prefixes 198.51.100.0/24 and 2001:db8:100::/48 in BGP and in the active
 route tables. For each router, note who advertises the prefixes and where it
 forwards packets next. Explain the different jobs of BGP and OSPF here.
+@@ start
+
+Commands:
+On edge01.bob1.reefnet.test and edge02.bob1.reefnet.test:
+  show network-instance default protocols bgp neighbor
+  show network-instance default protocols ospf neighbor
+  show network-instance default protocols bgp routes
+  show network-instance default route-table
+
+Look at:
+- Grafana → BGP
+- Grafana → OSPF
+- NetBox → IPAM → Prefixes
 
 Start in WSL:
   make enter NODE=edge01.bob1.reefnet.test
 @@ hint
 In WSL:
   make enter NODE=edge01.bob1.reefnet.test
-Inside the router:
+Inside ReefNet Edge 01:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
@@ -169,7 +235,7 @@ Inside the router:
   show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 Read peer AS, state, active route and next hop. Use quit, then in WSL:
   make enter NODE=edge02.bob1.reefnet.test
-Repeat the checks on Edge 02:
+Inside ReefNet Edge 02:
   show network-instance default protocols bgp neighbor
   show network-instance default protocols ospf neighbor
   show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
@@ -177,7 +243,8 @@ Repeat the checks on Edge 02:
   show network-instance default route-table ipv4-unicast prefix 198.51.100.0/24
   show network-instance default route-table ipv6-unicast prefix 2001:db8:100::/48
 Check both OSPFv2 and OSPFv3 sections. Each should show two full adjacencies.
-Which entries change? Distinguish learning a prefix from reaching its next hop.
+Which entries differ between Edge 01 and Edge 02? Distinguish learning a prefix
+from reaching its next hop.
 Leave the router with quit.
 @@ investigation
 WSL repository:
@@ -215,22 +282,47 @@ shares them internally through iBGP between loopbacks. OSPFv2 carries IPv4 and
 OSPFv3 carries IPv6 internally, each with two core adjacencies. Router IDs
 remain 10.255.0.1 and 10.255.0.2 in both versions. IPv6 iBGP uses
 2001:db8:ffff::1 and 2001:db8:ffff::2.
-Either core link can carry both families. A BGP session alone does not prove
-service delivery.
+Edge 01 has six established BGP neighbors: iBGP, Ocean Research and Lagoon, each
+for IPv4 and IPv6. Edge 02 has four: iBGP and Pacific.
+Edge 01 learns 198.51.100.0/24 from the Ocean Research router 192.0.2.0 and
+2001:db8:100::/48 from 2001:db8:0:10::, and forwards on ethernet-1/1.
+Edge 02 learns both prefixes over iBGP from Edge 01 with next hop 10.255.0.1 or
+2001:db8:ffff::1. OSPF resolves that loopback over the core links.
+BGP tells each router where a prefix is. OSPF tells it how to reach the BGP next
+hop inside ReefNet. Either core link can carry both families. A BGP session alone
+does not prove service delivery.
 
 @@ 4 Check the reply path and record the baseline
-On the Ocean Research router, find the IPv4 and IPv6 return routes to both
-probe networks. On service01, check its default gateways and local DNS replies.
+On the Ocean Research router, check its interfaces and BGP neighbors and find
+the IPv4 and IPv6 return routes to both probe networks. On service01, check its
+addresses, default gateways and local DNS replies.
 Complete your path sketch with the reply direction. Finish by testing ping and
 HTTP from both probes over IPv4 and IPv6, and record this healthy baseline.
+@@ start
+
+Commands:
+On edge01.bob1.oceanresearch.test:
+  show interface brief
+  show network-instance default protocols bgp neighbor
+  show network-instance default route-table
+On service01.bob1.oceanresearch.test:
+  ip, dig
+On probe01.bob1.lagoontransit.test and probe01.bob1.pacifictransit.test:
+  curl
+In WSL:
+  make test
+
+Look at:
+- Grafana → Service Health for ping, DNS and HTTP over time
 
 Start in WSL:
   make enter NODE=edge01.bob1.oceanresearch.test
 @@ hint
 In WSL:
   make enter NODE=edge01.bob1.oceanresearch.test
-Inside the customer router:
+Inside the Ocean Research router:
   show interface brief
+  show network-instance default protocols bgp neighbor
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
   show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
@@ -238,11 +330,12 @@ Inside the customer router:
 Use quit, then in WSL:
   make enter NODE=service01.bob1.oceanresearch.test
 Inside the service host:
+  ip -br addr
   ip route
   ip -6 route
   dig -4 @127.0.0.1 data.oceanresearch.test A
   dig -6 @::1 data.oceanresearch.test AAAA
-Use exit, then check ping from both probes and enter Lagoon in WSL:
+Use exit. In WSL, check ping from both probes, then enter the Lagoon probe:
   make test
   make enter NODE=probe01.bob1.lagoontransit.test
 Inside the Lagoon probe:
@@ -250,16 +343,18 @@ Inside the Lagoon probe:
   curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
 Use exit, then in WSL:
   make enter NODE=probe01.bob1.pacifictransit.test
-Repeat both curl checks on Pacific, then use exit to return to WSL.
+Inside the Pacific probe:
+  curl --fail --max-time 5 -4 http://198.51.100.10/
+  curl --fail --max-time 5 -g -6 'http://[2001:db8:100::10]/'
+Use exit to return to WSL.
 Keep the ping and HTTP results and your path sketch as the baseline.
 Can you explain both directions of an exchange? make test checks ping only.
 @@ investigation
 WSL repository:
   make enter NODE=edge01.bob1.oceanresearch.test
-Inside the customer router:
+Inside the Ocean Research router:
   show interface brief
   show network-instance default protocols bgp neighbor
-  show network-instance default route-table ipv4-unicast summary
   show network-instance default route-table ipv4-unicast prefix 203.0.113.0/25
   show network-instance default route-table ipv4-unicast prefix 203.0.113.128/25
   show network-instance default route-table ipv6-unicast prefix 2001:db8:a::/64
@@ -298,7 +393,10 @@ all four external ICMP and HTTP checks pass and service DNS responds. Note addre
 and the result matrix for comparison during Operations.
 @@ solution
 The service uses 198.51.100.10/24 with gateway 198.51.100.1 and IPv6
-2001:db8:100::10/48 with gateway 2001:db8:100::1. Its customer router advertises
-the service networks. Local DNS returns both records. All four pings and all four
-HTTP checks pass across both probes and address families.
+2001:db8:100::10/48 with gateway 2001:db8:100::1.
+The Ocean Research router has established BGP sessions to Edge 01 for IPv4 and
+IPv6. It learns 203.0.113.0/25, 203.0.113.128/25, 2001:db8:a::/64 and
+2001:db8:b::/64 from ReefNet and forwards them on ethernet-1/1 toward Edge 01.
+Local DNS returns NOERROR with both records. make test shows PASS in all four
+rows, and all four HTTP checks succeed across both probes and address families.
 No configuration repair is needed in this scenario.

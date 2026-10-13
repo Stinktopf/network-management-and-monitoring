@@ -82,7 +82,7 @@ NR == 1 { last_blank = 1 }
         print styled_command(substr($0, 3), "")
         last_was_command = 1
     }
-    else if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |[A-Z_][A-Z0-9_]*=)/) {
+    else if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |tracepath |mtr |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |[A-Z_][A-Z0-9_]*=|[a-z][a-z0-9 -]*(, [a-z][^,]*)+$)/) {
         if (!had_blank && !last_was_command && !had_heading) print ""
         print styled_command(substr($0, 3), "")
         last_was_command = 1

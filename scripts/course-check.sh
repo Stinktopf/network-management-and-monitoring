@@ -21,16 +21,23 @@ trap on_error ERR
 ui_banner 'AI5049 Instructor Course Check · BOB1' 'Runs the selected course scenarios and the core actions used in the live slides.'
 ui_info 'Run this on the exact WSL machine/image set used in class.'
 phase='preflight'; ui_section 'Preflight'; bash scripts/preflight.sh
-scenario_spec=${AI5049_COURSE_CHECK_SCENARIOS:-'networking operations automation monitoring'}
+scenario_spec=${AI5049_COURSE_CHECK_SCENARIOS:-'networking operations monitoring'}
 read -r -a scenarios <<< "$scenario_spec"
 for scenario in "${scenarios[@]}"; do
   case "$scenario" in
-    networking|operations|automation|monitoring) ;;
+    networking|operations|monitoring) ;;
     *) ui_fail "Unknown course-check scenario: $scenario"; exit 2 ;;
   esac
   phase="scenario $scenario startup"
   ui_banner "Scenario · ${scenario^^}" 'Starting and exercising the documented classroom workflow'
-  AI5049_NO_GUIDE=1 bash scripts/start-scenario.sh "$scenario"
+  if [[ ${AI5049_COURSE_CHECK_REUSE_LAB:-0} == 1 ]]; then
+    # Setup already deployed and checked the topology. Only the scenario layer differs.
+    ui_info 'Reusing the running validation lab · restoring the baseline first'
+    bash scripts/healthy.sh
+    bash scripts/prepare-scenario.sh "$scenario"
+  else
+    AI5049_NO_GUIDE=1 bash scripts/start-scenario.sh "$scenario"
+  fi
   case "$scenario" in
     networking)
       phase='networking service probes'; ui_section 'Networking checks'
@@ -45,15 +52,11 @@ for scenario in "${scenarios[@]}"; do
       phase='networking NetBox inventory'; bash scripts/netbox-check.sh
       ;;
     operations)
-      phase='operations documented CLI repair'; ui_section 'Operations repair'
-      bash scripts/clear-routing.sh; bash scripts/wait-healthy.sh; bash scripts/verify-scenario.sh networking
-      ;;
-    automation)
-      phase='automation NetBox API read'; ui_section 'Automation · NetBox API'
+      phase='operations NetBox API read'; ui_section 'Operations · NetBox API'
       docker exec clab-ai5049-ops01 sh -c 'TOKEN=$(cat /state/netbox-token); curl -fsS -H "Authorization: Bearer $TOKEN" "http://netbox.bob1.reefnet.test:8080/api/dcim/devices/?name=edge01.bob1.reefnet.test" | jq -e ".count == 1" >/dev/null'
-      phase='automation documented gNMI read'; ui_section 'Automation · gNMI read'
+      phase='operations documented gNMI read'; ui_section 'Operations · gNMI read'
       docker exec clab-ai5049-ops01 gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy' >/dev/null
-      phase='automation documented gNMI repair'; ui_section 'Automation · gNMI repair'
+      phase='operations documented gNMI repair'; ui_section 'Operations · gNMI repair'
       docker exec clab-ai5049-ops01 gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy' >/dev/null
       bash scripts/wait-healthy.sh; bash scripts/verify-scenario.sh networking
       ;;
