@@ -2667,9 +2667,10 @@ Use `make monitoring` to start a fresh experiment on a configured lab machine.
 
 ## Research questions and sources
 
-Monitoring gave us a limitation: short events can disappear between samples.
+BOB1 runs its 12 probe checks about every second.
+With 200 targets and the same 20 requests/s, each target gets a check every 10 s.
 
-Now we turn that into a question we can actually test.
+A 5-second outage can then fall between two checks. Which schedule finds more?
 
 ---
 <!-- _class: content research -->
@@ -3875,10 +3876,12 @@ Export the plot itself, not a dashboard screenshot.
 
 # AI disclosure
 
-**OpenAI Codex assisted with this slide deck.**
+**OpenAI Codex and Anthropic Claude (Claude Code) assisted with this course.**
 
-Assistance covered structure, wording, diagrams, teaching examples
-and checks of formatting and rendered output.
+Assistance covered the slides, diagrams, teaching examples and lab scripts,
+and checks of formatting, rendered output and lab commands.
+
+I reviewed the content and am responsible for it.
 
 ---
 <!-- _class: content core -->
