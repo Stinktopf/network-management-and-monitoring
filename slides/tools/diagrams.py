@@ -56,8 +56,6 @@ flow('test-layers.svg',['Model','Emulate','Integrate','Postcheck'],['Static prop
 flow('evidence-chain.svg',['Question','Method','Evidence','Claim'],caption='The claim cannot be stronger than its weakest evidence boundary.')
 flow('experiment-run-cycle.svg',['Reset','Baseline','Inject','Observe','Restore'],caption='Run ID, seed, versions and raw results travel with the experiment.')
 flow('research-record.svg',['Figure','Analysis','Run records','Raw evidence'],['Result + units','Versioned code','Setup + run ID','Data + versions'],caption='Follow one reported number all the way back.')
-flow('retry-cascade.svg',['Task restarts','Spanner overload','Slower recovery'],caption='Missing randomized exponential backoff amplified the restart load.')
-flow('google-policy-failure.svg',['Policy data','Global replication','Service Control'],['Blank fields','Wide blast radius','Crash loop'],caption='A null pointer crashed the API policy-checking process.')
 flow('interdomain-service-path.svg',['Client AS','Transit AS','Service AS'],caption='Each observer sees only part of this path.')
 
 # Eight stages, with a readable row transition and no crossing connector.
@@ -96,13 +94,6 @@ def sequence(name,events,caption):
  a+=text(550,283,caption,23)
  save(name,a,305)
 sequence('tcp-handshake.svg',[('SYN','>'),('SYN + ACK','<'),('ACK','>')],'TCP setup precedes the application response.')
-a=text(200,25,'Client',26,weight=700)+text(850,25,'Target',26,weight=700)
-a+=line(200,40,200,235,False,color='#999')+line(850,40,850,235,False,color='#999')
-a+=line(208,75,842,75)+text(500,62,'Write request',24)
-a+=box(735,105,260,55,'State changed',green=True)
-a+=line(842,190,430,190,dash=True)+text(580,177,'Reply lost',24)+text(260,222,'Timeout',24)
-a+=text(550,282,'Unknown outcome ≠ no change. Read before retrying.',24)
-save('write-timeout.svg',a,305)
 a=text(120,25,'Writer A',24,weight=700)+text(600,25,'State owner',24,weight=700)+text(995,25,'Writer B',24,weight=700)
 for x in [120,600,995]:a+=line(x,45,x,245,False,color='#999')
 a+=line(592,78,128,78)+text(350,65,'Read: version 7',22)
@@ -118,7 +109,6 @@ def branch(name,root,left,right,caption):
  save(name,a,307)
 branch('confirmed-commit-branches.svg','Confirmed commit','Confirm before deadline','No confirmation: revert','Verify service before confirming. Requires target support.')
 branch('backout-branch.svg','Service verification','Pass: record + hand over','Fail: backout + verify','Rollback: configuration. Backout: recovery procedure.')
-branch('site-recovery.svg','Site unavailable','Both copies unreachable','Off-site recovery: test access','Copies do not remove a shared failure domain.')
 
 a=box(25,75,230,85,'OOB access')+box(420,75,245,85,'Console server')+box(835,75,235,85,'Router console')
 a+=line(260,115,413,115)+line(670,115,828,115)+text(335,88,'IP',22)+text(750,88,'serial',22)
@@ -219,12 +209,6 @@ a=box(35,35,470,100,'Method A: 18 of 20 detected','Median among detections: 1.0 
 a+=text(550,180,'Synthetic example',22)
 save('detection-coverage-delay.svg',a,205)
 
-# Qualitative Internet evidence: no fabricated data or geographic attribution.
-a=box(25,30,300,80,'Before event')+box(775,30,300,80,'After event')
-a+=line(330,70,770,70)+text(550,49,'Compare matched paths',23)
-a+=box(150,160,800,75,'Traceroute-derived paths ≠ traffic shares',green=True)
-save('baltic-path-changes.svg',a,270,'Qualitative reading guide for RIPE Labs Baltic cable-cut analysis; no reproduced counts')
-flow('cable-evidence.svg',['Physical reports','Route observations','RTT / reachability'],caption='Triangulate evidence. An IP path cannot identify a damaged cable.')
 a=box(15,70,240,80,'1500-byte packet')+box(430,70,240,80,'MTU 1280')+box(840,70,245,80,'Client waits')
 a+=line(260,108,423,108)+line(675,108,833,108,dash=True,color="#999")+text(550,41,'IPv6: oversized packet is dropped',24)
 a+='<path d="M550,160 V198 H300" fill="none" stroke="#777" stroke-width="2" marker-end="url(#arrow-grey)"/>'
@@ -250,6 +234,5 @@ save('control-overcorrection.svg',a,265)
 flow('agent-boundary.svg',['Planner','Enforced tool','Network','Verifier'],['Proposes action','Scope + permission','Actual state','Independent probe'],caption='Authorization stays outside the planner.')
 
 
-flow('fastly-trigger.svg',['May 12 release','June 8 change','Network errors'],['Latent software bug','Valid customer input','85% of the network'],caption='The input was valid. The software was not prepared for it.')
 
 print(f'{len(list(R.glob("*.svg")))} SVG diagrams written.')

@@ -81,20 +81,6 @@ s+=device(100,116,'Host','host')+device(545,116,'Gateway')+device(970,116,'Remot
 s+=ln(160,103,483,103,True)+t(325,94,'198.51.100.10 → gateway',22)+ln(602,103,914,103,True)
 s+=circle(310,170,7,G,G)+ln(158,144,298,169,True)+t(313,209,'203.0.113.42: direct',22)
 save('local-remote',s,260)
-# One local delivery: the Ethernet frame contains the IP packet on both links.
-s=card(20,10,240,80,'PC A','192.168.1.10/24')
-s+=card(430,10,240,80,'Switch','Forwards by MAC')
-s+=card(840,10,240,80,'PC B','192.168.1.20/24')
-s+=ln(270,50,420,50,True)+ln(680,50,830,50,True)
-s+=rect(210,120,680,110,'white')+t(550,151,'Ethernet frame: MAC A → MAC B',25,weight=700)
-s+=rect(240,171,620,42)+t(550,199,'IP packet: 192.168.1.10 → 192.168.1.20',24)
-for x,title,detail in [
- (185,'1  Route lookup','Same subnet → direct delivery'),
- (550,'2  ARP if MAC is unknown','Broadcast request, unicast reply'),
- (915,'3  Send the frame','Known MAC B → only B’s port'),
-]:
- s+=t(x,276,title,24,weight=700)+t(x,310,detail,21)
-save('local-ip-ethernet',s,335,'Two hosts on one VLAN. ARP resolves the destination MAC. The switch forwards an Ethernet frame containing the IP packet.')
 s=rect(430,90,240,120,'white',M,10)+t(550,150,'Switch',29,weight=700).replace('<text ', '<text dominant-baseline="central" ')
 for x,y,lab in [(80,150,'A'),(1010,75,'B'),(1010,250,'C')]:
  s+=device(x,y,lab,'host')
@@ -105,11 +91,6 @@ s=t(210,25,'Host',27,weight=700)+t(900,25,'Next hop',27,weight=700)+ln(210,44,21
 s+=ln(216,95,894,95,True)+t(555,77,'Who owns this next-hop IP?',25)+ln(894,185,216,185,True)+t(555,167,'This link-layer address',25)
 s+=t(550,280,'ARP uses broadcast. ND uses multicast solicitation.',24)
 save('neighbor-resolution',s,305)
-s=''
-for i,(a,b) in enumerate([('Link 1','Host MAC → router MAC'),('Link 2','Router MAC → next-hop MAC')]):
- x=20+i*570;s+=rect(x,30,510,210,'white')+t(x+255,71.5,a,27,weight=700)+t(x+255,116.5,b,22)+rect(x+20,139,470,72,'#f7f7f7')+t(x+255,169,'Same IP endpoints',24,weight=700)+t(x+255,198,'203.0.113.10 → 198.51.100.10',23)
-s+=ln(534,140,582,140,True)+t(550,289,'Each router builds a new link-layer frame.',25)
-save('hop-encapsulation',s,310)
 s=''
 for x,y,label,sub in [(160,160,'Customer AS','Own routing policy'),(550,75,'Transit AS','Connects networks'),(930,160,'Peer AS','Own routing policy')]:
  s+=f'<ellipse cx="{x}" cy="{y}" rx="145" ry="64" fill="#fafafa" stroke="#bbb" stroke-width="1.5"/>'+t(x,y-16,label,27,weight=700).replace('<text ', '<text dominant-baseline="central" ')+t(x,y+16,sub,22).replace('<text ', '<text dominant-baseline="central" ')
@@ -168,7 +149,6 @@ s=card(20,85,230,110,'Device','ReefNet Edge 01')+card(325,85,200,110,'Interface'
 for x,xx in [(255,320),(530,600),(820,885)]:s+=ln(x,140,xx,140,True)
 s+=t(550,38,'An inventory is a graph of relationships.',27)+t(550,258,'Join the intended circuit to the actual change target.',25)
 save('inventory-relationships',s,290)
-pathflow('validation-gates',['Syntax','Semantics','Policy'],['Can it be parsed?','Does it mean something?','Is that behavior allowed?'],caption='A valid configuration can still violate the change contract.')
 # Contrast rollout scope here. The later timeout exercise handles per-device outcomes.
 s=''
 for y,label,active in [(35,'One at a time',[True,False,False,False]),(160,'All at once',[True,True,True,True])]:
@@ -276,20 +256,6 @@ s=card(20,110,230,100,'Affected cluster','Redundant paths')+card(850,110,230,100
 s+=ln(255,128,845,128,width=3)+ln(255,190,845,190,width=3)+t(340,108,'Path 1',23)+t(340,231,'Path 2',23)
 s+=rect(390,26,320,52,'white')+t(550,60,'Shared work order',23,weight=700)+ln(550,82,550,122,True)+ln(620,82,620,184,True)
 save('shared-maintenance',s,285)
-s=''
-for x,title,subs in [(15,'Before',['1  permit site-local','2  reject remaining']),(595,'After',['1  reject remaining','2  permit site-local — not reached'])]:
- s+=t(x+240,35,title,29,weight=700)
- for i,sub in enumerate(subs):s+=rect(x+10,70+i*88,470,68,'#f7f7f7')+t(x+32,113+i*88,sub,23 if 'not reached' in sub else 27,'start',color=M if 'not reached' in sub else K)
-s+=ln(505,150,573,150,True)+t(550,288,'First matching rule wins. Later permission cannot undo rejection.',24)
-save('policy-order',s,315)
-s=card(20,60,245,100,'ClickHouse query','Column metadata')
-for i in range(4):s+=rect(360+i*9,90-i*10,175,100,'white')
-s+=t(485,238,'Bot Management features',24)+ln(270,110,350,110,True)+ln(580,110,720,110,True)+rect(737,52,22,155,'#eee')+t(749,29,'200-feature limit',24)+card(815,60,265,100,'FL2 proxy','Panic → HTTP 5xx')
-save('generated-file-limit',s,280)
-s=ln(75,125,1025,125)
-for x,a,b in [(85,'09:47','Fault'),(200,'09:48','Detected'),(765,'10:27','Trigger found'),(1010,'10:36','Recovery starts')]:s+=circle(x,125,8,'white',G)+t(x,82,a,25,weight=700)+t(x,177,b,23)
-s+=t(275,240,'Detection: 1 min',25)+t(800,240,'Recovery begins after 49 min',25)
-save('fastly-timeline',s,275,'Selected events from Fastly’s June 2021 report; schematic spacing')
 s=device(130,102,'BGP router')+device(960,102,'BGP peer')+ln(185,90,905,90,True)+t(550,67,'BGP session',24)+card(385,220,330,75,'BMP collector','Observes exported BGP state')+ln(180,135,390,235,True,True)+t(325,175,'BMP feed',24)
 save('bmp-observer',s,325)
 s=f'<ellipse cx="550" cy="135" rx="245" ry="103" fill="#fafafa" stroke="#ccc" stroke-width="1.5"/>'+t(550,119,'Internet paths',29,weight=700).replace('<text ', '<text dominant-baseline="central" ')+t(550,151,'Partial visibility',24,color=M).replace('<text ', '<text dominant-baseline="central" ')

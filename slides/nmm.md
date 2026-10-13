@@ -154,8 +154,8 @@ We study how operators keep these networks working.
 
 | Date | Time | Topic |
 |---|---|---|
-| 12 October 2026 | 13:45–17:00 | Networking 101 + Operations |
-| 13 October 2026 | 08:45–15:15 | Automation + Incidents |
+| 12 October 2026 | 13:45–17:00 | Networking 101 |
+| 13 October 2026 | 08:45–15:15 | Operations + Automation + Incidents |
 | 14 October 2026 | 08:45–15:15 | Monitoring / Observability |
 
 Short demos, then time to try it yourself.
@@ -790,10 +790,12 @@ Rising **FCS errors** can be evidence even while the link stays up.
 How does a request from Lagoon reach `data.oceanresearch.test`,
 and how does the reply get back?
 
-**60 minutes:** 30 to [clone the repo](https://github.com/Stinktopf/network-management-and-monitoring#setup) and run `make setup`, then 30 to explore.
-
-After `READY FOR CLASS`, in WSL on the lab PC:
+**60 minutes:** 30 for setup, then 30 to explore. In WSL on the lab PC:
 ```bash
+cd ~
+git clone https://github.com/Stinktopf/network-management-and-monitoring.git
+cd network-management-and-monitoring
+make setup        # wait for READY FOR CLASS
 make networking
 make task
 ```
@@ -819,20 +821,33 @@ Bring one result you can explain and one question that is still open.
 
 
 ---
+<!-- _class: day core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# 13 October 2026
+
+## Operations + Automation + Incidents
+
+Yesterday we followed a healthy request through ReefNet.
+
+Today Lagoon Transit loses our customer prefix `198.51.100.0/24`.
+We repair it in the router CLI, then a second time through NetBox and gNMI.
+
+At the end of today: **Who Broke the Internet?**
+
+---
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Network Operations
 
-The service is broken.
-
-What happened, and how do we restore it safely?
+A customer behind Lagoon Transit cannot reach the Ocean Research service.
 
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# One incident, from report to recovery.
+# One incident, from report to recovery
 
 ![width:1040px](assets/diagrams/incident-loop.svg)
 
@@ -859,8 +874,8 @@ Record the source, address family, protocol and time.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=probe01.bob1.lagoontransit.test</code></div>
 <div class="terminal-label">Inside the Lagoon probe</div>
-<pre><code>ping -4 -c 2 -W 1 198.51.100.10
-ping -6 -c 2 -W 1 2001:db8:100::10</code></pre>
+<pre><code>ping -4 -c 3 -W 1 198.51.100.10
+ping -6 -c 3 -W 1 2001:db8:100::10</code></pre>
 </div>
 
 Use `exit`, then in WSL:
@@ -876,11 +891,11 @@ Repeat both tests. Which path and address family fail?
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Bound the incident.
+# Bound the incident
 
 ![width:1040px](assets/diagrams/incident-scope.svg)
 
-Keep the service and test method fixed. Vary the viewpoint.
+Same target `198.51.100.10`, same `ping`. Change only the probe: Lagoon or Pacific.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="active">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -888,12 +903,12 @@ Keep the service and test method fixed. Vary the viewpoint.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Separate state from service.
+# Separate state from service
 
 ![width:1040px](assets/diagrams/three-planes.svg)
 
-Management access and established routing sessions do not prove service delivery.
-Verify the service from the customer's viewpoint.
+edge01 accepts SSH and its BGP session to `192.0.2.2` is up.
+Lagoon still cannot reach `198.51.100.10`.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -901,7 +916,7 @@ Verify the service from the customer's viewpoint.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Is BGP actually established?
+# Are the BGP sessions established?
 
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
@@ -913,6 +928,7 @@ Verify the service from the customer's viewpoint.
 |---|---|
 | `192.0.2.0` | Ocean Research |
 | `192.0.2.2` | Lagoon Transit |
+| `2001:db8:0:a::` | Lagoon Transit IPv6 |
 | `10.255.0.2` | ReefNet edge02 iBGP |
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
@@ -980,18 +996,19 @@ Find `198.51.100.0/24`.
 <!-- _class: content task -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# You are on call
+# Exercise: find and repair the fault
 
-A user behind Lagoon cannot reach the Ocean Research service.
+Users behind Lagoon Transit cannot reach `data.oceanresearch.test`.
 
 In WSL:
 ```bash
+cd ~/network-management-and-monitoring && git pull
 make operations
 make task
 ```
 
-**45 minutes:** find the fault, repair it and verify recovery.
-Keep your commands and evidence. We compare diagnoses before repairing.
+**60 minutes:** steps 1–5. Find the fault, repair it with the CLI and verify recovery.
+Keep your commands and evidence. We compare diagnoses after step 5.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
@@ -1028,7 +1045,7 @@ diff
 commit now</code></pre>
 </div>
 
-The group inherits `EXPORT-BGP`. Leave the other paths unchanged.
+`lagoon-v4` then inherits `EXPORT-BGP`. Do not edit the policies, leave `lagoon-v6` alone.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="active">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -1036,7 +1053,7 @@ The group inherits `EXPORT-BGP`. Leave the other paths unchanged.
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://curl.se/docs/manpage.html#--fail\">curl: HTTP checks</a></span>" -->
 
-# The change is not the recovery proof.
+# Verify from both probes
 
 Leave the router with `quit`.
 
@@ -1056,6 +1073,23 @@ make enter NODE=probe01.bob1.pacifictransit.test
 Repeat both HTTP checks. Return with `exit`, then run `make test`.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7908.html\">Route leaks: RFC 7908</a></span>" -->
+
+# Important: our lab leaks a route
+
+edge01 advertises to Lagoon Transit (`192.0.2.2`):
+
+| Prefix | AS path | Learned from | Gao–Rexford |
+|---|---|---|---|
+| `198.51.100.0/24` | 65000 65010 | customer Ocean Research | send to everyone |
+| `203.0.113.128/25` | 65000 65200 | provider Pacific Transit | **customers only** |
+
+During the fault, the leaked route was the **only** route Lagoon received.
+Cause: `EXPORT-BGP` accepts every BGP route (`match protocol bgp`).
+On a real network, ReefNet would carry transit between its two providers.
 
 ---
 <!-- _class: content core -->
@@ -1084,7 +1118,7 @@ For example:
 | Record | ReefNet incident |
 |---|---|
 | Impact | Lagoon IPv4 unreachable |
-| Cause | Wrong export policy on `lagoon-v4` |
+| Cause | Group override `BLOCK-CUSTOMER-V4` on `lagoon-v4` |
 | Recovery | Override removed, HTTP verified |
 | Prevention | Test IPv4 and IPv6 exports |
 
@@ -1104,7 +1138,7 @@ Record unknown times as **unknown**.
 - **Performance**: measure service and capacity
 - **Security**: control access and change
 
-Our repair touched several areas at once.
+Today: a **Fault** (Lagoon IPv4 lost) caused by a **Configuration** change (group override).
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
@@ -1112,46 +1146,12 @@ Our repair touched several areas at once.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Stop here, repeat later
+# Same incident, now through an API
 
-Keep notes on your checks, findings and next step.
+This morning we repaired a router through its CLI.
+Now we will use NetBox and gNMI.
 
-`make down` removes the running lab. **Router changes are discarded.**
-
-`make operations` starts the **original incident**, not your last state.
-
-On your own Windows PC, install [WSL-Containerlab](https://github.com/srl-labs/WSL-Containerlab), then follow the [lab setup](https://github.com/Stinktopf/network-management-and-monitoring#setup).
-Use your notes to repeat the investigation.
-
-
----
-<!-- _class: day core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# 13 October 2026
-
-## Automation + Incidents
-
-Yesterday we examined a manual network repair.
-
-Today we need to make the same class of change
-**safely and repeatedly**.
-
-At the end of today: **Who Broke the Internet?**
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Same incident. This time, use an API.
-
-Yesterday we repaired a router through its CLI.
-Today we will use NetBox and gNMI.
-
-How do we choose the right device, make the change and check it worked?
-
-The exercise starts with `make automation`.
-You can begin even if you did not finish Operations.
+NetBox finds the target, gNMI makes the change, the probes prove it.
 
 
 ---
@@ -1162,22 +1162,7 @@ You can begin even if you did not finish Operations.
 
 ![width:1040px](assets/diagrams/change-loop.svg)
 
-YANG, NETCONF and gNMI support this workflow.
-
-<nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Agree on a change contract.
-
-| Boundary | Agree before execution |
-|---|---|
-| Scope | Target and permitted diff |
-| Entry | Preconditions and reviewed input |
-| Exit | Service checks and deadline |
-| Recovery | Backout, owner and access path |
+Step 7 runs this loop: `gnmic get`, `set --dry-run`, `set`, `get`.
 
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1196,8 +1181,6 @@ Target: **ReefNet Edge 01**, BGP group `lagoon-v4`.
 | Preserve | Lagoon IPv6 and Pacific Transit |
 | Prove | Customer IPv4 export and external reachability |
 
-Which facts need a fresh read from the router?
-
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
@@ -1212,7 +1195,7 @@ Which facts need a fresh read from the router?
 | Policy | Lagoon IPv4 inherits `EXPORT-BGP` |
 | Configuration | `lagoon-v4` currently has a group override |
 
-A correct policy on the wrong group still fails the intent.
+Deleting the override on `lagoon-v6` instead would leave Lagoon IPv4 broken.
 
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1220,7 +1203,7 @@ A correct policy on the wrong group still fails the intent.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Inventory gives the target context.
+# Inventory gives the target context
 
 ![width:1040px](assets/diagrams/inventory-relationships.svg)
 
@@ -1230,20 +1213,19 @@ A correct policy on the wrong group still fails the intent.
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://netbox.readthedocs.io/en/stable/integrations/rest-api/\">NetBox REST API</a></span>" -->
 
-# Read the device inventory.
+# Read the device inventory
 
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01</div>
 <pre><code>TOKEN=$(cat /state/netbox-token)
-NETBOX_API=http://netbox.bob1.reefnet.test:8080/api
 curl -fsSG -H &quot;Authorization: Bearer $TOKEN&quot; \
-  &quot;$NETBOX_API/dcim/devices/&quot; \
+  http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
   --data-urlencode name=edge01.bob1.reefnet.test |
   jq &#x27;{count, devices: [.results[] | {name, primary_ip4}]}&#x27;</code></pre>
 </div>
 
-Expect one device. Keep the token private.
+Expect one device with `primary_ip4` `172.20.20.11/24`. Keep the token private.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1257,14 +1239,13 @@ Expect one device. Keep the token private.
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01</div>
 <pre><code>TOKEN=$(cat /state/netbox-token)
-NETBOX_API=http://netbox.bob1.reefnet.test:8080/api
 curl -fsSG -H &quot;Authorization: Bearer $TOKEN&quot; \
-  &quot;$NETBOX_API/circuits/circuits/&quot; \
+  http://netbox.bob1.reefnet.test:8080/api/circuits/circuits/ \
   --data-urlencode cid=BOB1-LAGOON-001 |
   jq &#x27;.results[] | {cid, provider: .provider.name, status: .status.label}&#x27;</code></pre>
 </div>
 
-Compare circuit intent with live router state.
+NetBox: `BOB1-LAGOON-001` is active. The router: session to `192.0.2.2` up, `198.51.100.0/24` not exported.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1272,48 +1253,33 @@ Compare circuit intent with live router state.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Join inventory into one change input
+# Follow the inventory to the change
 
-Example API reads:
+Each NetBox query returns a record. We keep one fact and use it for the next query.
 
-```http
-GET /api/dcim/devices/?name=edge01.bob1.reefnet.test
-GET /api/dcim/interfaces/?device=edge01.bob1.reefnet.test
-GET /api/ipam/prefixes/?prefix=198.51.100.0%2F24
-GET /api/ipam/asns/?asn=65100
-```
-
-Join these objects into one approved change input.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Intent and observation can drift.
-
-Compare the same **scope**, **time** and **meaning**.
-
-Stale data or different representations can look like drift.
-Check those before reconciling.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.youtube.com/watch?v=k1TMAgNROh8\">DE-CIX: automation in practice</a></span>" -->
-
-# Unavailable input is not an empty list.
-
-| Input | State |
+| `GET /api/…` | We keep |
 |---|---|
-| Inventory snapshot | Current |
-| Monitoring API | Unavailable |
-| Previous output | Known working |
+| `dcim/devices/?name=edge01.bob1.reefnet.test` | Management IP `172.20.20.11` on `mgmt0` |
+| `dcim/interfaces/?device=edge01.bob1.reefnet.test` | `ethernet-1/3` is cabled to Lagoon Transit |
+| `ipam/asns/?asn=65100` | AS 65100 is Lagoon Transit, the BGP peer on that port |
+| `ipam/prefixes/?prefix=198.51.100.0/24` | Ocean Research service prefix |
 
-Stop publication or use an approved, age-limited fallback.
-**Unknown targets must not silently disappear.**
+Change input: on `edge01`, peer AS 65100 must receive `198.51.100.0/24`.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Where intent and the router disagree
+
+| NetBox (intent) | edge01 (observed) |
+|---|---|
+| Circuit `BOB1-LAGOON-001` active | Session to `192.0.2.2` established |
+| Prefix `198.51.100.0/24` active | Not exported to AS 65100 |
+
+Compare the same scope and time before you reconcile.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1336,23 +1302,21 @@ Stop publication or use an approved, age-limited fallback.
 
 Reviewer and executor need the **same approved input**.
 
-Also keep the current state needed for backout.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
-<!-- _class: chapter core -->
+<!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Choose the automation mechanism.
+# Choose the automation mechanism
 
-| Layer | Examples |
-|---|---|
-| CLI automation | Netmiko |
-| Data models | YANG, OpenConfig |
-| Model-driven protocols | NETCONF, gNMI |
+| Layer | Examples | On the BOB1 routers |
+|---|---|---|
+| CLI automation | Netmiko | SSH to the SR Linux CLI |
+| Data models | YANG: native, OpenConfig | `srl_nokia-*` and OpenConfig models |
+| Model-driven protocols | NETCONF, RESTCONF, gNMI | gNMI on port 57400, NETCONF on 830, no RESTCONF |
 
-The same preconditions, service checks and recovery contract still apply.
 
 ---
 <!-- _class: content core -->
@@ -1366,29 +1330,12 @@ Illustrative SSH read on SR Linux:
 from netmiko import ConnectHandler
 
 with ConnectHandler(**device) as conn:
-    output = conn.send_command("show interface")
+    output = conn.send_command(
+        "show network-instance default protocols bgp neighbor 192.0.2.2 advertised-routes ipv4")
+    assert "198.51.100.0/24" in output
 ```
 
-Netmiko handles the session. You interpret the result.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# A prompt is not a postcheck.
-
-Illustrative CLI error:
-
-```text
-router(config)# interface does-not-exist
-% Invalid interface
-router#
-```
-
-The session survived. The command did not.
-Read back state and check the service.
+Netmiko handles the session. You still parse text.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1396,11 +1343,11 @@ Read back state and check the service.
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7950.html\">YANG: RFC 7950</a></span>" -->
 
-# YANG describes management data.
+# YANG describes management data
 
 ![width:1040px](assets/diagrams/yang-tree.svg)
 
-The model constrains data. The change contract constrains behavior.
+Our fault is one leaf-list in this tree: `bgp/group[lagoon-v4]/export-policy`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1408,37 +1355,25 @@ The model constrains data. The change contract constrains behavior.
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# YANG keys and constraints
+# YANG for our BGP group
+
+From `srl_nokia-bgp.yang` on edge01, shortened:
 
 ```yang
-list interface {
-  key "name";
-  leaf name { type string; }
-  leaf enabled { type boolean; default true; }
-  leaf mtu { type uint16 { range "1280..9216"; } }
+list group {
+  key "group-name";
+  leaf group-name { ... }
+  leaf peer-as { ... }
+  leaf-list export-policy {
+    ordered-by user;
+    max-elements 14;
+    type leafref { path "/routing-policy/policy/name"; }
+  }
 }
 ```
 
-A module contains this fragment. The MTU range is illustrative.
-
-A list key must name an existing child leaf.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8342.html\">Datastores: RFC 8342</a></span>" -->
-
-# Enabled, but no carrier
-
-| View | Interface fact |
-|---|---|
-| Configuration | Interface is enabled |
-| Observed state | Carrier is down |
-
-Configuration and observed state answer different questions.
-
-Check the physical link and the peer before changing the configuration.
+The key makes the path `group[group-name=lagoon-v4]`.
+The leafref rejects a policy that does not exist: try `NO-SUCH-POLICY`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1446,12 +1381,39 @@ Check the physical link and the peer before changing the configuration.
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://openconfig.net/projects/models/\">OpenConfig models</a></span>" -->
 
-# OpenConfig
+# OpenConfig: one model for many vendors
 
-Vendor-neutral YANG models for interfaces, routing and telemetry.
+Six OpenConfig models loaded on edge01:
 
-A common model does not guarantee identical device support.
-**Check supported paths and operations.**
+| Model | Covers |
+|---|---|
+| `openconfig-interfaces` | Admin and oper state, counters |
+| `openconfig-network-instance` | VRFs, BGP, OSPF, static routes |
+| `openconfig-routing-policy` | Prefix sets and policies |
+| `openconfig-platform` | Chassis, line cards, transceivers |
+| `openconfig-lldp` | Neighbor discovery |
+| `openconfig-system` | Hostname, AAA, NTP, logging |
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://openconfig.net/projects/models/\">OpenConfig models</a></span>" -->
+
+# Same router, two models
+
+gNMI reads on edge01:
+
+| Data | Native SR Linux | OpenConfig |
+|---|---|---|
+| ethernet-1/3 state | `…/oper-state`: `up` | `…/state/oper-status`: `UP` |
+| BGP group lagoon-v4 | full configuration | empty |
+
+Paths: `/interface[name=ethernet-1/3]/oper-state` and
+`/interfaces/interface[name=ethernet-1/3]/state/oper-status`.
+
+BOB1 configures BGP in the native model. OpenConfig does not show it.
+**Check which model holds your data before you automate.**
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1459,16 +1421,45 @@ A common model does not guarantee identical device support.
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html\">NETCONF: RFC 6241</a></span>" -->
 
-# NETCONF edits a datastore.
+# NETCONF and RESTCONF are siblings
 
-With a supported candidate datastore:
+| | NETCONF | RESTCONF |
+|---|---|---|
+| Standard | RFC 6241 (2011) | RFC 8040 (2017) |
+| Transport | SSH, port 830 | HTTPS |
+| Encoding | XML | JSON or XML |
+| Operations | `get-config`, `edit-config`, `lock`, `commit` | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
+| Datastores | running, candidate, startup | one view, no commit step |
+| BOB1 routers | enabled | not offered |
 
-1. Lock, edit and validate.
-2. Commit.
-3. Verify the service independently.
-4. Unlock and record.
+Step 7 uses the third option: gNMI over gRPC, port 57400.
 
-Check the advertised capabilities.
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc6241.html\">NETCONF: RFC 6241</a></span>" -->
+
+# NETCONF edits a datastore
+
+Our repair over SSH port 830, tested on edge01:
+
+```xml
+<edit-config>
+  <target><candidate/></target>
+  <config>
+    <network-instance xmlns="urn:nokia.com:srlinux:net-inst:network-instance">
+      <name>default</name>
+      <protocols><bgp xmlns="urn:nokia.com:srlinux:bgp:bgp"><group>
+        <group-name>lagoon-v4</group-name>
+        <export-policy nc:operation="delete">BLOCK-CUSTOMER-V4</export-policy>
+      </group></bgp></protocols>
+    </network-instance>
+  </config>
+</edit-config>
+```
+
+`lock` → `edit-config` → `commit` → `unlock`, each answered with `<ok/>`. Then verify the service.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1476,7 +1467,7 @@ Check the advertised capabilities.
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Read the NETCONF error.
+# Read the NETCONF error
 
 ```xml
 <rpc-error>
@@ -1486,7 +1477,7 @@ Check the advertised capabilities.
 </rpc-error>
 ```
 
-Inspect the tag, path, message and datastore state after failure.
+Inspect the error-tag and the datastore state after failure.
 Then decide whether a retry is safe.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
@@ -1499,7 +1490,7 @@ Then decide whether a retry is safe.
 
 ![width:1040px](assets/diagrams/confirmed-commit-branches.svg)
 
-Who confirms if automation loses contact? Test the revert path.
+No confirmation before the timeout: the router reverts. Test that revert.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1507,7 +1498,7 @@ Who confirms if automation loses contact? Test the revert path.
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\">gNMI specification</a></span>" -->
 
-# gNMI defines four RPCs.
+# gNMI defines four RPCs
 
 **RPC = remote procedure call**
 
@@ -1521,13 +1512,16 @@ Who confirms if automation loses contact? Test the revert path.
 
 # Read a gNMI path
 
+Our repair path on edge01:
+
 ```text
-/interface[name=ethernet-1/1]/statistics
+/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy
 ```
 
-- `name=ethernet-1/1` selects one interface.
-- `statistics` selects its subtree.
-- The **target** identifies the router.
+- `[name=default]` selects one network instance.
+- `[group-name=lagoon-v4]` selects one BGP group, by its YANG key.
+- `export-policy` is the leaf-list we read or delete.
+- The **target** `edge01.bob1.reefnet.test:57400` selects the router.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1545,7 +1539,7 @@ One request, one target, one transaction.
 | Failure | Restore the pre-request state |
 | Timeout | Outcome unknown to the client |
 
-Read back after a timeout. Verify the service after a change.
+Read back after a timeout. On SR Linux, Set applies immediately: no commit step.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1555,11 +1549,29 @@ Read back after a timeout. Verify the service after a change.
 
 # Prevent a lost update
 
-**Optimistic concurrency:** write only if the version you reviewed is still current.
+Two operators read `lagoon-v4`, then both write. The later write silently undoes the earlier one.
 
 ![width:1040px](assets/diagrams/lost-update-sequence.svg)
 
-A CLI precheck is useful, but it cannot make the later write atomic.
+Fix: block the second writer, or write only if your read is still current.
+
+<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
+
+
+---
+<!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Block the second writer
+
+| Interface | Protection | Tested on edge01 |
+|---|---|---|
+| CLI | `enter candidate exclusive` | Second CLI session refused |
+| NETCONF | `lock` → read → `edit-config` → `commit` → `unlock` | Second lock: `lock-denied` |
+| gNMI Set | none | Set went through while NETCONF held the lock |
+
+The NETCONF lock did not stop gNMI.
+Keep one writer per router and read back after every write.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1567,14 +1579,14 @@ A CLI precheck is useful, but it cannot make the later write atomic.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Validate before rendering
+# Check before you write
 
 | Check | Prevents |
 |---|---|
-| Device + BGP group | Wrong target |
-| Current override | Stale assumptions |
-| Import or export | Wrong direction |
-| Inherited policy | Unsafe fallback |
+| `edge01` + `lagoon-v4` | Wrong target, e.g. `lagoon-v6` |
+| Override is `BLOCK-CUSTOMER-V4` | Stale assumptions |
+| `export-policy`, not import | Wrong direction |
+| Instance policy `EXPORT-BGP` | Unsafe fallback |
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1582,25 +1594,19 @@ A CLI precheck is useful, but it cannot make the later write atomic.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Generate and inspect the candidate.
+# Preview the request
 
-Reviewed change **CHG-017**:
+`gnmic set --dry-run` for **CHG-017** prints:
 
-```text
-- export-policy [ BLOCK-CUSTOMER-V4 ]
+```json
+{
+  "delete": [
+    "network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy"
+  ]
+}
 ```
 
-The group inherits `EXPORT-BGP`. Reject unrelated changes.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Validation has three layers.
-
-![width:1040px](assets/diagrams/validation-gates.svg)
+Exactly one delete, nothing else. The group then inherits `EXPORT-BGP`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1612,7 +1618,8 @@ The group inherits `EXPORT-BGP`. Reject unrelated changes.
 
 ![width:1040px](assets/diagrams/test-layers.svg)
 
-Passing a static model check cannot prove target API behavior.
+Typo `export-polcy`: `--dry-run` prints it without complaint.
+Only the real Set fails: `Path not valid - unknown element 'export-polcy'`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1669,17 +1676,18 @@ Agree on **two improvements** and their acceptance checks.
 <!-- _class: content task -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/\">gNMIc documentation</a></span>" -->
 
-# Repair it through gNMI
+# Exercise: repair it through gNMI
 
 Find ReefNet Edge 01 in NetBox. Read its configuration and justify a change.
 
 In WSL:
 ```bash
-make automation
-make task
+make fault-routing
+make task STEP=6
 ```
+Lab not running? `make operations` starts it with the fault already in place.
 
-**60 minutes:** repair through gNMI and verify the service from both probes.
+**60 minutes:** steps 6–8. Repair through gNMI and verify the service from both probes.
 Use `make hint` for investigation commands.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
@@ -1689,34 +1697,19 @@ Use `make hint` for investigation commands.
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/cmd/set/\">gNMIc Set documentation</a></span>" -->
 
-# Did the API repair the service?
+# Apply the repair through gNMI
 
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
-<div class="terminal-label">Inside operations01, after verifying the policy</div>
-<pre><code>BGP_PATH=&#x27;/network-instance[name=default]/protocols/bgp&#x27;
-POLICY_PATH=&quot;$BGP_PATH/group[group-name=lagoon-v4]/export-policy&quot;
+<div class="terminal-label">Inside operations01, after <code>get</code> confirmed <code>BLOCK-CUSTOMER-V4</code></div>
+<pre><code>GROUP=&#x27;/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]&#x27;
 gnmic -a edge01.bob1.reefnet.test:57400 \
   -u admin -p &#x27;NokiaSrl1!&#x27; --skip-verify --encoding json_ietf \
-  set --delete &quot;$POLICY_PATH&quot;</code></pre>
+  --timeout 10s set --delete &quot;$GROUP/export-policy&quot;</code></pre>
 </div>
 
 Read back the group. Check Lagoon’s route and HTTP from both probes.
 
-
----
-<!-- _class: joke core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Job success is not service success.
-
-**Exit code:** 0
-
-**Probe:** timeout
-
-Read back state and test the service before declaring recovery.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="active">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
 <!-- _class: chapter core -->
@@ -1725,13 +1718,13 @@ Read back state and test the service before declaring recovery.
 # Beyond one router: execute and recover
 
 
-What happens when a change spans multiple routers or a write has an unknown outcome?
+What changes when one change targets many routers?
 
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Bound the rollout.
+# Bound the rollout
 
 1. Re-read live preconditions.
 2. Change one representative canary.
@@ -1745,7 +1738,7 @@ Set a stop time. Keep the backout path reachable.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Give automation a bounded identity.
+# Give automation a bounded identity
 
 | Identity | Read | Write |
 |---|---|---|
@@ -1754,6 +1747,7 @@ Set a stop time. Keep the backout path reachable.
 | Reviewer | Evidence | No |
 
 Load credentials at runtime. Record the actor, never secrets.
+In the lab, `gnmic` logs in as `admin`, with full write access. A collector should not.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1761,23 +1755,11 @@ Load credentials at runtime. Record the actor, never secrets.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# A fleet changes the failure model.
+# A fleet changes the failure model
 
 ![width:1040px](assets/diagrams/fleet-progress.svg)
 
 More concurrency increases throughput and blast radius.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# The write may already have happened
-
-![width:1040px](assets/diagrams/write-timeout.svg)
-
-Record an unknown outcome explicitly in the audit trail.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1791,7 +1773,7 @@ Record an unknown outcome explicitly in the audit trail.
 
 $$F(F(s))=F(s)$$
 
-Repeating the operation leaves the same state.
+Deleting the `lagoon-v4` export-policy twice leaves the same state: no override.
 A retry still needs a fresh read and service verification.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
@@ -1829,7 +1811,7 @@ Idempotence alone does not prove convergence.
 ![width:1040px](assets/diagrams/backout-branch.svg)
 
 Record the backup's identity, time and version.
-Assign an owner to the full recovery procedure.
+Backout for CHG-017 is `set … lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]`: it restores the fault.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
@@ -1853,7 +1835,7 @@ Keep identity, time, version and checksum outside the device.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Keep an audit trail.
+# Keep an audit trail
 
 ```json
 {
@@ -1867,21 +1849,6 @@ Keep identity, time, version and checksum outside the device.
 ```
 
 Keep timestamps and before/after evidence. Exclude credentials.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Who operates the automation?
-
-- A named owner and bounded runtime
-- One writer per target with explicit retry rules
-- Fresh inputs and verified outcomes
-- Tested recovery and a retained audit trail
-
-The next shift must be able to run it.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
@@ -1911,7 +1878,7 @@ Approval applies to a specific code revision and input snapshot.
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Automation: close the loop.
+# Close the loop
 
 A write times out. **What state is the network in?**
 
@@ -1921,7 +1888,8 @@ Two minutes:
 - Name the evidence for the next operator.
 
 Note the original policy, your change and the verification results.
-Restart the exercise later with `make automation`.
+`make down` discards router changes. `make operations` restarts at step 1.
+For the API part only: `make fault-routing`, then `make task STEP=6`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
@@ -1936,22 +1904,6 @@ Restart the exercise later with `make automation`.
 
 Which safeguard would have changed the outcome?
 
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# The rules of the show
-
-For each case:
-
-1. who lost what, and for how long
-2. the failure boundary
-3. evidence that distinguishes the cause
-4. the recovery dependency
-5. one safeguard worth testing
-
-We are studying mechanisms, not awarding blame.
 
 ---
 <!-- _class: content deep-dive -->
@@ -1976,6 +1928,9 @@ We are studying mechanisms, not awarding blame.
 ![width:1040px](assets/diagrams/facebook-dns-dependencies.svg)
 
 Normal and out-of-band access failed. Engineers had to go onsite.
+
+BOB1: `make enter` and SSH over `172.20.20.0/24` reach edge01 outside the data path.
+Today's BGP fault never cut you off.
 
 They restored the backbone, then brought services back under controlled load.
 
@@ -2027,7 +1982,7 @@ Test login and repair while the production path is unavailable.
 
 ![width:1040px](assets/diagrams/console-dependencies.svg)
 
-Exercise: AAA uses the failed backbone. Which fallback must exist?
+AAA uses the failed backbone. Which fallback must exist?
 
 ---
 <!-- _class: content deep-dive -->
@@ -2054,8 +2009,8 @@ Test that the emergency account can make the repair.
 If remote recovery is blocked, onsite staff become your eyes and hands.
 
 ```text
-Location:   Frankfurt, rack R12
-Equipment:  edge-a, port 2
+Location:   BOB1, rack BOB1-R01
+Equipment:  edge01.bob1.reefnet.test, ethernet-1/3
 Task:       verify label and photograph LEDs
 Scope:      inspect only, no disconnect
 Return:     timestamp, photos, label mismatch
@@ -2085,53 +2040,13 @@ The work crossed redundant routers before connectivity was checked.
 
 ![width:1040px](assets/diagrams/shared-maintenance.svg)
 
-1 September 2026: all affected paths were unplugged within **13 minutes**.
+All affected paths were unplugged within **13 minutes**.
 The worklist omitted router-by-router sequencing and verification.
 
 Recovery: divert traffic, reinstall the original optics, verify links.
 
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://corporate.ovhcloud.com/en/newsroom/news/informations-site-strasbourg/\">OVHcloud: Strasbourg (2021)</a></span>" -->
-
-# OVHcloud: undamaged did not mean available
-
-Strasbourg, 10 March 2021. Fire began in SBG2 at 00:47 CET.
-
-- SBG2 was destroyed. SBG1 lost four of its twelve rooms.
-- SBG3 and SBG4 were undamaged, but powered down.
-- Recovery involved site repairs, replacement servers and available backups.
-
-Replacement capacity does not recreate lost data.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.datacenterdynamics.com/en/news/ovh-fire-destroys-rust-game-data-takes-other-sites-offline/\">Rust: reported impact</a> <a href=\"https://lichess.org/forum/lichess-feedback/fire-in-a-lichess-datacenter\">Lichess: recovery report</a></span>" -->
-
-# Same fire. Different recovery.
-
-OVHcloud Strasbourg, 10 March 2021.
-
-| Service | What users lost | Recovery |
-|---|---|---|
-| **Rust / Facepunch** | Game data on 25 affected EU servers | Data unrecoverable |
-| **Lichess** | 24 hours of puzzle history | Backup from another data center |
-
-A replacement server does not bring back player progress.
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Two copies, one failure domain
-
-![width:1040px](assets/diagrams/site-recovery.svg)
-
-Exercise: assume both copies are inside the unavailable site.
-Which recovery plan still works?
+BOB1: like taking down core-a and core-b at once.
+Tomorrow `make fault-link` cuts only core-b, and the service survives.
 
 
 ---
@@ -2140,12 +2055,11 @@ Which recovery plan still works?
 
 # Baltic Sea: paths after the cuts
 
-RIPE Atlas, November 2024: Germany–Finland paths.
+RIPE Atlas, 17–18 November 2024: Germany–Finland paths after the C-Lion1 cut.
 
-![width:1040px](assets/diagrams/baltic-path-changes.svg)
-
-A different physical boundary: the cable route. Compare matched observers.
-This diagram shows the method, not traffic shares.
+Boundary here: the cable route. Compare the same probes before and after.
+Of 2,141 probe pairs, 21.5% kept identical IP paths. 5.2% of those still got 3 ms or more slower.
+No extra packet loss: the networks rerouted, partly below IP.
 
 
 ---
@@ -2157,180 +2071,33 @@ This diagram shows the method, not traffic shares.
 ![width:1040px](assets/diagrams/hidden-underlay.svg)
 
 Traceroute alone cannot identify a damaged cable.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/what-caused-the-red-sea-submarine-cable-cuts/\">Kentik: Red Sea (2024)</a></span>" -->
-
-# Red Sea: damage is not attribution
-
-24 February 2024: three cable systems were damaged.
-
-Kentik's analysis supports an anchor-dragging explanation involving the *Rubymar*.
-
-Keep the claims separate:
-
-- network reachability and delay: observable
-- physical cause: external evidence
-- deliberate attack on cables: not established by the network data
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.kentik.com/blog/subsea-cables-parted-in-red-sea-again/\">Kentik: Red Sea (2025)</a></span>" -->
-
-# Red Sea: the cloud takes a detour.
-
-September 2025: connectivity can continue while paths get slower.
-
-![width:1040px](assets/diagrams/cable-evidence.svg)
-
-Which measurement separates **slower** from **unreachable**?
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
-
-# Google Cloud: a dormant bug goes global
-
-12 June 2025. One policy update crosses regional boundaries.
-
-![width:1040px](assets/diagrams/google-policy-failure.svg)
-
-Service Control checks API policy. Blank fields triggered HTTP 503 errors.
-**Impact:** API errors affected Cloud Storage, IAM and other products.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW\">Google Cloud report (Jun 2025)</a></span>" -->
-
-# Google Cloud: recovery overloaded Spanner
-
-12 June 2025. Disabling the faulty check stopped the crash loop.
-
-![width:1040px](assets/diagrams/retry-cascade.svg)
-
-In us-central1, Google throttled restarts and redirected database traffic.
-Some customer monitoring failed too. The first status update took about an hour.
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
-
-# Cloudflare: policy order withdrew routes
-
-21 June 2022. Simplified BGP export-policy order:
-
-![width:1040px](assets/diagrams/policy-order.svg)
-
-Site-local routes disappeared. Servers lost origin access.
-Internal load balancing also failed.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/cloudflare-outage-on-june-21-2022/\">Cloudflare postmortem (2022)</a></span>" -->
-
-# The canary never exercised the new architecture
-
-Cloudflare, 21 June 2022. Times in UTC.
-
-- Early rollout stages used the older architecture.
-- **06:27:** rollout reached 19 Multi-Colo PoP (MCP) sites.
-- These sites handled about half of all requests.
-- Backup access enabled rollback. The last revert finished at **07:42**.
-
-Canary the architecture that runs the changed policy.
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
-
-# Cloudflare: metadata became a bad feature file
-
-18 November 2025. A permissions change exposed more column metadata.
-
-![width:1040px](assets/diagrams/generated-file-limit.svg)
-
-Without a database filter, duplicate metadata pushed the file past **200 features**.
-Older proxies returned zero bot scores. Blocking depended on customer rules.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://blog.cloudflare.com/18-november-2025-outage/\">Cloudflare postmortem (2025)</a></span>" -->
-
-# Cloudflare: stop distributing the bad file
-
-**18 November 2025, UTC**
-
-| Time | Recovery |
-|---|---|
-| 14:24 | Stop file generation and distribution |
-| 14:30 | Restore most traffic with a known-good file |
-| 17:06 | Recover remaining services |
-
-Websites returned 5xx. Turnstile blocked logins.
-Recovery also required restarting the core proxy.
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a> <a href=\"https://www.kentik.com/analysis/fastly-outage-knocks-major-websites-offline/\">Observed impact</a></span>" -->
-
-# Fastly: valid input, latent bug
-
-8 June 2021.
-
-![width:1040px](assets/diagrams/fastly-trigger.svg)
-
-**Impact:** CNN, The New York Times and Reddit became unavailable.
-Fastly disabled the triggering configuration. The software fix followed later.
-
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.fastly.com/blog/summary-of-june-8-outage\">Fastly postmortem (2021)</a></span>" -->
-
-# Fastly: detection is not recovery
-
-8 June 2021. Times in UTC.
-
-![width:1040px](assets/diagrams/fastly-timeline.svg)
-
-**12:35:** incident mitigated. **17:25:** permanent bug-fix rollout began.
-Detection, mitigation and permanent repair are different clocks.
+Tomorrow you measure RTT from fixed probes, the same method RIPE Atlas uses.
 
 
 ---
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Name the dependency.
+# Name the dependency
 
 | Symptom | Hypothesis |
 |---|---|
 | Remote repair fails | Recovery shares the failed path |
-| Redundant routers fail together | Shared procedure or site |
-| All regions fail after an update | Global distribution |
+| Redundant routers fail together | Shared procedure |
+| Paths get slower, not unreachable | Shared cable corridor |
 | Green dashboard during impact | Missing or stale evidence |
 
 ---
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Your turn: redesign one boundary.
+# Your turn: redesign one boundary
 
 Pick one case. Draw its service path and recovery path.
 
 Mark the shared dependency. Remove one dependency from recovery.
 Propose a test that proves the revised path survives.
 
-**A second box is not a second failure domain.**
 
 ---
 <!-- _class: statement deep-dive -->
@@ -3240,6 +3007,7 @@ What happens when offered traffic exceeds the **50 Mbit/s** handoff?
 
 In WSL:
 ```bash
+cd ~/network-management-and-monitoring && git pull
 make monitoring
 make task
 ```
