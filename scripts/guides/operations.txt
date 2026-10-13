@@ -304,6 +304,7 @@ review its diff before committing. Keep the original setting for rollback.
 Commands:
 On edge01.bob1.reefnet.test:
   info from running
+  info flat from running | grep <word>
   enter candidate, delete, set, diff, commit
 
 Look at:
@@ -317,6 +318,7 @@ In WSL:
 Follow the affected neighbor's peer-group and export-policy to its prefix
 match and accept/reject action.
 Inside ReefNet Edge 01:
+  info flat from running | grep export-policy
   info from running network-instance default protocols bgp
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
@@ -344,6 +346,7 @@ Leave with quit.
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test
 Inside ReefNet Edge 01:
+  info flat from running | grep export-policy
   info from running network-instance default protocols bgp
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6

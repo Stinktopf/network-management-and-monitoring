@@ -3,7 +3,7 @@ from pathlib import Path
 from html import escape
 R=Path(__file__).resolve().parents[1]; A=R/'assets/diagrams'; A.mkdir(exist_ok=True)
 G='#72bf44'; K='#303030'; M='#777'; L='#dedede'; W=1100
-PRIMARY_SERIES={'traceroute-rtt','convergence-steps','counter-gauge','time-series-samples','stale-panel'}
+PRIMARY_SERIES={'traceroute-rtt','counter-gauge','time-series-samples','stale-panel'}
 
 def t(x,y,s,z=25,anchor='middle',weight=400,color=K):
  return f'<text x="{x}" y="{y}" font-size="{z}" text-anchor="{anchor}" font-weight="{weight}" fill="{color}">{escape(str(s))}</text>'
@@ -165,10 +165,6 @@ for name,states in [('fleet-timeout',['Verified','Verified','Timed out','Waiting
   x=gap*(i+.5);s+=device(x,65,f'r{i+1}')+t(x,218,state,24,weight=700)+ln(x-65,235,x+65,235,color=G if state=='Verified' else M,dash=state!='Verified',width=3)
  s+=t(550,295,'Progress is per device. A timeout is not a rollback.',25)
  save(name,s,320)
-s=ln(105,235,1040,235)+ln(105,235,105,30)+t(80,29,'Distance to intent',23,'start')+t(1030,279,'Change cycles',23,'end')
-s+='<path d="M110,60 H315 V120 H530 V172 H735 V212 H935 V232 H1030" fill="none" stroke="#72bf44" stroke-width="3"/>'
-s+=t(730,79,'Repeated correction',26)+t(730,115,'must approach the target.',25)
-save('convergence-steps',s,300,'Qualitative convergence illustration, not measured data')
 s=card(30,35,290,90,'Git','Reviewed desired state')+card(405,35,290,90,'Reconciler','Compare and act')+card(805,35,265,90,'Network','Observed state')
 s+=ln(325,80,400,80,True)+ln(700,80,800,80,True)+f'<path d="M937,132 V214 H550 V132" fill="none" stroke="{M}" stroke-width="2" marker-end="url(#a-grey)"/>'+t(750,258,'Fresh evidence closes the loop.',25)
 save('git-reconcile',s,290)
@@ -203,11 +199,6 @@ for offset,label,ys in [(0,'Counter',[205,185,170,120,94,52]),(560,'Gauge',[145,
   if i:s+=ln(x-80,ys[i-1],x,y,color=G,width=3)
  s+=t(offset+270,281,'Bytes on edge01 / ethernet-1/3' if offset==0 else 'DNS-check duration from Lagoon',24)
 save('counter-gauge',s,305,'Synthetic counter and gauge trajectories')
-s=t(550,25,'Same event',25,weight=700)+ln(550,85,550,195,dash=True)
-for y,label,time in [(85,'Probe clock','10:00:04'),(195,'Router clock','10:00:08')]:
- s+=t(10,y+8,label,25,'start')+ln(225,y,1040,y)+circle(550,y,8,G,G)+t(740,y-20,time,25)
-s+=t(550,293,'Unsynchronized clocks distort the apparent event order.',25)
-save('clock-offsets',s,320,'Illustrative clock readings for one event; the clocks disagree by four seconds')
 # One illustrative response per hop; no unexplained repeated points.
 s=t(20,25,'One illustrative reply per hop',24,'start',color=M)
 for i,value in enumerate([2,100,14,18]):
@@ -217,21 +208,16 @@ for i,value in enumerate([2,100,14,18]):
 for value in [0,20,40,60,80,100,120]:s+=t(195+value*6.6,319,str(value),21)
 s+=t(1030,357,'Reply RTT (ms)',24,'end')
 save('traceroute-rtt',s,380,'Illustrative traceroute replies: one reply per hop, RTT 2, 100, 14 and 18 milliseconds')
-s=ln(85,80,1015,80)
-for i,(a,b,c) in enumerate([('Snapshot','Initial state','Populate cache'),('Sync','Complete','Initial transfer'),('Update','Apply value','Keep timestamp'),('Delete','Remove','No longer exists')]):
- x=145+i*270
- s+=circle(x,80,9,'white',M)+t(x,43,a,25,weight=700)+card(x-115,135,230,95,b,c)
-save('stream-state',s,265)
 s=''
 for i,(a,b,c) in enumerate([('0','Measured zero','Valid observation'),('—','No fresh sample','State unknown'),('Deleted','Object removed','Update the model')]):
  x=20+i*365;s+=rect(x,25,330,245,'white')+t(x+165,109.5,a,49,weight=700,color=K)+t(x+165,173.5,b,25,weight=700)+t(x+165,224.5,c,23,color=M)
 save('zero-missing-deleted',s,295)
 s=''
-for i,(x,label,detail) in enumerate([(180,'sources','Lagoon / Pacific'),(550,'IP families','IPv4 / IPv6'),(920,'probe types','ICMP / DNS')]):
- s+=t(x,55,'2',43,weight=700)+t(x,94,label,25)+t(x,131,detail,23,color=M)
+for i,(x,count,label,detail) in enumerate([(180,'2','sources','Lagoon / Pacific'),(550,'2','IP families','IPv4 / IPv6'),(920,'3','probe types','ICMP / DNS / HTTP')]):
+ s+=t(x,55,count,43,weight=700)+t(x,94,label,25)+t(x,131,detail,23,color=M)
  if i<2:s+=t(x+185,76,'×',34,color=M)
-s+=ln(85,159,1015,159,color='#ddd')+t(550,211,'8 series for one metric',36,weight=700)+t(550,259,'One target: data.oceanresearch.test',24)
-save('cardinality-product',s,285,'ReefNet probe metric: two sources times two IP families times two probe types equals eight label combinations')
+s+=ln(85,159,1015,159,color='#ddd')+t(550,211,'12 series for one metric',36,weight=700)+t(550,259,'One target: data.oceanresearch.test',24)
+save('cardinality-product',s,285,'ReefNet probe metric: two sources times two IP families times three probe types equals twelve label combinations')
 s=rect(20,20,1060,260,'white')+t(45,61,'Illustrative panel',23,'start',700)+t(1048,61,'Last source update: 20 min ago',23,'end')+ln(60,223,1020,223)+ln(60,223,60,88)
 s+='<path d="M62,155 L185,151 L310,158 L430,149 L550,154" stroke="#72bf44" stroke-width="3" fill="none"/>'+ln(550,154,1018,154,False,True,color='#aaa')+circle(550,154,6,G,G)
 s+=t(793,113,'No new observations',24)+t(800,254,'Now',22)
@@ -256,8 +242,6 @@ s=card(20,110,230,100,'Affected cluster','Redundant paths')+card(850,110,230,100
 s+=ln(255,128,845,128,width=3)+ln(255,190,845,190,width=3)+t(340,108,'Path 1',23)+t(340,231,'Path 2',23)
 s+=rect(390,26,320,52,'white')+t(550,60,'Shared work order',23,weight=700)+ln(550,82,550,122,True)+ln(620,82,620,184,True)
 save('shared-maintenance',s,285)
-s=device(130,102,'BGP router')+device(960,102,'BGP peer')+ln(185,90,905,90,True)+t(550,67,'BGP session',24)+card(385,220,330,75,'BMP collector','Observes exported BGP state')+ln(180,135,390,235,True,True)+t(325,175,'BMP feed',24)
-save('bmp-observer',s,325)
 s=f'<ellipse cx="550" cy="135" rx="245" ry="103" fill="#fafafa" stroke="#ccc" stroke-width="1.5"/>'+t(550,119,'Internet paths',29,weight=700).replace('<text ', '<text dominant-baseline="central" ')+t(550,151,'Partial visibility',24,color=M).replace('<text ', '<text dominant-baseline="central" ')
 for x,y,l in [(105,65,'Atlas probe'),(980,65,'RIS collector'),(105,250,'Your lab'),(980,250,'Service probe')]:
  s+=circle(x,y,11,'white',G)+t(x,y-25,l,23)+ln(x+12 if x<550 else x-12,y,350 if x<550 else 750,115 if y<150 else 180,True)
@@ -273,18 +257,6 @@ for tick in [0,10,20,30,40,50,60]:s+=t(290+tick*12,243,tick,21)
 s+=t(550,295,'Twelve probes per minute. A five-second fault can fit between probes.',23)
 save('sampling-budget',s,320,'Synthetic schedules; highlighted fault from 4.5 to 9.5 seconds')
 pathflow('http-control',['Before','During','After'],['HTTP 200','HTTP 503','HTTP 200'],caption='Same routes and interfaces. Different endpoint behavior.')
-s=''
-for offset,title in [(0,'One run, many samples'),(560,'Several independent runs')]:
- s+=t(offset+265,30,title,26,weight=700)
- if offset==0:
-  s+=rect(35,65,455,175,'white')
-  for i in range(30):s+=circle(64+(i%10)*43,95+(i//10)*56,5,G,G)
- else:
-  for i in range(4):
-   x=600+(i%2)*245;y=65+(i//2)*105;s+=rect(x,y,205,78,'white')
-   for j in range(6):s+=circle(x+25+j*30,y+39,5,G,G)
-s+=t(550,294,'The unit of replication comes from the experimental design.',25)
-save('independent-runs',s,320)
 s=card(380,10,340,78,'Common fault')+card(20,185,330,85,'Router CPU rises')+card(750,185,330,85,'HTTP latency rises')
 s+=ln(425,92,225,178,True)+ln(675,92,885,178,True)+ln(355,225,744,225,True,True)+t(550,208,'Or a direct effect?',23)+t(550,316,'A shared cause can create correlation without a direct causal link.',24)
 save('causal-alternatives',s,340)
@@ -344,9 +316,6 @@ D=R/'assets/data';D.mkdir(exist_ok=True)
 # Supplied forecast data are maintained directly in assets/data/.
 
 # Google B4: conceptual control path, not a packet path or measured topology.
-pathflow('b4-traffic-engineering', ['Applications', 'SDN controller', 'Network edges'],
-         ['Demand + priority', 'Allocate paths', 'Enforce rates'],
-         'Capacity is allocated across paths as demand and failures change.', h=240)
 
 # A short burst inside a counter interval can overflow a finite output queue.
 s=t(95,28,'Offered traffic (Mbit/s)',23,'start')

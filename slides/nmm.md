@@ -169,7 +169,6 @@ Use the university lab PCs with Containerlab preinstalled.
 
 ![width:1040px](assets/diagrams/course-journey.svg)
 
-
 ---
 <!-- _class: content schedule core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -231,7 +230,6 @@ Substantial, documented contribution differences may lead to individual grades.
 | Discussion & conclusion | 15% |
 | Abstract, writing & reproducibility | 10% |
 
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -245,9 +243,6 @@ Record individual and joint work in [DECLARATION.md](https://github.com/Stinktop
 | Paper | Sections, figures and revisions |
 | Artifact | Code, configuration and experiments |
 | Joint work | Shared task and each person’s contribution |
-
-Point to the work so the contribution can be checked.
-
 
 ---
 <!-- _class: content core -->
@@ -280,7 +275,6 @@ Follow the [IEEE publishing ethics requirements](https://journals.ieeeauthorcent
 
 A result against your hypothesis is still a result.
 
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -295,7 +289,6 @@ Follow the [IEEE policy on AI-generated content](https://conferences.ieeeauthorc
 - Name the system, affected parts and extent in the **Acknowledgments**
 
 You are responsible for the references, code and technical claims.
-
 
 ---
 <!-- _class: content core -->
@@ -405,8 +398,6 @@ What must work before the application can return a response?
 
 ![width:1040px](assets/diagrams/protocol-stack.svg)
 
-Each layer carries data for the layer above it.
-
 <nav class="progress" aria-label="Module progress"><span class="active">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
@@ -418,7 +409,7 @@ Each layer carries data for the layer above it.
 ![width:1040px](assets/diagrams/dns-resolution.svg)
 
 **A** → IPv4
-**AAAA** → IPv6.
+**AAAA** → IPv6
 
 <nav class="progress" aria-label="Module progress"><span class="active">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -429,8 +420,6 @@ Each layer carries data for the layer above it.
 # A DNS query becomes transport data
 
 ![width:1040px](assets/diagrams/dns-encapsulation.svg)
-
-This query uses UDP. DNS also supports TCP.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -446,7 +435,6 @@ This query uses UDP. DNS also supports TCP.
 | Connection | Required | None |
 | Retransmission | Built in | Application decides |
 
-TCP and UDP add port numbers above IP.
 An IP address + port identifies the transport endpoint.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="active">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
@@ -471,7 +459,6 @@ TCP orders bytes, retransmits loss and controls congestion.
 
 ![width:1040px](assets/diagrams/ip-packet.svg)
 
-IPv4 uses 32-bit addresses. IPv6 uses 128-bit addresses.
 Routers use the **destination address** to look up where to forward the packet.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
@@ -484,8 +471,7 @@ Routers use the **destination address** to look up where to forward the packet.
 
 ![width:1040px](assets/diagrams/local-remote.svg)
 
-The host looks up the destination in its routing table to choose an **interface**.
-It sends directly to an **on-link destination**, otherwise via a **gateway**.
+Send directly to an **on-link destination**, otherwise via a **gateway**.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="active">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -503,7 +489,7 @@ Destination: **198.51.100.200**. Example Forwarding Information Base (FIB):
 | `198.51.100.0/24` | `192.0.2.2` |
 | **`198.51.100.128/25`** | **`192.0.2.3`** |
 
-`/25` matches 25 address bits. The most specific match wins.
+The most specific match wins.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -515,11 +501,9 @@ Destination: **198.51.100.200**. Example Forwarding Information Base (FIB):
 
 ![width:1040px](assets/diagrams/ethernet-frame.svg)
 
-An Ethernet frame uses **MAC addresses for this link**.
-The IP packet still names the final destination.
+**MAC addresses** change per link. The IP packet names the final destination.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
-
 
 ---
 <!-- _class: visual core -->
@@ -544,8 +528,6 @@ The IP packet still names the final destination.
 
 ![width:1040px](assets/diagrams/switch-forwarding.svg)
 
-An IPv4 ARP request is broadcast. The switch floods it while learning the sender’s MAC.
-
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
 ---
@@ -556,7 +538,6 @@ An IPv4 ARP request is broadcast. The switch floods it while learning the sender
 
 ![width:1040px](assets/diagrams/router-forwarding.svg)
 
-Each router looks up the next hop, builds a **new frame** and decreases TTL / Hop Limit.
 The packet keeps its **destination IP**. The link-layer MAC addresses change.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
@@ -707,7 +688,6 @@ A longer path can be selected on purpose.
 | Commercial relation | Customer pays provider | Often settlement-free |
 
 An **IXP** provides shared infrastructure for peering.
-Export policy determines the actual routes exchanged.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
 
@@ -719,7 +699,7 @@ Export policy determines the actual routes exchanged.
 
 ![width:1040px](assets/diagrams/address-hierarchy.svg)
 
-BOB1 uses documentation prefixes. Its service is not on the public Internet.
+BOB1 uses documentation prefixes.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
 
@@ -760,7 +740,6 @@ A ping reply proves IP reachability, not application health.
 
 ![width:1040px](assets/diagrams/traceroute-ttl.svg)
 
-Larger TTL (IPv4) or Hop Limit (IPv6) values reveal responding routers.
 A missing reply does not identify the failed forwarding hop.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="active">PATH</span></nav>
@@ -776,7 +755,6 @@ A missing reply does not identify the failed forwarding hop.
 | Copper | Electrical | Link loss, FCS errors |
 | Fiber | Light | Low receive power, FCS errors |
 
-A path may be correctly routed and still fail on a degraded link.
 Rising **FCS errors** can be evidence even while the link stays up.
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="">ROUTING</span><span class="arrow"> → </span><span class="active">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
@@ -805,7 +783,6 @@ Then try Pacific and IPv6.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -819,7 +796,6 @@ Then try Pacific and IPv6.
 
 Bring one result you can explain and one question that is still open.
 
-
 ---
 <!-- _class: day core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -831,7 +807,7 @@ Bring one result you can explain and one question that is still open.
 Yesterday we followed a healthy request through ReefNet.
 
 Today Lagoon Transit loses our customer prefix `198.51.100.0/24`.
-We repair it in the router CLI, then a second time through NetBox and gNMI.
+We repair it in the router CLI, then a second time through gNMI.
 
 At the end of today: **Who Broke the Internet?**
 
@@ -861,8 +837,6 @@ A customer behind Lagoon Transit cannot reach the Ocean Research service.
 
 ![width:1040px](assets/diagrams/partial-reachability.svg)
 
-Record the source, address family, protocol and time.
-
 <nav class="progress" aria-label="Module progress"><span class="active">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
 ---
@@ -886,7 +860,6 @@ make enter NODE=probe01.bob1.pacifictransit.test;
 
 Repeat both tests. Which path and address family fail?
 
-
 ---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -894,8 +867,6 @@ Repeat both tests. Which path and address family fail?
 # Bound the incident
 
 ![width:1040px](assets/diagrams/incident-scope.svg)
-
-Same target `198.51.100.10`, same `ping`. Change only the probe: Lagoon or Pacific.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="active">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -906,9 +877,6 @@ Same target `198.51.100.10`, same `ping`. Change only the probe: Lagoon or Pacif
 # Separate state from service
 
 ![width:1040px](assets/diagrams/three-planes.svg)
-
-edge01 accepts SSH and its BGP session to `192.0.2.2` is up.
-Lagoon still cannot reach `198.51.100.10`.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -1012,7 +980,6 @@ Keep your commands and evidence. We compare diagnoses after step 5.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -1027,6 +994,25 @@ Keep your commands and evidence. We compare diagnoses after step 5.
 </div>
 
 What is attached only to IPv4?
+
+<nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://documentation.nokia.com/srlinux/25-7/books/system-mgmt/cli-interface.html\">SR Linux CLI guide</a></span>" -->
+
+# Search the whole running config
+
+<div class="terminal">
+<div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
+<div class="terminal-label">Router CLI: <code>flat</code> prints one full path per line, <code>grep</code> filters</div>
+<pre><code>info flat from running | grep export-policy</code></pre>
+</div>
+
+```text
+set / network-instance default protocols bgp export-policy [ EXPORT-BGP ]
+set / network-instance default protocols bgp group lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]
+```
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -1133,6 +1119,23 @@ For example:
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# RCA: ask why until you can prevent it
+
+**RCA = Root Cause Analysis**
+
+| Why? | ReefNet incident |
+|---|---|
+| Lagoon IPv4 unreachable | `198.51.100.0/24` not exported to `192.0.2.2` |
+| Not exported | Group override `BLOCK-CUSTOMER-V4` on `lagoon-v4` |
+| Override present | A configuration change attached it |
+| **Root cause:** change not caught | No export check per upstream and address family |
+
+<nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
 # Write an RFO after the incident
 
 **RFO = Reason for Outage**
@@ -1143,8 +1146,6 @@ For example:
 | Cause | Group override `BLOCK-CUSTOMER-V4` on `lagoon-v4` |
 | Recovery | Override removed, HTTP verified |
 | Prevention | Test IPv4 and IPv6 exports |
-
-Record unknown times as **unknown**.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="active">VERIFY</span></nav>
 
@@ -1173,9 +1174,6 @@ Today: a **Fault** (Lagoon IPv4 lost) caused by a **Configuration** change (grou
 This morning we repaired a router through its CLI.
 Now we will use NetBox and gNMI.
 
-NetBox finds the target, gNMI makes the change, the probes prove it.
-
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -1185,39 +1183,6 @@ NetBox finds the target, gNMI makes the change, the probes prove it.
 ![width:1040px](assets/diagrams/change-loop.svg)
 
 Step 7 runs this loop: `gnmic get`, `set --dry-run`, `set`, `get`.
-
-<nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# The ReefNet change contract
-
-Target: **ReefNet Edge 01**, BGP group `lagoon-v4`.
-
-| | Required state |
-|---|---|
-| Before | Override: `BLOCK-CUSTOMER-V4` |
-| After | Inherit `EXPORT-BGP` without a group override |
-| Preserve | Lagoon IPv6 and Pacific Transit |
-| Prove | Customer IPv4 export and external reachability |
-
-<nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Intent, policy, configuration
-
-| Level | ReefNet example |
-|---|---|
-| Intent | Customer reachable through both upstreams |
-| Policy | Lagoon IPv4 inherits `EXPORT-BGP` |
-| Configuration | `lagoon-v4` currently has a group override |
-
-Deleting the override on `lagoon-v6` instead would leave Lagoon IPv4 broken.
 
 <nav class="progress" aria-label="Module progress"><span class="active">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1265,7 +1230,9 @@ curl -fsS -H &quot;$AUTH&quot; &quot;$API/circuits/circuits/?cid=BOB1-LAGOON-001
 jq &#x27;.results[] | {cid, provider: .provider.name, status: .status.label}&#x27; circuit.json;</code></pre>
 </div>
 
-NetBox: `BOB1-LAGOON-001` is active. The router: session to `192.0.2.2` up, `198.51.100.0/24` not exported.
+NetBox: `BOB1-LAGOON-001` is active.
+
+The router: session to `192.0.2.2` up, `198.51.100.0/24` not exported.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1292,43 +1259,6 @@ Change input: on `edge01`, peer AS 65100 must receive `198.51.100.0/24`.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Where intent and the router disagree
-
-| NetBox (intent) | edge01 (observed) |
-|---|---|
-| Circuit `BOB1-LAGOON-001` active | Session to `192.0.2.2` established |
-| Prefix `198.51.100.0/24` active | Not exported to AS 65100 |
-
-Compare the same scope and time before you reconcile.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Freeze the input you reviewed
-
-```json
-{
-  "change_id": "CHG-017",
-  "device": "edge01.bob1.reefnet.test",
-  "bgp_group": "lagoon-v4",
-  "expected_override": "BLOCK-CUSTOMER-V4",
-  "action": "delete group export-policy",
-  "expected_inherited_policy": "EXPORT-BGP"
-}
-```
-
-Reviewer and executor need the **same approved input**.
-
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="active">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
 # Choose the automation mechanism
 
 | Layer | Examples | On the BOB1 routers |
@@ -1336,7 +1266,6 @@ Reviewer and executor need the **same approved input**.
 | CLI automation | Netmiko | SSH to the SR Linux CLI |
 | Data models | YANG: native, OpenConfig | `srl_nokia-*` and OpenConfig models |
 | Model-driven protocols | NETCONF, RESTCONF, gNMI | gNMI on port 57400, NETCONF on 830, no RESTCONF |
-
 
 ---
 <!-- _class: content core -->
@@ -1366,8 +1295,6 @@ Netmiko handles the session. You still parse text.
 # YANG describes management data
 
 ![width:1040px](assets/diagrams/yang-tree.svg)
-
-Our fault is one leaf-list in this tree: `bgp/group[lagoon-v4]/export-policy`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1432,9 +1359,6 @@ gNMI reads on edge01:
 Paths: `/interface[name=ethernet-1/3]/oper-state` and
 `/interfaces/interface[name=ethernet-1/3]/state/oper-status`.
 
-BOB1 configures BGP in the native model. OpenConfig does not show it.
-**Check which model holds your data before you automate.**
-
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
@@ -1451,8 +1375,6 @@ BOB1 configures BGP in the native model. OpenConfig does not show it.
 | Operations | `get-config`, `edit-config`, `lock`, `commit` | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
 | Datastores | running, candidate, startup | one view, no commit step |
 | BOB1 routers | enabled | not offered |
-
-Step 7 uses the third option: gNMI over gRPC, port 57400.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1480,25 +1402,6 @@ Our repair over SSH port 830, tested on edge01:
 ```
 
 `lock` → `edit-config` → `commit` → `unlock`, each answered with `<ok/>`. Then verify the service.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Read the NETCONF error
-
-```xml
-<rpc-error>
-  <error-type>application</error-type>
-  <error-tag>invalid-value</error-tag>
-  <error-severity>error</error-severity>
-</rpc-error>
-```
-
-Inspect the error-tag and the datastore state after failure.
-Then decide whether a retry is safe.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1577,7 +1480,6 @@ Fix: block the second writer, or write only if your read is still current.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
-
 ---
 <!-- _class: content deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
@@ -1590,56 +1492,7 @@ Fix: block the second writer, or write only if your read is still current.
 | NETCONF | `lock` → read → `edit-config` → `commit` → `unlock` | Second lock: `lock-denied` |
 | gNMI Set | none | Set went through while NETCONF held the lock |
 
-The NETCONF lock did not stop gNMI.
 Keep one writer per router and read back after every write.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Check before you write
-
-| Check | Prevents |
-|---|---|
-| `edge01` + `lagoon-v4` | Wrong target, e.g. `lagoon-v6` |
-| Override is `BLOCK-CUSTOMER-V4` | Stale assumptions |
-| `export-policy`, not import | Wrong direction |
-| Instance policy `EXPORT-BGP` | Unsafe fallback |
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Preview the request
-
-`gnmic set --dry-run` for **CHG-017** prints:
-
-```json
-{
-  "delete": [
-    "network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]/export-policy"
-  ]
-}
-```
-
-Exactly one delete, nothing else. The group then inherits `EXPORT-BGP`.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Model it, emulate it, then check the service
-
-![width:1040px](assets/diagrams/test-layers.svg)
-
-Typo `export-polcy`: `--dry-run` prints it without complaint.
-Only the real Set fails: `Path not valid - unknown element 'export-polcy'`.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1668,28 +1521,6 @@ Only the real Set fails: `Path not valid - unknown element 'export-polcy'`.
 | Pacific IPv4 path | Still healthy |
 | Both probes, both families | Service responds |
 
-Read back the route export. Test service delivery from both external probes.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: task core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Review a change plan
-
-Eight minutes in groups of 3–4.
-
-| Aspect | Proposed plan |
-|---|---|
-| Input | Yesterday’s inventory |
-| Validation | Syntax only |
-| Rollout | All routers at once |
-| Success | Exit code 0 |
-| Recovery | Rerun the change |
-
-Agree on **two improvements** and their acceptance checks.
-
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
 ---
@@ -1712,7 +1543,6 @@ Use `make hint` for investigation commands.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
 
-
 ---
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://gnmic.openconfig.net/cmd/set/\">gNMIc Set documentation</a></span>" -->
@@ -1731,13 +1561,11 @@ gnmic set --delete &quot;$GROUP/export-policy&quot;;</code></pre>
 
 Read back the group. Check Lagoon’s route and HTTP from both probes.
 
-
 ---
 <!-- _class: chapter core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Beyond one router: execute and recover
-
 
 What changes when one change targets many routers?
 
@@ -1767,7 +1595,6 @@ Set a stop time. Keep the backout path reachable.
 | Change service | Prechecks + verification | Approved scope |
 | Reviewer | Evidence | No |
 
-Load credentials at runtime. Record the actor, never secrets.
 In the lab, `gnmic` logs in as `admin`, with full write access. A collector should not.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
@@ -1779,8 +1606,6 @@ In the lab, `gnmic` logs in as `admin`, with full write access. A collector shou
 # A fleet changes the failure model
 
 ![width:1040px](assets/diagrams/fleet-progress.svg)
-
-More concurrency increases throughput and blast radius.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1795,7 +1620,6 @@ More concurrency increases throughput and blast radius.
 $$F(F(s))=F(s)$$
 
 Deleting the `lagoon-v4` export-policy twice leaves the same state: no override.
-A retry still needs a fresh read and service verification.
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
 
@@ -1810,31 +1634,6 @@ A retry still needs a fresh read and service verification.
 Which device needs a fresh read before any retry?
 
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Does the loop converge?
-
-![width:1040px](assets/diagrams/convergence-steps.svg)
-
-Idempotence alone does not prove convergence.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="active">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="">RECORD</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Rollback and backout
-
-![width:1040px](assets/diagrams/backout-branch.svg)
-
-Record the backup's identity, time and version.
-Backout for CHG-017 is `set … lagoon-v4 export-policy [ BLOCK-CUSTOMER-V4 ]`: it restores the fault.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
 <!-- _class: content core -->
@@ -1869,20 +1668,6 @@ Keep identity, time, version and checksum outside the device.
 }
 ```
 
-Keep timestamps and before/after evidence. Exclude credentials.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Promote the tested artifact
-
-![width:1040px](assets/diagrams/artifact-promotion-flow.svg)
-
-Approval applies to a specific code revision and input snapshot.
-
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
@@ -1896,35 +1681,14 @@ Approval applies to a specific code revision and input snapshot.
 <nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
 
 ---
-<!-- _class: task core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Close the loop
-
-A write times out. **What state is the network in?**
-
-Two minutes:
-- Name the next read.
-- Name the independent service check.
-- Name the evidence for the next operator.
-
-Note the original policy, your change and the verification results.
-`make down` discards router changes. `make operations` restarts at step 1.
-For the API part only: `make fault-routing`, then `make task STEP=6`.
-
-<nav class="progress" aria-label="Module progress"><span class="">INTENT</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="">PLAN</span><span class="arrow"> → </span><span class="">CHANGE</span><span class="arrow"> → </span><span class="">VERIFY</span><span class="arrow"> → </span><span class="active">RECORD</span></nav>
-
----
 <!-- _class: chapter deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Who Broke the Internet?
 
-
 **Everything is redundant until the shared dependency breaks.**
 
 Which safeguard would have changed the outcome?
-
 
 ---
 <!-- _class: content deep-dive -->
@@ -1950,11 +1714,7 @@ Which safeguard would have changed the outcome?
 
 Normal and out-of-band access failed. Engineers had to go onsite.
 
-BOB1: `make enter` and SSH over `172.20.20.0/24` reach edge01 outside the data path.
-Today's BGP fault never cut you off.
-
 They restored the backbone, then brought services back under controlled load.
-
 
 ---
 <!-- _class: content deep-dive -->
@@ -1970,28 +1730,12 @@ They restored the backbone, then brought services back under controlled load.
 Check shared dependencies: **power, fiber, DNS and authentication**.
 
 ---
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://ftp.opengear.com/download/documentation/manual/previous%20versions/om_user_guide_24.11/Content/Configure_Serial_Ports.htm\">Opengear: serial ports</a></span>" -->
-
-# A console port is not a management port
-
-| Port | Needs |
-|---|---|
-| Ethernet management | IP connectivity and management service |
-| Serial console | Cable, serial settings and responsive console |
-
-A **console server** provides remote serial access.
-Serial bypasses IP forwarding, but still needs power.
-
----
 <!-- _class: visual deep-dive -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Production recovery example: a console path
 
 ![width:1040px](assets/diagrams/oob-console-path.svg)
-
-This production recovery path is not emulated by BOB1.
 
 Test login and repair while the production path is unavailable.
 
@@ -2023,6 +1767,22 @@ Test that the emergency account can make the repair.
 
 ---
 <!-- _class: content deep-dive -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Who do we call, and when?
+
+An **escalation matrix** fixes contacts and triggers before the incident. Illustrative for ReefNet:
+
+| Level | Who | Escalate when |
+|---|---|---|
+| 1 | NOC on shift | Alert or customer report |
+| 2 | Network engineer on call | No diagnosis after 15 minutes |
+| 3 | Vendor support | Suspected software or hardware fault |
+| Provider | Lagoon Transit NOC | Fault on circuit `BOB1-LAGOON-001` |
+| Management | Duty manager | SLA breach likely |
+
+---
+<!-- _class: content deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://docs.equinix.com/smart-hands/\">Equinix Smart Hands</a></span>" -->
 
 # Remote hands need an exact job
@@ -2038,7 +1798,6 @@ Return:     timestamp, photos, label mismatch
 ```
 
 For vendor escalation, add version, symptoms and logs.
-
 
 ---
 <!-- _class: content deep-dive -->
@@ -2066,10 +1825,6 @@ The worklist omitted router-by-router sequencing and verification.
 
 Recovery: divert traffic, reinstall the original optics, verify links.
 
-BOB1: like taking down core-a and core-b at once.
-Tomorrow `make fault-link` cuts only core-b, and the service survives.
-
-
 ---
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://labs.ripe.net/author/emileaben/a-deep-dive-into-the-baltic-sea-cable-cuts/\">RIPE Labs: Baltic Sea (2024)</a></span>" -->
@@ -2078,10 +1833,10 @@ Tomorrow `make fault-link` cuts only core-b, and the service survives.
 
 RIPE Atlas, 17–18 November 2024: Germany–Finland paths after the C-Lion1 cut.
 
-Boundary here: the cable route. Compare the same probes before and after.
-Of 2,141 probe pairs, 21.5% kept identical IP paths. 5.2% of those still got 3 ms or more slower.
-No extra packet loss: the networks rerouted, partly below IP.
+Of 2,141 probe pairs, 21.5% kept identical IP paths.
+5.2% of those still got 3 ms or more slower.
 
+No extra packet loss: the networks rerouted, partly below IP.
 
 ---
 <!-- _class: visual deep-dive -->
@@ -2093,45 +1848,6 @@ No extra packet loss: the networks rerouted, partly below IP.
 
 Traceroute alone cannot identify a damaged cable.
 Tomorrow you measure RTT from fixed probes, the same method RIPE Atlas uses.
-
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Name the dependency
-
-| Symptom | Hypothesis |
-|---|---|
-| Remote repair fails | Recovery shares the failed path |
-| Redundant routers fail together | Shared procedure |
-| Paths get slower, not unreachable | Shared cable corridor |
-| Green dashboard during impact | Missing or stale evidence |
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Your turn: redesign one boundary
-
-Pick one case. Draw its service path and recovery path.
-
-Mark the shared dependency. Remove one dependency from recovery.
-Propose a test that proves the revised path survives.
-
-
----
-<!-- _class: statement deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# From postmortem to early warning
-
-Choose one failure pattern from today.
-
-Which signal would have warned you?
-How would you verify recovery?
-
-**14 October: monitoring and observability.**
 
 ---
 <!-- _class: day core -->
@@ -2151,27 +1867,11 @@ In Operations, the customer had to tell us something was wrong.
 
 # What do we want to know?
 
-| Service | Network | Device |
-|---|---|---|
-| Availability | Reachability | Health |
-| Latency | Loss | Capacity |
-| Correct response | Routing state | Resource pressure |
-
-Choose the question before the tool.
-
-<nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# An observation needs an expectation.
-
-**Monitoring:** does behavior match the expectation?
-
-**Observability:** can we explain the state from our observations?
-
-Question → evidence → interpretation → action
+| | Service | Network | Device |
+|---|---|---|---|
+| Question | Does the exchange work? | Do packets get through? | Is the box healthy? |
+| Examples | Availability, latency | Loss, routing state | Discards, resources |
+| In BOB1 | `reefnet_probe_success` | BGP, OSPF, link rates | Interface state, discards |
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2189,8 +1889,6 @@ Question → evidence → interpretation → action
 | Packet capture | What was on the wire? |
 | Active probe | Does this exchange work? |
 
-SNMP and gNMI deliver data. They are not signal types.
-
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
@@ -2199,14 +1897,13 @@ SNMP and gNMI deliver data. They are not signal types.
 
 # The monitoring brief
 
-**40 service-family targets:** 20 services × IPv4/IPv6.
-Two observation sources per target.
+What should the BOB1 probes guarantee?
 
-- Detect interruptions of **5 seconds or longer**.
-- Stay within **20 HTTP requests/s**.
-- Mark stale data **unknown within 15 seconds**.
+- Detect a Lagoon IPv4 interruption of **5 seconds or longer**.
+- Stay within **20 HTTP requests/s** toward the customer.
+- Mark stale data **unknown within 10 seconds**.
 
-Sizing exercise: this exceeds the small BOB1 probe set.
+We check these three requirements against the lab today.
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2217,8 +1914,6 @@ Sizing exercise: this exceeds the small BOB1 probe set.
 # Delay and loss need endpoints
 
 ![width:1040px](assets/diagrams/rtt-paths.svg)
-
-One-way delay additionally needs synchronized clocks or bounded clock error.
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2234,8 +1929,6 @@ One-way delay additionally needs synchronized clocks or bounded clock error.
 | TCP connect | transport handshake |
 | HTTP request | application transaction |
 | traceroute | responding hops along a path |
-
-A successful ping does not prove the web service works.
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2256,10 +1949,6 @@ reply wait:      1 s
 success:         ping exits successfully
 ```
 
-The lab exporter also runs DNS probes and repeats the checks continuously.
-
-Two checks called "reachability" can still measure different things.
-
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
@@ -2272,28 +1961,11 @@ For the smaller BOB1 probe set:
 
 **2 sources × 2 families × 3 probe types = 12 checks**
 
-A round every 5 seconds would need **2.4 checks/s**.
-
-ReefNet waits for the round to finish, then pauses for 1 second.
-What happens when a check times out?
+All checks of a probe run in parallel. Each check gives up after 1 s.
+Then the exporter pauses 1 s: about one round per second, about **4 HTTP requests/s**.
+A failing round takes about 2 s. That stays well within the 10 s UNKNOWN threshold.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Active probes: does this exchange work?
-
-| | |
-|---|---|
-| Observation | Source, target, family, protocol, time, result |
-| Limit | Failure does not locate the fault |
-| ReefNet | ICMP, DNS and HTTP over IPv4 and IPv6 |
-
-DNS checks the expected answer. HTTP checks a 2xx response independently of DNS.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
 <!-- _class: content core -->
@@ -2309,25 +1981,7 @@ A manager queries an agent.
 Keep the device, OID, row, value and poll time.
 Short events can fall between polls.
 
-Not provisioned in BOB1. Compare with gNMI.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Keep the object identity.
-
-```text
-GET       request-id 41   ifOperStatus.17
-RESPONSE  request-id 41   noError   INTEGER up(1)
-```
-
-The OID selects an object. `17` selects an interface row.
-Check response status, device identity and the row's name/alias.
-
-After restart or replacement, verify the mapping before joining counters.
+Not provisioned in BOB1.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2343,7 +1997,8 @@ After restart or replacement, verify the mapping before joining counters.
 | Limit | Missing logs do not prove health |
 | ReefNet | SR Linux → Alloy → Loki → Grafana |
 
-Keep source and receive times. Severity is the device’s judgment.
+From `make fault-link`, in Devices & Interfaces:
+`OSPF instance default: Interface ethernet-1/4.0, moved to state DOWN due to event IF_DOWN`
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2357,30 +2012,7 @@ Keep source and receive times. Severity is the device’s judgment.
 |---|---|
 | Observation | Flow keys, counts and time interval |
 | Limit | Typical records omit payload. Sampling affects counts |
-| ReefNet | Record exercise without a live exporter |
-
-A **template** defines the fields. Keep its exporter and observation domain.
-Port 443 alone does not identify an application.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# A template ID is not globally unique.
-
-Illustrative ReefNet exporters, not provisioned in BOB1:
-
-| Exporter | Template 256 means |
-|---|---|
-| edge01 | source, destination, bytes |
-| edge02 | source, destination, packets |
-
-Record from edge02: `203.0.113.10, 198.51.100.10, 8000`
-
-That is **8,000 packets**, not bytes.
-What context must the collector retain to decode it?
+| ReefNet | Not provisioned in BOB1 |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2394,9 +2026,7 @@ What context must the collector retain to decode it?
 |---|---|
 | Observation | Target, keyed path, timestamp, update/deletion |
 | Limit | Reconnect cannot restore every missed event |
-| ReefNet | gNMIc samples SR Linux state and counters |
-
-The delivery mechanism does not define freshness.
+| ReefNet | gNMIc SAMPLE: interfaces every 1 s, BGP and OSPF every 2 s |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2404,11 +2034,9 @@ The delivery mechanism does not define freshness.
 <!-- _class: visual core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md#35-subscribing-to-telemetry-updates\">gNMI Subscribe specification</a></span>" -->
 
-# Choose the subscription semantics.
+# Choose the subscription semantics
 
 ![width:1040px](assets/diagrams/gnmi-subscription-modes.svg)
-
-SAMPLE is periodic. ON_CHANGE depends on target support.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2428,7 +2056,7 @@ IF=&#x27;/interface[name=ethernet-1/3]/statistics&#x27;;
 gnmic subscribe --path &quot;$IF&quot; --stream-mode sample --sample-interval 5s;</code></pre>
 </div>
 
-Compare with Grafana’s rate. **Ctrl+C** stops the subscription.
+**Ctrl+C** stops the subscription.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2436,64 +2064,19 @@ Compare with Grafana’s rate. **Ctrl+C** stops the subscription.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Build local state from a gNMI stream
-
-![width:1040px](assets/diagrams/stream-state.svg)
-
-Sync completes the initial transfer. It does not guarantee future freshness.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Deletion is not zero
+# Zero, missing or deleted
 
 ![width:1040px](assets/diagrams/zero-missing-deleted.svg)
 
-These states need different storage, query and alert behavior.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Reconnect cannot restore lost history.
+# Reconnect cannot restore lost history
 
 ![width:1040px](assets/diagrams/gnmi-reconnect-gap.svg)
-
-Rebuild current state after reconnect. Keep the observation gap visible.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Turn observations into a response.
-
-![width:1040px](assets/diagrams/monitor-loop.svg)
-
-Every boundary can lose meaning, freshness or context.
-Keep enough metadata to detect that loss.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Where should the collector live?
-
-| Placement | Main dependency |
-|---|---|
-| Central | WAN reachability |
-| At the site | Site power and local collector |
-| Several collectors | Coordination and duplicate handling |
-
-Test isolation. A second collector may share the first one’s failure domain.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2505,20 +2088,17 @@ Test isolation. A second collector may share the first one’s failure domain.
 
 ![width:1040px](assets/diagrams/reefnet-telemetry.svg)
 
-Grafana queries metrics and logs. Each collection path can fail separately.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
 <!-- _class: content core -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/introduction/overview/\">Prometheus overview</a></span>" -->
 
-# Prometheus stores time series.
+# Prometheus stores time series
 
 ![width:1040px](assets/diagrams/prometheus-data-path.svg)
 
-Try PromQL queries at `http://localhost:9090`.
-Trace a suspicious panel back to its source timestamp.
+Try PromQL at `http://localhost:9090`.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2530,8 +2110,8 @@ Trace a suspicious panel back to its source timestamp.
 
 ![width:1040px](assets/diagrams/cardinality-product.svg)
 
-Prometheus: `count(reefnet_probe_success)` → **8**
-Success, duration and timestamp together → **24 series**.
+`count(reefnet_probe_success)` → **12**
+Success, duration and timestamp together → **36 series**.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2556,45 +2136,6 @@ What does `request_id` do to cardinality? Where should it go?
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
-<!-- _class: content deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# When would we need a queue?
-
-Do independent consumers need to **replay the same observations**?
-
-A retained event log may help. It also needs retention, lag monitoring and recovery.
-For one dashboard, direct storage may suffice.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# What if ReefNet adds a slow archive?
-
-Design exercise: forward the probe samples to a remote archive.
-
-![width:1040px](assets/diagrams/collector-backlog.svg)
-
-The buffer buys ten seconds. It cannot fix the slow writer.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Retention changes what you can ask.
-
-![width:1040px](assets/diagrams/retention-resolution.svg)
-
-Aggregation saves space but can erase short failures.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -2602,9 +2143,7 @@ Aggregation saves space but can erase short failures.
 
 ![width:1040px](assets/diagrams/time-series-samples.svg)
 
-`edge01`, `ethernet-1/3`: traffic arriving from Lagoon Transit.
-
-Each sample keeps that identity. The plotted values are illustrative.
+`reefnet_interface_in_octets_total{source="edge01.bob1.reefnet.test", interface_name="ethernet-1/3"}`
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2615,8 +2154,6 @@ Each sample keeps that identity. The plotted values are illustrative.
 # Counter or gauge?
 
 ![width:1040px](assets/diagrams/counter-gauge.svg)
-
-The byte counter accumulates. The probe duration can rise or fall.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2630,20 +2167,6 @@ One event, several clocks.
 
 ![width:1040px](assets/diagrams/telemetry-timestamps.svg)
 
-Subtract timestamps only after checking clock source and offset.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Clock error changes the story
-
-![width:1040px](assets/diagrams/clock-offsets.svg)
-
-Bound clock error before inferring event order.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
@@ -2653,10 +2176,7 @@ Bound clock error before inferring event order.
 # Before subtracting counters
 
 Check identity, timestamps and discontinuities.
-
-A negative delta may mean **reset, wrap or bad data**.
-Two values cannot reveal multiple wraps.
-
+A negative delta may mean **reset, wrap or bad data**. Prometheus `rate()` treats any decrease as a reset.
 Invalid evidence becomes **unknown**, never a fabricated rate.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
@@ -2667,13 +2187,11 @@ Invalid evidence becomes **unknown**, never a fabricated rate.
 
 # Turn ReefNet byte counters into bit/s
 
-Use `in-octets` on `edge01`, interface `ethernet-1/3`.
+Use `in-octets` on `edge01.bob1.reefnet.test`, interface `ethernet-1/3`.
 
 $$rate = \frac{8(C_2-C_1)}{t_2-t_1}$$
 
-Counter in **bytes**, time in **seconds**. Use a reset-free interval.
-
-Compare the result with the **50 Mbit/s Lagoon handoff**.
+BOB1: `reefnet_interface_in_bps = rate(reefnet_interface_in_octets_total[10s]) * 8`
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2683,7 +2201,7 @@ Compare the result with the **50 Mbit/s Lagoon handoff**.
 
 # Calculate the Lagoon ingress rate
 
-Illustrative `in-octets` on `edge01`, interface `ethernet-1/3`.
+Example `in-octets` on `edge01.bob1.reefnet.test`, interface `ethernet-1/3`, at the 25 Mbit/s baseline.
 
 | Time | Byte counter | Reset? |
 |---|---:|---|
@@ -2720,7 +2238,6 @@ Both valid intervals use **50%** of handoff capacity.
 
 ![width:1040px](assets/diagrams/dns-check-latencies.svg)
 
-100 illustrative DNS checks to Ocean Research. Start with the individual waits.
 Would the **44 ms mean** explain the five long waits?
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
@@ -2738,7 +2255,8 @@ Would the **44 ms mean** explain the five long waits?
 | Histogram | Counts within ranges |
 | Cumulative distribution | Fraction at or below each value |
 
-A percentile is not an “average slow request”.
+p95 in BOB1, without histograms:
+`quantile_over_time(0.95, reefnet_probe_duration_seconds{probe="dns"}[5m])`
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2758,8 +2276,6 @@ A separate DNS example for `data.oceanresearch.test`. Nearest-rank p95:
 Average of the two p95s: **510 ms**.
 Combined observations: **p95 = 20 ms**.
 
-Combine observations first, then calculate the percentile.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
@@ -2770,20 +2286,7 @@ Combine observations first, then calculate the percentile.
 
 ![width:1040px](assets/diagrams/sampling-phase.svg)
 
-Imagine a short Lagoon IPv4 outage. A healthy sample can miss it.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Sampling leaves gaps
-
-A fault can begin and end between samples.
-
-**Interval and onset phase** determine whether we see it.
-Streaming sampled values still leaves gaps.
+With a 10 s interval, a 4 s outage can fall between samples. BOB1 probes about every second and would see it.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2791,11 +2294,9 @@ Streaming sampled values still leaves gaps.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Up can still mean stale.
+# Watch the sample age
 
 ![width:1040px](assets/diagrams/stale-panel.svg)
-
-Watch source age, even when the scrape succeeds.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2807,8 +2308,6 @@ Watch source age, even when the scrape succeeds.
 
 ![width:1040px](assets/diagrams/missing-samples-display.svg)
 
-**When should the panel stop looking healthy?**
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
@@ -2817,14 +2316,16 @@ Watch source age, even when the scrape succeeds.
 
 # Monitor the monitoring
 
-| Component | Watch |
+| Component | BOB1 check |
 |---|---|
-| Collector | Last valid observation |
-| Broker / consumer | Buffer use, progress and event age |
-| Rule engine | Errors and evaluation time |
-| Notification path | Delivery result |
+| Scrape targets | 8 targets: gNMIc, 2 probe and 5 queue exporters, all `up` = 1 |
+| Probe freshness | Telemetry Health → Oldest probe sample |
+| Router sources | Telemetry Health → Router sources / 5 expected |
+| Queue collection | Telemetry Health → Queue collection |
 
-Check the central monitoring service from outside.
+```promql
+up{job=~"gnmic|reefnet-service-probes|reefnet-qdisc"}
+```
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2840,7 +2341,7 @@ Check the central monitoring service from outside.
 | Reachability and response time | Service Health |
 | Sessions, routes and updates | BGP |
 | Core adjacencies and SPF activity | OSPF |
-| Port state and errors | Devices & Interfaces |
+| Port state, discards and device events | Devices & Interfaces |
 | Rates and utilization | Traffic & Capacity |
 | Collection and freshness | Telemetry Health |
 
@@ -2865,41 +2366,15 @@ Predict what changes when we send more traffic.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Turn up the traffic
-
-In WSL, choose one load:
-```bash
-make traffic-40mbit
-```
-
-```bash
-make traffic-10mbit
-```
-
-```bash
-make traffic-25mbit
-```
-
-Allow 30 seconds at each level.
-Watch the interface counter and its Grafana rate.
-
-Which changes first? Where does the delay come from?
-
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
 # Same symptom, different causes
 
 Lagoon IPv4 fails in both cases.
 
 | Evidence | Export rejected | Session down |
 |---|---|---|
-| BGP session | Established | Not established |
-| Customer prefix exported | No | No |
-
-Session state distinguishes these hypotheses.
+| BGP session to `192.0.2.2` | Established | Not established |
+| `198.51.100.0/24` in edge01's route table | Yes | Yes |
+| Lagoon IPv6 | Works | Depends on the IPv6 session |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -2911,49 +2386,14 @@ Session state distinguishes these hypotheses.
 
 ![width:1040px](assets/diagrams/traceroute-rtt.svg)
 
-Hop 2 replies slowly. It does not delay all forwarded packets by 100 ms.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc8201.html\">IPv6 path MTU: RFC 8201</a></span>" -->
-
-# Small ping, stalled download.
-
-![width:1040px](assets/diagrams/path-mtu.svg)
-
-IPv6 routers do not fragment transit packets. **ICMPv6 Packet Too Big** drives PMTUD.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# One link goes down. What follows?
-
-In WSL: `make fault-link`
-
-<div class="terminal">
-<div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
-<div class="terminal-label">Router CLI</div>
-<pre><code>show interface ethernet-1/4 detail</code></pre>
-<pre><code>show network-instance default protocols ospf neighbor</code></pre>
-</div>
-
-Check **Service Health** and **Devices & Interfaces** in Grafana.
-
-Did the customer notice? Explain the path that remains.
-
 
 ---
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
 # Admin state and oper state
-
-The fault just injected disables `ethernet-1/4` on ReefNet Edge 01:
+`make fault-link` disables `ethernet-1/4` on ReefNet Edge 01:
 
 ```text
 /interface[name=ethernet-1/4]/admin-state   "disable"
@@ -2962,54 +2402,17 @@ The fault just injected disables `ethernet-1/4` on ReefNet Edge 01:
 
 **Admin:** configured intent. **Oper:** observed behavior.
 
-Prometheus exposes `reefnet_interface_admin_state` and
-`reefnet_interface_oper_state`. Read them with their timestamps.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Restore the link and watch convergence
-
-In the WSL repository:
-
-```bash
-make clear-link;
-```
-
-Verify admin enable, oper up and the OSPF adjacency.
-Correlate event time with external reachability.
-
-The Lagoon-to-customer flow does not need `core-b`.
-Its service check can remain green while the topology changes.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Capacity is not throughput
+# 60 Mbit/s offered, 50 Mbit/s delivered
 
 ![width:1040px](assets/diagrams/capacity-bottleneck.svg)
 
-A faster customer handoff does not remove the Lagoon bottleneck.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual deep-dive -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://research.google/pubs/b4-experience-with-a-globally-deployed-software-defined-wan/\">Google B4: design and results</a></span>" -->
-
-# Google B4: busy by design
-
-Google’s private WAN ran many links **near 100% utilization**.
-
-![width:1040px](assets/diagrams/b4-traffic-engineering.svg)
-
-Google controls the senders. Bulk transfers yield to higher priorities.
+The customer handoff has 100 Mbit/s, Lagoon only 50 Mbit/s. At 60 Mbit/s the receiver loses about one sixth.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3017,11 +2420,11 @@ Google controls the senders. Bulk transfers yield to higher priorities.
 <!-- _class: visual deep-dive -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9600-series-switches/220491-understand-output-drops-on-high-speed-in.html\">Cisco: bursts and output drops</a></span>" -->
 
-# 90% average. Still dropping packets.
+# A short burst inside a long average
 
 ![width:1040px](assets/diagrams/capacity-hidden-demand.svg)
 
-A full queue drops packets. Check **drops and peaks**, not only averages.
+Check discards, not only rates.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3065,7 +2468,7 @@ Then try link and routing faults and a short burst.
 </div>
 
 Compare new egress discards with receiver loss.
-Use `exit`, then in WSL: `make traffic-10mbit`.
+Then in WSL: `make traffic-10mbit;`
 
 
 ---
@@ -3076,53 +2479,31 @@ Use `exit`, then in WSL: `make traffic-10mbit`.
 
 75 Mbit/s, 1,200-byte UDP datagrams:
 
-**≈ 7,800 packets/s < 10,000 packets/s container limit**
+**≈ 7,800 packets/s**, below the 10,000 packets/s that `traffic.sh` allows
 
 The **50 Mbit/s handoff** should limit first.
-Linux queue drops may mirror SR Linux discards. Do not add them.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/prometheus/latest/querying/functions/#rate\">Prometheus: counter rates</a></span>" -->
-
-# Blink and you miss it?
-
-In WSL, stop background traffic and send a five-second burst:
-```bash
-make traffic-stop;
-make traffic-burst-40mbit;
-```
-
-The burst stays below the 50 Mbit/s cap.
-What does it look like in a graph with a long rate window?
-
-Can you recover its height and duration?
-When finished: `make traffic-25mbit`
-
 
 ---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Several signals, one incident.
+# Several signals, one incident
 
 ![width:1040px](assets/diagrams/correlated-events.svg)
 
-Illustrative timestamps. Check clock offsets before inferring order.
-
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="active">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
 ---
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# The trigger is not the notification.
+# Rule, routing, notification
 
 ![width:1040px](assets/diagrams/alert-path.svg)
 
-The rule fires, but nobody is paged. Which boundary failed?
+BOB1 has no Alertmanager: a rule can fire, but nobody is paged.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3132,7 +2513,7 @@ The rule fires, but nobody is paged. Which boundary failed?
 
 # An alert rule from the lab metric
 
-Illustrative Prometheus rule, using the actual BOB1 metric:
+A rule on the real BOB1 metric, checked with `promtool`:
 
 ```yaml
 - alert: LagoonIPv4ProbeFailed
@@ -3144,7 +2525,6 @@ Illustrative Prometheus rule, using the actual BOB1 metric:
   for: 30s
 ```
 
-The condition must stay active across evaluations for 30 seconds.
 This sustained-failure rule does **not** meet our 5-second detection brief.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
@@ -3156,44 +2536,14 @@ This sustained-failure rule does **not** meet our 5-second detection brief.
 # Alert on stale observations
 
 ```promql
-time() - reefnet_probe_last_run_timestamp_seconds > 15
+time() - reefnet_probe_last_run_timestamp_seconds > 10
 ```
-
-This detects old exported results.
-Also check missing series and scrape health.
-
-Use the expected target set to detect disappearing sources.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://prometheus.io/docs/alerting/latest/alertmanager/\">Alertmanager documentation</a></span>" -->
-
-# Flapping and notification noise
-
-**Flapping:** repeated state changes.
-
-| Mechanism | Purpose |
-|---|---|
-| Deduplication | Skip duplicate notifications |
-| Inhibition | Mute notifications while a related alert fires |
-| Grouping | Combine related notifications |
-
-A firing delay can prevent short-lived conditions from becoming alerts.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
-
----
-<!-- _class: visual core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Precision and recall
-
-![width:1040px](assets/diagrams/alert-confusion-matrix.svg)
-
-**Recall = 90%. Precision = 47.6%.**
-More than half the alerts in this synthetic example are false.
+This detects old exported results, matching the 10 s UNKNOWN rule in Grafana.
+Missing results need their own rules:
+```promql
+count(reefnet_probe_success) < 12
+up{job="reefnet-service-probes"} == 0
+```
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3209,7 +2559,27 @@ More than half the alerts in this synthetic example are false.
 
 $$SLI=\frac{successful\ requests}{eligible\ requests}$$
 
-Define how missing records are handled before calculating the SLI.
+BOB1, one hour:
+`avg_over_time(reefnet_probe_success{source="probe01.bob1.lagoontransit.test",probe="icmp",af="ipv4"}[1h])`
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# SLA: the SLO in a contract
+
+**Service Level Agreement (SLA):** promise to a customer, with consequences.
+The internal SLO stays stricter.
+
+| | Ocean Research, illustrative |
+|---|---|
+| Service | `data.oceanresearch.test` over IPv4 and IPv6 |
+| Measured by | ReefNet probes from Lagoon and Pacific |
+| Availability | 99.9% per month: about 43 minutes of downtime |
+| Exclusions | Announced maintenance windows |
+| Breach | Service credit |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3232,11 +2602,9 @@ Six failures leave **four**. Report missing checks separately.
 <!-- _class: visual core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Detection and recovery are different clocks.
+# Detection and recovery are different clocks
 
 ![width:1040px](assets/diagrams/incident-intervals.svg)
-
-Name the endpoints before reporting a recovery duration.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="active">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
@@ -3244,7 +2612,7 @@ Name the endpoints before reporting a recovery duration.
 <!-- _class: task core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Rehearse a response.
+# Rehearse a response
 
 Five-minute tabletop during a change:
 
@@ -3252,9 +2620,9 @@ Five-minute tabletop during a change:
 |---|---|
 | Lagoon, IPv4 | Fails |
 | Pacific, IPv4 | Works |
+| Lagoon, IPv6 | Works |
 
 Name the first observation, incident owner and backout trigger.
-Explain why that observation distinguishes the leading hypotheses.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="active">RESPOND</span></nav>
 
@@ -3268,10 +2636,8 @@ Explain why that observation distinguishes the leading hypotheses.
 |---|---|
 | Detect 5 s interruptions | Vary onset phase |
 | ≤ 20 requests/s | Count requests and retries |
-| Unknown within 15 s | Stop collection |
+| Unknown within 10 s | Stop a probe exporter, watch Service Health |
 | Useful diagnosis | Compare route loss and drops |
-
-Sketch a design for the **40-target brief**.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="active">RESPOND</span></nav>
 
@@ -3311,7 +2677,6 @@ Now we turn that into a question we can actually test.
 
 # Leave with a testable research brief
 
-
 1. State a question that a comparison can answer.
 2. Find prior work and evidence that fit the question.
 3. Choose a baseline and expose the biggest feasibility risk.
@@ -3331,8 +2696,6 @@ Our running example: **short outages missed between probes**.
 | Automation | Automated vs manual emergency repair |
 | AI for networking | LLM troubleshooting vs a runbook |
 
-Bring your own question if you can evaluate it.
-
 
 ---
 <!-- _class: content research -->
@@ -3349,19 +2712,6 @@ Bring your own question if you can evaluate it.
 | Bound the claim | Tested fault durations and conditions |
 
 ---
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Write a measurable question.
-
-Name the **factor**, **outcome** and **conditions**.
-
-> At equal probe cost, which schedule detects more 1–10 s outages?
-
-Define the schedules, fault distribution and detection criterion.
-The comparison must allow your preferred method to lose.
-
----
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -3369,7 +2719,6 @@ The comparison must allow your preferred method to lose.
 
 ![width:1040px](assets/diagrams/evidence-chain.svg)
 
-Your contribution is the finding this evidence supports.
 
 ---
 <!-- _class: content research -->
@@ -3384,7 +2733,6 @@ Your contribution is the finding this evidence supports.
 | Reproduction + extension | Check and extend a result |
 | System study | Build or investigate a system |
 
-Every approach needs evidence for a limited claim.
 
 ---
 <!-- _class: task research -->
@@ -3412,7 +2760,6 @@ Two minutes:
 | lower load | bytes/s or requests/s | collector + target |
 | fewer misses | detection rate | known injected events |
 
-If the measurement cannot test the claim, change the claim or the experiment.
 
 ---
 <!-- _class: content research -->
@@ -3427,13 +2774,12 @@ If the measurement cannot test the claim, change the claim or the experiment.
 
 A **confounder** changes both condition and outcome.
 
-Injecting a fault is not enough. The comparison still has to be controlled.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Find the closest comparison.
+# Find the closest comparison
 
 Search by **problem, mechanism and method**. Follow citations.
 
@@ -3454,23 +2800,6 @@ Record your queries and selection criteria.
 | [CNSM](https://www.cnsm-conf.org/2026/about.html) | management systems, telemetry and orchestration |
 | [ACM IMC](https://conferences.sigcomm.org/imc/2026/cfp/) | measuring and understanding Internet behavior |
 
-Start here for literature on **management, monitoring and measurement**.
-
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Broader networking research
-
-| Venue | Focus |
-|---|---|
-| [ACM SIGCOMM](https://www.sigcomm.org/events/sigcomm-conference) | Architectures and systems |
-| [USENIX NSDI](https://www.usenix.org/conference/nsdi26) | Implemented networked systems |
-| [IEEE INFOCOM](https://www.comsoc.org/conferences-events/ieee-international-conference-computer-communications-2026) | Protocols and performance |
-| [ACM CoNEXT](https://conferences2.sigcomm.org/co-next/2026/) | Experimental networking |
-| [IFIP Networking](https://networking.ifip.org/) | Protocols and systems |
-| [IEEE GLOBECOM](https://www.comsoc.org/conferences-events/ieee-global-communications-conference-2026) / [ICC](https://icc2026.ieee-icc.org/) | Communications and networking |
 
 ---
 <!-- _class: content core -->
@@ -3505,7 +2834,7 @@ Network automation, orchestration and operational tooling
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://svr-sk818-web.cl.cam.ac.uk/keshav/papers/07/paper-reading.pdf\">Keshav: How to Read a Paper</a></span>" -->
 
-# Read in three passes.
+# Read in three passes
 
 | Pass | Look for |
 |---|---|
@@ -3513,13 +2842,12 @@ Network automation, orchestration and operational tooling
 | Method | Signal, baseline and experimental unit |
 | Challenge | Missing evidence and transfer limits |
 
-Record **one supported claim, one limitation and one next question**.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Read the claim before the graph.
+# Read the claim before the graph
 
 [Trinocular](https://ant.isi.edu/~johnh/PAPERS/Quan13c.pdf) probes **IPv4 /24 blocks**, not applications.
 
@@ -3529,13 +2857,12 @@ Record **one supported claim, one limitation and one next question**.
 | Method | Which outage definition and budget? |
 | Validation | Which independent evidence? |
 
-A reachable block does not prove application health.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Match the source to the claim.
+# Match the source to the claim
 
 | Claim | Evidence source |
 |---|---|
@@ -3554,7 +2881,6 @@ For RFCs: check status, updates, errata and normative language.
 
 ![width:1040px](assets/diagrams/citation-chain.svg)
 
-Match the sentence to the evidence in the source, not merely to its topic.
 
 ---
 <!-- _class: content research -->
@@ -3571,18 +2897,10 @@ Match the sentence to the evidence in the source, not merely to its topic.
 A citation alone does not mark a quotation.
 
 ---
-<!-- _class: statement research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# A DOI is not evidence.
-
-Read the result. Then check the claim.
-
----
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Make evidence traceable.
+# Make evidence traceable
 
 | Artifact | Record |
 |---|---|
@@ -3591,19 +2909,6 @@ Read the result. Then check the claim.
 | Documentation | Exact page, version and section |
 | Figure | Data and units, or source and adaptation |
 
-Verify imported reference metadata. Mark synthetic examples.
-Citation does not replace reuse permission.
-
----
-<!-- _class: visual research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Can public data answer your question?
-
-![width:1040px](assets/diagrams/interdomain-service-path.svg)
-
-If your question extends beyond ReefNet, consider public observations.
-Their coverage and resolution must fit the claim.
 
 ---
 <!-- _class: visual research -->
@@ -3614,26 +2919,13 @@ Their coverage and resolution must fit the claim.
 ![width:1040px](assets/diagrams/public-vantage-points.svg)
 
 **RIPE Atlas:** active probes. **RIS:** public BGP observations.
-Neither covers every Internet path.
-
-
----
-<!-- _class: visual research -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc7854.html\">BMP: RFC 7854</a></span>" -->
-
-# BMP observes BGP state.
-
-![width:1040px](assets/diagrams/bmp-observer.svg)
-
-With router access, the **BGP Monitoring Protocol (BMP)** exports BGP state.
-It is a collection protocol, not the public RIS dataset.
 
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://stat.ripe.net/docs/data-api/api-endpoints/routing-history\">RIPEstat: routing history</a></span>" -->
 
-# Read one public routing record.
+# Read one public routing record
 
 **NETHINKS (AS8319), Fulda.** In a shell with curl and jq, such as operations01:
 
@@ -3644,8 +2936,6 @@ curl -fsS -o as8319.json "$URL?$Q&include_first_hop=true&min_peers=10";
 jq '.data.by_origin[0].origin' as8319.json;
 jq '.data.by_origin[0].prefixes[0] | {prefix, interval: .timelines[0]}' as8319.json;
 ```
-
-Keep the full file. Inspect one record.
 
 
 ---
@@ -3663,7 +2953,6 @@ interval, UTC:     5 Sep 00:00 to 7 Sep 07:59:59, 2025
 full_peers_seeing: 11
 ```
 
-One origin and a first hop. At least ten full-feed peers required.
 **Route visibility is not service availability.**
 
 ---
@@ -3685,7 +2974,7 @@ Save them with the conclusion.
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://atlas.ripe.net/assets/legal/RIPEAtlasServiceTermsandConditionsV3.4.pdf\">RIPE Atlas: measurement terms</a></span>" -->
 
-# Plan responsible measurement.
+# Plan responsible measurement
 
 Prefer public data or your own lab.
 
@@ -3698,43 +2987,14 @@ Collect only what the question needs.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Build an argument, then audit it.
-
-Organize related work by the question the studies answer.
-
-For each factual sentence, identify its role:
-
-- our result → method and evidence
-- prior result → original source
-- protocol behavior → specification
-- interpretation → inference and limitation
-
-If you cannot classify it, check whether it belongs.
-
----
-<!-- _class: content core -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# What does your project need next?
-
-A sharper question? A useful comparison? Access to data?
-An experiment that finally runs?
-
-Use the project time to work on it. Bring questions as they come up.
-
-**Choose your group by 27 November, 23:59.**
-
-
----
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
 # Your question, your next step
 
 Write your **Research Brief**: question, closest prior work, baseline,
 available evidence and biggest feasibility risk.
 
 Use today’s project time to check that you can access the evidence.
+
+**Choose your group by 27 November, 23:59.**
 
 **13 November:** turn the question into a controlled experiment.
 
@@ -3753,7 +3013,7 @@ Now the sampling question becomes a controlled comparison.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Assign treatments to runs.
+# Assign treatments to runs
 
 **Treatment:** the sampling policy.
 **Outcome:** detection and delay.
@@ -3777,13 +3037,12 @@ Ten samples from one run are not ten independent experiments.
 | Randomized | Uniform random times with a recorded seed |
 
 Use the same fault schedule for each pair.
-Compare detection fraction and delay among detections.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Specify the experiment boundary.
+# Specify the experiment boundary
 
 Use the smallest setting that can test the claim.
 
@@ -3793,13 +3052,12 @@ addresses and policy, probe locations and control path.
 Keep control reachable when the workload fails.
 Document any dependencies shared by control and experiment.
 
-Two identical diagrams can conceal different experiments.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Virtual experiments have limits.
+# Virtual experiments have limits
 
 Virtual networks let us control conditions.
 
@@ -3811,7 +3069,7 @@ They do not reproduce hardware timing, optics or carrier scale by default.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Measure an independent reference.
+# Measure an independent reference
 
 | Evidence | Tells us |
 |---|---|
@@ -3820,23 +3078,6 @@ They do not reproduce hardware timing, optics or carrier scale by default.
 | Evaluated detector | Fault reported |
 
 A **100 ms reference interval** limits onset-time resolution.
-The evaluated detector cannot define its own ground truth.
-
----
-<!-- _class: task research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Predict the observations.
-
-Customer IPv4 export to Lagoon is rejected. BGP stays up.
-
-| Compare | Look at |
-|---|---|
-| Lagoon vs Pacific | Customer advertisement |
-| IPv4 vs IPv6 | External reachability |
-| Routing fault vs congestion | Rate and discards |
-
-What would contradict your diagnosis?
 
 ---
 <!-- _class: visual research -->
@@ -3846,13 +3087,12 @@ What would contradict your diagnosis?
 
 ![width:1040px](assets/diagrams/http-control.svg)
 
-An HTTP 503 response is not evidence of a routing failure.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Pair conditions, randomize order.
+# Pair conditions, randomize order
 
 Replay each fault schedule for both methods at equal probe cost.
 Reset between runs. Randomize which method runs first.
@@ -3875,7 +3115,6 @@ Pairing does not remove clock error or unequal host load.
 | What is steady-state overhead? | Apply a stated warm-up rule |
 | Does cache warming help? | Compare defined cache conditions |
 
-Cold caches and convergence are real. Excluding them changes the experiment.
 
 ---
 <!-- _class: content research -->
@@ -3900,9 +3139,6 @@ Choose categories **before** comparing methods.
 
 ![width:1040px](assets/diagrams/prefix-experiment.svg)
 
-Record the requested fault time and the first failed service check.
-Keep measuring until the service is restored.
-
 Config-change time is not traffic-failure time.
 
 ---
@@ -3921,7 +3157,7 @@ A failed reset invalidates the comparison. Record it as a failed run.
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Same budget. Different gaps.
+# Same budget, different gaps
 
 ![width:1040px](assets/diagrams/sampling-budget.svg)
 
@@ -3972,22 +3208,6 @@ Choose a summary and state its limit.
 
 A is earlier in 4/5 pairs. Its fifth run reverses the mean.
 
-Small sample. This only illustrates the calculation.
-
----
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# More samples do not fix bias.
-
-| Source | Examine |
-|---|---|
-| Sampling uncertainty | Variation between runs |
-| Measurement uncertainty | Clock and resolution |
-| Bias | Unequal conditions |
-| Instrumentation | Measurement overhead |
-
-More runs cannot repair a bad clock or unfair comparison.
 
 ---
 <!-- _class: content research -->
@@ -4029,17 +3249,6 @@ From paired runs to a defensible comparison.
 The graph is not the result. Check the evidence behind it.
 
 ---
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Keep the mechanism visible.
-
-**Runs → detection counts → delays → uncertainty → claim**
-
-Inspect individual traces before aggregation.
-Keep missed events in the detection denominator.
-
----
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
@@ -4047,7 +3256,6 @@ Keep missed events in the detection denominator.
 
 ![width:1040px](assets/diagrams/research-record.svg)
 
-Choose a number from your draft. Can another team reproduce it?
 
 ---
 <!-- _class: content research -->
@@ -4079,7 +3287,6 @@ A miss stays in the detection denominator.
 | event not detected | miss for this detector |
 | run excluded | rule + reason recorded |
 
-Dropping timeouts can make a broken service look fast.
 
 ---
 <!-- _class: visual research -->
@@ -4091,13 +3298,12 @@ First compare coverage. This separate example has **20 faults**.
 
 ![width:1040px](assets/diagrams/detection-coverage-delay.svg)
 
-Compare the same detected events before claiming that B is faster.
 
 ---
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Compare within each pair.
+# Compare within each pair
 
 ![width:1040px](assets/diagrams/paired-runs.svg)
 
@@ -4107,7 +3313,7 @@ Return to the five synthetic pairs from **13 November**, methods A and B.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Work with paired differences.
+# Work with paired differences
 
 | Pair | A − B, ms |
 |---|---:|
@@ -4118,7 +3324,6 @@ Return to the five synthetic pairs from **13 November**, methods A and B.
 | 5 | +36 |
 
 **Mean +2.8 ms. Median −6 ms.** A is earlier in four pairs.
-Five synthetic pairs illustrate the calculation only.
 
 ---
 <!-- _class: content research -->
@@ -4134,16 +3339,6 @@ Five synthetic pairs illustrate the calculation only.
 | Estimator | Observed mean paired difference |
 
 Compare delays only where **both methods detected the event**.
-
----
-<!-- _class: visual research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Independent observations
-
-![width:1040px](assets/diagrams/independent-runs.svg)
-
-Use independent runs or matched pairs as the uncertainty unit.
 
 ---
 <!-- _class: content research -->
@@ -4187,30 +3382,13 @@ A delay reduction is not a measured throughput gain.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Unexpected results
-
-If the expected method does not win:
-
-- check the implementation
-- check the measurement
-- repeat where needed
-- explain the conditions
-- report the result honestly
-
-Keep the result, including when your preferred method loses.
-
----
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Write from an evidence table.
+# Write from an evidence table
 
 | Question | Evidence | Observation | Limit |
 |---|---|---|---|
 | RQ1 | Figure 2 | Lower median delay | Virtual lab |
 | RQ2 | Table I | More target load | One NOS |
 
-A results paragraph states **what changed, by how much and under which conditions**.
 
 ---
 <!-- _class: content research -->
@@ -4258,7 +3436,6 @@ Fictional claim: **“Randomization halves delay.”**
 | Problem | Delays compare different detected subsets |
 | Revision | Match conditions and report coverage beside delay |
 
-Explain how each revision makes the conclusion more defensible.
 
 ---
 <!-- _class: task research -->
@@ -4299,18 +3476,16 @@ Forecast synthetic traffic **one second ahead**.
 |---|---|
 | Latest load value (persistence) | Ridge regression on past samples and periodic features |
 
-Same test data, horizon and missing-data rules.
 Which model warns usefully?
 
 ---
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Keep the future out of training.
+# Keep the future out of training
 
 ![width:1040px](assets/diagrams/temporal-split.svg)
 
-Use only information available at prediction time.
 
 ---
 <!-- _class: content research -->
@@ -4343,7 +3518,7 @@ Synthetic, 1 s ahead. **110 of 120 slots evaluated.** Shaded gaps excluded.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Score prediction and warning separately.
+# Score prediction and warning separately
 
 **110 test slots. Warning threshold: 125 Mbit/s.**
 
@@ -4368,7 +3543,6 @@ Illustrative ReefNet load:
 | Pacific | 50 Mbit/s | 30 Mbit/s |
 
 Move 10 Mbit/s: **50 / 40 Mbit/s**. Lagoon still has no headroom.
-Would routing policy and traffic behavior permit the move?
 
 ---
 <!-- _class: visual research -->
@@ -4378,7 +3552,6 @@ Would routing policy and traffic behavior permit the move?
 
 ![width:1040px](assets/diagrams/control-overcorrection.svg)
 
-Acting twice on the same stale sample can overshoot the target.
 
 ---
 <!-- _class: content research -->
@@ -4396,7 +3569,6 @@ stop if:          service degrades or data is stale
 recovery:         previous allocation or manual handover
 ```
 
-The same limits apply to rules, optimizers and LLMs.
 
 ---
 <!-- _class: content research -->
@@ -4421,7 +3593,7 @@ The tool enforces authorization and execution.
 
 ![width:1040px](assets/diagrams/agent-boundary.svg)
 
-The verifier checks independently. Where do we enforce the one-device limit?
+Where do we enforce the one-device limit?
 
 ---
 <!-- _class: content research -->
@@ -4440,8 +3612,6 @@ Example request for the BOB1 export-policy repair:
   "dry_run": true
 }
 ```
-
-The tool enforces target scope, input checks, timeout and write permissions.
 
 What should happen if the agent supplies another device or group?
 
@@ -4463,19 +3633,10 @@ Fictional trace after write approval:
 **One minute:** how should the evaluator score this?
 
 ---
-<!-- _class: statement research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# The explanation has recovered.
-
-Recovery is still unproven.
-
-
----
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Define safe success before scoring.
+# Define safe success before scoring
 
 A repair succeeds only when:
 
@@ -4490,7 +3651,7 @@ Test stale state, uncertain writes and incorrect ticket assumptions.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# A benchmark needs known ground truth.
+# A benchmark needs known ground truth
 
 [NIKA](https://arxiv.org/abs/2512.16381) supplies reproducible troubleshooting scenarios and a tool interface.
 
@@ -4531,7 +3692,7 @@ Hand in today. The reviewed team receives a copy during this session.
 <!-- _class: visual research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Receive, read, write, return.
+# Receive, read, write, return
 
 ![width:1040px](assets/diagrams/paper-review.svg)
 
@@ -4553,38 +3714,6 @@ The reviewed team receives its copy **during this session**.
 | Judgment | Reasoned strength and limitation | Praise only |
 | Revision | Feasible fix | "More experiments" |
 
-Apply the same criteria we announced in October.
-
----
-<!-- _class: task research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Task: bound the conclusion
-
-Two minutes. Reviewer discussion
-
-> Our system makes backbone services reliable.
-
-Five route changes, one emulated topology. Four restore the health check.
-
-What can the authors claim? Which result would you ask them to add?
-
----
-<!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
-
-# Detection delay and missed faults
-
-Return to the fictional study from November.
-
-| Method | Detected faults | Median delay among detections |
-|---|---:|---:|
-| A | 18 / 20 | 1.0 s |
-| B | 4 / 20 | 0.5 s |
-
-The draft calls B "the faster detector".
-
-Write one review sentence. Name the hidden condition and ask for context.
 
 ---
 <!-- _class: task research -->
@@ -4598,7 +3727,6 @@ Two minutes. Fictional methods section
 
 Name the missing information and ask for a concrete correction.
 
-A useful review explains how the issue affects the conclusion.
 
 ---
 <!-- _class: task research -->
@@ -4672,7 +3800,7 @@ The presentation itself has no grade weight. Use it as the last technical check.
 <!-- _class: content core -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Test the artifact handover.
+# Test the artifact handover
 
 Another team opens the repository.
 

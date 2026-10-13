@@ -8,7 +8,7 @@ R=Path(__file__).resolve().parents[1]/'assets/diagrams'
 R.mkdir(parents=True,exist_ok=True)
 G='#72bf44'; K='#303030'; M='#626262'; L='#e9e9e9'
 DATA_ACCENTS={'paired-runs.svg'}
-PRIMARY_SERIES={'collector-backlog.svg','dns-check-latencies.svg','retention-resolution.svg','sampling-phase.svg'}
+PRIMARY_SERIES={'dns-check-latencies.svg','sampling-phase.svg'}
 
 def text(x,y,s,size=25,anchor='middle',color=K,weight=400):
  return f'<text x="{x}" y="{y}" font-size="{size}" text-anchor="{anchor}" fill="{color}" font-weight="{weight}">{escape(str(s))}</text>'
@@ -47,16 +47,12 @@ def flow(name,labels,subs=None,caption='',height=235):
 
 flow('address-hierarchy.svg',['IANA','RIR','Network'],['Global pool','Regional registry','More-specific prefix'],caption='Administrative delegation, not a forwarding path')
 flow('incident-loop.svg',['Reproduce','Bound + explain','Repair','Verify'],caption='Evidence before action. Recovery before closure.')
-flow('monitor-loop.svg',['Collect','Store','Query','Visualize','Alert','Respond'],height=175)
 flow('prometheus-data-path.svg',['Exporter','Prometheus','Query','Grafana'],['Source freshness','Scrape + store','Select series','Interpret'],caption='A successful scrape can still return stale source data.')
 flow('alert-path.svg',['Observation','Rule','Routing','Notification'],['Value + age','Pending / firing','Group / inhibit','Delivery result'],height=175)
-flow('artifact-promotion-flow.svg',['Code + input','Tested artifact','Review','Deploy'],caption='Deploy the reviewed artifact without regenerating it.')
 flow('maintenance-gates.svg',['Precheck','Canary','Service check','Continue'],caption='Stop time + recovery owner apply at every gate.')
-flow('test-layers.svg',['Model','Emulate','Integrate','Postcheck'],['Static properties','NOS behavior','API semantics','Live service'],caption='Different tests expose different failure classes.')
 flow('evidence-chain.svg',['Question','Method','Evidence','Claim'],caption='The claim cannot be stronger than its weakest evidence boundary.')
 flow('experiment-run-cycle.svg',['Reset','Baseline','Inject','Observe','Restore'],caption='Run ID, seed, versions and raw results travel with the experiment.')
 flow('research-record.svg',['Figure','Analysis','Run records','Raw evidence'],['Result + units','Versioned code','Setup + run ID','Data + versions'],caption='Follow one reported number all the way back.')
-flow('interdomain-service-path.svg',['Client AS','Transit AS','Service AS'],caption='Each observer sees only part of this path.')
 
 # Eight stages, with a readable row transition and no crossing connector.
 a=''
@@ -108,7 +104,6 @@ def branch(name,root,left,right,caption):
  a+=line(460,90,270,152)+line(640,90,830,152)+text(550,281,caption,23)
  save(name,a,307)
 branch('confirmed-commit-branches.svg','Confirmed commit','Confirm before deadline','No confirmation: revert','Verify service before confirming. Requires target support.')
-branch('backout-branch.svg','Service verification','Pass: record + hand over','Fail: backout + verify','Rollback: configuration. Backout: recovery procedure.')
 
 a=box(25,75,230,85,'OOB access')+box(420,75,245,85,'Console server')+box(835,75,235,85,'Router console')
 a+=line(260,115,413,115)+line(670,115,828,115)+text(335,88,'IP',22)+text(750,88,'serial',22)
@@ -139,30 +134,6 @@ save('incident-intervals.svg',a,275)
 a=box(20,45,275,80,'Synchronized state',green=True)+box(410,45,280,80,'Connection gap')+box(805,45,275,80,'Fresh snapshot',green=True)
 a+=line(300,85,405,85,dash=True)+line(695,85,800,85,dash=True)+text(550,193,'Events during the gap may be irretrievable.',27)
 save('gnmi-reconnect-gap.svg',a,225)
-# Queue growth uses a scale instead of three boxes with numbers.
-a=line(180,220,1020,220,False)+line(180,220,180,25,False)
-a+=text(180,22,'Queued samples',23,'start')
-a+=line(180,40,1020,40,False,dash=True,color='#aaa')
-a+=text(162,48,'80',22,'end')+text(162,227,'0',22,'end')
-a+=line(180,220,990,40,False,color=G)+text(1020,285,'Time (s)',23,'end')
-for x,v in [(180,0),(585,5),(990,10)]:a+=text(x,249,v,22)
-a+=text(210,83,'Net growth: 8 samples/s',25,'start')
-a+=text(1020,202,'24 samples/s in, 16/s out',24,'end')
-save('collector-backlog.svg',a,310,'Hypothetical ReefNet archive: empty 80-sample buffer, 24 samples/s in, 16/s out, full after 10 seconds')
-
-# Aggregation is a loss of temporal detail, shown on the same time axis.
-a=''
-values=[0,0,1,0,0,0,0,0,0,0,0,0]
-for row,label in enumerate(['Raw samples','4-s means','12-s mean']):
- y=50+row*95;a+=text(15,y+15,label,24,'start')+line(280,y+45,1050,y+45,False,color='#ccc')
- if row==0:
-  for i,v in enumerate(values):
-   x=310+i*63;a+=f'<circle cx="{x}" cy="{y+35-v*45}" r="5" fill="{G}"/>'
- elif row==1:
-  for i,v in enumerate([.25,0,0]):a+=line(287+i*252,y+35-v*45,529+i*252,y+35-v*45,False,color=G)
- else:a+=line(287,y+35-45/12,1033,y+35-45/12,False,color=G)
-a+=text(1030,333,'Same scales. Twelve seconds per row.',23,'end')
-save('retention-resolution.svg',a,350,'Synthetic spike averaged over progressively wider windows; all rows share the same vertical and temporal scale')
 a=line(100,190,1000,190,False)+line(100,190,100,35,False)
 a+=line(100,80,460,80,False,color=G)+line(460,80,1000,80,False,dash=True,color='#999')
 for x in [100,220,340,460]:a+=f'<circle cx="{x}" cy="80" r="7" fill="{K}"/>'
@@ -191,9 +162,6 @@ a+=text(570,215,'Mean: 44 ms',24)
 a+=line(570,223,570,mean_y-4,False,color='#777')
 a+=text(1040,333,'DNS check number',23,'end')
 save('dns-check-latencies.svg',a,350,'Synthetic sequence of 100 DNS checks: 95 at 20 ms and 5 at 500 ms. Check number on the horizontal axis, response time in milliseconds on the vertical axis, mean 44 ms.')
-a=text(470,30,'Fault',25,weight=700)+text(785,30,'No fault',25,weight=700)+text(10,102,'Alert',25,'start')+text(10,213,'No alert',25,'start')
-for x,y,l,g in [(320,50,'90 true positives',True),(635,50,'99 false positives',False),(320,160,'10 false negatives',False),(635,160,'801 true negatives',True)]:a+=box(x,y,295,85,l,green=g)
-save('alert-confusion-matrix.svg',a,270,'Synthetic 1000 cases: precision 90/189, recall 90/100')
 # Paired observations: use actual symbols in the legend, not shape names.
 a=f'<circle cx="335" cy="24" r="8" fill="{G}"/>'+text(358,32,'Method A',24,'start')
 a+=f'<rect x="613" y="16" width="16" height="16" fill="{K}"/>'+text(645,32,'Method B',24,'start')
@@ -209,23 +177,17 @@ a=box(35,35,470,100,'Method A: 18 of 20 detected','Median among detections: 1.0 
 a+=text(550,180,'Synthetic example',22)
 save('detection-coverage-delay.svg',a,205)
 
-a=box(15,70,240,80,'1500-byte packet')+box(430,70,240,80,'MTU 1280')+box(840,70,245,80,'Client waits')
-a+=line(260,108,423,108)+line(675,108,833,108,dash=True,color="#999")+text(550,41,'IPv6: oversized packet is dropped',24)
-a+='<path d="M550,160 V198 H300" fill="none" stroke="#777" stroke-width="2" marker-end="url(#arrow-grey)"/>'
-a+=line(261,189,279,207,False,color=K)+line(261,207,279,189,False,color=K)
-a+=text(550,243,'ICMPv6 Packet Too Big is blocked. The sender cannot learn the limit.',23)
-save('path-mtu.svg',a,275)
-
 a=box(10,20,225,75,'SR Linux|counters')+box(335,20,225,75,'gNMIc')
-a+=box(10,130,225,75,'Linux queues|diagnostics')+box(335,130,225,75,'Queue exporter')
-a+=box(660,20,225,185,'Prometheus')
-a+=box(10,260,225,75,'SR Linux logs')+box(335,260,225,75,'Alloy')
-a+=box(660,260,225,75,'Loki')+box(930,155,160,75,'Grafana',green=True)
-for y in (57,167,297):
+a+=box(10,125,225,75,'Linux queues|diagnostics')+box(335,125,225,75,'Queue exporter')
+a+=box(10,230,225,75,'Probes|Lagoon / Pacific')+box(335,230,225,75,'Probe exporter')
+a+=box(660,20,225,285,'Prometheus')
+a+=box(10,345,225,75,'SR Linux logs')+box(335,345,225,75,'Alloy')
+a+=box(660,345,225,75,'Loki')+box(930,215,160,75,'Grafana',green=True)
+for y in (57,162,267,382):
  a+=line(240,y,328,y)+line(565,y,653,y)
-a+=line(890,112,1005,148)+line(890,297,1005,237)
-a+=text(280,37,'gNMI',19)+text(280,147,'tc',19)+text(280,277,'syslog',19)
-save('reefnet-telemetry.svg',a,355)
+a+=line(890,162,1005,208)+line(890,382,1005,297)
+a+=text(280,37,'gNMI',19)+text(280,142,'tc',19)+text(280,247,'probes',19)+text(280,362,'syslog',19)
+save('reefnet-telemetry.svg',a,440)
 flow('prefix-experiment.svg',['Controller','IPv4 export fault','External probe'],['Known fault window','Lagoon only','Independent outcome'],caption='Pacific and IPv6 remain control observations.')
 flow('temporal-split.svg',['Train','Validate','Test'],['Fit parameters','Select settings','Evaluate once'],caption='Train on past data. Test on later data.')
 a=box(10,65,290,85,'Observe old state')+box(405,65,290,85,'Move traffic')+box(800,65,290,85,'Observe old state')
