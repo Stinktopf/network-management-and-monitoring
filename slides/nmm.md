@@ -649,8 +649,8 @@ An **Interior Gateway Protocol (IGP)** finds routes inside it.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Router CLI</div>
-<pre><code>show network-instance default protocols bgp neighbor
-show network-instance default protocols bgp routes ipv4 summary</code></pre>
+<pre><code>show network-instance default protocols bgp neighbor</code></pre>
+<pre><code>show network-instance default protocols bgp routes ipv4 summary</code></pre>
 </div>
 
 <nav class="progress" aria-label="Module progress"><span class="">APPLICATION</span><span class="arrow"> → </span><span class="">TRANSPORT</span><span class="arrow"> → </span><span class="">IP</span><span class="arrow"> → </span><span class="active">ROUTING</span><span class="arrow"> → </span><span class="">LINK</span><span class="arrow"> → </span><span class="">PATH</span></nav>
@@ -792,15 +792,15 @@ and how does the reply get back?
 
 **60 minutes:** 30 for setup, then 30 to explore. In WSL on the lab PC:
 ```bash
-cd ~
-git clone https://github.com/Stinktopf/network-management-and-monitoring.git
-cd network-management-and-monitoring
-make setup        # wait for READY FOR CLASS
-make networking
-make task
+cd ~;
+git clone https://github.com/Stinktopf/network-management-and-monitoring.git;
+cd network-management-and-monitoring;
+make setup;
+make networking;
+make task;
 ```
 
-Check addresses, DNS and HTTP. Sketch the path.
+`make setup` ends with READY FOR CLASS. Check addresses, DNS and HTTP. Sketch the path.
 Then try Pacific and IPv6.
 
 [Exercise overview](https://github.com/Stinktopf/network-management-and-monitoring#exercises)
@@ -874,14 +874,14 @@ Record the source, address family, protocol and time.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=probe01.bob1.lagoontransit.test</code></div>
 <div class="terminal-label">Inside the Lagoon probe</div>
-<pre><code>ping -4 -c 3 -W 1 198.51.100.10
-ping -6 -c 3 -W 1 2001:db8:100::10</code></pre>
+<pre><code>ping -4 -c 3 -W 1 198.51.100.10;
+ping -6 -c 3 -W 1 2001:db8:100::10;</code></pre>
 </div>
 
 Use `exit`, then in WSL:
 
 ```bash
-make enter NODE=probe01.bob1.pacifictransit.test
+make enter NODE=probe01.bob1.pacifictransit.test;
 ```
 
 Repeat both tests. Which path and address family fail?
@@ -944,8 +944,8 @@ Compare the customer prefix in both address families.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Router CLI</div>
-<pre><code>show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24
-show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48</code></pre>
+<pre><code>show network-instance default protocols bgp routes ipv4 prefix 198.51.100.0/24</code></pre>
+<pre><code>show network-instance default protocols bgp routes ipv6 prefix 2001:db8:100::/48</code></pre>
 </div>
 
 A route in BGP is not yet proof of forwarding.
@@ -1002,9 +1002,9 @@ Users behind Lagoon Transit cannot reach `data.oceanresearch.test`.
 
 In WSL:
 ```bash
-cd ~/network-management-and-monitoring && git pull
-make operations
-make task
+cd ~/network-management-and-monitoring && git pull;
+make operations;
+make task;
 ```
 
 **60 minutes:** steps 1–5. Find the fault, repair it with the CLI and verify recovery.
@@ -1022,11 +1022,33 @@ Keep your commands and evidence. We compare diagnoses after step 5.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Router CLI</div>
-<pre><code>info from running network-instance default protocols bgp group lagoon-v4
-info from running network-instance default protocols bgp group lagoon-v6</code></pre>
+<pre><code>info from running network-instance default protocols bgp group lagoon-v4</code></pre>
+<pre><code>info from running network-instance default protocols bgp group lagoon-v6</code></pre>
 </div>
 
 What is attached only to IPv4?
+
+<nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Follow the policy in the running config
+
+Inside edge01, shortened output:
+
+```text
+info from running network-instance default protocols bgp group lagoon-v4
+    export-policy [ BLOCK-CUSTOMER-V4 ]
+info from running routing-policy policy BLOCK-CUSTOMER-V4
+    statement 10: prefix-set CUSTOMER-V4 → policy-result reject
+    statement 20: protocol bgp → policy-result accept
+info from running routing-policy prefix-set CUSTOMER-V4
+    prefix 198.51.100.0/24 mask-length-range exact
+```
+
+Group → policy → prefix-set: the customer prefix is rejected toward Lagoon.
 
 <nav class="progress" aria-label="Module progress"><span class="">REPRODUCE</span><span class="arrow"> → </span><span class="">BOUND</span><span class="arrow"> → </span><span class="">OBSERVE</span><span class="arrow"> → </span><span class="active">HYPOTHESIZE</span><span class="arrow"> → </span><span class="">REPAIR</span><span class="arrow"> → </span><span class="">VERIFY</span></nav>
 
@@ -1039,10 +1061,10 @@ What is attached only to IPv4?
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Router CLI</div>
-<pre><code>enter candidate
-delete / network-instance default protocols bgp group lagoon-v4 export-policy
-diff
-commit now</code></pre>
+<pre><code>enter candidate</code></pre>
+<pre><code>delete / network-instance default protocols bgp group lagoon-v4 export-policy</code></pre>
+<pre><code>diff</code></pre>
+<pre><code>commit now</code></pre>
 </div>
 
 `lagoon-v4` then inherits `EXPORT-BGP`. Do not edit the policies, leave `lagoon-v6` alone.
@@ -1060,14 +1082,14 @@ Leave the router with `quit`.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=probe01.bob1.lagoontransit.test</code></div>
 <div class="terminal-label">Inside the Lagoon probe</div>
-<pre><code>curl --fail --max-time 5 -4 http://198.51.100.10/
-curl --fail --max-time 5 -g -6 &#x27;http://[2001:db8:100::10]/&#x27;</code></pre>
+<pre><code>curl --fail --max-time 5 -4 http://198.51.100.10/;
+curl --fail --max-time 5 -g -6 &#x27;http://[2001:db8:100::10]/&#x27;;</code></pre>
 </div>
 
 Use `exit`, then in WSL:
 
 ```bash
-make enter NODE=probe01.bob1.pacifictransit.test
+make enter NODE=probe01.bob1.pacifictransit.test;
 ```
 
 Repeat both HTTP checks. Return with `exit`, then run `make test`.
@@ -1218,11 +1240,10 @@ Deleting the override on `lagoon-v6` instead would leave Lagoon IPv4 broken.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01</div>
-<pre><code>TOKEN=$(cat /state/netbox-token)
-curl -fsSG -H &quot;Authorization: Bearer $TOKEN&quot; \
-  http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
-  --data-urlencode name=edge01.bob1.reefnet.test |
-  jq &#x27;{count, devices: [.results[] | {name, primary_ip4}]}&#x27;</code></pre>
+<pre><code>AUTH=&quot;Authorization: Bearer $(cat /state/netbox-token)&quot;;
+API=http://netbox.bob1.reefnet.test:8080/api;
+curl -fsS -H &quot;$AUTH&quot; &quot;$API/dcim/devices/?name=edge01.bob1.reefnet.test&quot; &gt; device.json;
+jq &#x27;{count, devices: [.results[] | {name, primary_ip4}]}&#x27; device.json;</code></pre>
 </div>
 
 Expect one device with `primary_ip4` `172.20.20.11/24`. Keep the token private.
@@ -1238,11 +1259,10 @@ Expect one device with `primary_ip4` `172.20.20.11/24`. Keep the token private.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01</div>
-<pre><code>TOKEN=$(cat /state/netbox-token)
-curl -fsSG -H &quot;Authorization: Bearer $TOKEN&quot; \
-  http://netbox.bob1.reefnet.test:8080/api/circuits/circuits/ \
-  --data-urlencode cid=BOB1-LAGOON-001 |
-  jq &#x27;.results[] | {cid, provider: .provider.name, status: .status.label}&#x27;</code></pre>
+<pre><code>AUTH=&quot;Authorization: Bearer $(cat /state/netbox-token)&quot;;
+API=http://netbox.bob1.reefnet.test:8080/api;
+curl -fsS -H &quot;$AUTH&quot; &quot;$API/circuits/circuits/?cid=BOB1-LAGOON-001&quot; &gt; circuit.json;
+jq &#x27;.results[] | {cid, provider: .provider.name, status: .status.label}&#x27; circuit.json;</code></pre>
 </div>
 
 NetBox: `BOB1-LAGOON-001` is active. The router: session to `192.0.2.2` up, `198.51.100.0/24` not exported.
@@ -1682,8 +1702,8 @@ Find ReefNet Edge 01 in NetBox. Read its configuration and justify a change.
 
 In WSL:
 ```bash
-make fault-routing
-make task STEP=6
+make fault-routing;
+make task STEP=6;
 ```
 Lab not running? `make operations` starts it with the fault already in place.
 
@@ -1702,10 +1722,11 @@ Use `make hint` for investigation commands.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01, after <code>get</code> confirmed <code>BLOCK-CUSTOMER-V4</code></div>
-<pre><code>GROUP=&#x27;/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]&#x27;
-gnmic -a edge01.bob1.reefnet.test:57400 \
-  -u admin -p &#x27;NokiaSrl1!&#x27; --skip-verify --encoding json_ietf \
-  --timeout 10s set --delete &quot;$GROUP/export-policy&quot;</code></pre>
+<pre><code>export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400;
+export GNMIC_USERNAME=admin GNMIC_PASSWORD=&#x27;NokiaSrl1!&#x27;;
+export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s;
+GROUP=&#x27;/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]&#x27;;
+gnmic set --delete &quot;$GROUP/export-policy&quot;;</code></pre>
 </div>
 
 Read back the group. Check Lagoon’s route and HTTP from both probes.
@@ -2400,10 +2421,11 @@ SAMPLE is periodic. ON_CHANGE depends on target support.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=operations01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Inside operations01</div>
-<pre><code>gnmic -a edge01.bob1.reefnet.test:57400 \
-  -u admin -p &#x27;NokiaSrl1!&#x27; --skip-verify --encoding json_ietf \
-  subscribe --path &#x27;/interface[name=ethernet-1/3]/statistics&#x27; \
-  --stream-mode sample --sample-interval 5s</code></pre>
+<pre><code>export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400;
+export GNMIC_USERNAME=admin GNMIC_PASSWORD=&#x27;NokiaSrl1!&#x27;;
+export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s;
+IF=&#x27;/interface[name=ethernet-1/3]/statistics&#x27;;
+gnmic subscribe --path &quot;$IF&quot; --stream-mode sample --sample-interval 5s;</code></pre>
 </div>
 
 Compare with Grafana’s rate. **Ctrl+C** stops the subscription.
@@ -2848,7 +2870,13 @@ Predict what changes when we send more traffic.
 In WSL, choose one load:
 ```bash
 make traffic-40mbit
+```
+
+```bash
 make traffic-10mbit
+```
+
+```bash
 make traffic-25mbit
 ```
 
@@ -2910,8 +2938,8 @@ In WSL: `make fault-link`
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL</strong><code>make enter NODE=edge01.bob1.reefnet.test</code></div>
 <div class="terminal-label">Router CLI</div>
-<pre><code>show interface ethernet-1/4 detail
-show network-instance default protocols ospf neighbor</code></pre>
+<pre><code>show interface ethernet-1/4 detail</code></pre>
+<pre><code>show network-instance default protocols ospf neighbor</code></pre>
 </div>
 
 Check **Service Health** and **Devices & Interfaces** in Grafana.
@@ -2948,7 +2976,7 @@ Prometheus exposes `reefnet_interface_admin_state` and
 In the WSL repository:
 
 ```bash
-make clear-link
+make clear-link;
 ```
 
 Verify admin enable, oper up and the OSPF adjacency.
@@ -3007,9 +3035,9 @@ What happens when offered traffic exceeds the **50 Mbit/s** handoff?
 
 In WSL:
 ```bash
-cd ~/network-management-and-monitoring && git pull
-make monitoring
-make task
+cd ~/network-management-and-monitoring && git pull;
+make monitoring;
+make task;
 ```
 
 **75 minutes:** compare load, received traffic and new discards.
@@ -3033,7 +3061,7 @@ Then try link and routing faults and a short burst.
 <div class="terminal">
 <div class="terminal-entry"><strong>WSL after quit</strong><code>make enter NODE=service01.bob1.oceanresearch.test</code></div>
 <div class="terminal-label">Inside the receiver: Mbit/s and loss</div>
-<pre><code>tail -n 15 /tmp/iperf-server.log</code></pre>
+<pre><code>tail -n 15 /tmp/iperf-server.log;</code></pre>
 </div>
 
 Compare new egress discards with receiver loss.
@@ -3063,8 +3091,8 @@ Linux queue drops may mirror SR Linux discards. Do not add them.
 
 In WSL, stop background traffic and send a five-second burst:
 ```bash
-make traffic-stop
-make traffic-burst-40mbit
+make traffic-stop;
+make traffic-burst-40mbit;
 ```
 
 The burst stays below the 50 Mbit/s cap.
@@ -3258,8 +3286,8 @@ Choose the measurements that explain your answer.
 
 Note your observations, then stop the lab:
 ```bash
-make traffic-stop
-make down
+make traffic-stop;
+make down;
 ```
 
 Use `make monitoring` to start a fresh experiment on a configured lab machine.
@@ -3610,15 +3638,11 @@ It is a collection protocol, not the public RIS dataset.
 **NETHINKS (AS8319), Fulda.** In a shell with curl and jq, such as operations01:
 
 ```bash
-curl -fsS -G https://stat.ripe.net/data/routing-history/data.json \
-  --data-urlencode resource=AS8319 \
-  --data-urlencode starttime=2025-09-05T00:00:00 \
-  --data-urlencode endtime=2025-09-07T00:00:00 \
-  --data-urlencode include_first_hop=true \
-  --data-urlencode min_peers=10 -o as8319.json
-
-jq '.data.by_origin[0] | {origin, prefix: .prefixes[0].prefix,
-  interval: .prefixes[0].timelines[0]}' as8319.json
+URL=https://stat.ripe.net/data/routing-history/data.json;
+Q='resource=AS8319&starttime=2025-09-05T00:00:00&endtime=2025-09-07T00:00:00';
+curl -fsS -o as8319.json "$URL?$Q&include_first_hop=true&min_peers=10";
+jq '.data.by_origin[0].origin' as8319.json;
+jq '.data.by_origin[0].prefixes[0] | {prefix, interval: .timelines[0]}' as8319.json;
 ```
 
 Keep the full file. Inspect one record.
