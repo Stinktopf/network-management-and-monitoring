@@ -1,12 +1,17 @@
 # Presentation only. Never execute text from the investigation guides.
+# Placeholders such as <group-name> stand out: the student must replace them.
+function mark_placeholders(s) {
+    gsub(/<[^<>]+>/, placeholder "&" reset command, s)
+    return s
+}
 function styled_command(s, prefix,    marker, before, comment) {
     if (match(s, /[[:space:]]+#/)) {
         marker = RSTART + RLENGTH - 1
         before = substr(s, 1, marker - 1)
         comment = substr(s, marker)
-        return prefix command before reset gray comment reset
+        return prefix command mark_placeholders(before) reset gray comment reset
     }
-    return prefix command s reset
+    return prefix command mark_placeholders(s) reset
 }
 NR == 1 { last_blank = 1 }
 {
@@ -82,7 +87,7 @@ NR == 1 { last_blank = 1 }
         print styled_command(substr($0, 3), "")
         last_was_command = 1
     }
-    else if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |tracepath |mtr |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |[A-Z_][A-Z0-9_]*=|[a-z][a-z0-9 -]*(, [a-z][^,]*)+$)/) {
+    else if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |tracepath |mtr |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |export |[A-Z_][A-Z0-9_]*=|[a-z][a-z0-9 -]*(, [a-z][^,]*)+$)/) {
         if (!had_blank && !last_was_command && !had_heading) print ""
         print styled_command(substr($0, 3), "")
         last_was_command = 1

@@ -90,9 +90,11 @@ Expected matrix:
   Pacific  PASS   PASS   NOERROR     NOERROR
 Both probes select their local gateway. Lagoon's IPv4 path is the only failure.
 Its DNS A query also fails because it uses that path, while IPv6 DNS succeeds.
-Lagoon's IPv4 mtr ends at its gateway 203.0.113.1 with high loss, for example
-80%. The gateway answers a direct ping without loss: it has no route to the
-customer, answers with network unreachable and rate-limits those replies. Lagoon IPv6 mtr reaches the service.
+Lagoon's IPv4 ping gets "Destination Net Unreachable" from its gateway
+203.0.113.1, and mtr ends at that hop. mtr may report loss there, between runs
+anything from 20% to 80%: the gateway rate-limits its unreachable replies. A
+direct ping to 203.0.113.1 succeeds: the gateway works, it has no route to the
+customer. Lagoon IPv6 mtr reaches the service.
 Pacific mtr reaches it in five hops over IPv4 and IPv6, through Edge 02.
 This points to Lagoon IPv4 forwarding, not a DNS configuration fault. Next check
 the links and routing sessions, then trace the prefix before proposing a change.
@@ -319,6 +321,8 @@ Inside ReefNet Edge 01:
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
+  info from running routing-policy policy <policy-name>
+  info from running routing-policy prefix-set <prefix-set-name>
 A group-level export policy overrides the instance policy. In this incident,
 confirm that the affected group is lagoon-v4 before making the scoped change.
 
@@ -344,6 +348,8 @@ Inside ReefNet Edge 01:
   info from running network-instance default protocols bgp group lagoon-v4
   info from running network-instance default protocols bgp group lagoon-v6
   info from running routing-policy
+  info from running routing-policy policy BLOCK-CUSTOMER-V4
+  info from running routing-policy prefix-set CUSTOMER-V4
 Before editing, confirm that the group still matches this evidence:
   enter candidate
   delete / network-instance default protocols bgp group lagoon-v4 export-policy
@@ -491,11 +497,10 @@ Start in WSL:
 In WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
-  TOKEN=$(cat /state/netbox-token)
-  curl -fsSG -H "Authorization: Bearer $TOKEN" \
-    http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
-    --data-urlencode name=edge01.bob1.reefnet.test |
-    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
+  AUTH="Authorization: Bearer $(cat /state/netbox-token)"
+  API=http://netbox.bob1.reefnet.test:8080/api
+  curl -fsS -H "$AUTH" "$API/dcim/devices/?name=edge01.bob1.reefnet.test" > /tmp/device.json
+  jq '{count, devices: [.results[] | {name, primary_ip4}]}' /tmp/device.json
   getent hosts edge01.bob1.reefnet.test
 Does inventory identify exactly one device and agree with name resolution?
 Return to WSL with exit.
@@ -506,11 +511,10 @@ WSL repository:
   make test
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  TOKEN=$(cat /state/netbox-token)
-  curl -fsSG -H "Authorization: Bearer $TOKEN" \
-    http://netbox.bob1.reefnet.test:8080/api/dcim/devices/ \
-    --data-urlencode name=edge01.bob1.reefnet.test |
-    jq '{count, devices: [.results[] | {name, primary_ip4}]}'
+  AUTH="Authorization: Bearer $(cat /state/netbox-token)"
+  API=http://netbox.bob1.reefnet.test:8080/api
+  curl -fsS -H "$AUTH" "$API/dcim/devices/?name=edge01.bob1.reefnet.test" > /tmp/device.json
+  jq '{count, devices: [.results[] | {name, primary_ip4}]}' /tmp/device.json
   getent hosts edge01.bob1.reefnet.test
   exit
 
@@ -551,22 +555,24 @@ Start in WSL:
 In WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
+  export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400
+  export GNMIC_USERNAME=admin GNMIC_PASSWORD='NokiaSrl1!'
+  export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s
 Replace <group-name> with the group identified in step 4, without angle brackets.
 gNMI selects a list entry with [group-name=...].
 
 Keep the quotes and square brackets:
   GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=<group-name>]'
 Read the current group and note the original policy attachment:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path "$GROUP" |
-    jq '.[].updates[].values[]'
+  gnmic get --type config --path "$GROUP" | jq '.[].updates[].values[]'
 If your diagnosis calls for removing its override, preview that deletion:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy" --dry-run
+  gnmic set --delete "$GROUP/export-policy" --dry-run
 --delete removes the attachment at this path, not the shared policy definition.
 --dry-run prints the request without sending it. It does not validate the path
 against the device. Check the target, group and final export-policy component.
 Only if the current state and request match your diagnosis, send the same
 request without --dry-run. That applies the change immediately, with no commit:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy"
+  gnmic set --delete "$GROUP/export-policy"
 Inspect the Set response, then verify configuration, routes and service in step 8.
 Use exit to return.
 
@@ -584,13 +590,15 @@ Commit only if the diff restores exactly the recorded attachment:
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
+  export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400
+  export GNMIC_USERNAME=admin GNMIC_PASSWORD='NokiaSrl1!'
+  export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s
   GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]'
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path "$GROUP" |
-    jq '.[].updates[].values[]'
+  gnmic get --type config --path "$GROUP" | jq '.[].updates[].values[]'
 Confirm the group still has the recorded override. Stop if its value changed.
 Then preview and apply only the deletion supported by steps 1-4:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy" --dry-run
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s set --delete "$GROUP/export-policy"
+  gnmic set --delete "$GROUP/export-policy" --dry-run
+  gnmic set --delete "$GROUP/export-policy"
   exit
 Conditional rollback only after an unintended regression:
 WSL repository:
@@ -642,8 +650,11 @@ Start in WSL:
 In WSL:
   make enter NODE=operations01.bob1.reefnet.test
 Inside operations01:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
-    jq '.[].updates[].values[]'
+  export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400
+  export GNMIC_USERNAME=admin GNMIC_PASSWORD='NokiaSrl1!'
+  export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s
+  GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]'
+  gnmic get --type config --path "$GROUP" | jq '.[].updates[].values[]'
 Check the group's settings in the response. Reading the whole group lets you
 see whether the intended setting was removed. Use exit to return to WSL.
 
@@ -678,8 +689,11 @@ Lagoon IPv4 is the repaired path. IPv6 and Pacific are unchanged controls.
 WSL repository:
   make enter NODE=operations01.bob1.reefnet.test
 Inside the operator workstation:
-  gnmic -a edge01.bob1.reefnet.test:57400 -u admin -p 'NokiaSrl1!' --skip-verify --encoding json_ietf --timeout 10s get --type config --path '/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]' |
-    jq '.[].updates[].values[]'
+  export GNMIC_ADDRESS=edge01.bob1.reefnet.test:57400
+  export GNMIC_USERNAME=admin GNMIC_PASSWORD='NokiaSrl1!'
+  export GNMIC_SKIP_VERIFY=true GNMIC_ENCODING=json_ietf GNMIC_TIMEOUT=10s
+  GROUP='/network-instance[name=default]/protocols/bgp/group[group-name=lagoon-v4]'
+  gnmic get --type config --path "$GROUP" | jq '.[].updates[].values[]'
   exit
 WSL repository:
   make enter NODE=edge01.bob1.reefnet.test

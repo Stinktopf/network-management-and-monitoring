@@ -85,7 +85,7 @@ function flush_paragraph() {
         next
     }
 
-    if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |tracepath |mtr |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |[A-Z_][A-Z0-9_]*=|[a-z][a-z0-9 -]*(, [a-z][^,]*)+$)/) {
+    if ($0 ~ /^  (make |show |info |enter |delete |set |discard |commit|diff$|quit$|exit$|date |ip |ping |dig |traceroute |tracepath |mtr |curl |gnmic |cat |tail |mkdir |cp |jq |getent |hostname$|ssh |export |[A-Z_][A-Z0-9_]*=|[a-z][a-z0-9 -]*(, [a-z][^,]*)+$)/) {
         flush_paragraph()
         print $0
         previous = "command"

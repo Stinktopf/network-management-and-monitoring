@@ -87,7 +87,7 @@ class Guides(unittest.TestCase):
     def test_hint_and_solution_use_the_same_commands(self):
         # The worked solution runs exactly the hint's commands. <placeholder> stands for any value.
         command = re.compile(r"^  (make |show |info |enter |delete |set |discard |commit|diff$|date |ip |ping |dig "
-                             r"|traceroute |tracepath |mtr |curl |gnmic |cat |tail |jq |getent |hostname$|ssh "
+                             r"|traceroute |tracepath |mtr |curl |gnmic |cat |tail |jq |getent |hostname$|ssh |export "
                              r"|[A-Z_][A-Z0-9_]*=)")
         def commands(text):
             text = re.sub(r"\\\n\s*", " ", text)

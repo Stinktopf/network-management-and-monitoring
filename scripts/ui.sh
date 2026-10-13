@@ -141,6 +141,7 @@ ui_command_row() {
 ui_guide() {
   awk -v bold="$UI_BOLD" -v reset="$UI_RESET" \
     -v command="$UI_MAGENTA" -v blue="$UI_BLUE" -v cyan="$UI_CYAN" \
+    -v placeholder="$UI_YELLOW$UI_BOLD" \
     -v gray="$UI_GRAY" \
     -f "$(dirname "${BASH_SOURCE[0]}")/render-guide.awk" "$@"
 }
