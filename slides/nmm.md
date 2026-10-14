@@ -2040,7 +2040,7 @@ Most production networks still poll with SNMP.
 
 Small groups, one system each:
 
-**OpenNMS · Zabbix · LibreNMS · Icinga · Checkmk · PRTG · Nagios Core · SolarWinds NPM**
+**OpenNMS · Zabbix · LibreNMS · Icinga · Checkmk · PRTG · Nagios Core**
 
 | Question | Find out |
 |---|---|
