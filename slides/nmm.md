@@ -2042,13 +2042,6 @@ Small groups, one system each:
 
 **OpenNMS · Zabbix · LibreNMS · Icinga · Checkmk · PRTG · Nagios Core**
 
-| Question | Find out |
-|---|---|
-| Collect | SNMP, traps, syslog, flows, streaming telemetry? |
-| Discover | How does it find devices and interfaces? |
-| Alert | How does it limit noise? |
-| Fit | What would it add to BOB1’s Prometheus and Grafana? |
-
 **20 minutes** research, then **3 minutes** per group.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
