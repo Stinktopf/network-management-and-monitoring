@@ -1,5 +1,6 @@
 @@ 1 Check service health and telemetry freshness
-Run make test and check the current traffic rate. In Grafana, compare Service
+Run make test, then make traffic-status for the current traffic rate. In Grafana,
+compare Service
 Health, Network Overview and Telemetry Health. Confirm that both probes have
 recent ICMP, DNS and HTTP results for IPv4 and IPv6 in the Service Health panel
 Service checks / current status. Check that Prometheus collects from all targets.
@@ -18,6 +19,7 @@ Look at:
 
 Start in WSL:
   make test
+  make traffic-status
 @@ hint
 In WSL:
   make test
