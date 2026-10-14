@@ -33,7 +33,7 @@ For a raw check, enter operations01 from WSL:
 Inside operations01:
   curl -fsSG --data-urlencode 'query=up{job=~"gnmic|reefnet-service-probes|reefnet-qdisc"}' http://clab-ai5049-prometheus:9090/api/v1/query | jq '.data.result'
   curl -fsSG --data-urlencode 'query=time() - reefnet_probe_last_run_timestamp_seconds' http://clab-ai5049-prometheus:9090/api/v1/query | jq '.data.result'
-Are all scrape targets up (value 1), and does the sample age stay bounded?
+Is every target up (value 1), and is every sample age below 10 seconds?
 Use exit to return.
 @@ investigation
 WSL repository:
