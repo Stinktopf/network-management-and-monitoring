@@ -1969,19 +1969,87 @@ A failing round takes about 2 s. That stays well within the 10 s UNKNOWN thresho
 
 ---
 <!-- _class: content core -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc3411.html\">SNMP: RFC 3411</a></span>" -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.youtube.com/watch?v=nndJXD1mYoM\">Teltonika: SNMP agents and managers</a></span>" -->
 
-# SNMP: what does the device report?
+# Video: SNMP basics
 
-A manager queries an agent.
+[Understanding SNMP Agents & Managers, Teltonika Networks (YouTube)](https://www.youtube.com/watch?v=nndJXD1mYoM)
 
-**OID:** object identifier.
-**MIB:** Management Information Base, defining object meaning.
 
-Keep the device, OID, row, value and poll time.
-Short events can fall between polls.
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
-Not provisioned in BOB1.
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc3411.html\">SNMP: RFC 3411</a><a href=\"https://www.rfc-editor.org/rfc/rfc3416.html\">Operations: RFC 3416</a></span>" -->
+
+# SNMP: manager and agent
+
+| | Manager → agent | Agent → manager |
+|---|---|---|
+| Messages | Get, GetNext, GetBulk, Set | Trap, Inform |
+| Port | UDP 161 | UDP 162 |
+| Used for | Polling counters and state | Reporting events |
+
+**v2c:** community string in clear text. **v3:** users, authentication, encryption.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://www.rfc-editor.org/rfc/rfc2863.html\">IF-MIB: RFC 2863</a></span>" -->
+
+# MIB and OID: a number for every value
+
+`1.3.6.1.2.1` = iso.org.dod.internet.mgmt.mib-2
+
+| IF-MIB object | OID | Value |
+|---|---|---|
+| `ifName` | `1.3.6.1.2.1.31.1.1.1.1` | `ethernet-1/3` |
+| `ifOperStatus` | `1.3.6.1.2.1.2.2.1.8` | `up(1)`, `down(2)` |
+| `ifInOctets` | `1.3.6.1.2.1.2.2.1.10` | Counter32: wraps after 3.4 s at 10 Gbit/s |
+| `ifHCInOctets` | `1.3.6.1.2.1.31.1.1.1.6` | Counter64 |
+
+The last number selects the row: `ifHCInOctets.3` is the interface with `ifIndex` 3.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+---
+<!-- _class: content core -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\">gNMI specification</a></span>" -->
+
+# SNMP and gNMI side by side
+
+| | SNMP | gNMI |
+|---|---|---|
+| Data model | MIB, numeric OIDs | YANG, named paths |
+| Interface key | `ifIndex`, can change after reload | Interface name |
+| Delivery | Manager polls | Device streams |
+| Events | Trap, Inform | ON_CHANGE subscription |
+| BOB1 | Not provisioned | gNMIc, every 1 s |
+
+Most production networks still poll with SNMP.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
+
+
+---
+<!-- _class: content task -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Task: present one network management system
+
+Small groups, one system each:
+
+**OpenNMS · Zabbix · LibreNMS · Icinga · Checkmk · PRTG · Nagios Core · SolarWinds NPM**
+
+| Question | Find out |
+|---|---|
+| Collect | SNMP, traps, syslog, flows, streaming telemetry? |
+| Discover | How does it find devices and interfaces? |
+| Alert | How does it limit noise? |
+| Fit | What would it add to BOB1’s Prometheus and Grafana? |
+
+**20 minutes** research, then **3 minutes** per group.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">SIGNAL</span><span class="arrow"> → </span><span class="active">COLLECT</span><span class="arrow"> → </span><span class="">INTERPRET</span><span class="arrow"> → </span><span class="">ALERT</span><span class="arrow"> → </span><span class="">RESPOND</span></nav>
 
