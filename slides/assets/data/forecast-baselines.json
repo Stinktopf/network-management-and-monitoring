@@ -1,0 +1,91 @@
+{
+  "source": "synthetic teaching data, not a real network measurement",
+  "period_s": 60,
+  "shift_s": 540,
+  "mase_scale_mbps": 4.496434114275058,
+  "mase": {
+    "before_shift": {
+      "persistence": {
+        "n": 55,
+        "mae_mbps": 4.236202962179642,
+        "mase": 0.9421249938325024
+      },
+      "seasonal_naive": {
+        "n": 55,
+        "mae_mbps": 4.278960144661148,
+        "mase": 0.9516341251563134
+      },
+      "ridge": {
+        "n": 55,
+        "mae_mbps": 2.7854295191954894,
+        "mase": 0.6194752215655612
+      }
+    },
+    "after_shift": {
+      "persistence": {
+        "n": 53,
+        "mae_mbps": 5.311426962456097,
+        "mase": 1.1812531502671506
+      },
+      "seasonal_naive": {
+        "n": 53,
+        "mae_mbps": 40.74679980328786,
+        "mase": 9.062025322227434
+      },
+      "ridge": {
+        "n": 53,
+        "mae_mbps": 32.53492912317734,
+        "mase": 7.235717970355009
+      }
+    }
+  },
+  "horizon_before_shift": [
+    {
+      "horizon_s": 1,
+      "persistence_mae_mbps": 4.194074254129443,
+      "seasonal_naive_mae_mbps": 4.225156525904985
+    },
+    {
+      "horizon_s": 5,
+      "persistence_mae_mbps": 8.353730078062608,
+      "seasonal_naive_mae_mbps": 4.225156525904985
+    },
+    {
+      "horizon_s": 10,
+      "persistence_mae_mbps": 14.696655834226382,
+      "seasonal_naive_mae_mbps": 4.225156525904985
+    },
+    {
+      "horizon_s": 30,
+      "persistence_mae_mbps": 29.704276416324625,
+      "seasonal_naive_mae_mbps": 4.225156525904985
+    }
+  ],
+  "interval": {
+    "level": 0.9,
+    "calibration_errors": 120,
+    "half_width_mbps": 9.347765902061624,
+    "before_shift": {
+      "covered": 51,
+      "n": 55
+    },
+    "after_shift": {
+      "covered": 44,
+      "n": 55
+    }
+  },
+  "diebold_mariano": {
+    "before_shift": {
+      "n": 55,
+      "mean_loss_difference_mbps": -1.4507734429841523,
+      "dm": -3.693755434595966,
+      "dm_hln": -3.660021801655858
+    },
+    "after_shift": {
+      "n": 55,
+      "mean_loss_difference_mbps": 27.387727400447805,
+      "dm": 30.836752596703263,
+      "dm_hln": 30.55513251882285
+    }
+  }
+}

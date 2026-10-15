@@ -134,11 +134,6 @@ save('incident-intervals.svg',a,275)
 a=box(20,45,275,80,'Synchronized state',green=True)+box(410,45,280,80,'Connection gap')+box(805,45,275,80,'Fresh snapshot',green=True)
 a+=line(300,85,405,85,dash=True)+line(695,85,800,85,dash=True)+text(550,193,'Events during the gap may be irretrievable.',27)
 save('gnmi-reconnect-gap.svg',a,225)
-a=line(100,190,1000,190,False)+line(100,190,100,35,False)
-a+=line(100,80,460,80,False,color=G)+line(460,80,1000,80,False,dash=True,color='#999')
-for x in [100,220,340,460]:a+=f'<circle cx="{x}" cy="80" r="7" fill="{K}"/>'
-a+=text(460,224,'10 s: collector stops',22)+text(800,128,'No new evidence',27)+text(800,161,'Do not draw this as healthy.',22)
-save('missing-samples-display.svg',a,255)
 
 # Synthetic quantitative visuals with explicit axes and denominators.
 # Individual checks in sequence. The x-axis is check index, not elapsed time.
@@ -188,13 +183,77 @@ for y in (57,162,267,382):
 a+=line(890,162,1005,208)+line(890,382,1005,297)
 a+=text(280,37,'gNMI',19)+text(280,142,'tc',19)+text(280,247,'probes',19)+text(280,362,'syslog',19)
 save('reefnet-telemetry.svg',a,440)
-flow('prefix-experiment.svg',['Controller','IPv4 export fault','External probe'],['Known fault window','Lagoon only','Independent outcome'],caption='Pacific and IPv6 remain control observations.')
+flow('prefix-experiment.svg',['Fault injector','Fault','External probe'],['Known start and end','Affects one path','Independent outcome'],caption='Unaffected paths and address families serve as controls.')
 flow('temporal-split.svg',['Train','Validate','Test'],['Fit parameters','Select settings','Evaluate once'],caption='Train on past data. Test on later data.')
 a=box(10,65,290,85,'Observe old state')+box(405,65,290,85,'Move traffic')+box(800,65,290,85,'Observe old state')
 a+=line(305,105,400,105)+line(700,105,795,105)+text(550,225,'Wait for fresh evidence before moving again.',28)
 save('control-overcorrection.svg',a,265)
+flow('mape-k.svg',['Monitor','Analyze','Plan','Execute'],['Telemetry','Forecast, compare','Controller or agent','Change + verify'],caption='Knowledge: intent, source of truth, documentation.')
+flow('react-loop.svg',['Reason','Act','Observe'],['Choose the next step','Call a tool','Read the result'],caption='Repeat until the goal is reached or a limit stops the loop.')
+# Reinforcement learning: the policy acts, the environment answers with state and reward.
+a=box(60,80,330,110,'Agent','policy')+box(710,80,330,110,'Environment','the network')
+a+=line(395,105,703,105)+text(550,90,'action',24)
+a+=line(703,165,395,165)+text(550,200,'new state + reward',24)
+a+=text(550,265,'Goal: the highest total reward over time.',24)
+save('rl-loop.svg',a,285,'Reinforcement learning loop: the agent sends an action to the environment and receives a new state and a reward')
+# Decision tree: each split asks one question, each leaf holds a prediction.
+a=box(400,15,300,70,'Hour 8 to 18?')
+a+=box(150,145,300,70,'Weekday?')+box(700,145,300,70,'Low','40 Mbit/s')
+a+=box(20,275,280,70,'High','120 Mbit/s')+box(330,275,280,70,'Medium','80 Mbit/s')
+a+=line(500,90,330,140)+line(600,90,820,140)+text(390,118,'yes',22)+text(730,118,'no',22)
+a+=line(250,220,170,270)+line(350,220,450,270)+text(190,250,'yes',22)+text(430,250,'no',22)
+a+=text(830,300,'Leaves hold the prediction.',23)+text(830,333,'Training chooses the questions.',23)
+save('decision-tree.svg',a,360,'Illustrative decision tree predicting link load from hour and weekday')
+
+# Overfitting: training error keeps falling, test error turns up again.
+a=line(110,270,1000,270,False,color='#777')+line(110,270,110,30,False,color='#777')
+a+=text(555,302,'Model complexity →',23)+text(120,25,'Error',23,'start')
+a+=f'<path d="M130,80 C330,190 600,235 980,252" fill="none" stroke="#999" stroke-width="3" stroke-dasharray="8 6"/>'
+a+=f'<path d="M130,60 C330,170 470,190 560,185 C700,175 850,115 980,65" fill="none" stroke="{K}" stroke-width="3"/>'
+a+=text(985,232,'Training error',22,'end')+text(985,52,'Test error',22,'end')
+a+=line(545,195,545,270,False,dash=True)
+a+=text(200,335,'Underfit',22)+text(545,335,'Best on held-out data',22)+text(900,335,'Overfit',22)
+save('overfitting.svg',a,350,'Training error falls with model complexity while test error first falls and then rises')
+# The empirical cycle: two rows, the second row returns to the first.
+a=''
+for i,label in enumerate(['Observe','Question','Hypothesis','Prediction','Experiment','Analysis','Claim','Review']):
+ x=30+(i%4)*275; y=20+(i//4)*155
+ a+=text(x+10,y+28,f'{i+1:02}',22,'start',G,700)
+ a+=text(x+110,y+65,label,29,weight=700)
+ a+=line(x+10,y+85,x+210,y+85,False,color='#ccc')
+ if i%4<3:a+=line(x+218,y+59,x+263,y+59)
+a+=f'<path d="M1080,79 V145 H15 V214 H27" fill="none" stroke="#777" stroke-width="2" marker-end="url(#arrow-grey)"/>'
+a+=text(550,319,'Review leads to new observations. A failed prediction is a result too.',24)
+save('empirical-cycle.svg',a,345,'Empirical cycle: observe, question, hypothesis, prediction, experiment, analysis, claim, review')
+flow('flow-prediction-pipeline.svg',['Capture','Anonymize','Enrich','Label','Train + test'],['Data center flows','Protect addresses','Add context','3 classes','On the stream'],caption='In a data-driven paper, the pipeline is part of the contribution.')
 flow('agent-boundary.svg',['Planner','Enforced tool','Network','Verifier'],['Proposes action','Scope + permission','Actual state','Independent probe'],caption='Authorization stays outside the planner.')
 
+
+# IPv6 path MTU: the router reports, only the sender adapts.
+a=''
+for x,l,sub in [(150,'Sender',''),(550,'Router','next link: MTU 1400'),(950,'Receiver','')]:
+ a+=text(x,27,l,26,weight=700)+line(x,45,x,250,False,color='#999')
+ if sub:a+=text(x,272,sub,21,color=M)
+a+=line(158,85,542,85)+text(350,72,'1,500-byte packet',23)+text(575,92,'✕',26,'start',weight=700)
+a+=line(542,150,158,150)+text(350,137,'Packet Too Big: MTU 1400',23)
+a+=line(158,215,942,215)+text(550,202,'1,400-byte packets',23)
+a+=text(550,315,'The router drops and reports. Only the sender makes packets smaller.',23)
+save('pmtud-sequence.svg',a,335,'IPv6 path MTU discovery: router drops a 1500-byte packet, returns ICMPv6 Packet Too Big, sender resends with 1400 bytes')
+flow('flow-export.svg',['Packets','Flow cache','Exporter','Collector'],['Read headers','One entry per flow key','Template + records','Decode + store'],caption='An entry leaves the cache when the flow ends or a timeout expires.')
+
+# Probe loop and scrape run on separate clocks.
+X=lambda t:180+t*170
+a=text(20,87,'Probe results',24,'start')+text(20,192,'Scrapes',24,'start')
+a+=f'<rect x="{X(3.3)}" y="66" width="{X(4.3)-X(3.3)}" height="28" fill="#eeeeee"/>'
+a+=line(180,80,1040,80,False,color='#999')+line(180,185,1040,185,False,color='#999')
+for r,s in [(.1,.5),(1.2,1.5),(2.3,2.5),(2.3,3.5),(4.3,4.5)]:
+ a+=line(X(s),177,X(r),88,False,dash=True,color='#999')
+for r in [.1,1.2,2.3]:a+=f'<circle cx="{X(r)}" cy="80" r="9" fill="{K}"/>'
+a+=f'<circle cx="{X(4.3)}" cy="80" r="9" fill="#fff" stroke="{K}" stroke-width="3"/>'+text(X(4.3),55,'timeout',21)
+for s in [.5,1.5,2.5,3.5,4.5]:a+=f'<rect x="{X(s)-8}" y="177" width="16" height="16" fill="{K}"/>'
+for t in range(6):a+=text(X(t),232,f'{t} s',21)
+a+=text(550,280,'Each scrape copies the newest result. Two scrapes can return the same one.',23)
+save('scrape-clocks.svg',a,300,'Probe results and Prometheus scrapes on separate clocks; the scrapes at 2.5 s and 3.5 s return the same result')
 
 
 print(f'{len(list(R.glob("*.svg")))} SVG diagrams written.')
