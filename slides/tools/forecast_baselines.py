@@ -40,10 +40,12 @@ for name, part in [('before_shift', [t for t in common if t < SHIFT_S]),
 # Horizon: last value h seconds earlier versus the value one period earlier.
 result['horizon_before_shift'] = []
 for h in [1, 5, 10, 30]:
-    window = range(480, SHIFT_S)
+    # Both baselines use exactly the same available targets and inputs.
+    window = [t for t in range(480, SHIFT_S)
+              if all(series[j] is not None for j in [t, t-h, t-PERIOD])]
     last, _ = mean_abs((series[t], series[t - h]) for t in window)
     seasonal, _ = mean_abs((series[t], series[t - PERIOD]) for t in window)
-    result['horizon_before_shift'].append({'horizon_s': h, 'persistence_mae_mbps': last,
+    result['horizon_before_shift'].append({'horizon_s': h, 'n': len(window), 'persistence_mae_mbps': last,
                                            'seasonal_naive_mae_mbps': seasonal})
 
 # Split-conformal 90% interval for persistence, calibrated on validation (360-479 s).
@@ -56,18 +58,15 @@ for name, part in [('before_shift', [t for t in slots if t < SHIFT_S]),
     inside = sum(abs(series[t] - series[t - 1]) <= q for t in part)
     result['interval'][name] = {'covered': inside, 'n': len(part)}
 
-# Diebold-Mariano test, absolute loss, ridge minus persistence, with the
-# Harvey-Leybourne-Newbold small-sample correction for one-step forecasts.
-result['diebold_mariano'] = {}
+# Descriptive matched loss differences. Serial dependence and the level shift
+# do not justify the former iid-variance DM significance calculation.
+result['loss_difference'] = {}
 for name, part in [('before_shift', [t for t in slots if t < SHIFT_S]),
                    ('after_shift', [t for t in slots if t >= SHIFT_S])]:
     d = [abs(series[t] - ridge[t]) - abs(series[t] - series[t - 1]) for t in part]
     n = len(d)
     mean = sum(d) / n
-    variance = sum((x - mean) ** 2 for x in d) / n
-    dm = mean / math.sqrt(variance / n)
-    result['diebold_mariano'][name] = {'n': n, 'mean_loss_difference_mbps': mean,
-                                       'dm': dm, 'dm_hln': dm * math.sqrt((n - 1) / n)}
+    result['loss_difference'][name] = {'n': n, 'mean_loss_difference_mbps': mean}
 
 (D / 'forecast-baselines.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result['interval']))

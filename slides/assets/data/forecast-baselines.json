@@ -42,21 +42,25 @@
   "horizon_before_shift": [
     {
       "horizon_s": 1,
+      "n": 57,
       "persistence_mae_mbps": 4.194074254129443,
-      "seasonal_naive_mae_mbps": 4.225156525904985
+      "seasonal_naive_mae_mbps": 4.256697087711353
     },
     {
       "horizon_s": 5,
+      "n": 56,
       "persistence_mae_mbps": 8.353730078062608,
-      "seasonal_naive_mae_mbps": 4.225156525904985
+      "seasonal_naive_mae_mbps": 4.117088251354423
     },
     {
       "horizon_s": 10,
+      "n": 56,
       "persistence_mae_mbps": 14.696655834226382,
-      "seasonal_naive_mae_mbps": 4.225156525904985
+      "seasonal_naive_mae_mbps": 4.321477596475378
     },
     {
       "horizon_s": 30,
+      "n": 58,
       "persistence_mae_mbps": 29.704276416324625,
       "seasonal_naive_mae_mbps": 4.225156525904985
     }
@@ -74,18 +78,14 @@
       "n": 55
     }
   },
-  "diebold_mariano": {
+  "loss_difference": {
     "before_shift": {
       "n": 55,
-      "mean_loss_difference_mbps": -1.4507734429841523,
-      "dm": -3.693755434595966,
-      "dm_hln": -3.660021801655858
+      "mean_loss_difference_mbps": -1.4507734429841523
     },
     "after_shift": {
       "n": 55,
-      "mean_loss_difference_mbps": 27.387727400447805,
-      "dm": 30.836752596703263,
-      "dm_hln": 30.55513251882285
+      "mean_loss_difference_mbps": 27.387727400447805
     }
   }
 }

@@ -35,7 +35,8 @@ def box(x,y,w,h,label,sub=None,green=False):
 def save(name,body,h=290,desc='Explanatory course diagram'):
  if name in PRIMARY_SERIES: body=body.replace(G,K)
  elif name not in DATA_ACCENTS: body=body.replace(G,'#777')
- svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="{h}" viewBox="0 0 1100 {h}" role="img" aria-label="{escape(desc,quote=True)}"><title>{escape(desc)}</title><defs><marker id="arrow" viewBox="0 0 8 8" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#777"/></marker><marker id="arrow-grey" viewBox="0 0 8 8" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#777"/></marker></defs><g font-family="Arial, Liberation Sans, sans-serif">{body}</g></svg>'
+ # Pad the marker viewport and end the shaft inside the triangle, before its tip.
+ svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="{h}" viewBox="0 0 1100 {h}" role="img" aria-label="{escape(desc,quote=True)}"><title>{escape(desc)}</title><defs><marker id="arrow" viewBox="-1 -1 10 10" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#777"/></marker><marker id="arrow-grey" viewBox="-1 -1 10 10" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#777"/></marker></defs><g font-family="Arial, Liberation Sans, sans-serif">{body}</g></svg>'
  (R/name).write_text(svg)
 def flow(name,labels,subs=None,caption='',height=235):
  n=len(labels); gap=56; w=(1060-gap*(n-1))/n; a=''
@@ -227,6 +228,51 @@ a+=text(550,319,'Review leads to new observations. A failed prediction is a resu
 save('empirical-cycle.svg',a,345,'Empirical cycle: observe, question, hypothesis, prediction, experiment, analysis, claim, review')
 flow('flow-prediction-pipeline.svg',['Capture','Anonymize','Enrich','Label','Train + test'],['Data center flows','Protect addresses','Add context','3 classes','On the stream'],caption='In a data-driven paper, the pipeline is part of the contribution.')
 flow('agent-boundary.svg',['Planner','Enforced tool','Network','Verifier'],['Proposes action','Scope + permission','Actual state','Independent probe'],caption='Authorization stays outside the planner.')
+
+# Research workshops: each output becomes the input to the next meeting.
+a=''
+for i,(date,label,output) in enumerate([
+ ('30 Oct','Question','Research brief'),('13 Nov','Design','Study protocol'),
+ ('27 Nov','Argument','Evidence + limits'),('11 Dec','Evaluate','Predictions + actions'),
+ ('22 Jan','Review','Revised argument'),('5 Feb','Reproduce','Traceable result')]):
+ x=25+(i%3)*365; y=10+(i//3)*155
+ a+=text(x+155,y+25,date,22,color=M)
+ a+=box(x,y+42,310,82,label,output)
+ if i%3<2:a+=line(x+320,y+83,x+350,y+83)
+a+='<path d="M1075,93 V150 H10 V248 H23" fill="none" stroke="#777" stroke-width="2" marker-end="url(#arrow-grey)"/>'
+save('research-journey.svg',a,295,'Six workshops develop one project from research question to reproducible result')
+
+# An explicit example of narrowing, with room to read each question.
+a=''
+for i,(label,content) in enumerate([
+ ('Interest','Automated repair'),('Problem','A successful command can leave the service broken'),
+ ('Question','Does independent verification reduce unsafe repairs?'),
+ ('Scope','Same incidents, fixed tool access, recovery and side effects')]):
+ y=20+i*72
+ a+=text(25,y+27,label,24,'start',weight=700)
+ a+=text(225,y+27,content,24,'start')
+ if i<3:a+=line(190,y+39,190,y+69)
+save('question-funnel.svg',a,310,'Narrow an interest through a problem and question to an explicit study scope')
+
+flow('review-selection.svg',['Identify','Deduplicate','Screen','Include'],
+ ['Search records','Link versions','Apply criteria','Chart or extract'],
+ caption='Report counts and full-text exclusion reasons. Records are not necessarily unique studies.')
+flow('design-logic.svg',['Question','Construct','Measure','Inference'],
+ ['What is unknown?','What does it mean?','What can we observe?','What follows?'],
+ caption='State assumptions and alternative explanations at every step.')
+
+# Synthetic factorial means: the treatment effect changes with workload.
+a=line(150,250,790,250,False)+line(150,250,150,30,False)
+a+=text(150,20,'Completion time (ms), lower is better',23,'start')
+for value,y in [(0,250),(50,150),(100,50)]:
+ a+=text(125,y+8,value,22,'end')+line(150,y,790,y,False,color='#ddd')
+a+=line(230,150,690,50,False,color=K)+line(230,210,690,30,False,dash=True,color=M)
+for x,y in [(230,150),(690,50)]:a+=f'<circle cx="{x}" cy="{y}" r="6" fill="{K}"/>'
+for x,y in [(230,210),(690,30)]:a+=f'<rect x="{x-5}" y="{y-5}" width="10" height="10" fill="{M}"/>'
+a+=text(230,285,'Light workload',24)+text(690,285,'Heavy workload',24)
+a+=text(820,68,'Without A: 50 → 100',22,'start')+text(820,108,'With A: 20 → 110',22,'start')
+a+=text(820,174,'Effect of A:',24,'start',weight=700)+text(820,211,'−30 ms → +10 ms',24,'start')
+save('factor-interaction.svg',a,310,'Synthetic factorial example: component A reduces completion time under light load but increases it under heavy load')
 
 
 # IPv6 path MTU: the router reports, only the sender adapts.
