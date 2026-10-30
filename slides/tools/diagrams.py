@@ -303,4 +303,15 @@ a+=text(550,280,'Each scrape copies the newest result. Two scrapes can return th
 save('scrape-clocks.svg',a,300,'Probe results and Prometheus scrapes on separate clocks; the scrapes at 2.5 s and 3.5 s return the same result')
 
 
+# Search arrows show where the reader goes, not the direction of a citation.
+a=box(390,20,320,80,'Relevant starting paper','From the keyword search')
+a+=box(20,20,280,80,'Backward search','Read its references')
+a+=box(800,20,280,80,'Forward search','Cited by: papers citing it')
+a+=line(385,60,305,60)+line(715,60,795,60)
+a+=box(350,200,400,80,'Screen new papers','Keep relevant, unseen studies')
+a+=line(160,105,160,240,False)+line(160,240,345,240)
+a+=line(940,105,940,240,False)+line(940,240,755,240)
+a+=line(550,195,550,105)+text(570,150,'Repeat for each new match',22,'start')
+save('snowballing.svg',a,300,'Snowballing: search the references and citing papers of a relevant starting paper, screen new records, and repeat both searches for each eligible new paper')
+
 print(f'{len(list(R.glob("*.svg")))} SVG diagrams written.')

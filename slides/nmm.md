@@ -3140,16 +3140,17 @@ Exchange questions. Identify one result that would change your partner's conclus
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# One possible research question
+# Example: repair a blocked customer route
 
-**Does adding a checker reduce unsafe BGP repairs compared with the same repair tool alone?**
+**Can AI restore the customer route faster?**
 
-| Decision | In this example |
+| Study decision | Concrete test |
 |---|---|
-| Conditions | The same routing faults in the same lab topology |
-| Primary outcome | Repairs that change configuration outside the approved scope |
-| Possible cost | Longer recovery time or rejected valid repairs |
-| Evidence against the benefit | No reduction in unsafe repairs |
+| Fault | A wrong BGP export policy blocks the customer route |
+| Comparison | AI assistant versus a fixed repair script |
+| Conditions | Same faults, initial configuration and tool access |
+| Main outcome | Time until an external IPv4 ping succeeds |
+| Also check | Failed repairs and unintended configuration changes |
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3223,7 +3224,6 @@ Example: independent verification in automated repair.
 AND (verification OR validation OR safety)
 ```
 
-References lead to earlier work. Later citations reveal follow-ups and challenges.
 Database syntax and terminology differ.
 
 A search record contains **database, query, date and selection criteria**.
@@ -3332,20 +3332,15 @@ A reputable venue is a useful filter, not a quality guarantee.
 
 ---
 <!-- _class: content research -->
-<!-- _footer: "AI5049, Hochschule Fulda" -->
+<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://scholar.google.com/intl/en/scholar/help.html\">Google Scholar: citation search</a></span>" -->
 
-# How to find your first relevant papers
+# Snowballing: follow the citations
 
-Start with the question: **does verification make automated repair safer?**
+Start with a paper that fits your question. Search in **both directions**.
 
-| Step | What to do |
-|---|---|
-| Search | Combine “network repair” with verification, validation or safety |
-| Select | Read abstracts and keep papers that address the question |
-| Follow references | Find the approaches and baselines those papers build on |
-| Follow later citations | Find extensions, comparisons and criticism |
+![width:1040px](assets/diagrams/snowballing.svg)
 
-Keep the query and your reasons for selecting each paper.
+Stop after a full round finds no new eligible papers. Record each round.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 

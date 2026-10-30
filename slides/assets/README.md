@@ -15,3 +15,5 @@ Edit the generators for changes that should survive regeneration. Direct SVG edi
 - `literature-argument.svg` connects searching, appraisal and synthesis to a research question. The routing and service studies in the slides are hypothetical comparisons, not published findings.
 
 Headings use Fulda green (`#72bf44`). Diagram labels, connectors and boxes use neutral grays. Green distinguishes the second series in the paired comparison and forecast plots.
+
+`snowballing.svg` shows backward and forward citation searching, relevance screening and repetition with newly included papers. Arrows show the search process.
