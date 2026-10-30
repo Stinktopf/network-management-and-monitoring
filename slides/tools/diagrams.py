@@ -51,7 +51,8 @@ flow('incident-loop.svg',['Reproduce','Bound + explain','Repair','Verify'],capti
 flow('prometheus-data-path.svg',['Exporter','Prometheus','Query','Grafana'],['Source freshness','Scrape + store','Select series','Interpret'],caption='A successful scrape can still return stale source data.')
 flow('alert-path.svg',['Observation','Rule','Routing','Notification'],['Value + age','Pending / firing','Group / inhibit','Delivery result'],height=175)
 flow('maintenance-gates.svg',['Precheck','Canary','Service check','Continue'],caption='Stop time + recovery owner apply at every gate.')
-flow('evidence-chain.svg',['Question','Method','Evidence','Claim'],caption='The claim cannot be stronger than its weakest evidence boundary.')
+flow('evidence-chain.svg',['Question','Method','Evidence','Claim'],caption='The method determines which conclusions the evidence can support.')
+flow('literature-argument.svg',['Find','Assess','Connect','Refine'],['Relevant studies','Claims + evidence','Agreement + limits','Research question'],height=175)
 flow('experiment-run-cycle.svg',['Reset','Baseline','Inject','Observe','Restore'],caption='Run ID, seed, versions and raw results travel with the experiment.')
 flow('research-record.svg',['Figure','Analysis','Run records','Raw evidence'],['Result + units','Versioned code','Setup + run ID','Data + versions'],caption='Follow one reported number all the way back.')
 
@@ -256,7 +257,7 @@ save('question-funnel.svg',a,310,'Narrow an interest through a problem and quest
 
 flow('review-selection.svg',['Identify','Deduplicate','Screen','Include'],
  ['Search records','Link versions','Apply criteria','Chart or extract'],
- caption='Report counts and full-text exclusion reasons. Records are not necessarily unique studies.')
+ caption='Counts and reasons for exclusion make the selection traceable.')
 flow('design-logic.svg',['Question','Construct','Measure','Inference'],
  ['What is unknown?','What does it mean?','What can we observe?','What follows?'],
  caption='State assumptions and alternative explanations at every step.')
