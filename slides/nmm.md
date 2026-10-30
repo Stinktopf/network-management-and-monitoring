@@ -2973,7 +2973,7 @@ Today: turn an interest into a **defensible research question**.
 
 ![width:1040px](assets/diagrams/research-journey.svg)
 
-The question guides the design. The evidence supports the argument. Review tests that argument.
+From a research question to a paper others can assess.
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -2991,7 +2991,7 @@ The question guides the design. The evidence supports the argument. Review tests
 | A new algorithm | A justified advantage under stated conditions |
 | A repeated experiment | Evidence about where an earlier result holds |
 
-A contribution answers a question that matters beyond the artifact itself.
+
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3014,14 +3014,12 @@ Confirmatory work tests predictions specified before examining the test results.
 
 # Different questions need different evidence
 
-| Purpose | Example outside networking |
+| Purpose | Network-management question |
 |---|---|
-| Describe | How often do students revise an essay? |
-| Explain | Why do students abandon a revision? |
-| Estimate an effect | Does feedback improve the next draft? |
-| Predict | Can early drafts predict the final score? |
-
-Understanding a cause and predicting an outcome are different goals.
+| Describe | How often do BGP sessions fail on these routers? |
+| Explain | Why do operators override automated repairs? |
+| Estimate an effect | Does a checker reduce unsafe configuration changes? |
+| Predict | Can recent traffic predict next-minute link load? |
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3037,7 +3035,7 @@ Understanding a cause and predicting an outcome are different goals.
 | Compare | Which detector works best at the same resource budget? |
 | Synthesize evidence | Which failure classes have published studies covered? |
 
-A comparison can evaluate a design. A review can reveal which comparison is missing.
+
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3049,7 +3047,7 @@ A comparison can evaluate a design. A review can reveal which comparison is miss
 
 ![width:1040px](assets/diagrams/question-funnel.svg)
 
-Literature helps establish whether this question is already answered and where uncertainty remains.
+Literature shows what is known and which questions remain open.
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3105,8 +3103,6 @@ Suppose adding the checker does not reduce unsafe repairs.
 
 Each explanation needs evidence. Ad hoc excuses shield a claim from criticism.
 
-**Average effects** require repeated trials and uncertainty estimates.
-
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
 ---
@@ -3121,7 +3117,7 @@ Each explanation needs evidence. Ad hoc excuses shield a claim from criticism.
 </div>
 
 An explanation developed from the results is exploratory until tested on fresh evidence.
-Not every research question needs a directional hypothesis.
+
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3137,6 +3133,23 @@ Not every research question needs a directional hypothesis.
 Define “better” with one primary outcome and one possible cost.
 
 Exchange questions. Identify one result that would change your partner's conclusion.
+
+<nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# One possible research question
+
+**Does adding a checker reduce unsafe BGP repairs compared with the same repair tool alone?**
+
+| Decision | In this example |
+|---|---|
+| Conditions | The same routing faults in the same lab topology |
+| Primary outcome | Repairs that change configuration outside the approved scope |
+| Possible cost | Longer recovery time or rejected valid repairs |
+| Evidence against the benefit | No reduction in unsafe repairs |
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3163,8 +3176,7 @@ Exchange questions. Identify one result that would change your partner's conclus
 | Design and evaluate | An artifact tested against justified requirements |
 | Formal analysis | A derivation or proof under stated assumptions |
 
-Empirical evidence can be quantitative, qualitative or mixed.
-The question determines which evidence is needed.
+
 
 <nav class="progress" aria-label="Module progress"><span class="active">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3172,11 +3184,11 @@ The question determines which evidence is needed.
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://advice.writing.utoronto.ca/types-of-writing/literature-review/\">Toronto: literature reviews</a></span>" -->
 
-# Literature turns an interest into a justified question
+# From reading to a research question
 
 ![width:1040px](assets/diagrams/literature-argument.svg)
 
-**Synthesis** connects findings across studies: what they establish together and what remains unresolved.
+**Synthesis:** what do the studies establish together?
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3247,7 +3259,7 @@ A search record contains **database, query, date and selection criteria**.
 | [ACM CoNEXT](https://www.sigcomm.org/events/conext-conference) | Emerging networking technologies and systems |
 | [IEEE Transactions on Networking](https://www.comsoc.org/publications/journals/ieee-tnet) | Journal research across networking |
 
-The same topic appears in different venues because the research contributions differ.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3263,7 +3275,7 @@ Working Groups engineer interoperable Internet protocols and standards.
 **[IRTF](https://www.irtf.org/)**\
 Research Groups study long-term questions about Internet technology.
 
-Standards and research-group outputs have different purposes from empirical papers.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3282,7 +3294,7 @@ Backbone operations, routing, peering and incidents
 **[NAF and AutoCon](https://networkautomation.forum/)**\
 Network automation, orchestration and operational tooling
 
-Operator reports document practice and incidents. Their conclusions depend on the evidence provided.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3314,7 +3326,7 @@ An RFC’s status, updates and errata determine how its requirements should be r
 <div><h2>The paper</h2><p>Sound methods, appropriate comparisons and conclusions supported by the data.</p></div>
 </div>
 
-Peer review can miss errors. Corrections and later studies may change what a paper supports.
+A reputable venue is a useful filter, not a quality guarantee.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3322,15 +3334,18 @@ Peer review can miss errors. Corrections and later studies may change what a pap
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
-# Three starting points for your search
+# How to find your first relevant papers
 
-| Seed paper | Research approach |
+Start with the question: **does verification make automated repair safer?**
+
+| Step | What to do |
 |---|---|
-| [Trinocular, SIGCOMM 2013](https://ant.isi.edu/~johnh/PAPERS/Quan13c.pdf) | Internet measurement and validation |
-| [Learning in situ, NSDI 2020](https://www.usenix.org/conference/nsdi20/presentation/yan) | Randomized field experiment |
-| [NIKA, 2025 preprint](https://arxiv.org/abs/2512.16381) | Benchmark construction and agent evaluation |
+| Search | Combine “network repair” with verification, validation or safety |
+| Select | Read abstracts and keep papers that address the question |
+| Follow references | Find the approaches and baselines those papers build on |
+| Follow later citations | Find extensions, comparisons and criticism |
 
-A seed paper provides vocabulary and citation trails. It is a starting point, not a complete literature search.
+Keep the query and your reasons for selecting each paper.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3346,7 +3361,7 @@ A seed paper provides vocabulary and citation trails. It is a starting point, no
 | Map concepts, methods and evidence coverage | Scoping review |
 | Answer a focused question with explicit selection | Systematic review |
 
-**Related work** is a paper section. Any of these approaches can inform it, but the label must match the work actually done.
+**Related work** is a section of your paper, not a separate review method.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3382,7 +3397,7 @@ Critical appraisal depends on the review objective.
 <div><h2>Check and synthesize</h2><p>Screen independently and resolve disagreements. Check extracted outcomes and assess risk of bias.</p></div>
 </div>
 
-The conclusion depends on both the findings and how trustworthy the underlying studies are.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3409,7 +3424,7 @@ One study may produce several papers. Linking those reports prevents double-coun
 
 The checklist makes decisions visible. It does not replace a review method or certify quality.
 
-A transparent related-work section can be useful without claiming to be a full systematic review.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3449,20 +3464,31 @@ Would pooling numerical results answer all three?
 
 ---
 <!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Answer: choose by the question
+
+| Question | Approach | Reason |
+|---|---|---|
+| Which evaluation methods exist? | Scoping review | Maps methods and evidence coverage |
+| Does verification reduce unsafe repairs? | Systematic review | Assesses relevant findings and their credibility |
+| Why do safety definitions differ? | Critical review | Examines concepts and disagreements |
+
+**Pooling is not the answer to all three.** Meta-analysis can combine compatible effect estimates for the second question.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://svr-sk818-web.cl.cam.ac.uk/keshav/papers/07/paper-reading.pdf\">Keshav: How to Read a Paper</a></span>" -->
 
-# From review choice to reading
+# Read first for relevance, then for evidence
 
-**Answer:** methods → scoping review, verification → systematic review,
-safety concepts → critical review. Pooling needs compatible effects.
-
-| Reading pass | Focus | Result |
+| Pass | Focus | Result |
 |---|---|---|
 | 1. Orient | Abstract, introduction, conclusion | Relevance and contribution |
 | 2. Understand | Methods, figures and results | Evidence and its conditions |
 | 3. Reconstruct | Assumptions and reasoning | Strengths and missing steps |
-
-Deep reading is reserved for the most relevant papers.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3479,44 +3505,7 @@ Deep reading is reserved for the most relevant papers.
 | Comparison | Could another difference explain the result? |
 | Reporting | Are failed runs and unfavorable outcomes visible? |
 
-A weakness matters when it could change the answer to the research question.
 
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
-
----
-<!-- _class: content research -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://ant.isi.edu/~johnh/PAPERS/Quan13c.pdf\">Trinocular, §5.1, Fig. 2</a></span>" -->
-
-# A finding has a boundary
-
-**Trinocular:** controlled tests of IPv4 block-outage detection, with 11-minute probing rounds.
-
-| Evidence in §5.1 and Figure 2 | What it supports |
-|---|---|
-| 488 observations across four /24 blocks | A check against controlled outages |
-| All tested outages of at least one round detected | Detection at that duration in this setting |
-| Shorter outages can be missed | A limit on brief-outage detection |
-
-The measurement concerns **ICMP reachability**, not HTTP availability.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
-
----
-<!-- _class: content research -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://ant.isi.edu/~johnh/PAPERS/Quan13c.pdf\">Trinocular, §5.1, Fig. 2</a></span>" -->
-
-# Reading notes preserve the evidence and its limits
-
-Example note for **Quan et al., Trinocular (2013), §5.1, Fig. 2**:
-
-| Field | Note |
-|---|---|
-| Question | Does the detector find controlled block outages? |
-| Method | ICMP probing of four controlled IPv4 /24 blocks |
-| Finding | All tested outages lasting at least one round detected |
-| My interpretation | Evidence for this setting, not for every service or duration |
-
-A reference manager such as Zotero stores the source. The note separates the finding from your interpretation.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3524,16 +3513,14 @@ A reference manager such as Zotero stores the source. The note separates the fin
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://guides.library.duke.edu/litreviews/synthesize\">Duke: synthesizing studies</a></span>" -->
 
-# Two studies can answer different parts of a question
+# Two studies, two different outcomes
 
-**Fictional teaching example:** the same repair tool, with and without a separate checker.
+Suppose two studies compare a repair tool **with and without a checker**.
 
-| Study | Tested faults | Reported finding | Not measured |
+| Study | Tested faults | Finding | Not measured |
 |---|---|---|---|
-| A | Routing faults | Fewer unsafe repairs | Recovery time |
-| B | Service faults | Longer recovery time | Unsafe repairs |
-
-The studies measure different outcomes on different faults.
+| Routing study | Routing faults | Fewer unsafe repairs | Recovery time |
+| Service study | Service faults | Longer recovery time | Unsafe repairs |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3541,34 +3528,14 @@ The studies measure different outcomes on different faults.
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://advice.writing.utoronto.ca/types-of-writing/literature-review/\">Toronto: literature reviews</a></span>" -->
 
-# Synthesis explains how findings fit together
-
-**Synthesis** means connecting findings to answer a question.
+# What can we conclude together?
 
 <div class="paired-notes">
-<div><h2>One summary per paper</h2><p>A reports fewer unsafe repairs.<br>B reports longer recovery.</p></div>
-<div><h2>A combined interpretation</h2><p>Checking shows a safety benefit in A and a time cost in B. Neither study measures both on the same faults.</p></div>
+<div><h2>Separate findings</h2><p>The routing study finds fewer unsafe repairs.<br>The service study finds longer recovery.</p></div>
+<div><h2>Open question</h2><p>Does the safety benefit come with a recovery-time cost on the same faults?</p></div>
 </div>
 
-Fictional A and B suggest a trade-off worth testing. They do not yet quantify it.
-
-<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
-
----
-<!-- _class: content research -->
-<!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC5807267/\">Lingard: mapping the gap</a></span>" -->
-
-# The gap is the unanswered part that matters
-
-In our fictional example:
-
-| Question | Answer from the comparison |
-|---|---|
-| What is known? | Safety benefit in A, time cost in B |
-| What remains unknown? | Whether both occur together on the same faults |
-| Why does it matter? | Operators need safe repairs and timely recovery |
-
-This is a gap in the **reviewed evidence**. A wider search may already contain the answer.
+Neither study measures both outcomes. These results alone cannot establish the trade-off.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3576,7 +3543,7 @@ This is a gap in the **reviewed evidence**. A wider search may already contain t
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://mitcommlab.mit.edu/eecs/commkit/journal-article-introduction/\">MIT: framing a contribution</a></span>" -->
 
-# The gap determines the next comparison
+# Test safety and recovery time together
 
 **Refined question:** For routing faults, how does a separate checker affect unsafe repairs and recovery time?
 
@@ -3585,7 +3552,7 @@ This is a gap in the **reviewed evidence**. A wider search may already contain t
 <div><h2>Evidence</h2><p>Safety violations and recovery time, measured together for both conditions.</p></div>
 </div>
 
-**Intended contribution:** evidence about the safety–time trade-off in this setting.
+A wider literature search must first check whether this comparison already exists.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3593,16 +3560,16 @@ This is a gap in the **reviewed evidence**. A wider search may already contain t
 <!-- _class: visual research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://advice.writing.utoronto.ca/types-of-writing/literature-review/\">Toronto: literature reviews</a></span>" -->
 
-# A citation must support the whole claim
+# Keep the claim within the evidence
 
-Fictional study A from our comparison:
+The routing study measured unsafe repairs on a particular set of faults.
 
 <div class="paired-notes">
-<div><h2>Supported</h2><p>The checker reduced unsafe repairs on the tested routing faults [A].</p></div>
-<div><h2>Too broad</h2><p>Independent checking makes network automation safe [A].</p></div>
+<div><h2>Supported</h2><p>Adding the checker reduced unsafe repairs on the tested routing faults.</p></div>
+<div><h2>Too broad</h2><p>Independent checking makes network automation safe.</p></div>
 </div>
 
-The second sentence drops the tested conditions and turns a reduction into a guarantee.
+Cite the study in either case. A citation cannot justify the broader claim.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3635,7 +3602,7 @@ Changing a few words is not a paraphrase. The original meaning and limits still 
 | Documentation | Exact page, version and section |
 | Figure | Data and units, or source and adaptation |
 
-AI-suggested references also need verification against the original source.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3651,7 +3618,7 @@ AI-suggested references also need verification against the original source.
 | Interviews or identifiable traces | Consent, controlled access and any required ethics review |
 | Stored data | Necessary fields, retention period and deletion plan |
 
-These decisions belong before collection. The lecturer is the contact for ethics and access questions.
+
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -3669,7 +3636,24 @@ These decisions belong before collection. The lecturer is the contact for ethics
 
 **Ten-minute exchange:** the other pair checks the supporting passages and challenges the proposed gap.
 
-This is a first literature argument, not a complete review.
+
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# What a convincing literature argument contains
+
+| Part | What the other pair should be able to check |
+|---|---|
+| Findings | Each summary matches a passage, figure or table |
+| Synthesis | Explains agreement, disagreement or different conditions |
+| Open question | Follows from what the selected papers leave unanswered |
+| Proposed study | Collects evidence that would answer that question |
+
+There is no single answer for every topic. A claim that “nobody has studied this” needs more than three papers.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="active">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -4221,6 +4205,24 @@ Decide what to hold constant, randomize and record.
 <!-- _class: content research -->
 <!-- _footer: "AI5049, Hochschule Fulda" -->
 
+# Answer: method, load and time are confounded
+
+We cannot tell whether a difference comes from the method, host load or time of day.
+
+| Change | Purpose |
+|---|---|
+| Run both methods under the same host conditions | Separate method from host load |
+| Randomize A/B order within matched blocks | Reduce systematic order effects |
+| Record load and time for each run | Check remaining differences |
+
+If load is part of the question, test **both methods at each load level**.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="active">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
 # What goes into your Method section
 
 | Explain | Adapt to your study |
@@ -4248,6 +4250,25 @@ For a formal study, state assumptions, proof obligations and validation cases.
 
 **15-minute exchange:** challenge the strongest alternative explanation or limitation.
 Revise the design or defend it with a reason. Keep it for 27 November.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="active">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Example protocol: checking automated repairs
+
+| Protocol decision | Proposed design |
+|---|---|
+| Question | Does the checker prevent out-of-scope changes? |
+| Comparison | Same repair tool with and without the checker |
+| Cases | Fixed routing faults, including unsafe repair proposals |
+| Run | Reset the lab and randomize condition order within each case |
+| Outcomes | Scope violations, recovery success and recovery time |
+| Main limitation | Results concern the selected faults and topology |
+
+The checker must be evaluated by independent state and service checks.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="active">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -4430,7 +4451,7 @@ Biased sampling or a wrong measurement can invalidate that interpretation.
 
 # Lower mean delay, but how much lower?
 
-Teaching example: **25 independent matched pairs**, A minus B.
+Example: **25 independent matched pairs**, A minus B.
 Mean difference $\bar d=-6$ ms, standard deviation $s_d=10$ ms.
 
 $$\bar d \pm t_{0.975,24}\frac{s_d}{\sqrt{25}}
@@ -4519,6 +4540,24 @@ Treat an unexpected pattern as a new question to check on fresh evidence.
 ![width:1040px](assets/diagrams/causal-alternatives.svg)
 
 Which observation or intervention could distinguish these explanations?
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="active">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Answer: separate CPU load from the shared fault
+
+A correlation between router CPU and HTTP latency does not identify the cause.
+
+| Check | What it can tell us |
+|---|---|
+| Record the suspected shared fault | Whether both symptoms track that event |
+| Vary CPU load while holding the fault condition fixed | Whether CPU load itself changes latency |
+| Repeat with and without the fault | Whether the CPU effect depends on the fault |
+
+Use a controlled lab intervention. Merely collecting more correlated observations does not separate the explanations.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="active">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -4624,7 +4663,7 @@ summary, method, strength and limitation, feasible revision.
 <!-- _class: content research -->
 <!-- _footer: "<span class=\"footer-context\">AI5049, Hochschule Fulda</span><span class=\"footer-refs\"><a href=\"https://dl.ifip.org/db/conf/networking/networking2026/1571262522.pdf\">Butterfly (IFIP Networking 2026)</a></span>" -->
 
-# Butterfly in one table
+# Review discussion: Butterfly
 
 | | Butterfly |
 |---|---|
@@ -4633,7 +4672,9 @@ summary, method, strength and limitation, feasible revision.
 | Evidence | Runtime and memory on three regional and one national ISP topology |
 | Baseline | NetDice, with a 2-hour timeout |
 
-What does the evidence show, and what does it not show?
+**Strength:** a named baseline and measured computational cost.
+**Limit:** four topologies do not establish performance on every network.
+**Revision:** explain which topology or failure properties limit transfer.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="active">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -4651,6 +4692,20 @@ For coded evidence, trace a pattern and a contradictory case to their sources.
 
 **Ten-minute exchange:** mark observations, interpretations and unsupported claims.
 Keep the revised paragraph for your draft.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="active">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Example result paragraph
+
+> In five paired runs, A was faster in four pairs. Its median delay was 12 ms, compared with 17 ms for B. However, one 54 ms run raised A’s mean to 20.0 ms, above B’s 17.2 ms.
+
+**Supported:** A was usually faster in this small sample, but its largest delay changed the mean comparison.
+
+**Not established:** a general speed or reliability advantage. Five illustrative pairs do not resolve uncertainty about other runs.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="active">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -5731,7 +5786,7 @@ Enforce permissions and verification outside the planner.
 
 # Task: check the claimed repair
 
-Fictional trace after write approval:
+Example trace after write approval:
 
 | Step | Result |
 |---|---|
@@ -5808,7 +5863,7 @@ Test healthy networks and vague tickets.
 
 ![width:1040px](assets/diagrams/benchmark-evidence.svg)
 
-Separate fictional repair benchmark: 20 attempts. Is 80% success justified?
+Example benchmark: 20 attempts. Is 80% success justified?
 What must we know about overlap and unintended changes?
 
 <nav class="progress" aria-label="Module progress"><span class="">LOOP</span><span class="arrow"> → </span><span class="">ANALYZE</span><span class="arrow"> → </span><span class="">ACT</span><span class="arrow"> → </span><span class="">INTENT</span><span class="arrow"> → </span><span class="">AGENT</span><span class="arrow"> → </span><span class="active">EVALUATE</span></nav>
@@ -5846,6 +5901,24 @@ Include a shifted workload or misleading input and the cost of failure.
 Prepare one result, its reproduction steps and the claim it supports.
 
 **Full draft and supporting material: 11 January, 23:59.**
+
+<nav class="progress" aria-label="Module progress"><span class="">LOOP</span><span class="arrow"> → </span><span class="">ANALYZE</span><span class="arrow"> → </span><span class="">ACT</span><span class="arrow"> → </span><span class="">INTENT</span><span class="arrow"> → </span><span class="">AGENT</span><span class="arrow"> → </span><span class="active">EVALUATE</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Example evaluation plan: the repair agent
+
+| Decision | Plan |
+|---|---|
+| Baseline | A deterministic runbook on the same faults |
+| Held-out test | Fault cases not used to develop the agent |
+| Independent success | Service restored and protected state unchanged |
+| Challenge | A ticket naming the wrong suspected cause |
+| Failure cost | Unsafe changes, prolonged outage and repeated attempts |
+
+A fluent explanation is not a successful repair. Both systems face the same checks and permissions.
 
 <nav class="progress" aria-label="Module progress"><span class="">LOOP</span><span class="arrow"> → </span><span class="">ANALYZE</span><span class="arrow"> → </span><span class="">ACT</span><span class="arrow"> → </span><span class="">INTENT</span><span class="arrow"> → </span><span class="">AGENT</span><span class="arrow"> → </span><span class="active">EVALUATE</span></nav>
 
@@ -5913,11 +5986,25 @@ Critique the work respectfully and acknowledge uncertainty in your assessment.
 
 # Task: write a review comment
 
-Two minutes. Fictional methods section
+Two minutes. Example methods section
 
 > We repeated each experiment several times and removed outliers.
 
 Name the missing information and ask for a concrete correction.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="active">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Example review comment
+
+> The Methods section does not report the number of repetitions or the rule used to remove outliers. This makes the variability and possible selection bias difficult to assess.
+>
+> Please report the run count, the exclusion rule and how many runs it removed. Show whether the conclusion changes when the excluded runs are retained.
+
+The comment identifies the missing evidence, explains why it matters and requests a feasible revision.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="active">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -5936,6 +6023,22 @@ Draft a bounded claim. Mark the missing comparator and numbers.
 Do not carry over **40%** without supporting results.
 
 Name one experiment needed for a broader claim.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="active">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Answer: report delay, not general reliability
+
+**Until the comparator and measurements are available:**
+
+> We evaluated mean detection delay for one fault family in one emulated topology. The available information does not establish an improvement over a baseline.
+
+A numerical claim needs the named baseline, both mean delays and uncertainty.
+
+To support a broader claim, repeat the comparison across fault families and topologies, including missed faults.
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="active">REVIEW</span><span class="arrow"> → </span><span class="">PUBLISH</span></nav>
 
@@ -6042,6 +6145,30 @@ Two minutes. Incomplete README
 Choose three missing details that would stop another team.
 
 Give concrete replacements, including how they would recognize success.
+
+<nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="active">PUBLISH</span></nav>
+
+---
+<!-- _class: content research -->
+<!-- _footer: "AI5049, Hochschule Fulda" -->
+
+# Answer: show the command and expected result
+
+For the timing model included in this course repository:
+
+**Environment:** Python 3, standard library only. No running lab needed.
+
+**From the repository root:**
+```bash
+python3 slides/tools/sampling_demo.py
+```
+
+**Output:** `slides/assets/data/sampling-runs.csv`, with 240 data rows.
+
+| Method | Detected | Missed | Median delay |
+|---|---:|---:|---:|
+| Every 5 s | 120 | 0 | 2.50 s |
+| Alternating 4 / 6 s | 108 | 12 | 2.25 s |
 
 <nav class="progress" aria-label="Module progress"><span class="">QUESTION</span><span class="arrow"> → </span><span class="">RELATED WORK</span><span class="arrow"> → </span><span class="">DESIGN</span><span class="arrow"> → </span><span class="">ANALYSIS</span><span class="arrow"> → </span><span class="">ARGUMENT</span><span class="arrow"> → </span><span class="">REVIEW</span><span class="arrow"> → </span><span class="active">PUBLISH</span></nav>
 

@@ -12,6 +12,6 @@ Edit the generators for changes that should survive regeneration. Direct SVG edi
 - `forecast-comparison.svg` is generated from `../resources/source-graphics/forecast.svg`. [Teaching data](data/README.md) documents predictions and evaluation settings.
 - `stale-panel.svg` is an illustration, not a Grafana screenshot.
 - `research-journey.svg`, `question-funnel.svg`, `review-selection.svg` and `design-logic.svg` show the research workflow. `factor-interaction.svg` uses fictional completion times to show a treatment effect reversing with workload.
-- `literature-argument.svg` connects searching, appraisal and synthesis to a research question. The slides' repair studies A and B are fictional teaching examples, not published results.
+- `literature-argument.svg` connects searching, appraisal and synthesis to a research question. The routing and service studies in the slides are hypothetical comparisons, not published findings.
 
 Headings use Fulda green (`#72bf44`). Diagram labels, connectors and boxes use neutral grays. Green distinguishes the second series in the paired comparison and forecast plots.
