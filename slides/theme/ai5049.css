@@ -1,0 +1,95 @@
+/* @theme ai5049 */
+@import 'default';
+/* Fulda green identifies slide titles. Subheadings use weight, not color. */
+:root { --hfd:#72bf44; --ink:#303030; }
+section {
+  background:#fff; color:var(--ink); font-family:Arial,'Liberation Sans',sans-serif;
+  font-size:27px; line-height:1.3; padding:66px 78px 125px;
+  display:flex; flex-direction:column; justify-content:center;
+  border:0; background-image:none;
+}
+section > * { flex-shrink:0; }
+section::before { display:none; }
+section h1 { color:var(--hfd) !important; font-weight:700; }
+section h2, section h3, section h4, section h5, section h6 { color:var(--ink) !important; font-weight:700; font-size:27px; }
+section h1 *, section h2 *, section h3 *, section h4 *, section h5 *, section h6 * { color:inherit !important; }
+h1 { font-size:42px; line-height:1.15; margin:0 0 25px; letter-spacing:-.5px; text-wrap:balance; }
+h2 { font-size:27px; line-height:1.2; margin:8px 0 22px; }
+p,li,td,th { text-wrap:pretty; }
+section > p,section > ul,section > ol { margin:10px 0; }
+li { margin:6px 0; }
+li p { margin:0; }
+strong { font-weight:700; }
+blockquote { border-left:4px solid #ccc; color:var(--ink); padding:8px 20px; margin:16px 0; }
+blockquote p { margin:3px 0; }
+table { width:100%; display:table; font-size:27px; line-height:1.25; margin:12px 0; border-collapse:collapse; }
+th { background:#eee; font-weight:700; }
+td,th { border:1px solid #ddd; padding:8px 12px; }
+tr,tr:nth-child(2n) { background:#fff; }
+code { font-size:21px; background:none; border-radius:0; padding:0; }
+pre { font-size:21px; line-height:1.28; background:#f5f5f5; padding:15px 18px; margin:13px 0; border:0; border-radius:3px; }
+pre code { font-size:1em; padding:0; background:none; }
+pre code span { color:var(--ink) !important; }
+a { color:var(--ink); text-decoration:underline; text-decoration-color:var(--hfd); text-underline-offset:.14em; text-decoration-thickness:1.5px; }
+section img { display:block; object-fit:contain; max-width:100%; max-height:340px; margin:0 auto; }
+section > p:has(img) { margin:12px 0 20px; }
+.badge { display:none; }
+.progress { position:absolute; left:78px; right:78px; bottom:53px; border-top:1px solid #e8e8e8; padding-top:10px; font-size:14px; letter-spacing:.25px; line-height:1.5; display:flex; gap:12px; color:#777; }
+.progress .active { color:#303030; font-weight:700; border-bottom:2px solid var(--hfd); }
+.progress .arrow { color:#bbb; }
+section.day .progress, section.chapter .progress, section.title .progress { display:none; }
+.sources { position:absolute; left:78px; right:78px; bottom:93px; font-size:14px; line-height:1.25; max-height:36px; }
+.sources a { color:#666; text-decoration:none; }
+footer { position:absolute; bottom:22px; left:78px; right:112px; font-size:14px; line-height:1.1; color:#777; }
+/* Primary references share the existing footer without adding a source strip. */
+section footer:has(.footer-refs) { display:flex; align-items:baseline; justify-content:space-between; gap:24px; }
+.footer-context { white-space:nowrap; }
+.footer-refs { display:inline-flex; gap:16px; white-space:nowrap; }
+section footer .footer-refs a { color:#777; text-decoration:underline; text-decoration-color:var(--hfd); text-underline-offset:.18em; text-decoration-thickness:1px; }
+section::after { bottom:20px; right:38px; font-size:17px; color:#777; }
+section.day,section.chapter,section.title,section.joke { justify-content:center; }
+section.day h1,section.title h1 { font-size:50px; line-height:1.12; }
+section.title h1 { font-size:46px; }
+section.chapter h1 { font-size:46px; }
+section.day > p,section.chapter > p { font-size:29px; }
+section.joke h1 { font-size:43px; margin-bottom:32px; }
+section.joke > p { font-size:31px; margin:10px 0; }
+section.joke > p:last-of-type { font-size:27px; margin-top:28px; }
+section.task blockquote { background:none; }
+section.visual img { max-height:315px; }
+section.visual > p:not(:has(img)) { margin:8px 0; }
+section.figure img { max-height:375px; }
+section.figure > p:not(:has(img)) { margin:8px 0; }
+section.schedule table { font-size:27px; }
+section.schedule td,section.schedule th { padding:7px 12px; }
+
+/* Scope these overrides: the imported Marp theme has section-qualified rules. */
+section table tr, section table tr:nth-child(2n), section table td { background:#fff; }
+section table th { background:#fff; border-bottom:2px solid #bbb; text-align:left; }
+section table th, section table td { border-left:0; border-right:0; border-top:0; }
+section table td { border-bottom:1px solid #ddd; }
+section table { border:0; }
+section pre { color:#303030; background-color:#f5f5f5; }
+section code { color:#303030; background:none; }
+section pre code { background:none; }
+section pre code span { color:#303030 !important; }
+section > p:has(img) { margin-top:18px; }
+
+section thead:not(:has(th:not(:empty))) { display:none; }
+
+/* Short teaching beats use native type, without a gray meme panel. */
+section.statement h1 { font-size:50px; margin-bottom:28px; }
+section.statement > p { font-size:30px; line-height:1.3; }
+/* Keep explanations beside the part of the diagram they describe. */
+section .figure-explanation { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; margin:12px 0 20px; }
+section .figure-explanation img { width:100%; max-height:260px; }
+section .figure-explanation p { margin:0 0 18px; font-size:27px; }
+section .figure-explanation p:last-child { margin-bottom:0; }
+section .paired-notes { display:grid; grid-template-columns:1fr 1fr; gap:44px; margin:8px 0 14px; }
+section .paired-notes h2 { font-size:27px; margin:0 0 8px; }
+section .paired-notes p { margin:0; font-size:27px; }
+/* Keep terminal context and its commands together at one type size. */
+section .terminal { margin:18px 0; padding-top:14px; border-top:1px solid #ddd; }
+section .terminal-entry { display:flex; align-items:baseline; gap:16px; margin:0 0 12px; font-size:21px; }
+section .terminal-label { margin:0 0 6px; font-size:21px; font-weight:700; }
+section .terminal pre { margin:0; padding:12px 16px; }

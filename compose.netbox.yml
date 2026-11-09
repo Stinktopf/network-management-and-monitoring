@@ -1,0 +1,94 @@
+name: ai5049
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: ai5049-netbox-postgres
+    environment:
+      POSTGRES_DB: netbox
+      POSTGRES_USER: netbox
+      POSTGRES_PASSWORD: netbox
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -t 2 -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      start_period: 20s
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    volumes:
+      - netbox-postgres:/var/lib/postgresql
+    networks:
+      - ai5049-mgmt
+
+  redis:
+    image: valkey/valkey:9.1-alpine
+    container_name: ai5049-netbox-redis
+    command: ["valkey-server", "--appendonly", "yes", "--requirepass", "netbox"]
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli --pass netbox ping 2>/dev/null | grep -q PONG"]
+      start_period: 5s
+      interval: 2s
+      timeout: 3s
+      retries: 15
+    volumes:
+      - netbox-redis:/data
+    networks:
+      - ai5049-mgmt
+
+  netbox:
+    image: netboxcommunity/netbox:v4.7-5.1.1
+    container_name: ai5049-netbox
+    user: "netbox:root"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      ALLOWED_HOSTS: "*"
+      DB_HOST: postgres
+      DB_NAME: netbox
+      DB_USER: netbox
+      DB_PASSWORD: netbox
+      REDIS_HOST: redis
+      REDIS_PASSWORD: netbox
+      REDIS_DATABASE: "0"
+      REDIS_CACHE_HOST: redis
+      REDIS_CACHE_PASSWORD: netbox
+      REDIS_CACHE_DATABASE: "1"
+      SECRET_KEY: "ai5049-classroom-secret-key-do-not-use-in-production"
+      API_TOKEN_PEPPER_1: "ai5049-classroom-api-token-pepper-2026-do-not-use-in-production-1234567890"
+      SKIP_SUPERUSER: "false"
+      SUPERUSER_NAME: admin
+      SUPERUSER_PASSWORD: admin
+      SUPERUSER_EMAIL: admin@example.invalid
+      SUPERUSER_API_TOKEN: ""
+      CORS_ORIGIN_ALLOW_ALL: "true"
+      RELEASE_CHECK_URL: ""
+    healthcheck:
+      test: ["CMD", "/opt/netbox/health.sh"]
+      start_period: 15m
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "8000:8080"
+    volumes:
+      - netbox-media:/opt/netbox/netbox/media
+    networks:
+      ai5049-mgmt:
+        aliases:
+          - netbox
+          - netbox.bob1.reefnet.test
+
+volumes:
+  netbox-postgres:
+    name: ai5049-netbox-postgres-data
+  netbox-redis:
+    name: ai5049-netbox-redis-data
+  netbox-media:
+    name: ai5049-netbox-media-data
+
+networks:
+  ai5049-mgmt:
+    external: true
+    name: ai5049-mgmt

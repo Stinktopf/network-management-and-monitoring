@@ -1,0 +1,21 @@
+# Diagram sources
+
+SVG generators: [diagrams.py](../tools/diagrams.py) and [visual-assets.py](../tools/visual-assets.py). [normalize-palette.py](../tools/normalize-palette.py) applies the shared colors. Run `npm run diagrams` from `slides/` to rebuild them.
+
+Edit the generators for changes that should survive regeneration. Direct SVG edits also work, but the next generator run overwrites them.
+
+## Data and interpretation
+
+- Protocol and incident diagrams explain relationships. They are not product screenshots or measured traces.
+- `b4-traffic-engineering.svg` is a conceptual illustration based on [Google’s B4 paper](https://research.google/pubs/b4-experience-with-a-globally-deployed-software-defined-wan/).
+- `capacity-hidden-demand.svg` uses a synthetic 200 ms burst at 75 Mbit/s on the 50 Mbit/s Lagoon egress. It illustrates sampling, not a recorded lab measurement.
+- `forecast-comparison.svg` is generated from `../resources/source-graphics/forecast.svg`. [Teaching data](data/README.md) documents predictions and evaluation settings.
+- `stale-panel.svg` is an illustration, not a Grafana screenshot.
+- `research-journey.svg`, `question-funnel.svg`, `review-selection.svg` and `design-logic.svg` show the research workflow. `factor-interaction.svg` uses fictional completion times to show a treatment effect reversing with workload.
+- `literature-argument.svg` connects searching, appraisal and synthesis to a research question. The routing and service studies in the slides are hypothetical comparisons, not published findings.
+
+Headings use Fulda green (`#72bf44`). Diagram labels, connectors and boxes use neutral grays. Green distinguishes the second series in the paired comparison and forecast plots.
+
+`snowballing.svg` shows backward and forward citation searching, relevance screening and repetition with newly included papers. Arrows show the search process.
+
+The research workshops use an illustrative comparison of immediate and prechecked routing repairs. `paired-runs.svg` and `repair-distribution.svg` show the same five pairs in seconds. `repair-interaction.svg` is a separate illustrative workload comparison. The interval and bias diagrams explain concepts, not confidence intervals computed from those five pairs. `workshop-thread.svg`, `repair-pair.svg`, `repair-measurement.svg`, `research-units.svg`, `prediction-action.svg` and `review-trace.svg` connect the investigation stages. Regenerate these with `diagrams.py`.

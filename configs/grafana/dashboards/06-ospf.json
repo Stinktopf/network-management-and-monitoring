@@ -1,0 +1,735 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "id": 100,
+      "type": "stat",
+      "title": "OSPFv2 / full adjacencies",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(reefnet_ospf_full_neighbors{source=~\"$device\",instance_name=\"default\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Two core adjacencies per selected router are expected. Each end is counted separately."
+    },
+    {
+      "id": 101,
+      "type": "stat",
+      "title": "OSPFv3 / full adjacencies",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(reefnet_ospf_full_neighbors{source=~\"$device\",instance_name=\"ipv6\"})",
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "#F2495C",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Two core adjacencies per selected router are expected. Each end is counted separately."
+    },
+    {
+      "id": 260,
+      "type": "stat",
+      "title": "OSPFv2 / SPF runs",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 3,
+        "w": 12,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_ospf_spf_runs_total{source=~\"$device\",instance_name=\"default\"}[$__range]))",
+          "legendFormat": "{{source}} / area {{area_area_id}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 262,
+      "type": "stat",
+      "title": "OSPFv3 / SPF runs",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 3,
+        "w": 12,
+        "h": 3
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(reefnet_ospf_spf_runs_total{source=~\"$device\",instance_name=\"ipv6\"}[$__range]))",
+          "legendFormat": "{{source}} / area {{area_area_id}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "range": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "noValue": "Unknown",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "#56B8C9"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "text": {
+          "valueSize": 36
+        },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "description": "Total increase in the selected Grafana time range."
+    },
+    {
+      "id": 1,
+      "type": "table",
+      "title": "OSPF neighbors",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 24,
+        "h": 10
+      },
+      "description": "Current adjacency state by router, instance and core interface. In ReefNet, default is OSPFv2 and ipv6 is OSPFv3.",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "reefnet_ospf_neighbor_state{source=~\"$device\"}",
+          "format": "table",
+          "instant": true,
+          "range": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "source",
+                "instance_name",
+                "area_area_id",
+                "interface_interface_name",
+                "neighbor_router_id",
+                "adjacency_state"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "source": 0,
+              "instance_name": 1,
+              "area_area_id": 2,
+              "interface_interface_name": 3,
+              "neighbor_router_id": 4,
+              "adjacency_state": 5
+            },
+            "renameByName": {
+              "source": "Device",
+              "instance_name": "Instance",
+              "area_area_id": "Area",
+              "interface_interface_name": "Interface",
+              "neighbor_router_id": "Neighbor router ID",
+              "adjacency_state": "State"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "srl_nokia-ospf-types:full": {
+                        "text": "Full",
+                        "color": "green"
+                      },
+                      "srl_nokia-ospf-types:down": {
+                        "text": "Down",
+                        "color": "red"
+                      },
+                      "srl_nokia-ospf-types:attempt": {
+                        "text": "Attempt",
+                        "color": "orange"
+                      },
+                      "srl_nokia-ospf-types:init": {
+                        "text": "Init",
+                        "color": "orange"
+                      },
+                      "srl_nokia-ospf-types:two-way": {
+                        "text": "Two-Way",
+                        "color": "orange"
+                      },
+                      "srl_nokia-ospf-types:exstart": {
+                        "text": "Exstart",
+                        "color": "orange"
+                      },
+                      "srl_nokia-ospf-types:exchange": {
+                        "text": "Exchange",
+                        "color": "orange"
+                      },
+                      "srl_nokia-ospf-types:loading": {
+                        "text": "Loading",
+                        "color": "orange"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "default": {
+                        "text": "OSPFv2"
+                      },
+                      "ipv6": {
+                        "text": "OSPFv3"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "md",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 20,
+      "type": "timeseries",
+      "title": "OSPFv2 / full adjacencies",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (source, interface_interface_name) (reefnet_ospf_full_neighbors{source=~\"$device\",instance_name=\"default\",interface_interface_name=~\"ethernet.*\"})",
+          "legendFormat": "{{source}} / {{interface_interface_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 1,
+          "custom": {
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Full neighbors per core interface. Zero indicates no full adjacency. Missing telemetry remains a gap."
+    },
+    {
+      "id": 21,
+      "type": "timeseries",
+      "title": "OSPFv3 / full adjacencies",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "max by (source, interface_interface_name) (reefnet_ospf_full_neighbors{source=~\"$device\",instance_name=\"ipv6\",interface_interface_name=~\"ethernet.*\"})",
+          "legendFormat": "{{source}} / {{interface_interface_name}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 1,
+          "custom": {
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Full neighbors per core interface. Zero indicates no full adjacency. Missing telemetry remains a gap."
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
+      "title": "OSPFv2 / SPF runs / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_ospf_spf_runs_total{source=~\"$device\",instance_name=\"default\"}[$__rate_interval])",
+          "legendFormat": "{{source}} / area {{area_area_id}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: runs/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    },
+    {
+      "id": 31,
+      "type": "timeseries",
+      "title": "OSPFv3 / SPF runs / rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(reefnet_ospf_spf_runs_total{source=~\"$device\",instance_name=\"ipv6\"}[$__rate_interval])",
+          "legendFormat": "{{source}} / area {{area_area_id}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "range": true
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix: runs/s",
+          "min": 0,
+          "noValue": "No data",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "description": "Events per second over the selected time range. Grafana adapts the rate window to the resolution and scrape interval."
+    }
+  ],
+  "schemaVersion": 41,
+  "tags": [
+    "ai5049",
+    "bob1",
+    "reefnet"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "device",
+        "label": "Device (FQDN)",
+        "type": "custom",
+        "query": "edge01.bob1.reefnet.test,edge02.bob1.reefnet.test",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "options": [],
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "edge01.bob1.reefnet.test",
+          "value": "edge01.bob1.reefnet.test"
+        }
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "BOB1 / OSPF",
+  "uid": "reefnet-bob1-ospf",
+  "version": 9,
+  "links": [
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Network Overview",
+      "url": "/d/reefnet-bob1-overview"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Service Health",
+      "url": "/d/reefnet-bob1-service"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "BGP",
+      "url": "/d/reefnet-bob1-bgp"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "OSPF",
+      "url": "/d/reefnet-bob1-ospf"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Devices & Interfaces",
+      "url": "/d/reefnet-bob1-device"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Traffic & Capacity",
+      "url": "/d/reefnet-bob1-traffic"
+    },
+    {
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "targetBlank": false,
+      "type": "link",
+      "title": "Telemetry Health",
+      "url": "/d/reefnet-bob1-telemetry"
+    }
+  ],
+  "refresh": "5s",
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m"
+    ]
+  },
+  "description": "Core OSPFv2 and OSPFv3 adjacencies and SPF activity."
+}

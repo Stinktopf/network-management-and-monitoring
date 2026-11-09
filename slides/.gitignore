@@ -1,0 +1,6 @@
+node_modules/
+build/
+internal/
+docs/
+*:Zone.Identifier
+__pycache__/

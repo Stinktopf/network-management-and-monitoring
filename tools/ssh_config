@@ -1,0 +1,6 @@
+Host *.bob1.*.test
+  User admin
+  ConnectTimeout 5
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR

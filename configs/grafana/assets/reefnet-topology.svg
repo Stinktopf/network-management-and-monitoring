@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="1280" viewBox="0 0 1180 1280">
+<g transform="translate(0,170)">
+
+<g font-family="Inter,Arial,sans-serif">
+<rect x="180" y="265" width="820" height="438" rx="18" fill="#202226" stroke="#35383e"/>
+<text x="203" y="291" fill="#9da1a9" font-size="12" letter-spacing="1.5">REEFNET / AS65000</text>
+<g fill="none" stroke="#737780" stroke-width="2.5" stroke-linejoin="round">
+<path d="M200 166 V226 H110 V407 H200"/>
+<path d="M980 166 V226 H1080 V563 H980"/>
+<path d="M540 485 H587 V407 H640"/>
+<path d="M540 563 H612 V485 H640"/>
+<path d="M370 680 V740"/>
+</g>
+<text x="546" y="444" fill="#9da1a9" font-size="10">core-a</text>
+<text x="552" y="530" fill="#9da1a9" font-size="10">core-b</text>
+<rect x="30" y="30" width="340" height="136" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M45 49h18m-4-4 4 4-4 4M63 61h-18m4-4-4 4 4 4" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="76" y="54" fill="#eceef1" font-size="14" font-weight="600">Lagoon Transit</text>
+<text x="76" y="73" fill="#9da1a9" font-size="11">AS65100</text>
+<path d="M42 88 H358" stroke="#3a3d44"/>
+<text x="44" y="105" fill="#c5c8ce" font-size="11">ethernet-1/1</text>
+<rect x="810" y="30" width="340" height="136" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M825 49h18m-4-4 4 4-4 4M843 61h-18m4-4-4 4 4 4" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="856" y="54" fill="#eceef1" font-size="14" font-weight="600">Pacific Transit</text>
+<text x="856" y="73" fill="#9da1a9" font-size="11">AS65200</text>
+<path d="M822 88 H1138" stroke="#3a3d44"/>
+<text x="824" y="105" fill="#c5c8ce" font-size="11">ethernet-1/1</text>
+<rect x="200" y="310" width="340" height="370" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M215 329h18m-4-4 4 4-4 4M233 341h-18m4-4-4 4 4 4" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="246" y="334" fill="#eceef1" font-size="14" font-weight="600">ReefNet Edge 01</text>
+<text x="246" y="353" fill="#9da1a9" font-size="11">AS65000</text>
+<path d="M212 368 H528" stroke="#3a3d44"/>
+<text x="214" y="385" fill="#c5c8ce" font-size="11">ethernet-1/3</text>
+<path d="M212 446 H528" stroke="#3a3d44"/>
+<text x="214" y="463" fill="#c5c8ce" font-size="11">ethernet-1/2</text>
+<path d="M212 524 H528" stroke="#3a3d44"/>
+<text x="214" y="541" fill="#c5c8ce" font-size="11">ethernet-1/4</text>
+<path d="M212 602 H528" stroke="#3a3d44"/>
+<text x="214" y="619" fill="#c5c8ce" font-size="11">ethernet-1/1</text>
+<rect x="640" y="310" width="340" height="292" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M655 329h18m-4-4 4 4-4 4M673 341h-18m4-4-4 4 4 4" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="686" y="334" fill="#eceef1" font-size="14" font-weight="600">ReefNet Edge 02</text>
+<text x="686" y="353" fill="#9da1a9" font-size="11">AS65000</text>
+<path d="M652 368 H968" stroke="#3a3d44"/>
+<text x="654" y="385" fill="#c5c8ce" font-size="11">ethernet-1/1</text>
+<path d="M652 446 H968" stroke="#3a3d44"/>
+<text x="654" y="463" fill="#c5c8ce" font-size="11">ethernet-1/3</text>
+<path d="M652 524 H968" stroke="#3a3d44"/>
+<text x="654" y="541" fill="#c5c8ce" font-size="11">ethernet-1/2</text>
+<rect x="200" y="740" width="340" height="136" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M215 759h18m-4-4 4 4-4 4M233 771h-18m4-4-4 4 4 4" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="246" y="764" fill="#eceef1" font-size="14" font-weight="600">Ocean Research</text>
+<text x="246" y="783" fill="#9da1a9" font-size="11">AS65010</text>
+<path d="M212 798 H528" stroke="#3a3d44"/>
+<text x="214" y="815" fill="#c5c8ce" font-size="11">ethernet-1/1</text>
+</g>
+</g>
+<g font-family="Inter,Arial,sans-serif">
+<path d="M200 146 V200" fill="none" stroke="#737780" stroke-width="2.5"/>
+<text x="210" y="162" fill="#9da1a9" font-size="10">eth1</text>
+<text x="210" y="189" fill="#9da1a9" font-size="10">ethernet-1/2</text>
+<path d="M980 146 V200" fill="none" stroke="#737780" stroke-width="2.5"/>
+<text x="990" y="162" fill="#9da1a9" font-size="10">eth1</text>
+<text x="990" y="189" fill="#9da1a9" font-size="10">ethernet-1/2</text>
+<path d="M370 1046 V1110" fill="none" stroke="#737780" stroke-width="2.5"/>
+<text x="380" y="1063" fill="#9da1a9" font-size="10">ethernet-1/2</text>
+<text x="380" y="1099" fill="#9da1a9" font-size="10">eth1</text>
+<rect x="30" y="0" width="340" height="146" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M46 16h22v15h-22zM57 31v5m-7 0h14" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="78" y="25" fill="#eceef1" font-size="14" font-weight="600">Lagoon probe</text>
+<text x="44" y="53" fill="#b6bac3" font-size="11">probe01.bob1.lagoontransit.test</text>
+<text x="44" y="69" fill="#9da1a9" font-size="11">203.0.113.10</text>
+<text x="44" y="87" fill="#9da1a9" font-size="11">2001:db8:a::10</text>
+<path d="M42 101 H358" stroke="#3a3d44"/>
+<rect x="810" y="0" width="340" height="146" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M826 16h22v15h-22zM837 31v5m-7 0h14" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="858" y="25" fill="#eceef1" font-size="14" font-weight="600">Pacific probe</text>
+<text x="824" y="53" fill="#b6bac3" font-size="11">probe01.bob1.pacifictransit.test</text>
+<text x="824" y="69" fill="#9da1a9" font-size="11">203.0.113.138</text>
+<text x="824" y="87" fill="#9da1a9" font-size="11">2001:db8:b::10</text>
+<path d="M822 101 H1138" stroke="#3a3d44"/>
+<rect x="200" y="1110" width="340" height="142" rx="12" fill="#24262b" stroke="#555961"/>
+<path d="M216 1126h22v24h-22zM216 1134h22m-22 8h22" fill="none" stroke="#b6bac3" stroke-width="1.5"/>
+<text x="248" y="1135" fill="#eceef1" font-size="14" font-weight="600">Customer data service</text>
+<text x="214" y="1165" fill="#b6bac3" font-size="11">service01.bob1.oceanresearch.test</text>
+<text x="214" y="1180" fill="#eceef1" font-size="12">data.oceanresearch.test / DNS + HTTP</text>
+<text x="214" y="1203" fill="#9da1a9" font-size="11">198.51.100.10</text>
+<text x="214" y="1223" fill="#9da1a9" font-size="11">2001:db8:100::10</text>
+</g></svg>
